@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="ZP1QhJ" name="Veno" jucerVersion="5.4.7" companyName="VersusTuneZ"
+              companyWebsite="https://vstz.dev" companyEmail="info@vstz.dev"
+              splashScreenColour="Dark" projectType="audioplug" pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              pluginManufacturerCode="VSTZ" pluginCode="veno" pluginVST3Category="Generator,Instrument,Synth"
+              cppLanguageStandard="17">
+  <MAINGROUP id="m9l7SJ" name="Veno">
+    <GROUP id="{AAF9955A-D1A2-45FF-2C17-02C73D8064D3}" name="Source">
+      <GROUP id="{5791B3F9-67EA-BE3E-0208-47B8AF81F72F}" name="Veno">
+        <GROUP id="{B6FC2EBB-E15D-DE35-7ACC-81D051410D51}" name="Utils"/>
+        <GROUP id="{00F06C9B-B6B7-5466-5846-495A9FF5EC4A}" name="Static"/>
+        <GROUP id="{EFD25B6B-987D-435F-F8DE-BD6C2B831E62}" name="GUI">
+          <GROUP id="{53C33AC6-67D7-762E-FFD5-C82B7F51DA5F}" name="Components">
+            <FILE id="BobUXL" name="BaseComponent.cpp" compile="1" resource="0"
+                  file="Source/Veno/GUI/Components/BaseComponent.cpp"/>
+            <FILE id="AbXWzA" name="BaseComponent.h" compile="0" resource="0" file="Source/Veno/GUI/Components/BaseComponent.h"/>
+          </GROUP>
+          <GROUP id="{EDE17E47-34A6-CDD7-4D68-0477CFCF0A64}" name="LookAndFeel">
+            <FILE id="SbCAQ4" name="CrazyLook.cpp" compile="1" resource="0" file="Source/Veno/GUI/LookAndFeel/CrazyLook.cpp"/>
+            <FILE id="SzNPQ8" name="CrazyLook.h" compile="0" resource="0" file="Source/Veno/GUI/LookAndFeel/CrazyLook.h"/>
+            <FILE id="XeAkpF" name="FlatLook.cpp" compile="1" resource="0" file="Source/Veno/GUI/LookAndFeel/FlatLook.cpp"/>
+            <FILE id="qcH3gA" name="FlatLook.h" compile="0" resource="0" file="Source/Veno/GUI/LookAndFeel/FlatLook.h"/>
+            <FILE id="vXs3Bc" name="LookHandler.cpp" compile="1" resource="0" file="Source/Veno/GUI/LookAndFeel/LookHandler.cpp"/>
+            <FILE id="RV79zE" name="LookHandler.h" compile="0" resource="0" file="Source/Veno/GUI/LookAndFeel/LookHandler.h"/>
+          </GROUP>
+          <GROUP id="{34CC9D96-503E-031F-2A15-5C78773D5C29}" name="Theme">
+            <FILE id="k1R247" name="Theme.cpp" compile="1" resource="0" file="Source/Veno/GUI/Theme/Theme.cpp"/>
+            <FILE id="FncBml" name="Theme.h" compile="0" resource="0" file="Source/Veno/GUI/Theme/Theme.h"/>
+            <FILE id="bsSSSl" name="ThemePresets.cpp" compile="1" resource="0"
+                  file="Source/Veno/GUI/Theme/ThemePresets.cpp"/>
+          </GROUP>
+        </GROUP>
+        <GROUP id="{2E9A4660-1408-92E7-A653-7BA5E2FEE2DA}" name="Engine"/>
+        <GROUP id="{ACC73001-EF99-9282-8ADC-7BBE2EB85E06}" name="Core">
+          <FILE id="pu5RZU" name="AudioConfig.h" compile="0" resource="0" file="Source/Veno/Core/AudioConfig.h"/>
+          <FILE id="AfXpWs" name="Config.cpp" compile="1" resource="0" file="Source/Veno/Core/Config.cpp"/>
+          <FILE id="e1wHY7" name="Config.h" compile="0" resource="0" file="Source/Veno/Core/Config.h"/>
+        </GROUP>
+      </GROUP>
+      <FILE id="zASeb7" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="FOOZiI" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="qyoSYK" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="cXcaN2" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <VS2019 targetFolder="Builds/VisualStudio2019">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../Tools/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2019>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../Tools/JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+    <CLION targetFolder="Builds/CLion" clionMakefileEnabled="1">
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../Tools/JUCE/modules"/>
+      </MODULEPATHS>
+    </CLION>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <LINUX/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+</JUCERPROJECT>
