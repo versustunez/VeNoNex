@@ -6,6 +6,8 @@
 #define VENO_BASECOMPONENT_H
 
 #include "JuceHeader.h"
+#include "LabelComponent.h"
+#include "../LookAndFeel/LookHandler.h"
 #include <string>
 
 /**
@@ -13,11 +15,18 @@
  */
 class BaseComponent : public Component {
 private:
-    std::string prefix;
+    std::string m_group;
+    std::string m_name;
+    bool m_enableLabel = false;
+    std::shared_ptr<LabelComponent> m_label;
+    std::shared_ptr<LookHandler> m_lookHandler;
 public:
-    BaseComponent() = default;
-    ~BaseComponent() = default;
-
+    BaseComponent();
+    ~BaseComponent() override;
+    void addLabel(const std::string& label, LabelPosition labelPosition);
+    void setParameter(std::string name, std::string group);
+    void resized() override;
+    void paint(Graphics &g) override;
 protected:
 };
 

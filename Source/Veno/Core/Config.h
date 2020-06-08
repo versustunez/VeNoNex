@@ -12,17 +12,13 @@
 
 class Config {
 private:
-    std::shared_ptr<PropertiesFile> config = nullptr;
-    std::shared_ptr<Theme> theme = nullptr;
-    static std::shared_ptr<Config> instance;
-    int currentLook = 0; //nah move the bitch logic from current to next
-    std::unordered_map<std::string, AudioProcessorEditor *> editors;
+    std::shared_ptr<PropertiesFile> m_config = nullptr;
+    std::shared_ptr<Theme> m_theme = nullptr;
+    static std::shared_ptr<Config> m_instance;
+    int m_currentLook = 0; //nah move the bitch logic from current to next
+    std::unordered_map<std::string, AudioProcessorEditor *> m_editors;
 public:
-    static std::shared_ptr<Config> getInstance() {
-        if (!instance)
-            instance = std::make_shared<Config>();
-        return instance;
-    }
+    static std::shared_ptr<Config> getInstance();
 
     void saveAll();
 

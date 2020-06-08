@@ -12,43 +12,24 @@
  */
 class AudioConfig {
 private:
-    static std::shared_ptr<AudioConfig> instance;
-    float sampleRate = 44100;
-    float bufferSize = 512; //maybe we need that... but this will update always!
-    bool needToReInit = false; //this is to reInit the Oscillators, ADSR and other stuff
+    static std::shared_ptr<AudioConfig> m_instance;
+    float m_sampleRate = 44100;
+    float m_bufferSize = 512; //maybe we need that... but this will update always!
+    bool m_needToReInit = false; //this is to reInit the Oscillators, ADSR and other stuff
 public:
-    static std::shared_ptr<AudioConfig> getInstance() {
-        if (!instance)
-            instance = std::make_shared<AudioConfig>();
-        return instance;
-    }
+    static std::shared_ptr<AudioConfig> getInstance();
 
-    float getSampleRate() const {
-        return sampleRate;
-    }
+    float getSampleRate();
 
-    void setSampleRate(float _sampleRate) {
-        if (sampleRate != _sampleRate) {
-            sampleRate = _sampleRate;
-            needToReInit = true;
-        }
-    }
+    void setSampleRate(float _sampleRate);
 
-    float getBufferSize() const {
-        return bufferSize;
-    }
+    float getBufferSize();
 
-    void setBufferSize(float _bufferSize) {
-        AudioConfig::bufferSize = _bufferSize;
-    }
+    void setBufferSize(float _bufferSize);
 
-    bool isNeedToReInit() const {
-        return needToReInit;
-    }
+    bool isNeedToReInit();
 
-    void setNeedToReInit(bool _needToReInit) {
-        AudioConfig::needToReInit = _needToReInit;
-    }
+    void setNeedToReInit(bool _needToReInit);
 
 protected:
 };

@@ -11,10 +11,14 @@ LookHandler::LookHandler() {
 
 LookHandler::~LookHandler() {
     //delete this shit!
-    delete feels[0];
-    delete feels[1];
+    delete m_feels[0];
+    delete m_feels[1];
 }
 
 void LookHandler::selectLook(int index) {
-    currentLook = index;
+    m_currentLook = index;
+}
+
+LookAndFeel_V4* LookHandler::getLook() {
+    return m_feels[m_currentLook];
 }

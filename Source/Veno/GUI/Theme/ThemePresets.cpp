@@ -4,9 +4,9 @@
  * this file holds function that read some presets
  * in the current Theme class
  * so we doesn't have lot's of classes that only save some hex codes... and make the coding harder
- * also good on this is that the user can slightly change the preset theme and doesn't have to make all of them himself
+ * also good on this is that the user can slightly change the preset m_theme and doesn't have to make all of them himself
  *
- * maybe i want a double look and feel... that's make it easier to implement different knob styles, slider styles and co
+ * maybe i want a double m_look and feel... that's make it easier to implement different knob styles, slider styles and co
  */
 
 void setLEDTheme(Theme *theme) {

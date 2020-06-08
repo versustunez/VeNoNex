@@ -14,8 +14,8 @@ public:
 
 private:
     VenoAudioProcessor& processor;
-    std::string id = Uuid().toString().toStdString();
-    LookAndFeel_V4 *look = new LookHandler();
+    std::string m_id = "";
+    LookAndFeel_V4 *m_look = new LookHandler();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoAudioProcessorEditor)
 };

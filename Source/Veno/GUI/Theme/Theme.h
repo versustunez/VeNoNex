@@ -22,8 +22,8 @@ public:
     void init();
     void getColourFromConfig(ThemeColour index);
 protected:
-    std::map<ThemeColour, Colour*> colours;
-    std::shared_ptr<PropertiesFile> configFile;
+    std::map<ThemeColour, Colour*> m_colours;
+    std::shared_ptr<PropertiesFile> m_configFile;
 };
 
 

@@ -6,25 +6,25 @@
 #include "ThemePresets.cpp"
 
 Theme::Theme(std::shared_ptr<PropertiesFile> file) {
-    configFile = file;
+    m_configFile = file;
 }
 
 
 Theme::~Theme() {
-    colours.clear();
-    configFile.reset();
+    m_colours.clear();
+    m_configFile.reset();
 }
 
 void Theme::setColour(ThemeColour index, Colour *colour) {
-    auto c = colours[index];
+    auto c = m_colours[index];
     if (c) {
         delete c;
-        colours[index] = colour;
+        m_colours[index] = colour;
     } else {
-        colours[index] = colour;
+        m_colours[index] = colour;
     }
-    configFile->setValue(ThemeColourToString(index), colour->toString());
-    configFile->save();
+    m_configFile->setValue(ThemeColourToString(index), colour->toString());
+    m_configFile->save();
 
 }
 
@@ -42,8 +42,8 @@ void Theme::init() {
 
 void Theme::getColourFromConfig(ThemeColour index) {
     std::string key = ThemeColourToString(index);
-    if (configFile->containsKey(key)) {
-        auto baseColour = Colour::fromString(configFile->getValue(key));
+    if (m_configFile->containsKey(key)) {
+        auto baseColour = Colour::fromString(m_configFile->getValue(key));
         auto *colour = new Colour(baseColour.getRed(), baseColour.getGreen(), baseColour.getBlue());
         setColour(index, colour);
     }

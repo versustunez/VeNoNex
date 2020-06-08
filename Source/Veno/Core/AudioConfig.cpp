@@ -1,0 +1,37 @@
+//
+// Created by versustune on 22.03.20.
+//
+#include "AudioConfig.h"
+
+float AudioConfig::getSampleRate() {
+    return m_sampleRate;
+}
+
+void AudioConfig::setSampleRate(float _sampleRate) {
+    if (m_sampleRate != _sampleRate) {
+        m_sampleRate = _sampleRate;
+        m_needToReInit = true;
+    }
+}
+
+float AudioConfig::getBufferSize() {
+    return m_bufferSize;
+}
+
+void AudioConfig::setBufferSize(float _bufferSize) {
+    m_bufferSize = _bufferSize;
+}
+
+bool AudioConfig::isNeedToReInit() {
+    return m_needToReInit;
+}
+
+void AudioConfig::setNeedToReInit(bool _needToReInit) {
+    m_needToReInit = _needToReInit;
+}
+
+std::shared_ptr<AudioConfig> AudioConfig::getInstance() {
+    if (!m_instance)
+        m_instance = std::make_shared<AudioConfig>();
+    return m_instance;
+}
