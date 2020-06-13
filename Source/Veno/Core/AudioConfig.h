@@ -27,9 +27,13 @@ public:
 
     void setBufferSize(float _bufferSize);
 
-    bool isNeedToReInit();
+    bool isNeedToReInit() const;
 
     void setNeedToReInit(bool _needToReInit);
+
+    static void initWaveTables();
+
+    ~AudioConfig();
 
 protected:
 };

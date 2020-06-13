@@ -17,6 +17,7 @@ private:
     static std::shared_ptr<Config> m_instance;
     int m_currentLook = 0; //nah move the bitch logic from current to next
     std::unordered_map<std::string, AudioProcessorEditor *> m_editors;
+    int m_fps = 60;
 public:
     static std::shared_ptr<Config> getInstance();
 
@@ -40,6 +41,8 @@ public:
     void removeEditor(const std::string& name);
 
     int getEditorCount();
+
+    int getFps() const;
 
 protected:
     void initConfig();

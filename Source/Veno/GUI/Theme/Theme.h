@@ -15,12 +15,14 @@ enum class ThemeColour {
 class Theme {
 private:
 public:
-    Theme(std::shared_ptr<PropertiesFile> file);
+    explicit Theme(std::shared_ptr<PropertiesFile> file);
     ~Theme();
 
     void setColour(ThemeColour index, Colour *colour);
+    void setColourThemeById(int id);
     void init();
     void getColourFromConfig(ThemeColour index);
+    Colour getColour(ThemeColour index);
 protected:
     std::map<ThemeColour, Colour*> m_colours;
     std::shared_ptr<PropertiesFile> m_configFile;

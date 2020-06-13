@@ -2,7 +2,9 @@
 // Created by versustune on 22.03.20.
 //
 #include "AudioConfig.h"
+#include "../Audio/WaveTable/WaveTableGenerator.h"
 
+std::shared_ptr<AudioConfig> AudioConfig::m_instance;
 float AudioConfig::getSampleRate() {
     return m_sampleRate;
 }
@@ -22,7 +24,7 @@ void AudioConfig::setBufferSize(float _bufferSize) {
     m_bufferSize = _bufferSize;
 }
 
-bool AudioConfig::isNeedToReInit() {
+bool AudioConfig::isNeedToReInit() const {
     return m_needToReInit;
 }
 
@@ -31,7 +33,15 @@ void AudioConfig::setNeedToReInit(bool _needToReInit) {
 }
 
 std::shared_ptr<AudioConfig> AudioConfig::getInstance() {
-    if (!m_instance)
-        m_instance = std::make_shared<AudioConfig>();
+    if (AudioConfig::m_instance == nullptr)
+        AudioConfig::m_instance = std::make_shared<AudioConfig>();
     return m_instance;
+}
+
+void AudioConfig::initWaveTables() {
+    WaveTableGenerator::getInstance().init();
+}
+
+AudioConfig::~AudioConfig() {
+    WaveTableGenerator::getInstance().cleanTables();
 }

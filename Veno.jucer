@@ -7,11 +7,70 @@
               cppLanguageStandard="17" version="1.0.0" companyCopyright="Copyright VersusTuneZ 2019-2020">
   <MAINGROUP id="m9l7SJ" name="VeNo">
     <GROUP id="{AAF9955A-D1A2-45FF-2C17-02C73D8064D3}" name="Source">
+      <GROUP id="{12946A85-B629-A60C-6A3F-4FD136126888}" name="Resources">
+        <GROUP id="{4AC597AA-FCB4-EFDC-BFFC-F4FE85035F06}" name="GL">
+          <FILE id="sMJWAN" name="WaveForm.fragment.glsl" compile="0" resource="1"
+                file="Source/Resources/GL/WaveForm.fragment.glsl"/>
+          <FILE id="RZABPZ" name="WaveForm.vertex.glsl" compile="0" resource="1"
+                file="Source/Resources/GL/WaveForm.vertex.glsl"/>
+        </GROUP>
+        <FILE id="gB4Xst" name="arvo.ttf" compile="0" resource="1" file="Source/Resources/arvo.ttf"/>
+        <FILE id="QG10mY" name="lcd.ttf" compile="0" resource="1" file="Source/Resources/lcd.ttf"/>
+      </GROUP>
       <GROUP id="{5791B3F9-67EA-BE3E-0208-47B8AF81F72F}" name="Veno">
-        <GROUP id="{B6FC2EBB-E15D-DE35-7ACC-81D051410D51}" name="Utils"/>
-        <GROUP id="{00F06C9B-B6B7-5466-5846-495A9FF5EC4A}" name="Static"/>
+        <GROUP id="{BD05234A-1BBB-5055-FA22-C66F1E78CC81}" name="Fonts">
+          <FILE id="ytenkm" name="Fonts.h" compile="0" resource="0" file="Source/Veno/Fonts/Fonts.h"/>
+        </GROUP>
+        <GROUP id="{857B8B89-43D1-9083-E43D-8CE49DC48C2E}" name="Utils">
+          <FILE id="bQgR0Y" name="FFT.cpp" compile="1" resource="0" file="Source/Veno/Utils/FFT.cpp"/>
+          <FILE id="McoT9E" name="FFT.h" compile="0" resource="0" file="Source/Veno/Utils/FFT.h"/>
+          <FILE id="fnGWyM" name="Logger.cpp" compile="1" resource="0" file="Source/Veno/Utils/Logger.cpp"/>
+          <FILE id="wYGzZw" name="Logger.h" compile="0" resource="0" file="Source/Veno/Utils/Logger.h"/>
+        </GROUP>
+        <FILE id="XtqjAL" name="VenoInstance.h" compile="0" resource="0" file="Source/Veno/VenoInstance.h"/>
+        <FILE id="LItgbD" name="VenoInstance.cpp" compile="1" resource="0"
+              file="Source/Veno/VenoInstance.cpp"/>
+        <FILE id="nB3dnt" name="Utils.h" compile="0" resource="0" file="Source/Veno/Utils.h"/>
+        <FILE id="jHgT3X" name="Utils.cpp" compile="1" resource="0" file="Source/Veno/Utils.cpp"/>
+        <GROUP id="{95543E53-EBB6-70D0-E280-A334ED5EAB84}" name="Audio">
+          <FILE id="tHbIrz" name="VenoBuffer.cpp" compile="1" resource="0" file="Source/Veno/Audio/VenoBuffer.cpp"/>
+          <FILE id="ufeJaH" name="VenoBuffer.h" compile="0" resource="0" file="Source/Veno/Audio/VenoBuffer.h"/>
+          <GROUP id="{A8A2C90F-3822-64F1-4430-4E6163B67B9A}" name="Synth">
+            <FILE id="kPIbsd" name="SynthInstance.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Synth/SynthInstance.cpp"/>
+            <FILE id="cn8tWc" name="SynthInstance.h" compile="0" resource="0" file="Source/Veno/Audio/Synth/SynthInstance.h"/>
+          </GROUP>
+          <GROUP id="{06DB92E3-6D1E-CFC5-096E-315C4121F8AD}" name="WaveTable">
+            <FILE id="aK5Pjz" name="SawWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/SawWaves.cpp"/>
+            <FILE id="xIMCot" name="SawWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/SawWaves.h"/>
+            <FILE id="dF6Ci9" name="SineWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/SineWaves.cpp"/>
+            <FILE id="lmInYK" name="SineWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/SineWaves.h"/>
+            <FILE id="HZwgeM" name="SquareWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/SquareWaves.cpp"/>
+            <FILE id="HJUsG7" name="SquareWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/SquareWaves.h"/>
+            <FILE id="H81SA7" name="TableHelper.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/TableHelper.cpp"/>
+            <FILE id="uSJMy6" name="TableHelper.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/TableHelper.h"/>
+            <FILE id="pzpArE" name="TriangleWaves.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/WaveTable/TriangleWaves.cpp"/>
+            <FILE id="uJANqm" name="TriangleWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/TriangleWaves.h"/>
+            <FILE id="HEHVy9" name="VeNoXWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/VeNoXWaves.cpp"/>
+            <FILE id="rMLam7" name="VeNoXWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/VeNoXWaves.h"/>
+            <FILE id="PFmKTU" name="WavesInlcuder.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/WavesInlcuder.h"/>
+            <FILE id="iWkNs3" name="WaveTableGenerator.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/WaveTable/WaveTableGenerator.cpp"/>
+            <FILE id="yI9w2X" name="WaveTableGenerator.h" compile="0" resource="0"
+                  file="Source/Veno/Audio/WaveTable/WaveTableGenerator.h"/>
+          </GROUP>
+          <GROUP id="{16AA5D0B-E67A-8176-4F36-1180ADAFA480}" name="Oscillator"/>
+          <GROUP id="{A224AFA7-CD28-E0FE-3B5A-8203BFD9467B}" name="FX"/>
+        </GROUP>
         <GROUP id="{EFD25B6B-987D-435F-F8DE-BD6C2B831E62}" name="GUI">
           <GROUP id="{53C33AC6-67D7-762E-FFD5-C82B7F51DA5F}" name="Components">
+            <GROUP id="{7C37E6D2-F2F7-6BF7-5D9B-2DDABFFE993F}" name="LCD">
+              <FILE id="LpeTfD" name="SidebarLCD.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.cpp"/>
+              <FILE id="Y5kUlM" name="SidebarLCD.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.h"/>
+              <FILE id="Ox2oOB" name="Waveforms.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.cpp"/>
+              <FILE id="vMrsGE" name="Waveforms.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.h"/>
+            </GROUP>
             <FILE id="BobUXL" name="BaseComponent.cpp" compile="1" resource="0"
                   file="Source/Veno/GUI/Components/BaseComponent.cpp"/>
             <FILE id="AbXWzA" name="BaseComponent.h" compile="0" resource="0" file="Source/Veno/GUI/Components/BaseComponent.h"/>
@@ -35,12 +94,14 @@
                   file="Source/Veno/GUI/Theme/ThemePresets.cpp"/>
           </GROUP>
         </GROUP>
-        <GROUP id="{2E9A4660-1408-92E7-A653-7BA5E2FEE2DA}" name="Engine"/>
         <GROUP id="{ACC73001-EF99-9282-8ADC-7BBE2EB85E06}" name="Core">
           <FILE id="PFeyYY" name="AudioConfig.cpp" compile="1" resource="0" file="Source/Veno/Core/AudioConfig.cpp"/>
           <FILE id="pu5RZU" name="AudioConfig.h" compile="0" resource="0" file="Source/Veno/Core/AudioConfig.h"/>
           <FILE id="AfXpWs" name="Config.cpp" compile="1" resource="0" file="Source/Veno/Core/Config.cpp"/>
           <FILE id="e1wHY7" name="Config.h" compile="0" resource="0" file="Source/Veno/Core/Config.h"/>
+          <FILE id="i3vbdH" name="PresetManager.cpp" compile="1" resource="0"
+                file="Source/Veno/Core/PresetManager.cpp"/>
+          <FILE id="WV2uuz" name="PresetManager.h" compile="0" resource="0" file="Source/Veno/Core/PresetManager.h"/>
         </GROUP>
       </GROUP>
       <FILE id="zASeb7" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -73,6 +134,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../Tools/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../Tools/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../tools/JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -95,6 +157,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../Tools/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../Tools/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../tools/JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
     <CLION targetFolder="Builds/CLion" clionMakefileEnabled="1">
@@ -113,6 +176,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../Tools/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../Tools/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="../../Tools/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../tools/JUCE/modules"/>
       </MODULEPATHS>
     </CLION>
   </EXPORTFORMATS>
@@ -127,6 +191,7 @@
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

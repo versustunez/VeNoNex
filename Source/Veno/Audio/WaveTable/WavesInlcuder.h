@@ -1,0 +1,6 @@
+#include "TableHelper.h"
+#include "SawWaves.h"
+#include "SineWaves.h"
+#include "SquareWaves.h"
+#include "TriangleWaves.h"
+#include "VeNoXWaves.h"

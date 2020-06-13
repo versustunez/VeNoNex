@@ -19,15 +19,15 @@ private:
     std::string m_name;
     bool m_enableLabel = false;
     std::shared_ptr<LabelComponent> m_label;
-    std::shared_ptr<LookHandler> m_lookHandler;
 public:
-    BaseComponent();
+    explicit BaseComponent(const std::string& processId);
     ~BaseComponent() override;
     void addLabel(const std::string& label, LabelPosition labelPosition);
     void setParameter(std::string name, std::string group);
     void resized() override;
     void paint(Graphics &g) override;
 protected:
+    std::string m_processId;
 };
 
 

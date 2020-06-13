@@ -1,7 +1,9 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "Veno/Core/AudioConfig.h"
+
 VenoAudioProcessor::VenoAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
+/*#ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
@@ -10,138 +12,135 @@ VenoAudioProcessor::VenoAudioProcessor()
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
                        )
-#endif
-{
+#endif*/
+        : AudioProcessor(BusesProperties().withInput("Input", AudioChannelSet::stereo(), true).withOutput("Output",
+                                                                                                          AudioChannelSet::stereo(),
+                                                                                                          true)) {
+    instance = VenoInstance::createInstance(m_id);
 }
 
-VenoAudioProcessor::~VenoAudioProcessor()
-{
+VenoAudioProcessor::~VenoAudioProcessor() {
+    VenoInstance::deleteInstance(m_id);
 }
 
-const String VenoAudioProcessor::getName() const
-{
+const String VenoAudioProcessor::getName() const {
     return JucePlugin_Name;
 }
 
-bool VenoAudioProcessor::acceptsMidi() const
-{
-   #if JucePlugin_WantsMidiInput
+bool VenoAudioProcessor::acceptsMidi() const {
+#if JucePlugin_WantsMidiInput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
-bool VenoAudioProcessor::producesMidi() const
-{
-   #if JucePlugin_ProducesMidiOutput
+bool VenoAudioProcessor::producesMidi() const {
+#if JucePlugin_ProducesMidiOutput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
-bool VenoAudioProcessor::isMidiEffect() const
-{
-   #if JucePlugin_IsMidiEffect
+bool VenoAudioProcessor::isMidiEffect() const {
+#if JucePlugin_IsMidiEffect
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
-double VenoAudioProcessor::getTailLengthSeconds() const
-{
+double VenoAudioProcessor::getTailLengthSeconds() const {
     return 0.0;
 }
 
-int VenoAudioProcessor::getNumPrograms()
-{
+int VenoAudioProcessor::getNumPrograms() {
     return 1;
 }
 
-int VenoAudioProcessor::getCurrentProgram()
-{
+int VenoAudioProcessor::getCurrentProgram() {
     return 0;
 }
 
-void VenoAudioProcessor::setCurrentProgram (int index)
-{
+void VenoAudioProcessor::setCurrentProgram(int index) {
 }
 
-const String VenoAudioProcessor::getProgramName (int index)
-{
+const String VenoAudioProcessor::getProgramName(int index) {
     return {};
 }
 
-void VenoAudioProcessor::changeProgramName (int index, const String& newName)
-{
+void VenoAudioProcessor::changeProgramName(int index, const String &newName) {
 }
 
 //==============================================================================
-void VenoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
-{
+void VenoAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock) {
+    auto audioConfig = AudioConfig::getInstance();
+    audioConfig->setSampleRate(sampleRate);
+    audioConfig->initWaveTables();
 }
 
-void VenoAudioProcessor::releaseResources()
-{
+void VenoAudioProcessor::releaseResources() {
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool VenoAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
-{
-  #if JucePlugin_IsMidiEffect
+
+bool VenoAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const {
+#if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
     return true;
-  #else
+#else
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+        && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
         return false;
 
-   #if ! JucePlugin_IsSynth
+#if !JucePlugin_IsSynth
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-   #endif
-
-    return true;
-  #endif
-}
 #endif
 
-void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
-{
+    return true;
+#endif
+}
+
+#endif
+
+void VenoAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages) {
     ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
+
+    instance->audioBuffer->reset(buffer.getNumSamples());
+    int numChannels = buffer.getNumChannels();
+    for (int i = 0; i < numChannels; ++i) {
+        auto c = buffer.getReadPointer(i);
+        for (int j = 0; j < buffer.getNumSamples(); ++j) {
+            instance->fft.pushNextSampleIntoFifo(c[j]);
+            instance->audioBuffer->addMonoSample(c[j], j);
+            if (i == 0) {
+                instance->audioBuffer->addLeftSample(c[j], j);
+            }
+            if (i == 1 || numChannels == 1) {
+                instance->audioBuffer->addRightSample(c[j], j);
+            }
+        }
     }
 }
 
 //==============================================================================
-bool VenoAudioProcessor::hasEditor() const
-{
+bool VenoAudioProcessor::hasEditor() const {
     return true;
 }
 
-AudioProcessorEditor* VenoAudioProcessor::createEditor()
-{
-    return new VenoAudioProcessorEditor (*this);
+AudioProcessorEditor *VenoAudioProcessor::createEditor() {
+    return new VenoAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void VenoAudioProcessor::getStateInformation (MemoryBlock& destData)
-{
+void VenoAudioProcessor::getStateInformation(MemoryBlock &destData) {
 }
 
-void VenoAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
+void VenoAudioProcessor::setStateInformation(const void *data, int sizeInBytes) {
 }
 
-AudioProcessor* JUCE_CALLTYPE createPluginFilter()
-{
+AudioProcessor *JUCE_CALLTYPE createPluginFilter() {
     return new VenoAudioProcessor();
 }

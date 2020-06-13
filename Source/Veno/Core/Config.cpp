@@ -12,6 +12,7 @@ Config::Config() {
 
     m_theme = std::make_shared<Theme>(m_config);
     m_theme->init();
+    m_fps = m_config->getIntValue("waveform_fps", 60);
 }
 
 void Config::saveAll() {
@@ -29,7 +30,7 @@ int Config::getCurrentLook() {
 
 void Config::initConfig() {
     PropertiesFile::Options options;
-    options.applicationName = "m_config";
+    options.applicationName = "config";
     options.folderName = "veno";
     options.filenameSuffix = "xml";
     m_config = std::make_unique<PropertiesFile>(options);
@@ -40,7 +41,7 @@ std::shared_ptr<Theme> Config::getCurrentTheme() {
 }
 
 double Config::getScale() {
-    return 0;
+    return 1;
 }
 
 void Config::setColourForIndex(Colour *colour, ThemeColour index) {
@@ -73,7 +74,11 @@ int Config::getEditorCount() {
 }
 
 std::shared_ptr<Config> Config::getInstance() {
-    if (!m_instance)
+    if (m_instance == nullptr)
         m_instance = std::make_shared<Config>();
     return m_instance;
+}
+
+int Config::getFps() const {
+    return m_fps;
 }

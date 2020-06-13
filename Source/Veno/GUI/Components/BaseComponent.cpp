@@ -3,13 +3,16 @@
 //
 
 #include "BaseComponent.h"
+#include "../../Fonts/Fonts.h"
 
 #include <utility>
 
+BaseComponent::BaseComponent(const std::string& processId) {
+    m_processId = processId;
+}
+
 BaseComponent::~BaseComponent() {
     m_label.reset();
-    setLookAndFeel(nullptr);
-    m_lookHandler.reset();
 }
 
 void BaseComponent::addLabel(const std::string &label_text, LabelPosition labelPosition) {
@@ -30,11 +33,7 @@ void BaseComponent::resized() {
 }
 
 void BaseComponent::paint(Graphics &g) {
-}
-
-BaseComponent::BaseComponent() {
-    m_lookHandler = std::make_shared<LookHandler>();
-    setLookAndFeel(m_lookHandler->getLook());
+    g.setFont(VenoFonts::getNormal());
 }
 
 void BaseComponent::setParameter(std::string name, std::string group) {

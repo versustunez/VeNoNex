@@ -29,7 +29,6 @@ void Theme::setColour(ThemeColour index, Colour *colour) {
 }
 
 void Theme::init() {
-    setLEDTheme(this);
     getColourFromConfig(ThemeColour::bg);
     getColourFromConfig(ThemeColour::bg_two);
     getColourFromConfig(ThemeColour::accent);
@@ -45,6 +44,35 @@ void Theme::getColourFromConfig(ThemeColour index) {
     if (m_configFile->containsKey(key)) {
         auto baseColour = Colour::fromString(m_configFile->getValue(key));
         auto *colour = new Colour(baseColour.getRed(), baseColour.getGreen(), baseColour.getBlue());
-        setColour(index, colour);
+        delete m_colours[index];
+        m_colours[index] = colour;
+    } else {
+        // should only trigger if config is broken or empty :)
+        setLEDTheme(this);
+    }
+}
+
+Colour Theme::getColour(ThemeColour index) {
+    if (m_colours[index] != nullptr) {
+        return *m_colours[index];
+    }
+    return Colour(255, 255, 255);
+}
+
+void Theme::setColourThemeById(int id) {
+    switch (id) {
+        case 1:
+            setLEDTheme(this);
+            break;
+        case 2:
+            setOrangeDreamTheme(this);
+            break;
+        case 3:
+            setBloodTheme(this);
+            break;
+        case 4:
+            setOceanTheme(this);
+        default:
+            break;
     }
 }
