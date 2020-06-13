@@ -19,6 +19,7 @@
       </GROUP>
       <GROUP id="{5791B3F9-67EA-BE3E-0208-47B8AF81F72F}" name="Veno">
         <GROUP id="{BD05234A-1BBB-5055-FA22-C66F1E78CC81}" name="Fonts">
+          <FILE id="D4zlai" name="Fonts.cpp" compile="1" resource="0" file="Source/Veno/Fonts/Fonts.cpp"/>
           <FILE id="ytenkm" name="Fonts.h" compile="0" resource="0" file="Source/Veno/Fonts/Fonts.h"/>
         </GROUP>
         <GROUP id="{857B8B89-43D1-9083-E43D-8CE49DC48C2E}" name="Utils">
@@ -33,6 +34,15 @@
         <FILE id="nB3dnt" name="Utils.h" compile="0" resource="0" file="Source/Veno/Utils.h"/>
         <FILE id="jHgT3X" name="Utils.cpp" compile="1" resource="0" file="Source/Veno/Utils.cpp"/>
         <GROUP id="{95543E53-EBB6-70D0-E280-A334ED5EAB84}" name="Audio">
+          <GROUP id="{54E62D70-D597-6F59-0770-96E3824F110B}" name="Engine">
+            <FILE id="tKRVBt" name="ModulateValue.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Engine/ModulateValue.cpp"/>
+            <FILE id="Tpzeeh" name="ModulateValue.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/ModulateValue.h"/>
+            <FILE id="dB1Djv" name="Modulator.cpp" compile="1" resource="0" file="Source/Veno/Audio/Engine/Modulator.cpp"/>
+            <FILE id="eA6ftc" name="Modulator.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/Modulator.h"/>
+            <FILE id="rkTKQ1" name="VenoMatrix.cpp" compile="1" resource="0" file="Source/Veno/Audio/Engine/VenoMatrix.cpp"/>
+            <FILE id="v4AuOK" name="VenoMatrix.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/VenoMatrix.h"/>
+          </GROUP>
           <FILE id="tHbIrz" name="VenoBuffer.cpp" compile="1" resource="0" file="Source/Veno/Audio/VenoBuffer.cpp"/>
           <FILE id="ufeJaH" name="VenoBuffer.h" compile="0" resource="0" file="Source/Veno/Audio/VenoBuffer.h"/>
           <GROUP id="{A8A2C90F-3822-64F1-4430-4E6163B67B9A}" name="Synth">
@@ -64,6 +74,15 @@
           <GROUP id="{A224AFA7-CD28-E0FE-3B5A-8203BFD9467B}" name="FX"/>
         </GROUP>
         <GROUP id="{EFD25B6B-987D-435F-F8DE-BD6C2B831E62}" name="GUI">
+          <GROUP id="{9C28E1EA-57BD-A04E-6ED6-3C46B5BC7FC7}" name="GUIParts">
+            <GROUP id="{B7626B9F-22D9-713A-B543-1D7B34AF77B7}" name="Sidebar">
+              <FILE id="aGx0eJ" name="Sidebar.cpp" compile="1" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/Sidebar.cpp"/>
+              <FILE id="uL7MJ3" name="Sidebar.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/Sidebar.h"/>
+              <FILE id="lNXOQs" name="SidebarMixer.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Sidebar/SidebarMixer.cpp"/>
+              <FILE id="onzdTZ" name="SidebarMixer.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/SidebarMixer.h"/>
+            </GROUP>
+          </GROUP>
           <GROUP id="{53C33AC6-67D7-762E-FFD5-C82B7F51DA5F}" name="Components">
             <GROUP id="{7C37E6D2-F2F7-6BF7-5D9B-2DDABFFE993F}" name="LCD">
               <FILE id="LpeTfD" name="SidebarLCD.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.cpp"/>

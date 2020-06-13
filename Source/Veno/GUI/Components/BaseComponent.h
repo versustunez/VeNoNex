@@ -13,22 +13,21 @@
 /**
  * this is the base Component of all VeNo Components... it has all important Methods
  */
-class BaseComponent : public Component {
+class BaseComponent : public Component
+{
 private:
     std::string m_group;
     std::string m_name;
     bool m_enableLabel = false;
     std::shared_ptr<LabelComponent> m_label;
 public:
-    explicit BaseComponent(const std::string& processId);
-    ~BaseComponent() override;
-    void addLabel(const std::string& label, LabelPosition labelPosition);
-    void setParameter(std::string name, std::string group);
-    void resized() override;
-    void paint(Graphics &g) override;
+    explicit BaseComponent (const std::string& processId);
+    ~BaseComponent () override;
+    void addLabel (const std::string& label, LabelPosition labelPosition);
+    void setParameter (std::string name, std::string group);
+    void resized () override;
+    void paint (Graphics& g) override;
 protected:
     std::string m_processId;
 };
-
-
 #endif //VENO_BASECOMPONENT_H

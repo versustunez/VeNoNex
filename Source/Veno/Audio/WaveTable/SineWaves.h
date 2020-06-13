@@ -4,11 +4,8 @@
 
 #ifndef VENO_SINEWAVES_H
 #define VENO_SINEWAVES_H
-
-
-class SineWaves {
+class SineWaves
+{
 
 };
-
-
 #endif //VENO_SINEWAVES_H

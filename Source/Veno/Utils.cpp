@@ -5,7 +5,8 @@
 #include "Utils.h"
 #include "Core/Config.h"
 
-int VeNo::Utils::nextPowerOfTwo(float value) {
+int VeNo::Utils::nextPowerOfTwo (float value)
+{
     unsigned int v = value;
     v--;
     v |= v >> 1;
@@ -17,9 +18,10 @@ int VeNo::Utils::nextPowerOfTwo(float value) {
     return v;
 }
 
-float VeNo::Utils::setFontSize(float size, Graphics &g) {
-    double scale = Config::getInstance()->getScale();
+float VeNo::Utils::setFontSize (float size, Graphics& g)
+{
+    double scale = Config::getInstance ()->getScale ();
     float s = size * scale;
-    g.setFont(s);
+    g.setFont (s);
     return s;
 }

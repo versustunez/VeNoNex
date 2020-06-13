@@ -6,7 +6,8 @@
 #include "../../Core/AudioConfig.h"
 #include "../../Utils.h"
 
-void fft(int N, double *ar, double *ai) {
+void fft (int N, double* ar, double* ai)
+{
     int i, j, k, L;            /* indexes */
     int M, TEMP, LE, LE1, ip;  /* M = log N */
     int NV2, NM1;
@@ -24,8 +25,10 @@ void fft(int N, double *ar, double *ai) {
 
 /* shuffle */
     j = 1;
-    for (i = 1; i <= NM1; i++) {
-        if (i < j) {             /* swap a[i] and a[j] */
+    for (i = 1; i <= NM1; i++)
+    {
+        if (i < j)
+        {             /* swap a[i] and a[j] */
             t = ar[j - 1];
             ar[j - 1] = ar[i - 1];
             ar[i - 1] = t;
@@ -33,26 +36,27 @@ void fft(int N, double *ar, double *ai) {
             ai[j - 1] = ai[i - 1];
             ai[i - 1] = t;
         }
-
         k = NV2;             /* bit-reversed counter */
-        while (k < j) {
+        while (k < j)
+        {
             j -= k;
             k /= 2;
         }
-
         j += k;
     }
-
     LE = 1.;
-    for (L = 1; L <= M; L++) {            // stage L
+    for (L = 1; L <= M; L++)
+    {            // stage L
         LE1 = LE;                         // (LE1 = LE/2)
         LE *= 2;                          // (LE = 2^L)
         Ur = 1.0;
         Ui = 0.;
-        Wr = std::cos(M_PI / (float) LE1);
-        Wi = -std::sin(M_PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
-        for (j = 1; j <= LE1; j++) {
-            for (i = j; i <= N; i += LE) { // butterfly
+        Wr = std::cos (M_PI / (float) LE1);
+        Wi = -std::sin (M_PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
+        for (j = 1; j <= LE1; j++)
+        {
+            for (i = j; i <= N; i += LE)
+            { // butterfly
                 ip = i + LE1;
                 Tr = ar[ip - 1] * Ur - ai[ip - 1] * Ui;
                 Ti = ar[ip - 1] * Ui + ai[ip - 1] * Ur;
@@ -68,14 +72,16 @@ void fft(int N, double *ar, double *ai) {
     }
 }
 
-float makeWaveTable(WaveTableGroup *group, int len, double *ar, double *ai, double scale, double topFreq) {
-    fft(len, ar, ai);
-
-    if (scale == 0.0) {
+float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, double scale, double topFreq)
+{
+    fft (len, ar, ai);
+    if (scale == 0.0)
+    {
         // calc normal
         double max = 0;
-        for (int idx = 0; idx < len; idx++) {
-            double temp = fabs(ai[idx]);
+        for (int idx = 0; idx < len; idx++)
+        {
+            double temp = fabs (ai[idx]);
             if (max < temp)
                 max = temp;
         }
@@ -83,13 +89,13 @@ float makeWaveTable(WaveTableGroup *group, int len, double *ar, double *ai, doub
     }
 
     // normalize
-    auto *wave = new float[len];
+    auto* wave = new float[len];
     for (int idx = 0; idx < len; idx++)
         wave[idx] = ai[idx] * scale;
-
-    if (group->m_numWaveTables < WaveTableGroup::numWaveTableSlots) {
-        auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject();
-        float *waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable = new float[len + 1];
+    if (group->m_numWaveTables < WaveTableGroup::numWaveTableSlots)
+    {
+        auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject ();
+        float* waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable = new float[len + 1];
         table->m_waveTableLen = len;
         table->m_topFreq = topFreq;
         ++group->m_numWaveTables;
@@ -100,33 +106,34 @@ float makeWaveTable(WaveTableGroup *group, int len, double *ar, double *ai, doub
         waveTable[len] = waveTable[0];  // duplicate for interpolation wraparound
 
         return 0;
-    } else {
+    }
+    else
+    {
         scale = 0.0;
     }
     return (float) scale;
 }
 
-int fillTables(WaveTableGroup *group, double *freqWaveRe, double *freqWaveIm, int numSamples) {
+int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, int numSamples)
+{
     int idx;
-
     freqWaveRe[0] = freqWaveIm[0] = 0.0;
     freqWaveRe[numSamples >> 1] = freqWaveIm[numSamples >> 1] = 0.0;
-
     int maxHarmonic = numSamples >> 1;
     const double minVal = 0.000001; // -120 dB
-    while ((fabs(freqWaveRe[maxHarmonic]) + fabs(freqWaveIm[maxHarmonic]) < minVal) && maxHarmonic) --maxHarmonic;
-
+    while ((fabs (freqWaveRe[maxHarmonic]) + fabs (freqWaveIm[maxHarmonic]) < minVal) && maxHarmonic) --maxHarmonic;
     double topFreq = 2.0 / 3.0 / maxHarmonic;
-
-    double *ar = new double[numSamples];
-    double *ai = new double[numSamples];
+    double* ar = new double[numSamples];
+    double* ai = new double[numSamples];
     double scale = 0.0;
     int numTables = 0;
-    while (maxHarmonic) {
+    while (maxHarmonic)
+    {
         // fill the table in with the needed harmonics
         for (idx = 0; idx < numSamples; idx++)
             ar[idx] = ai[idx] = 0.0;
-        for (idx = 1; idx <= maxHarmonic; idx++) {
+        for (idx = 1; idx <= maxHarmonic; idx++)
+        {
             ar[idx] = freqWaveRe[idx];
             ai[idx] = freqWaveIm[idx];
             ar[numSamples - idx] = freqWaveRe[numSamples - idx];
@@ -134,7 +141,7 @@ int fillTables(WaveTableGroup *group, double *freqWaveRe, double *freqWaveIm, in
         }
 
         // make the wavetable
-        scale = makeWaveTable(group, numSamples, ar, ai, scale, topFreq);
+        scale = makeWaveTable (group, numSamples, ar, ai, scale, topFreq);
         numTables++;
 
         // prepare for next table
@@ -144,11 +151,13 @@ int fillTables(WaveTableGroup *group, double *freqWaveRe, double *freqWaveIm, in
     return numTables;
 }
 
-float getNextRand() {
-    return std::rand() / double(RAND_MAX);
+float getNextRand ()
+{
+    return std::rand () / double (RAND_MAX);
 }
 
-int findTableLen() {
-    int maxHarms = AudioConfig::getInstance()->getSampleRate() / (5.0 * 20) + 0.5;
-    return VeNo::Utils::nextPowerOfTwo(maxHarms) * 2;
+int findTableLen ()
+{
+    int maxHarms = AudioConfig::getInstance ()->getSampleRate () / (5.0 * 20) + 0.5;
+    return VeNo::Utils::nextPowerOfTwo (maxHarms) * 2;
 }

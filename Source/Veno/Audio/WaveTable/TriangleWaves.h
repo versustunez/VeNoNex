@@ -4,11 +4,8 @@
 
 #ifndef VENO_TRIANGLEWAVES_H
 #define VENO_TRIANGLEWAVES_H
-
-
-class TriangleWaves {
+class TriangleWaves
+{
 
 };
-
-
 #endif //VENO_TRIANGLEWAVES_H

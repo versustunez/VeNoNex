@@ -7,28 +7,26 @@
 
 #include "JuceHeader.h"
 
-enum LabelPosition {
+enum LabelPosition
+{
     NO_LABEL,
     TOP,
     BOTTOM
 };
-class LabelComponent : public Component {
+class LabelComponent : public Component
+{
 public:
-    LabelComponent(Component *parent, std::string name);
-    ~LabelComponent() override;
-
-    void resized() override;
-
-    void paint(Graphics &g) override;
-    void setPosition(LabelPosition position);
-    LabelPosition getLabelPosition();
+    LabelComponent (Component* parent, std::string name);
+    ~LabelComponent () override;
+    void resized () override;
+    void paint (Graphics& g) override;
+    void setPosition (LabelPosition position);
+    LabelPosition getLabelPosition ();
 protected:
 private:
     std::string m_text;
-    Component *m_parent;
+    Component* m_parent;
     LabelPosition m_position = LabelPosition::NO_LABEL;
     std::shared_ptr<Label> m_label;
 };
-
-
 #endif //VENO_LABELCOMPONENT_H

@@ -7,16 +7,15 @@
 
 #include "JuceHeader.h"
 
-namespace VeNo {
-    class Utils {
+namespace VeNo
+{
+    class Utils
+    {
     public:
-        Utils() = default;
-        ~Utils() = default;
-        static int nextPowerOfTwo(float value);
-
-        static float setFontSize(float size, Graphics &g);
+        Utils () = default;
+        ~Utils () = default;
+        static int nextPowerOfTwo (float value);
+        static float setFontSize (float size, Graphics& g);
     };
 }
-
-
 #endif //VENO_UTILS_H

@@ -7,11 +7,10 @@
 
 #include "JuceHeader.h"
 
-class FlatLook : public LookAndFeel_V4 {
+class FlatLook : public LookAndFeel_V4
+{
 private:
 public:
 protected:
 };
-
-
 #endif //VENO_FLATLOOK_H

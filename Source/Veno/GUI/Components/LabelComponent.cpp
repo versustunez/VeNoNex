@@ -4,29 +4,36 @@
 
 #include "LabelComponent.h"
 
-LabelComponent::LabelComponent(Component *parent, std::string name) {
+LabelComponent::LabelComponent (Component* parent, std::string name)
+{
     m_text = name;
     m_parent = parent;
-    m_label = std::make_shared<Label>(m_parent->getName(), name);
+    m_label = std::make_shared<Label> (m_parent->getName (), name);
 }
 
-LabelComponent::~LabelComponent() {
-    m_label.reset();
+LabelComponent::~LabelComponent ()
+{
+    m_label.reset ();
 }
 
-void LabelComponent::resized() {
-    if (m_label != nullptr) {
-        m_label->setBounds(0, 0, getWidth(), getHeight());
+void LabelComponent::resized ()
+{
+    if (m_label != nullptr)
+    {
+        m_label->setBounds (0, 0, getWidth (), getHeight ());
     }
 }
 
-void LabelComponent::paint(Graphics &g) {
+void LabelComponent::paint (Graphics& g)
+{
 }
 
-void LabelComponent::setPosition(LabelPosition position) {
+void LabelComponent::setPosition (LabelPosition position)
+{
     m_position = position;
 }
 
-LabelPosition LabelComponent::getLabelPosition() {
+LabelPosition LabelComponent::getLabelPosition ()
+{
     return m_position;
 }

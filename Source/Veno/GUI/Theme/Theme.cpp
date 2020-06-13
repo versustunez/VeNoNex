@@ -5,73 +5,87 @@
 #include "Theme.h"
 #include "ThemePresets.cpp"
 
-Theme::Theme(std::shared_ptr<PropertiesFile> file) {
+Theme::Theme (std::shared_ptr<PropertiesFile> file)
+{
     m_configFile = file;
 }
 
-
-Theme::~Theme() {
-    m_colours.clear();
-    m_configFile.reset();
+Theme::~Theme ()
+{
+    m_colours.clear ();
+    m_configFile.reset ();
 }
 
-void Theme::setColour(ThemeColour index, Colour *colour) {
+void Theme::setColour (ThemeColour index, Colour* colour)
+{
     auto c = m_colours[index];
-    if (c) {
+    if (c)
+    {
         delete c;
         m_colours[index] = colour;
-    } else {
+    }
+    else
+    {
         m_colours[index] = colour;
     }
-    m_configFile->setValue(ThemeColourToString(index), colour->toString());
-    m_configFile->save();
+    m_configFile->setValue (ThemeColourToString (index), colour->toString ());
+    m_configFile->save ();
 
 }
 
-void Theme::init() {
-    getColourFromConfig(ThemeColour::bg);
-    getColourFromConfig(ThemeColour::bg_two);
-    getColourFromConfig(ThemeColour::accent);
-    getColourFromConfig(ThemeColour::accent_two);
-    getColourFromConfig(ThemeColour::warning);
-    getColourFromConfig(ThemeColour::clip);
-    getColourFromConfig(ThemeColour::lcd_bg);
-    getColourFromConfig(ThemeColour::lcd);
+void Theme::init ()
+{
+    getColourFromConfig (ThemeColour::bg);
+    getColourFromConfig (ThemeColour::bg_two);
+    getColourFromConfig (ThemeColour::accent);
+    getColourFromConfig (ThemeColour::accent_two);
+    getColourFromConfig (ThemeColour::warning);
+    getColourFromConfig (ThemeColour::clip);
+    getColourFromConfig (ThemeColour::lcd_bg);
+    getColourFromConfig (ThemeColour::lcd);
 }
 
-void Theme::getColourFromConfig(ThemeColour index) {
-    std::string key = ThemeColourToString(index);
-    if (m_configFile->containsKey(key)) {
-        auto baseColour = Colour::fromString(m_configFile->getValue(key));
-        auto *colour = new Colour(baseColour.getRed(), baseColour.getGreen(), baseColour.getBlue());
+void Theme::getColourFromConfig (ThemeColour index)
+{
+    std::string key = ThemeColourToString (index);
+    if (m_configFile->containsKey (key))
+    {
+        auto baseColour = Colour::fromString (m_configFile->getValue (key));
+        auto* colour = new Colour (baseColour.getRed (), baseColour.getGreen (), baseColour.getBlue ());
         delete m_colours[index];
         m_colours[index] = colour;
-    } else {
+    }
+    else
+    {
         // should only trigger if config is broken or empty :)
-        setLEDTheme(this);
+        setLEDTheme (this);
     }
 }
 
-Colour Theme::getColour(ThemeColour index) {
-    if (m_colours[index] != nullptr) {
+Colour Theme::getColour (ThemeColour index)
+{
+    if (m_colours[index] != nullptr)
+    {
         return *m_colours[index];
     }
-    return Colour(255, 255, 255);
+    return Colour (255, 255, 255);
 }
 
-void Theme::setColourThemeById(int id) {
-    switch (id) {
+void Theme::setColourThemeById (int id)
+{
+    switch (id)
+    {
         case 1:
-            setLEDTheme(this);
+            setLEDTheme (this);
             break;
         case 2:
-            setOrangeDreamTheme(this);
+            setOrangeDreamTheme (this);
             break;
         case 3:
-            setBloodTheme(this);
+            setBloodTheme (this);
             break;
         case 4:
-            setOceanTheme(this);
+            setOceanTheme (this);
         default:
             break;
     }

@@ -7,28 +7,27 @@
 
 #include "JuceHeader.h"
 
-class FFT {
+class FFT
+{
 private:
 public:
-    FFT() = default;
-    ~FFT() = default;
+    FFT () = default;
+    ~FFT () = default;
     void pushNextSampleIntoFifo (float sample) noexcept;
     enum
     {
-        fftOrder  = 11,            // [1]
-        fftSize   = 1 << fftOrder, // [2]
+        fftOrder = 11,            // [1]
+        fftSize = 1 << fftOrder, // [2]
         scopeSize = 512            // [3]
     };
-    void drawNextFrameOfSpectrum();
+    void drawNextFrameOfSpectrum ();
     bool nextFFTBlockReady = false;
-    float scopeData [scopeSize]{};
-    float fftData [2 * fftSize]{};
+    float scopeData[scopeSize]{};
+    float fftData[2 * fftSize]{};
 protected:
     dsp::FFT fft{fftOrder};
     dsp::WindowingFunction<float> window{fftSize, dsp::WindowingFunction<float>::hann};
-    float fifo [fftSize]{};
+    float fifo[fftSize]{};
     int fifoIndex = 0;
 };
-
-
 #endif //VENO_FFT_H

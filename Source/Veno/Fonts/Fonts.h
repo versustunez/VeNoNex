@@ -7,19 +7,18 @@
 
 #include "JuceHeader.h"
 
-class VenoFonts {
+class VenoFonts
+{
+protected:
+    static VenoFonts* instance;
+    Font* lcdFont;
+    Font* arvo;
 public:
-    static const Font &getLCD() {
-        static Font lcd(Font(Typeface::createSystemTypefaceFor(BinaryData::lcd_ttf,
-                                                               BinaryData::lcd_ttfSize)));
-        return lcd;
-    }
-
-    static const Font &getNormal() {
-        static Font arvo(Font(Typeface::createSystemTypefaceFor(BinaryData::arvo_ttf,
-                                                                BinaryData::arvo_ttfSize)));
-        return arvo;
-    }
+    VenoFonts ();
+    ~VenoFonts ();
+    static void destroyAll ();
+    static Font* getLCD ();
+    static Font* getNormal ();
+    static VenoFonts* getInstance ();
 };
-
 #endif //VENO_FONTS_H

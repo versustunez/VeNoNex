@@ -4,11 +4,8 @@
 
 #ifndef VENO_SQUAREWAVES_H
 #define VENO_SQUAREWAVES_H
-
-
-class SquareWaves {
+class SquareWaves
+{
 
 };
-
-
 #endif //VENO_SQUAREWAVES_H
