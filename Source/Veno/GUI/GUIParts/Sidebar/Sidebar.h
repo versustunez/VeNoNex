@@ -7,13 +7,21 @@
 
 #include "JuceHeader.h"
 #include "../../Components/BaseComponent.h"
+#include "../../Components/LCD/SidebarLCD.h"
+#include "SidebarMixer.h"
+#include "../../Components/Config/VenoConfigButton.h"
 
 class Sidebar : public BaseComponent
 {
 private:
 public:
-    Sidebar ();
-    ~Sidebar ();
+    Sidebar (const std::string& processId);
+    ~Sidebar () override;
+    void resized () override;
+    void paint (Graphics& g) override;
 protected:
+    std::unique_ptr<SidebarLCD> m_lcd;
+    std::unique_ptr<SidebarMixer> m_mixer;
+    std::unique_ptr<VenoConfigButton> m_configButton;
 };
 #endif //VENO_SIDEBAR_H

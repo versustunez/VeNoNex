@@ -9,25 +9,25 @@
 void WaveTableGenerator::init ()
 {
     //if the sampleRate changed... the WaveTables are not harmonic Save anymore and are needed to rebuild... pls stay save later!
-    if (AudioConfig::getInstance ()->isNeedToReInit ())
+    if (AudioConfig::getInstance()->isNeedToReInit())
     {
-        cleanTables ();
-        AudioConfig::getInstance ()->setNeedToReInit (false);
+        cleanTables();
+        AudioConfig::getInstance()->setNeedToReInit(false);
     }
     if (m_isInit)
     {
         return;
     }
-    m_waveTables[WaveForms::SAW] = new WaveTableGroup ();
-    m_waveTables[WaveForms::SINE] = new WaveTableGroup ();
-    m_waveTables[WaveForms::SQUARE] = new WaveTableGroup ();
-    m_waveTables[WaveForms::TRIANGLE] = new WaveTableGroup ();
-    m_waveTables[WaveForms::wSaw] = new WaveTableGroup ();
-    m_waveTables[WaveForms::wSQUARE] = new WaveTableGroup ();
-    m_waveTables[WaveForms::SYNTHONE] = new WaveTableGroup ();
-    m_waveTables[WaveForms::SYNTHTWO] = new WaveTableGroup ();
-    m_waveTables[WaveForms::VENOX] = new WaveTableGroup ();
-    generateSaw (m_waveTables[WaveForms::SAW]);
+    m_waveTables[WaveForms::SAW] = new WaveTableGroup();
+    m_waveTables[WaveForms::SINE] = new WaveTableGroup();
+    m_waveTables[WaveForms::SQUARE] = new WaveTableGroup();
+    m_waveTables[WaveForms::TRIANGLE] = new WaveTableGroup();
+    m_waveTables[WaveForms::wSaw] = new WaveTableGroup();
+    m_waveTables[WaveForms::wSQUARE] = new WaveTableGroup();
+    m_waveTables[WaveForms::SYNTHONE] = new WaveTableGroup();
+    m_waveTables[WaveForms::SYNTHTWO] = new WaveTableGroup();
+    m_waveTables[WaveForms::VENOX] = new WaveTableGroup();
+    generateSaw(m_waveTables[WaveForms::SAW]);
     m_isInit = true;
 }
 
@@ -35,7 +35,7 @@ WaveTableGroup* WaveTableGenerator::getGroup (int id)
 {
     if (!m_isInit)
     {
-        init ();
+        init();
     }
     if (id < 40)
     {

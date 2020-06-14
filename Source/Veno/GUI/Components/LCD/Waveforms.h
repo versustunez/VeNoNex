@@ -12,7 +12,6 @@
 // opengl context :D
 class Waveforms : public BaseComponent,
                   private OpenGLRenderer,
-                  private AsyncUpdater,
                   private Timer
 {
 protected:
@@ -34,7 +33,6 @@ public:
     void newOpenGLContextCreated () override;
     void openGLContextClosing () override;
     void renderOpenGL () override;
-    void handleAsyncUpdate () override;
     void mouseDown (const MouseEvent& e) override;
     void mouseDrag (const MouseEvent& e) override;
     void paint (Graphics& g) override;
@@ -51,7 +49,10 @@ private:
     void drawWelcome (Graphics& g, int w, int h, int x, int y);
     void compileOpenGLShaderProgram ();
     void selectColourByPeak (float value);
+    float getdBForChannel (float value);
+    void setFps();
     OpenGLContext m_context;
     std::unique_ptr<OpenGLShaderProgram> shaderProgram;
+    int m_currentFps = 0;
 };
 #endif //VENO_WAVEFORMS_H

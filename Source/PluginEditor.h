@@ -3,7 +3,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "Veno/GUI/LookAndFeel/LookHandler.h"
-#include "Veno/GUI/Components/LCD/SidebarLCD.h"
+#include "Veno/GUI/GUIParts/Sidebar/Sidebar.h"
 
 class VenoAudioProcessorEditor : public AudioProcessorEditor
 {
@@ -15,7 +15,7 @@ public:
 private:
     VenoAudioProcessor& processor;
     std::string m_id = "";
-    LookAndFeel_V4* m_look = new LookHandler ();
-    std::unique_ptr<SidebarLCD> waveform;
+    LookAndFeel_V4* m_look = new LookHandler();
+    std::unique_ptr<Sidebar> m_sidebar;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoAudioProcessorEditor)
 };

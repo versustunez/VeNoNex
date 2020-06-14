@@ -25,6 +25,6 @@ public:
     LookAndFeel_V4* getLook ();
 protected:
     //currently both available themes are CrazyLook <-- (this is a fun one xD) and FlatLook
-    LookAndFeel_V4* m_feels[2] = {new FlatLook (), new CrazyLook ()};
+    LookAndFeel_V4* m_feels[2] = {new FlatLook(), new CrazyLook()};
 };
 #endif //VENO_LOOKHANDLER_H

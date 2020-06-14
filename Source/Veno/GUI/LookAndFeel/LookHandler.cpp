@@ -7,7 +7,7 @@
 
 LookHandler::LookHandler ()
 {
-    selectLook (Config::getInstance ()->getCurrentLook ());
+    selectLook(Config::getInstance()->getCurrentLook());
 }
 
 LookHandler::~LookHandler ()

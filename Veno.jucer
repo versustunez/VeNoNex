@@ -75,15 +75,39 @@
         </GROUP>
         <GROUP id="{EFD25B6B-987D-435F-F8DE-BD6C2B831E62}" name="GUI">
           <GROUP id="{9C28E1EA-57BD-A04E-6ED6-3C46B5BC7FC7}" name="GUIParts">
+            <GROUP id="{D7ABC90B-205D-31C2-67AD-7A31B96627FF}" name="ConfigScreen">
+              <FILE id="klHmJa" name="ConfigComponent.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/GUIParts/ConfigScreen/ConfigComponent.cpp"/>
+              <FILE id="pYQYBm" name="ConfigComponent.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/GUIParts/ConfigScreen/ConfigComponent.h"/>
+              <FILE id="aeg3dC" name="VenoConfigScreen.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/GUIParts/ConfigScreen/VenoConfigScreen.cpp"/>
+              <FILE id="CvExms" name="VenoConfigScreen.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/GUIParts/ConfigScreen/VenoConfigScreen.h"/>
+            </GROUP>
             <GROUP id="{B7626B9F-22D9-713A-B543-1D7B34AF77B7}" name="Sidebar">
               <FILE id="aGx0eJ" name="Sidebar.cpp" compile="1" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/Sidebar.cpp"/>
               <FILE id="uL7MJ3" name="Sidebar.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/Sidebar.h"/>
               <FILE id="lNXOQs" name="SidebarMixer.cpp" compile="1" resource="0"
                     file="Source/Veno/GUI/GUIParts/Sidebar/SidebarMixer.cpp"/>
               <FILE id="onzdTZ" name="SidebarMixer.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/SidebarMixer.h"/>
+              <FILE id="w3JFHK" name="VenoLogo.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/VenoLogo.h"/>
+              <FILE id="AE7YqM" name="VenoLogo.cpp" compile="1" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/VenoLogo.cpp"/>
             </GROUP>
           </GROUP>
           <GROUP id="{53C33AC6-67D7-762E-FFD5-C82B7F51DA5F}" name="Components">
+            <GROUP id="{90BA3743-01F8-1537-6D24-1C38F4063F10}" name="Config">
+              <FILE id="SRKqRQ" name="VeNoColour.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Config/VeNoColour.cpp"/>
+              <FILE id="Da4NUN" name="VeNoColour.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Config/VeNoColour.h"/>
+              <FILE id="zC4cQd" name="VenoConfigButton.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Config/VenoConfigButton.cpp"/>
+              <FILE id="kCWitN" name="VenoConfigButton.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/Components/Config/VenoConfigButton.h"/>
+              <FILE id="Yxj8Nf" name="VenoPreColours.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Config/VenoPreColours.cpp"/>
+              <FILE id="DbGZt9" name="VenoPreColours.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/Components/Config/VenoPreColours.h"/>
+            </GROUP>
             <GROUP id="{7C37E6D2-F2F7-6BF7-5D9B-2DDABFFE993F}" name="LCD">
               <FILE id="LpeTfD" name="SidebarLCD.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.cpp"/>
               <FILE id="Y5kUlM" name="SidebarLCD.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.h"/>
@@ -121,6 +145,8 @@
           <FILE id="i3vbdH" name="PresetManager.cpp" compile="1" resource="0"
                 file="Source/Veno/Core/PresetManager.cpp"/>
           <FILE id="WV2uuz" name="PresetManager.h" compile="0" resource="0" file="Source/Veno/Core/PresetManager.h"/>
+          <FILE id="Wvf9em" name="VeNoState.cpp" compile="1" resource="0" file="Source/Veno/Core/VeNoState.cpp"/>
+          <FILE id="skv4zn" name="VeNoState.h" compile="0" resource="0" file="Source/Veno/Core/VeNoState.h"/>
         </GROUP>
       </GROUP>
       <FILE id="zASeb7" name="PluginProcessor.cpp" compile="1" resource="0"

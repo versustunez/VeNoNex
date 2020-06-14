@@ -12,7 +12,7 @@ void generateSaw (WaveTableGroup* group)
     {
         return;
     }
-    int tableLen = findTableLen ();
+    int tableLen = findTableLen();
     int idx;
     auto* freqWaveRe = new double[tableLen];
     auto* freqWaveIm = new double[tableLen];
@@ -26,6 +26,6 @@ void generateSaw (WaveTableGroup* group)
         freqWaveRe[idx] = 1.0 / idx;                    // sawtooth spectrum
         freqWaveRe[tableLen - idx] = -freqWaveRe[idx];  // mirror
     }
-    fillTables (group, freqWaveRe, freqWaveIm, tableLen);
-    VeNo::Logger::infoDebugMessage ("Generated clean Saw Wave");
+    fillTables(group, freqWaveRe, freqWaveIm, tableLen);
+    VeNo::Logger::infoDebugMessage("Generated clean Saw Wave");
 }

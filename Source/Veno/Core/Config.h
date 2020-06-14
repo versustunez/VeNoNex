@@ -10,7 +10,7 @@
 #include "../GUI/Theme/Theme.h"
 #include <memory>
 
-class Config
+class Config : public Timer
 {
 private:
     std::shared_ptr<PropertiesFile> m_config = nullptr;
@@ -18,14 +18,16 @@ private:
     static std::shared_ptr<Config> m_instance;
     int m_currentLook = 0; //nah move the bitch logic from current to next
     std::unordered_map<std::string, AudioProcessorEditor*> m_editors;
-    int m_fps = 60;
+    std::shared_ptr<LookHandler> m_lookHandler;
 public:
+    int m_fps = 60;
+    float m_scale = 1.0f;
     static std::shared_ptr<Config> getInstance ();
     void saveAll ();
     int getCurrentLook ();
     void setColourForIndex (Colour* colour, ThemeColour index);
     std::shared_ptr<Theme> getCurrentTheme ();
-    double getScale ();
+    double getScale () const;
     // can be public but doesnt need!
     Config ();
     ~Config ();
@@ -33,6 +35,10 @@ public:
     void removeEditor (const std::string& name);
     int getEditorCount ();
     int getFps () const;
+    void setScale(float value);
+    void setFps(float value);
+    void timerCallback () override;
+    void repaintAll();
 protected:
     void initConfig ();
 };

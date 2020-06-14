@@ -3,36 +3,43 @@
 #include "Veno/Core/Config.h"
 #include "Veno/Utils/Logger.h"
 #include "Veno/Fonts/Fonts.h"
+#include "Veno/Utils.h"
+
+#define SIDEBAR_WIDTH 300
 
 VenoAudioProcessorEditor::VenoAudioProcessorEditor (VenoAudioProcessor& p)
-        : AudioProcessorEditor (&p), processor (p)
+        : AudioProcessorEditor(&p), processor(p)
 {
     m_id = p.m_id;
-    Config::getInstance ()->registerEditor (this, m_id);
-    LookAndFeel::setDefaultLookAndFeel (m_look);
-    waveform = std::make_unique<SidebarLCD> (m_id);
-    setSize (600, 400);
-    addAndMakeVisible (*waveform);
+    Config::getInstance()->registerEditor(this, m_id);
+    LookAndFeel::setDefaultLookAndFeel(m_look);
+    m_sidebar = std::make_unique<Sidebar>(m_id);
+    setSize(1200 * Config::getInstance()->getScale(), 700 * Config::getInstance()->getScale());
+    addAndMakeVisible(*m_sidebar);
 }
 
 VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
 {
-    LookAndFeel::setDefaultLookAndFeel (nullptr);
-    waveform.reset (nullptr);
+    LookAndFeel::setDefaultLookAndFeel(nullptr);
+    m_sidebar.reset(nullptr);
     delete m_look;
-    Config::getInstance ()->removeEditor (m_id);
+    Config::getInstance()->removeEditor(m_id);
 }
 
 void VenoAudioProcessorEditor::paint (Graphics& g)
 {
-    g.setFont (*VenoFonts::getNormal ());
-    g.fillAll (Colour (0, 0, 0));
+    auto theme = Config::getInstance()->getCurrentTheme();
+    g.setFont(*VenoFonts::getNormal());
+    g.fillAll(theme->getColour(ThemeColour::bg_two));
+    g.setColour(theme->getColour(ThemeColour::bg));
+    g.fillRect(0, 0, VeNo::Utils::getCalculatedWidth(SIDEBAR_WIDTH), getHeight());
+    g.setColour(theme->getColour(ThemeColour::accent));
 }
 
 void VenoAudioProcessorEditor::resized ()
 {
-    if (waveform != nullptr)
+    if (m_sidebar != nullptr)
     {
-        waveform->setBounds (0, 0, getWidth (), getHeight ());
+        m_sidebar->setBounds(0, 0, VeNo::Utils::getCalculatedWidth(SIDEBAR_WIDTH), getHeight());
     }
 }

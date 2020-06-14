@@ -11,8 +11,8 @@ void FFT::pushNextSampleIntoFifo (float sample) noexcept
         {
             if (!nextFFTBlockReady) // [12]
             {
-                zeromem (fftData, sizeof (fftData));
-                memcpy (fftData, fifo, sizeof (fifo));
+                zeromem(fftData, sizeof(fftData));
+                memcpy(fftData, fifo, sizeof(fifo));
                 nextFFTBlockReady = true;
             }
             fifoIndex = 0;
@@ -23,14 +23,14 @@ void FFT::pushNextSampleIntoFifo (float sample) noexcept
 
 void FFT::drawNextFrameOfSpectrum ()
 {
-    window.multiplyWithWindowingTable (fftData, fftSize);      // [1]
-    fft.performFrequencyOnlyForwardTransform (fftData); // [2]
+    window.multiplyWithWindowingTable(fftData, fftSize);      // [1]
+    fft.performFrequencyOnlyForwardTransform(fftData); // [2]
 
     auto mindB = -80.0f;
     auto maxdB = 0.0f;
     for (int i = 0; i < scopeSize; ++i)
     {
-        auto level = jmap (Decibels::gainToDecibels (fftData[i], mindB), mindB, maxdB, -1.0f, 1.0f);
+        auto level = jmap(Decibels::gainToDecibels(fftData[i], mindB), mindB, maxdB, -1.0f, 1.0f);
         scopeData[i] = level;
     }
 }

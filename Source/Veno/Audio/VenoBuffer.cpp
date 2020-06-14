@@ -12,18 +12,18 @@ VenoBuffer::VenoBuffer ()
 
 VenoBuffer::~VenoBuffer ()
 {
-    buffer.clear ();
-    right.clear ();
-    left.clear ();
+    buffer.clear();
+    right.clear();
+    left.clear();
 }
 
 void VenoBuffer::reset (int size)
 {
-    if (size != buffer.size ())
+    if (size != buffer.size())
     {
-        buffer.resize (size);
-        right.resize (size);
-        left.resize (size);
+        buffer.resize(size);
+        right.resize(size);
+        left.resize(size);
     }
     // reset to 0 dc :D
     for (int i = 0; i < size; ++i)
@@ -54,11 +54,11 @@ void VenoBuffer::addRightSample (float value, int index)
 
 void VenoBuffer::calcPeak ()
 {
-    for (int i = 0; i < buffer.size (); ++i)
+    for (int i = 0; i < buffer.size(); ++i)
     {
-        auto l = std::abs (left[i]);
-        auto r = std::abs (right[i]);
-        auto m = std::abs (buffer[i]);
+        auto l = std::abs(left[i]);
+        auto r = std::abs(right[i]);
+        auto m = std::abs(buffer[i]);
         if (m > monoPeak)
         {
             monoPeak = m;

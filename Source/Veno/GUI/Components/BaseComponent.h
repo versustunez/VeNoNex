@@ -19,7 +19,6 @@ private:
     std::string m_group;
     std::string m_name;
     bool m_enableLabel = false;
-    std::shared_ptr<LabelComponent> m_label;
 public:
     explicit BaseComponent (const std::string& processId);
     ~BaseComponent () override;
@@ -29,5 +28,6 @@ public:
     void paint (Graphics& g) override;
 protected:
     std::string m_processId;
+    std::shared_ptr<LabelComponent> m_label;
 };
 #endif //VENO_BASECOMPONENT_H

@@ -21,6 +21,7 @@ public:
     void setColour (ThemeColour index, Colour* colour);
     void setColourThemeById (int id);
     void init ();
+    void setDefault(const std::string& value);
     void getColourFromConfig (ThemeColour index);
     Colour getColour (ThemeColour index);
 protected:

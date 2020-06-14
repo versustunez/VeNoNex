@@ -51,8 +51,8 @@ void fft (int N, double* ar, double* ai)
         LE *= 2;                          // (LE = 2^L)
         Ur = 1.0;
         Ui = 0.;
-        Wr = std::cos (M_PI / (float) LE1);
-        Wi = -std::sin (M_PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
+        Wr = std::cos(M_PI / (float) LE1);
+        Wi = -std::sin(M_PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
         for (j = 1; j <= LE1; j++)
         {
             for (i = j; i <= N; i += LE)
@@ -74,14 +74,14 @@ void fft (int N, double* ar, double* ai)
 
 float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, double scale, double topFreq)
 {
-    fft (len, ar, ai);
+    fft(len, ar, ai);
     if (scale == 0.0)
     {
         // calc normal
         double max = 0;
         for (int idx = 0; idx < len; idx++)
         {
-            double temp = fabs (ai[idx]);
+            double temp = fabs(ai[idx]);
             if (max < temp)
                 max = temp;
         }
@@ -94,7 +94,7 @@ float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, dou
         wave[idx] = ai[idx] * scale;
     if (group->m_numWaveTables < WaveTableGroup::numWaveTableSlots)
     {
-        auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject ();
+        auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject();
         float* waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable = new float[len + 1];
         table->m_waveTableLen = len;
         table->m_topFreq = topFreq;
@@ -121,7 +121,7 @@ int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, i
     freqWaveRe[numSamples >> 1] = freqWaveIm[numSamples >> 1] = 0.0;
     int maxHarmonic = numSamples >> 1;
     const double minVal = 0.000001; // -120 dB
-    while ((fabs (freqWaveRe[maxHarmonic]) + fabs (freqWaveIm[maxHarmonic]) < minVal) && maxHarmonic) --maxHarmonic;
+    while ((fabs(freqWaveRe[maxHarmonic]) + fabs(freqWaveIm[maxHarmonic]) < minVal) && maxHarmonic) --maxHarmonic;
     double topFreq = 2.0 / 3.0 / maxHarmonic;
     double* ar = new double[numSamples];
     double* ai = new double[numSamples];
@@ -141,7 +141,7 @@ int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, i
         }
 
         // make the wavetable
-        scale = makeWaveTable (group, numSamples, ar, ai, scale, topFreq);
+        scale = makeWaveTable(group, numSamples, ar, ai, scale, topFreq);
         numTables++;
 
         // prepare for next table
@@ -153,11 +153,11 @@ int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, i
 
 float getNextRand ()
 {
-    return std::rand () / double (RAND_MAX);
+    return std::rand() / double(RAND_MAX);
 }
 
 int findTableLen ()
 {
-    int maxHarms = AudioConfig::getInstance ()->getSampleRate () / (5.0 * 20) + 0.5;
-    return VeNo::Utils::nextPowerOfTwo (maxHarms) * 2;
+    int maxHarms = AudioConfig::getInstance()->getSampleRate() / (5.0 * 20) + 0.5;
+    return VeNo::Utils::nextPowerOfTwo(maxHarms) * 2;
 }

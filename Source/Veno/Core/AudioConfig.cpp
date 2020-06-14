@@ -43,16 +43,16 @@ void AudioConfig::setNeedToReInit (bool _needToReInit)
 std::shared_ptr<AudioConfig> AudioConfig::getInstance ()
 {
     if (AudioConfig::m_instance == nullptr)
-        AudioConfig::m_instance = std::make_shared<AudioConfig> ();
+        AudioConfig::m_instance = std::make_shared<AudioConfig>();
     return m_instance;
 }
 
 void AudioConfig::initWaveTables ()
 {
-    WaveTableGenerator::getInstance ().init ();
+    WaveTableGenerator::getInstance().init();
 }
 
 AudioConfig::~AudioConfig ()
 {
-    WaveTableGenerator::getInstance ().cleanTables ();
+    WaveTableGenerator::getInstance().cleanTables();
 }

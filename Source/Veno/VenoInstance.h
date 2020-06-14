@@ -10,6 +10,7 @@
 #include "Utils/FFT.h"
 #include "Audio/VenoBuffer.h"
 #include "Audio/Engine/VenoMatrix.h"
+#include "Core/VeNoState.h"
 #include <unordered_map>
 
 class VenoInstance
@@ -28,5 +29,7 @@ public:
     FFT fft;
     std::shared_ptr<VenoBuffer> audioBuffer;
     VenoMatrix matrix{m_id}; //matrix need a own xml profile to save and restore!
+    VeNoState* state;
+    static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> getAll ();
 };
 #endif //VENO_VENOINSTANCE_H
