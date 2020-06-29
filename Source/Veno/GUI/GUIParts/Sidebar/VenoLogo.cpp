@@ -18,11 +18,8 @@ VenoLogo* VenoLogo::getInstance ()
 VenoLogo::VenoLogo ()
 {
     MemoryOutputStream mo;
-    auto result = Base64::convertFromBase64(mo, base64logo);
-    if (result)
-    {
-        realLogo = juce::PNGImageFormat::loadFrom(mo.getData(), mo.getDataSize());
-    }
+    auto result = ImageCache::getFromMemory(BinaryData::LogoVeNo_png, BinaryData::LogoVeNo_pngSize);
+    realLogo = result;
 }
 
 Image VenoLogo::getLogo ()
@@ -33,4 +30,5 @@ Image VenoLogo::getLogo ()
 void VenoLogo::deleteInstance ()
 {
     delete instance;
+    instance = nullptr;
 }

@@ -1,4 +1,4 @@
-//
+    //
 // Created by versustune on 11.06.20.
 //
 
@@ -7,6 +7,7 @@
 
 #include "JuceHeader.h"
 #include "../BaseComponent.h"
+#include "DecibelScale.h"
 
 #define RANDOM_TEXT_COUNT 5
 // opengl context :D
@@ -36,6 +37,7 @@ public:
     void mouseDown (const MouseEvent& e) override;
     void mouseDrag (const MouseEvent& e) override;
     void paint (Graphics& g) override;
+    void resized () override;
     bool m_isChangingData = false;
     std::string changingParameter = "";
     float changedValue = 0;
@@ -53,6 +55,7 @@ private:
     void setFps();
     OpenGLContext m_context;
     std::unique_ptr<OpenGLShaderProgram> shaderProgram;
+    std::unique_ptr<DecibelScale> dBScale;
     int m_currentFps = 0;
 };
 #endif //VENO_WAVEFORMS_H

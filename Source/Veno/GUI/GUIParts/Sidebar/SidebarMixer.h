@@ -4,8 +4,17 @@
 
 #ifndef VENO_SIDEBARMIXER_H
 #define VENO_SIDEBARMIXER_H
-class SidebarMixer
-{
 
+#include "JuceHeader.h"
+#include "../../Components/BaseComponent.h"
+
+class SidebarMixer : public BaseComponent
+{
+private:
+public:
+    SidebarMixer (const std::string& processId);
+    ~SidebarMixer() = default;
+protected:
 };
+
 #endif //VENO_SIDEBARMIXER_H

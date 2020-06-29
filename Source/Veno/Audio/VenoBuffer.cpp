@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include "VenoBuffer.h"
+#include "../Utils.h"
 
 VenoBuffer::VenoBuffer ()
 {
@@ -12,18 +13,18 @@ VenoBuffer::VenoBuffer ()
 
 VenoBuffer::~VenoBuffer ()
 {
-    buffer.clear();
-    right.clear();
-    left.clear();
+    buffer.clear ();
+    right.clear ();
+    left.clear ();
 }
 
 void VenoBuffer::reset (int size)
 {
-    if (size != buffer.size())
+    if (size != buffer.size ())
     {
-        buffer.resize(size);
-        right.resize(size);
-        left.resize(size);
+        buffer.resize (size);
+        right.resize (size);
+        left.resize (size);
     }
     // reset to 0 dc :D
     for (int i = 0; i < size; ++i)
@@ -54,24 +55,22 @@ void VenoBuffer::addRightSample (float value, int index)
 
 void VenoBuffer::calcPeak ()
 {
-    for (int i = 0; i < buffer.size(); ++i)
+    if (monoPeak != 0 && rightPeak != 0 && leftPeak != 0)
     {
-        auto l = std::abs(left[i]);
-        auto r = std::abs(right[i]);
-        auto m = std::abs(buffer[i]);
-        if (m > monoPeak)
-        {
-            monoPeak = m;
-        }
-        if (l > leftPeak)
-        {
-            leftPeak = l;
-        }
-        if (r > rightPeak)
-        {
-            rightPeak = r;
-        }
+        return;
     }
+    float leftRMS = 0;
+    float rightRMS = 0;
+    auto size = buffer.size();
+    for (int i = 0; i < size; ++i)
+    {
+        leftRMS += left[i] * left[i];
+        rightRMS += right[i] * right[i];
+    }
+    rightPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (rightRMS / size), -30.0f), -30.0f, 0.0f);
+    leftPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (leftRMS / size), -30.0f), -30.0f, 0.0f);
+    monoPeak = leftPeak;
+    //monoPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (monoPeak, -70.0f), -70.0f, 0.0f);
 }
 
 const std::vector<float>& VenoBuffer::getBuffer () const

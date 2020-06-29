@@ -31,8 +31,8 @@ void setBloodTheme (Theme* theme)
     theme->setColour(ThemeColour::accent_two, new Colour(115, 47, 64));
     theme->setColour(ThemeColour::clip, new Colour(255, 23, 68));
     theme->setColour(ThemeColour::warning, new Colour(255, 143, 0));
-    theme->setColour(ThemeColour::lcd_bg, new Colour(0, 0, 0));
-    theme->setColour(ThemeColour::lcd, new Colour(180, 38, 78));
+    theme->setColour(ThemeColour::lcd_bg, new Colour(43, 0, 0));
+    theme->setColour(ThemeColour::lcd, new Colour(255, 0, 0));
 }
 
 void setOrangeDreamTheme (Theme* theme)

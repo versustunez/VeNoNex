@@ -22,7 +22,8 @@ void SidebarLCD::drawHeadline (Graphics& g)
 {
     float fontSize = VeNo::Utils::setFontSize(12.0f, g) + 2;
     int line = m_innerY + fontSize + 2;
-    g.drawText(">>> VeNo <<<", 0, m_innerY, getWidth() - m_width, fontSize,
+    // should draw random stuff? or draw current selected preset :)
+    g.drawText(">>> INIT <<<", 0, m_innerY, getWidth() - m_width, fontSize,
                Justification::centred,
                true);
     g.drawLine(0, line, getWidth(), line);
@@ -33,7 +34,7 @@ void SidebarLCD::drawFooter (Graphics& g)
     float fontSize = VeNo::Utils::setFontSize(8.0f, g) + 4;
     int space = m_innerY + fontSize;
     int line = getHeight() - space;
-    g.drawText("by VersusTuneZ", 0, line, getWidth() - m_width, fontSize,
+    g.drawText("by VersusTuneZ for " + SystemStats::getFullUserName(), 0, line, getWidth() - m_width, fontSize,
                Justification::horizontallyCentred,
                true);
     g.drawLine(0, line - 4, getWidth(), line - 4);
