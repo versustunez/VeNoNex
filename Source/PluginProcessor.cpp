@@ -3,7 +3,7 @@
 #include "Veno/Core/AudioConfig.h"
 
 VenoAudioProcessor::VenoAudioProcessor ()
-/*#ifndef JucePlugin_PreferredChannelConfigurations
+#ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
@@ -12,17 +12,17 @@ VenoAudioProcessor::VenoAudioProcessor ()
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
                        )
-#endif*/
-        : AudioProcessor(BusesProperties().withInput("Input", AudioChannelSet::stereo(), true).withOutput("Output",
-                                                                                                          AudioChannelSet::stereo(),
-                                                                                                          true))
+#endif
 {
     instance = VenoInstance::createInstance(m_id);
+    AudioConfig::registerInstance(m_id);
 }
 
 VenoAudioProcessor::~VenoAudioProcessor ()
 {
+    instance.reset();
     VenoInstance::deleteInstance(m_id);
+    AudioConfig::deleteInstance(m_id);
 }
 
 const String VenoAudioProcessor::getName () const
@@ -129,7 +129,6 @@ void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
         auto c = buffer.getReadPointer(i);
         for (int j = 0; j < buffer.getNumSamples(); ++j)
         {
-            instance->fft.pushNextSampleIntoFifo(c[j]);
             instance->audioBuffer->addMonoSample(c[j], j);
             if (i == 0)
             {
@@ -141,6 +140,7 @@ void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
             }
         }
     }
+    instance->audioBuffer->calcPeak ();
 }
 
 //==============================================================================
@@ -157,10 +157,19 @@ AudioProcessorEditor* VenoAudioProcessor::createEditor ()
 //==============================================================================
 void VenoAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
+    auto matrixXML = instance->matrix.saveMatrixToXML();
+    if (matrixXML != nullptr) {
+        copyXmlToBinary(*matrixXML, destData);
+    } else {
+        DBG("Sorry something went wrong! xml is nullptr");
+    }
 }
 
 void VenoAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    if (xmlState != nullptr)
+        instance->matrix.getMatrixFromXML(xmlState);
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter ()

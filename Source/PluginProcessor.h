@@ -33,5 +33,5 @@ public:
     std::string m_id = Uuid().toString().toStdString();
     std::shared_ptr<VenoInstance> instance;
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoAudioProcessor);
 };

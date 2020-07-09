@@ -27,5 +27,6 @@ public:
 protected:
     std::map<ThemeColour, Colour*> m_colours;
     std::shared_ptr<PropertiesFile> m_configFile;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Theme);
 };
 #endif //VENO_THEME_H

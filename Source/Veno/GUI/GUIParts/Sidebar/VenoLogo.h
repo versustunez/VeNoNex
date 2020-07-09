@@ -18,5 +18,7 @@ public:
     static void deleteInstance ();
     VenoLogo ();
     ~VenoLogo () = default;
+protected:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoLogo)
 };
 #endif //VENO_VENOLOGO_H

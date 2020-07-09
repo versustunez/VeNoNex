@@ -4,6 +4,9 @@
 
 #ifndef VENO_WAVETABLEGENERATOR_H
 #define VENO_WAVETABLEGENERATOR_H
+
+#include "JuceHeader.h"
+
 struct WaveTableObject
 {
     double m_topFreq;
@@ -47,5 +50,6 @@ protected:
     bool m_isInit = false;
     WaveTableGenerator () = default;
     ~WaveTableGenerator () = default;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveTableGenerator)
 };
 #endif //VENO_WAVETABLEGENERATOR_H

@@ -24,5 +24,6 @@ protected:
     void drawHeadline (Graphics& g);
     void drawFooter (Graphics& g);
     std::unique_ptr<Waveforms> waveform;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SidebarLCD);
 };
 #endif //VENO_SIDEBARLCD_H

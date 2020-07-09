@@ -28,6 +28,7 @@ protected:
     int m_time_needed_startup = 0;
     int m_time_needed = 0;
     bool needToClear = false;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Waveforms);
 public:
     explicit Waveforms (const std::string& processId);
     ~Waveforms () override;

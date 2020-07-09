@@ -41,5 +41,6 @@ public:
     void repaintAll();
 protected:
     void initConfig ();
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Config);
 };
 #endif //VENO_CONFIG_H

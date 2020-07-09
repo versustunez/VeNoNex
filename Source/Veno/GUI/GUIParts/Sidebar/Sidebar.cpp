@@ -18,6 +18,8 @@ Sidebar::~Sidebar ()
 {
     m_lcd.reset(nullptr);
     m_configButton.reset(nullptr);
+    m_mixer.reset(nullptr);
+    VenoLogo::deleteInstance();
 }
 
 void Sidebar::resized ()

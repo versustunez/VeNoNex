@@ -11,6 +11,8 @@ class FlatLook : public LookAndFeel_V4
 {
 private:
 public:
+    FlatLook() = default;
+    ~FlatLook() override = default;
     void drawButtonBackground (Graphics& graphics, Button& button, const Colour& backgroundColour,
                                bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;
 
@@ -29,5 +31,6 @@ public:
                  int buttonH, ComboBox &box) override;
 
 protected:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FlatLook);
 };
 #endif //VENO_FLATLOOK_H

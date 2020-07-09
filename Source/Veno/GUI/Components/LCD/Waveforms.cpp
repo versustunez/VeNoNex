@@ -63,6 +63,9 @@ void Waveforms::renderOpenGL ()
     auto color = theme->getColour (ThemeColour::lcd);
     shaderProgram->setUniform ("color", color.getFloatRed (), color.getFloatGreen (), color.getFloatBlue (),
                                color.getFloatAlpha ());
+    // same color currently! will set to a diff if peak is detected!
+    shaderProgram->setUniform ("gradientColor", color.getFloatRed (), color.getFloatGreen (), color.getFloatBlue (),
+                               color.getFloatAlpha ());
     if (m_isWelcome || m_isStarting || m_isChangingData)
     {
         return;
@@ -92,6 +95,8 @@ void Waveforms::compileOpenGLShaderProgram ()
         && shaderProgramAttempt->link ())
     {
         shaderProgram = std::move (shaderProgramAttempt);
+    } else {
+        DBG(shaderProgramAttempt->getLastError().toStdString());
     }
 }
 
@@ -144,10 +149,17 @@ void Waveforms::drawAudioOutput ()
     glBegin (GL_LINE_STRIP);
     float posX = -1;
     float inc = 2.0f / buffer.size ();
-    for (float i : buffer)
+    for (int j = 0; j < buffer.size(); ++j)
     {
-        glVertex2f (posX, i);
-        posX += inc;
+        try
+        {
+            glVertex2f (posX, buffer.at(j));
+            posX += inc;
+        } catch (_exception e)
+        {
+            //something is wrong skip the draw and end it!
+            break;
+        }
     }
     glEnd ();
 }
@@ -160,7 +172,6 @@ void Waveforms::drawPeakMeter ()
         return;
     }
     auto instance = VenoInstance::getInstance (BaseComponent::m_processId);
-    instance->audioBuffer->calcPeak ();
     repaint();
     // draw peak signal
     auto leftChannel = getdBForChannel (instance->audioBuffer->leftPeak);
@@ -276,6 +287,8 @@ void Waveforms::selectColourByPeak (float value)
         return;
     }
     auto color = theme->getColour (ThemeColour::lcd);
+    shaderProgram->setUniform ("color", color.getFloatRed (), color.getFloatGreen (), color.getFloatBlue (),
+                               color.getFloatAlpha ());
     if (value > 0.87)
     {
         color = theme->getColour (ThemeColour::clip);
@@ -284,7 +297,7 @@ void Waveforms::selectColourByPeak (float value)
     {
         color = theme->getColour (ThemeColour::warning);
     }
-    shaderProgram->setUniform ("color", color.getFloatRed (), color.getFloatGreen (), color.getFloatBlue (),
+    shaderProgram->setUniform ("gradientColor", color.getFloatRed (), color.getFloatGreen (), color.getFloatBlue (),
                                color.getFloatAlpha ());
 }
 

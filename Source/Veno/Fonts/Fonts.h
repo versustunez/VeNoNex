@@ -13,6 +13,7 @@ protected:
     static VenoFonts* instance;
     Font* lcdFont;
     Font* arvo;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoFonts)
 public:
     VenoFonts ();
     ~VenoFonts ();

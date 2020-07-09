@@ -33,9 +33,9 @@ void VenoBuffer::reset (int size)
         left[i] = 0;
         right[i] = 0;
     }
-    leftPeak = 0;
-    rightPeak = 0;
-    monoPeak = 0;
+    leftPeak = -30;
+    rightPeak = -30;
+    monoPeak = -30;
 }
 
 void VenoBuffer::addMonoSample (float value, int index)
@@ -55,10 +55,6 @@ void VenoBuffer::addRightSample (float value, int index)
 
 void VenoBuffer::calcPeak ()
 {
-    if (monoPeak != 0 && rightPeak != 0 && leftPeak != 0)
-    {
-        return;
-    }
     float leftRMS = 0;
     float rightRMS = 0;
     auto size = buffer.size();
@@ -70,7 +66,6 @@ void VenoBuffer::calcPeak ()
     rightPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (rightRMS / size), -30.0f), -30.0f, 0.0f);
     leftPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (leftRMS / size), -30.0f), -30.0f, 0.0f);
     monoPeak = leftPeak;
-    //monoPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (monoPeak, -70.0f), -70.0f, 0.0f);
 }
 
 const std::vector<float>& VenoBuffer::getBuffer () const

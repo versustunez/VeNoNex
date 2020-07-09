@@ -29,5 +29,6 @@ public:
 protected:
     std::string m_processId;
     std::shared_ptr<LabelComponent> m_label;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BaseComponent);
 };
 #endif //VENO_BASECOMPONENT_H

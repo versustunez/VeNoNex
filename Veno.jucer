@@ -29,6 +29,8 @@
           <FILE id="McoT9E" name="FFT.h" compile="0" resource="0" file="Source/Veno/Utils/FFT.h"/>
           <FILE id="fnGWyM" name="Logger.cpp" compile="1" resource="0" file="Source/Veno/Utils/Logger.cpp"/>
           <FILE id="wYGzZw" name="Logger.h" compile="0" resource="0" file="Source/Veno/Utils/Logger.h"/>
+          <FILE id="xJwmEr" name="StringUtils.cpp" compile="1" resource="0" file="Source/Veno/Utils/StringUtils.cpp"/>
+          <FILE id="C21Iyn" name="StringUtils.h" compile="0" resource="0" file="Source/Veno/Utils/StringUtils.h"/>
         </GROUP>
         <FILE id="XtqjAL" name="VenoInstance.h" compile="0" resource="0" file="Source/Veno/VenoInstance.h"/>
         <FILE id="LItgbD" name="VenoInstance.cpp" compile="1" resource="0"
@@ -42,8 +44,8 @@
             <FILE id="Tpzeeh" name="ModulateValue.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/ModulateValue.h"/>
             <FILE id="dB1Djv" name="Modulator.cpp" compile="1" resource="0" file="Source/Veno/Audio/Engine/Modulator.cpp"/>
             <FILE id="eA6ftc" name="Modulator.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/Modulator.h"/>
-            <FILE id="rkTKQ1" name="VenoMatrix.cpp" compile="1" resource="0" file="Source/Veno/Audio/Engine/VenoMatrix.cpp"/>
-            <FILE id="v4AuOK" name="VenoMatrix.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/VenoMatrix.h"/>
+            <FILE id="rkTKQ1" name="VeNoMatrix.cpp" compile="1" resource="0" file="Source/Veno/Audio/Engine/VeNoMatrix.cpp"/>
+            <FILE id="v4AuOK" name="VeNoMatrix.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/VeNoMatrix.h"/>
           </GROUP>
           <FILE id="tHbIrz" name="VenoBuffer.cpp" compile="1" resource="0" file="Source/Veno/Audio/VenoBuffer.cpp"/>
           <FILE id="ufeJaH" name="VenoBuffer.h" compile="0" resource="0" file="Source/Veno/Audio/VenoBuffer.h"/>

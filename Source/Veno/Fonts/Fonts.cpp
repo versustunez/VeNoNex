@@ -27,7 +27,9 @@ VenoFonts* VenoFonts::getInstance ()
 
 void VenoFonts::destroyAll ()
 {
-    delete instance;
+    if (instance != nullptr) {
+        delete instance;
+    }
     instance = nullptr;
 }
 
@@ -43,4 +45,6 @@ VenoFonts::~VenoFonts ()
 {
     delete arvo;
     delete lcdFont;
+    arvo = nullptr;
+    lcdFont = nullptr;
 }

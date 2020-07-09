@@ -48,6 +48,13 @@ void WaveTableGenerator::cleanTables ()
 {
     for (auto& m_waveTable : m_waveTables)
     {
+        for (int i = 0; i < numWaveTableSlots; ++i)
+        {
+            if (m_waveTable != nullptr && m_waveTable->m_WaveTables[i] != nullptr) {
+                delete[] m_waveTable->m_WaveTables[i]->m_waveTable;
+                delete m_waveTable->m_WaveTables[i];
+            }
+        }
         delete m_waveTable;
     }
     m_isInit = false;

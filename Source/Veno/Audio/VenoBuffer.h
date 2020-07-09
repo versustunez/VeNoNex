@@ -6,6 +6,7 @@
 #define VENO_VENOBUFFER_H
 
 #include <vector>
+#include "JuceHeader.h"
 
 class VenoBuffer
 {
@@ -27,5 +28,7 @@ public:
     const std::vector<float>& getBuffer () const;
     const std::vector<float>& getRight () const;
     const std::vector<float>& getLeft () const;
+protected:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoBuffer);
 };
 #endif //VENO_VENOBUFFER_H

@@ -9,7 +9,7 @@
 #include "Audio/Synth/SynthInstance.h"
 #include "Utils/FFT.h"
 #include "Audio/VenoBuffer.h"
-#include "Audio/Engine/VenoMatrix.h"
+#include "Audio/Engine/VeNoMatrix.h"
 #include "Core/VeNoState.h"
 #include <unordered_map>
 
@@ -26,10 +26,11 @@ public:
     static std::shared_ptr<VenoInstance> getInstance (const std::string& id);
     static void deleteInstance (const std::string& processId);
     const std::shared_ptr<SynthInstance>& getSynthInstance () const;
-    FFT fft;
     std::shared_ptr<VenoBuffer> audioBuffer;
-    VenoMatrix matrix{m_id}; //matrix need a own xml profile to save and restore!
+    VeNoMatrix matrix{m_id}; //matrix need a own xml profile to save and restore!
     VeNoState* state;
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> getAll ();
+protected:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoInstance);
 };
 #endif //VENO_VENOINSTANCE_H

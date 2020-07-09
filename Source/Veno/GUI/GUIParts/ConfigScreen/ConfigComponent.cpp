@@ -38,6 +38,7 @@ ConfigComponent::~ConfigComponent ()
         color.reset();
     }
     m_colors.clear();
+    m_preColours.reset(nullptr);
 }
 
 ThemeColour ConfigComponent::getColorForId (int id)
