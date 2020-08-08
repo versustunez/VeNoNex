@@ -8,7 +8,7 @@
 #include "../../../Utils.h"
 #include "../../../VenoInstance.h"
 #include "../../../Fonts/Fonts.h"
-#ifndef _WIN32
+#ifdef __APPLE__
 #include <GLFW/glfw3.h>
 #endif
 
