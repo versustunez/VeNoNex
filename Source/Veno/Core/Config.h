@@ -9,6 +9,7 @@
 #include "../GUI/LookAndFeel/LookHandler.h"
 #include "../GUI/Theme/Theme.h"
 #include <memory>
+#include <unordered_map>
 
 class Config : public Timer
 {
