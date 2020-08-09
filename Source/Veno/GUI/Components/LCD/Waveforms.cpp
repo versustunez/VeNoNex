@@ -8,6 +8,9 @@
 #include "../../../Utils.h"
 #include "../../../VenoInstance.h"
 #include "../../../Fonts/Fonts.h"
+#ifdef __APPLE__
+#include <GLFW/glfw3.h>
+#endif
 
 Waveforms::Waveforms (const std::string& processId) : BaseComponent (processId)
 {
@@ -155,7 +158,7 @@ void Waveforms::drawAudioOutput ()
         {
             glVertex2f (posX, buffer.at(j));
             posX += inc;
-        } catch (_exception e)
+        } catch (std::exception e)
         {
             //something is wrong skip the draw and end it!
             break;
