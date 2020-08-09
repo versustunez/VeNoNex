@@ -16,6 +16,11 @@ VenoAudioProcessor::VenoAudioProcessor ()
 {
     instance = VenoInstance::createInstance(m_id);
     AudioConfig::registerInstance(m_id);
+  
+  for (int p = 0; p < 5; p++) {
+    synth.addVoice(new VenoVoice(p, (double)getSampleRate()));
+  }
+  synth.addSound(new VenoSound());
 }
 
 VenoAudioProcessor::~VenoAudioProcessor ()
@@ -32,29 +37,17 @@ const String VenoAudioProcessor::getName () const
 
 bool VenoAudioProcessor::acceptsMidi () const
 {
-#if JucePlugin_WantsMidiInput
     return true;
-#else
-    return false;
-#endif
 }
 
 bool VenoAudioProcessor::producesMidi () const
 {
-#if JucePlugin_ProducesMidiOutput
-    return true;
-#else
     return false;
-#endif
 }
 
 bool VenoAudioProcessor::isMidiEffect () const
 {
-#if JucePlugin_IsMidiEffect
-    return true;
-#else
     return false;
-#endif
 }
 
 double VenoAudioProcessor::getTailLengthSeconds () const
@@ -126,6 +119,7 @@ void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
     int numChannels = buffer.getNumChannels();
     for (int i = 0; i < numChannels; ++i)
     {
+        synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
         auto c = buffer.getReadPointer(i);
         for (int j = 0; j < buffer.getNumSamples(); ++j)
         {
