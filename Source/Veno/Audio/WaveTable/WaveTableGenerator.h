@@ -25,10 +25,10 @@ enum WaveForms
     SINE,
     SQUARE,
     TRIANGLE,
-    wSaw,
-    wSQUARE, //that stuff is to dirty xD,
-    SYNTHONE,
-    SYNTHTWO,
+    DIRTY_SAW,
+    DIRTY_SQUARE, //that stuff is to dirty xD,
+    SYNTH_ONE,
+    SYNTH_TWO,
     VENOX
 };
 class WaveTableGenerator

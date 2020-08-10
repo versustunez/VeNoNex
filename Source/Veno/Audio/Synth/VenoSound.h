@@ -5,7 +5,7 @@
 #ifndef VENO_VENOSOUND_H
 #define VENO_VENOSOUND_H
 
-#include "../../../../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 class VenoSound : public SynthesiserSound {
 public:

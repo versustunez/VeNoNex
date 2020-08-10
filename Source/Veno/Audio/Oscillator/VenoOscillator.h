@@ -13,7 +13,7 @@
 #include "Modules/FilterModule.h"
 #include "Modules/LimiterModule.h"
 #include "Modules/Vibrato.h"
-#include "TableOscillators/VenoWaveTableOscillator.h"
+#include "WaveTableOscillator.h"
 
 #define PI 3.141592653589793238462643383
 #define PI_4 0.78539816339
@@ -74,9 +74,6 @@ public:
     void setLevel(float level);
 
     void setWaveForm(int waveForm);
-
-    void setAlternateDetune(bool alternateMode);
-
     void setDetune(float detune);
 
     void setPitchBendRange(int up, int down);
@@ -86,7 +83,7 @@ public:
     std::string name = "osc0";
     float detuneDensity = 0; //shifting doom
 
-    VenoWaveTableOscillator tableHelper;
+    WaveTableOscillator tableHelper;
     // Modules
     VenoWidenessModule widenessModule;
     VenoFilterModule filter;
@@ -111,7 +108,7 @@ private:
     int pitchBend = 0; // between -100 and 100
     int pitchBendRange[2] = {12,12};
     int voices = 1;
-    int waveForm = VenoWaveTableGenerator::SAW;
+    int waveForm = WaveForms::SAW;
 
     float phase = 0;
     float level = 1;

@@ -4,5 +4,14 @@
 
 #ifndef VENO_SAWWAVES_H
 #define VENO_SAWWAVES_H
-void generateSaw (WaveTableGroup* group);
+
+#include "WaveTableGenerator.h"
+
+class SawWaves
+{
+public:
+    static void generateSaw(WaveTableGroup* group);
+    static void generateDirtySaw(WaveTableGroup* group);
+};
+
 #endif //VENO_SAWWAVES_H

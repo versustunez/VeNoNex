@@ -5,7 +5,7 @@
 #ifndef VENO_LIMITERMODULE_H
 #define VENO_LIMITERMODULE_H
 
-#include "../../../VenoUtils.h"
+#include "../../../Utils.h"
 /*
 this is a hard clipping limit! if values are greater then 1 stop it
 */
@@ -18,7 +18,7 @@ public:
     }
 
     float limit(float value) {
-        return VenoUtils::clamp(value, -1, 1);
+        return VeNo::Utils::clamp(value, -1, 1);
     }
 };
 

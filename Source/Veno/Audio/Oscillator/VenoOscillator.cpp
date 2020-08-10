@@ -3,8 +3,8 @@
 //
 
 #include <cmath>
+#include "../../Core/LookupTables.h"
 #include "VenoOscillator.h"
-#include "../../Core/VenoLookupTables.h"
 
 #define PI 3.141592653589793238462643383
 
@@ -116,14 +116,14 @@ float VenoOscillator::getFrequencyFromMidiNote() {
     }
     // the lookup will only work if no half notes are applied...
     if (pitchBend == 0) {
-        return VenoLookupTables::freqLookup[(int) midi];
+        return LookupTables::freqLookup[(int) midi];
     }
 
     midi += (pitchBend / 100);
     if (midi < 1) {
         midi = 1;
-    } else if (midi > 127) {
-        midi = 127;
+    } else if (midi > 128) {
+        midi = 128;
     }
     return std::exp((midi - 69) * std::log(2) / 12) * 440;
     //original formel => std::exp((midi - 69) * std::log(2) / 12) * 440;
@@ -153,10 +153,6 @@ void VenoOscillator::setWaveForm(int _waveForm) {
         _waveForm = 0;
     }
     tableHelper.setWaveTable(_waveForm);
-}
-
-void VenoOscillator::setAlternateDetune(bool alternateMode) {
-    tableHelper.detuneLookup.alternate = alternateMode;
 }
 
 void VenoOscillator::setDetune(float detune) {

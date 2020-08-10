@@ -103,8 +103,8 @@ void VenoVoice::renderNextBlock(AudioBuffer<float> &outputBuffer, int startSampl
         }
         ++startSample;
     }
-    /* if (synth->getChain() != nullptr) {
-        synth->getChain()->render(outputBuffer);
+    /* if (m_synth->getChain() != nullptr) {
+        m_synth->getChain()->render(outputBuffer);
     }*/
 }
 

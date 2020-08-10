@@ -38,10 +38,10 @@ void Sidebar::resized ()
 
 void Sidebar::paint (Graphics& g)
 {
-    auto logo = VenoLogo::getInstance()->getLogo();
+    auto logo = VenoLogo::getLogo();
     if (logo.isValid())
     {
-        float height = getWidth() / 5;
+        int height = getWidth() / 5;
         g.drawImage(logo, 0, 15, getWidth(), height, 0, 0, 500, 100);
     }
     else

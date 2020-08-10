@@ -29,7 +29,7 @@ void VenoLFO::setAmount(float amount) {
 
 VenoLFO::VenoLFO() {
     setRate(1);
-    tableHelper.setWaveTable(VenoWaveTableGenerator::WaveForms::SYNTHONE);
+    tableHelper.setWaveTable(WaveForms::SAW);
     tableHelper.waveTableMix = 1;
 }
 

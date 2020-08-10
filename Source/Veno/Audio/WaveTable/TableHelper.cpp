@@ -51,8 +51,8 @@ void fft (int N, double* ar, double* ai)
         LE *= 2;                          // (LE = 2^L)
         Ur = 1.0;
         Ui = 0.;
-        Wr = std::cos(M_PI / (float) LE1);
-        Wi = -std::sin(M_PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
+        Wr = std::cos(VeNo::Utils::PI / (float) LE1);
+        Wi = -std::sin(VeNo::Utils::PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
         for (j = 1; j <= LE1; j++)
         {
             for (i = j; i <= N; i += LE)

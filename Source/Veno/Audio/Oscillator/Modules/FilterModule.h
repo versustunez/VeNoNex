@@ -7,10 +7,9 @@
 
 #include <cmath>
 #include "JuceHeader.h"
-#include "../../../VenoUtils.h"
-#include "../TableOscillators/VenoWaveTableGenerator.h"
-
-#define DOUBLE_PI   6.283185307179586476925286766559
+#include "../../../Utils.h"
+#include "../../WaveTable/WaveTableGenerator.h"
+#include "../../../Core/AudioConfig.h"
 
 /**
  * Filter Module is the cutoff Filter for each oscillator.. it's not the state and which filter is used
@@ -23,12 +22,13 @@ public:
         if (_cutoff == lastCutoff && _q == q) {
             return;
         }
-        _cutoff = VenoUtils::clamp(_cutoff, 0.001, 100) / 100;
+        _cutoff = VeNo::Utils::clamp(_cutoff, 0.001, 100) / 100;
         if (_q < 0.1) {
             _q = 0.1f;
         }
-        float maxFreq = (VenoWaveTableGenerator::getInstance().sampleRate / 2) - 100;
-        cutoff.reset(VenoWaveTableGenerator::getInstance().sampleRate, 0.05f);
+        float sampleRate = AudioConfig::getInstance()->getSampleRate();
+        float maxFreq = (sampleRate / 2) - 100;
+        cutoff.reset(sampleRate, 0.05f);
         cutoff.setTargetValue(_cutoff * maxFreq);
         lastCutoff = _cutoff;
         q = _q;
@@ -63,7 +63,7 @@ public:
     int type = 0;
 protected:
     void updateCoefficient() {
-        float rate = VenoWaveTableGenerator::getInstance().sampleRate;
+        float rate = AudioConfig::getInstance()->getSampleRate();
         switch (type) {
             case NO:
                 return;
@@ -100,6 +100,4 @@ private:
         HIGHPASS
     };
 };
-
-#undef DOUBLE_PI
 #endif //VENO_FILTERMODULE_H

@@ -21,7 +21,7 @@ void AudioConfig::setSampleRate (float _sampleRate)
     }
 }
 
-float AudioConfig::getBufferSize ()
+float AudioConfig::getBufferSize () const
 {
     return m_bufferSize;
 }
@@ -63,12 +63,12 @@ AudioConfig::AudioConfig ()
 
 }
 
-void AudioConfig::registerInstance (std::string id)
+void AudioConfig::registerInstance (std::string& id)
 {
     m_instances[id] = id;
 }
 
-void AudioConfig::deleteInstance (std::string id)
+void AudioConfig::deleteInstance (std::string& id)
 {
     m_instances.erase (id);
     if (m_instances.size () == 0)

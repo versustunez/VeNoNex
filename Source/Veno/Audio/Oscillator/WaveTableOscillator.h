@@ -2,12 +2,12 @@
 // Created by versustune on 2020-02-28.
 //
 
-#ifndef VENO_VENOWAVETABLEOSCILLATOR_H
-#define VENO_VENOWAVETABLEOSCILLATOR_H
+#ifndef VENO_WAVETABLEOSCILLATOR_H
+#define VENO_WAVETABLEOSCILLATOR_H
 
 
-#include "VenoWaveTableGenerator.h"
-#include "../Static/Helper/DetuneLookup.h"
+#include "../WaveTable/WaveTableGenerator.h"
+#include "DetuneLookup.h"
 
 struct Voice {
     double mPhasor = 0.0;
@@ -17,7 +17,7 @@ struct Voice {
     WaveTableObject *currentWaveTable = nullptr;
 };
 
-class VenoWaveTableOscillator {
+class WaveTableOscillator {
 private:
     WaveTableGroup *baseWaveGroup = nullptr;
     WaveTableGroup *currentWaveGroup = nullptr;
@@ -28,13 +28,13 @@ private:
                               0.9963415939105666, 0.9962643415328123, 1.0005062539081053};
     bool isSineMode = false;
 public:
-    VenoWaveTableOscillator();
+    WaveTableOscillator();
 
-    ~VenoWaveTableOscillator() = default;
+    ~WaveTableOscillator() = default;
 
     void setFreq(float freq, int unisonVoices, float detuneAmp, float detuneDensity, int midiNote);
 
-    void setWaveTable(int table);
+    bool setWaveTable(int table);
 
     void setPhaseOffset(float offset);
 
@@ -61,4 +61,4 @@ protected:
 };
 
 
-#endif //VENO_VENOWAVETABLEOSCILLATOR_H
+#endif //VENO_WAVETABLEOSCILLATOR_H

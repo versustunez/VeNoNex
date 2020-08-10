@@ -36,5 +36,6 @@ public:
     std::shared_ptr<VenoInstance> instance;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoAudioProcessor);
-    Synthesiser synth;
+    Synthesiser m_synth;
+    bool m_isInit = false;
 };
