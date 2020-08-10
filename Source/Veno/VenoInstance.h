@@ -25,6 +25,7 @@ public:
     static std::shared_ptr<VenoInstance> createInstance (const std::string& id);
     static std::shared_ptr<VenoInstance> getInstance (const std::string& id);
     static void deleteInstance (const std::string& processId);
+    static bool hasInstance(const std::string& id);
     const std::shared_ptr<SynthInstance>& getSynthInstance () const;
     std::shared_ptr<VenoBuffer> audioBuffer;
     VeNoMatrix matrix{m_id}; //matrix need a own xml profile to save and restore!

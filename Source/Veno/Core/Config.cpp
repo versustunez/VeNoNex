@@ -139,7 +139,7 @@ void Config::repaintAll ()
 
 void Config::setFps (float value)
 {
-    m_fps = VeNo::Utils::clamp(value, 15, 90);
+    m_fps = (int) VeNo::Utils::clamp(value, 15.0f, 90.0f);
     m_config->setValue("waveform_fps", m_fps);
     m_config->setNeedsToBeSaved(true);
 }

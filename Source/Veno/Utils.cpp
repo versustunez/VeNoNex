@@ -5,9 +5,16 @@
 #include "Utils.h"
 #include "Core/Config.h"
 
+float VeNo::Utils::DB_GAIN_CONVERSION_MULTIPLIER = 20.0f;
+int VeNo::Utils::NOTES_PER_OCTAVE = 12;
+int VeNo::Utils::CENTS_PER_NOTE = 100;
+int VeNo::Utils::CENTS_PER_OCTAVE = NOTES_PER_OCTAVE * CENTS_PER_NOTE;
+double VeNo::Utils::DOUBLE_PI = 6.283185307179586476925286766559;
+double VeNo::Utils::PI = 3.14159265358979323846;
+
 int VeNo::Utils::nextPowerOfTwo (float value)
 {
-    unsigned int v = value;
+    auto v = (unsigned int) value;
     v--;
     v |= v >> 1;
     v |= v >> 2;
@@ -20,9 +27,9 @@ int VeNo::Utils::nextPowerOfTwo (float value)
 
 float VeNo::Utils::setFontSize (float size, Graphics& g)
 {
-    double scale = Config::getInstance()->getScale();
-    float s = size * scale;
-    g.setFont(s);
+    double scale = Config::getInstance ()->getScale ();
+    auto s = (float) (size * scale);
+    g.setFont (s);
     return s;
 }
 
@@ -32,35 +39,35 @@ float VeNo::Utils::clamp (float value, float min, float max)
 }
 
 void
-VeNo::Utils::setPosition (int width, int height, int x, int y, std::shared_ptr<Component> component, bool useMarginY)
+VeNo::Utils::setPosition (int width, int height, int x, int y, std::shared_ptr<Component>& component, bool useMarginY)
 {
-    double scale = Config::getInstance()->getScale();
-    double w = width * scale;
-    double h = height * scale;
+    double scale = Config::getInstance ()->getScale ();
+    int w = (int) (width * scale);
+    int h = (int) (height * scale);
     if (useMarginY)
     {
         y += 10;
     }
-    component->setBounds(x + 10, y, w, h);
+    component->setBounds (x + 10, y, w, h);
 }
 
-void VeNo::Utils::setPositionSameRow (int width, int height, std::shared_ptr<Component> component,
-                                      std::shared_ptr<Component> previous)
+void VeNo::Utils::setPositionSameRow (int width, int height, std::shared_ptr<Component>& component,
+                                      std::shared_ptr<Component>& previous)
 {
-    setPosition(width, height, previous->getX() + previous->getWidth(), previous->getY(), component, false);
+    setPosition (width, height, previous->getX () + previous->getWidth (), previous->getY (), component, false);
 }
 
-void VeNo::Utils::setPositionByPreviousRow (int width, int height, int x, std::shared_ptr<Component> component,
-                                            std::shared_ptr<Component> previous)
+void VeNo::Utils::setPositionByPreviousRow (int width, int height, int x, std::shared_ptr<Component>& component,
+                                            std::shared_ptr<Component>& previous)
 {
-    setPosition(width, height, x, previous->getY() + previous->getHeight(), component, true);
+    setPosition (width, height, x, previous->getY () + previous->getHeight (), component, true);
 }
 
 std::vector<int> VeNo::Utils::calcPosition (int width, int height, int prevWidth, int prevHeight)
 {
-    double scale = Config::getInstance()->getScale();
-    int w = (width * scale);
-    int h = (height * scale);
+    double scale = Config::getInstance ()->getScale ();
+    int w = (int) (width * scale);
+    int h = (int) (height * scale);
     int x = prevWidth + 10;
     int y = prevHeight + 10;
     return {x, y, w, h};
@@ -68,10 +75,42 @@ std::vector<int> VeNo::Utils::calcPosition (int width, int height, int prevWidth
 
 int VeNo::Utils::getCalculatedWidth (int width)
 {
-    return width * Config::getInstance()->getScale();
+    return (int) (width * Config::getInstance ()->getScale ());
 }
 
 int VeNo::Utils::getCalculatedHeight (int height)
 {
-    return height * Config::getInstance()->getScale();
+    return (int) (height * Config::getInstance ()->getScale ());
+}
+
+float VeNo::Utils::polyBlep (float t, float phaseInc)
+{
+    double dt = phaseInc / DOUBLE_PI;
+    if (t < dt) {
+        t /= (float) dt;
+        return t + t - t * t - 1.0f;
+    } else if (t > 1.0 - dt) {
+        t = (t - 1.0f) / (float) dt;
+        return t * t + t + t + 1.0f;
+    } else return 0.0f;
+}
+
+float VeNo::Utils::lerp (float a, float b, float f)
+{
+    return (a + (b - a) * f);
+}
+
+float VeNo::Utils::centsToRatio (float cents)
+{
+    return std::pow(2.0, cents / (float) CENTS_PER_OCTAVE);
+}
+
+float VeNo::Utils::gainToDb (float gain)
+{
+    return DB_GAIN_CONVERSION_MULTIPLIER * std::log10(gain);
+}
+
+float VeNo::Utils::dbToGain (float decibels)
+{
+    return std::pow(10.0, decibels / DB_GAIN_CONVERSION_MULTIPLIER);
 }

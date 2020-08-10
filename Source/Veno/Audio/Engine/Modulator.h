@@ -11,8 +11,8 @@ class Modulator
 public:
     Modulator ();
     ~Modulator ();
-    float getValue ();
-    void update ();
+    virtual float getValue ();
+    virtual void update ();
 protected:
     float m_value;
 };

@@ -9,8 +9,6 @@
 #include <cstdlib>
 #include "WaveTableGenerator.h"
 
-#define M_PI        3.14159265358979323846
-#define DOUBLE_PI   6.283185307179586476925286766559
 /*
  in-place complex fft
  After Cooley, Lewis, and Welch; from Rabiner & Gold (1975)

@@ -51,8 +51,8 @@ void fft (int N, double* ar, double* ai)
         LE *= 2;                          // (LE = 2^L)
         Ur = 1.0;
         Ui = 0.;
-        Wr = std::cos(M_PI / (float) LE1);
-        Wi = -std::sin(M_PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
+        Wr = std::cos(VeNo::Utils::PI / (float) LE1);
+        Wi = -std::sin(VeNo::Utils::PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
         for (j = 1; j <= LE1; j++)
         {
             for (i = j; i <= N; i += LE)
@@ -95,7 +95,8 @@ float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, dou
     if (group->m_numWaveTables < WaveTableGroup::numWaveTableSlots)
     {
         auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject();
-        float* waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable = new float[len + 1];
+        auto& waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable;
+        waveTable.resize(len + 1);
         table->m_waveTableLen = len;
         table->m_topFreq = topFreq;
         ++group->m_numWaveTables;

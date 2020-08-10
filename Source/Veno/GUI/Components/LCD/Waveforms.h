@@ -22,8 +22,8 @@ protected:
     std::string m_warmUpText[RANDOM_TEXT_COUNT] = {"Warmup...", "Mayonnaise", "Dont shake the baby", "Awesome stuff",
                                                    "drink beer"};
     int pickRandomText = 0;
-    bool m_isWelcome = true;
-    bool m_isStarting = true;
+    bool m_isWelcome = false;
+    bool m_isStarting = false;
     int m_ticks = 0;
     int m_time_needed_startup = 0;
     int m_time_needed = 0;
@@ -58,5 +58,6 @@ private:
     std::unique_ptr<OpenGLShaderProgram> shaderProgram;
     std::unique_ptr<DecibelScale> dBScale;
     int m_currentFps = 0;
+    void getState();
 };
 #endif //VENO_WAVEFORMS_H
