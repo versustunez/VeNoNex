@@ -18,9 +18,9 @@ VenoAudioProcessor::VenoAudioProcessor()
     AudioConfig::registerInstance(m_id);
 
   for (int p = 0; p < 5; p++) {
-    synth.addVoice(new VenoVoice(p, (double)getSampleRate()));
+    m_synth.addVoice(new VenoVoice(p, (double)getSampleRate()));
   }
-  synth.addSound(new VenoSound());
+  m_synth.addSound(new VenoSound());
 }
 
 VenoAudioProcessor::~VenoAudioProcessor()
