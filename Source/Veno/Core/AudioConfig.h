@@ -22,15 +22,15 @@ public:
     static std::shared_ptr<AudioConfig> getInstance ();
     float getSampleRate ();
     void setSampleRate (float _sampleRate);
-    float getBufferSize ();
+    float getBufferSize () const;
     void setBufferSize (float _bufferSize);
     bool isNeedToReInit () const;
     void setNeedToReInit (bool _needToReInit);
     static void initWaveTables ();
     AudioConfig();
     ~AudioConfig ();
-    static void registerInstance (std::string id);
-    static void deleteInstance (std::string id);
+    static void registerInstance (std::string& id);
+    static void deleteInstance (std::string& id);
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioConfig);
 };

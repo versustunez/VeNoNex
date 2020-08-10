@@ -22,12 +22,17 @@ void WaveTableGenerator::init ()
     m_waveTables[WaveForms::SINE] = new WaveTableGroup();
     m_waveTables[WaveForms::SQUARE] = new WaveTableGroup();
     m_waveTables[WaveForms::TRIANGLE] = new WaveTableGroup();
-    m_waveTables[WaveForms::wSaw] = new WaveTableGroup();
-    m_waveTables[WaveForms::wSQUARE] = new WaveTableGroup();
-    m_waveTables[WaveForms::SYNTHONE] = new WaveTableGroup();
-    m_waveTables[WaveForms::SYNTHTWO] = new WaveTableGroup();
+    m_waveTables[WaveForms::DIRTY_SAW] = new WaveTableGroup();
+    m_waveTables[WaveForms::DIRTY_SQUARE] = new WaveTableGroup();
+    m_waveTables[WaveForms::SYNTH_ONE] = new WaveTableGroup();
+    m_waveTables[WaveForms::SYNTH_TWO] = new WaveTableGroup();
     m_waveTables[WaveForms::VENOX] = new WaveTableGroup();
-    generateSaw(m_waveTables[WaveForms::SAW]);
+    SawWaves::generateSaw(m_waveTables[WaveForms::SAW]);
+    SawWaves::generateDirtySaw(m_waveTables[WaveForms::DIRTY_SAW]);
+    SineWaves::generateSine(m_waveTables[WaveForms::SINE]);
+    SquareWaves::generateSquare(m_waveTables[WaveForms::SQUARE]);
+    SquareWaves::generateDirtySquare(m_waveTables[WaveForms::DIRTY_SQUARE]);
+    TriangleWaves::generateTriangle(m_waveTables[WaveForms::TRIANGLE]);
     m_isInit = true;
 }
 
@@ -48,11 +53,11 @@ void WaveTableGenerator::cleanTables ()
 {
     for (auto& m_waveTable : m_waveTables)
     {
-        for (int i = 0; i < numWaveTableSlots; ++i)
+        for (auto & m_WaveTable : m_waveTable->m_WaveTables)
         {
-            if (m_waveTable != nullptr && m_waveTable->m_WaveTables[i] != nullptr) {
-                delete[] m_waveTable->m_WaveTables[i]->m_waveTable;
-                delete m_waveTable->m_WaveTables[i];
+            if (m_waveTable != nullptr && m_WaveTable != nullptr) {
+                delete[] m_WaveTable->m_waveTable;
+                delete m_WaveTable;
             }
         }
         delete m_waveTable;

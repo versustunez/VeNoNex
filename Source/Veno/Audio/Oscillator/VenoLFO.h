@@ -6,14 +6,14 @@
 #define VENO_VENOLFO_H
 
 
-#include "TableOscillators/VenoWaveTableOscillator.h"
+#include "WaveTableOscillator.h"
 
 class VenoLFO {
 private:
     //max amount is 5
     float amount = 1;
     float rate = 0; //frequency
-    VenoWaveTableOscillator tableHelper;
+    WaveTableOscillator tableHelper;
 public:
     VenoLFO();
     ~VenoLFO();
