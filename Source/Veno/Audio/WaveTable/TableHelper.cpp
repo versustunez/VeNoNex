@@ -95,7 +95,8 @@ float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, dou
     if (group->m_numWaveTables < WaveTableGroup::numWaveTableSlots)
     {
         auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject();
-        float* waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable = new float[len + 1];
+        auto& waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable;
+        waveTable.resize(len + 1);
         table->m_waveTableLen = len;
         table->m_topFreq = topFreq;
         ++group->m_numWaveTables;

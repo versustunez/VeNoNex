@@ -69,10 +69,12 @@ void WaveTableOscillator::setFreqForVoice(int voice, float freq) {
         }
         currentVoice->currentWaveTable = currentWaveGroup->m_WaveTables[curWaveTable];
 
-        curWaveTable = 0;
-        while ((inc >= baseWaveGroup->m_WaveTables[curWaveTable]->m_topFreq) &&
-               (curWaveTable < (baseWaveGroup->m_numWaveTables - 1))) {
-            ++curWaveTable;
+        if (currentWaveGroup != baseWaveGroup) {
+            curWaveTable = 0;
+            while ((inc >= baseWaveGroup->m_WaveTables[curWaveTable]->m_topFreq) &&
+                   (curWaveTable < (baseWaveGroup->m_numWaveTables - 1))) {
+                ++curWaveTable;
+            }
         }
         currentVoice->baseWaveTable = baseWaveGroup->m_WaveTables[curWaveTable];
     } else {

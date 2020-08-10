@@ -6,14 +6,8 @@
 #include "../../Core/AudioConfig.h"
 #include "WavesInlcuder.h"
 
-void WaveTableGenerator::init ()
+void WaveTableGenerator::init()
 {
-    //if the sampleRate changed... the WaveTables are not harmonic Save anymore and are needed to rebuild... pls stay save later!
-    if (AudioConfig::getInstance()->isNeedToReInit())
-    {
-        cleanTables();
-        AudioConfig::getInstance()->setNeedToReInit(false);
-    }
     if (m_isInit)
     {
         return;
@@ -33,10 +27,11 @@ void WaveTableGenerator::init ()
     SquareWaves::generateSquare(m_waveTables[WaveForms::SQUARE]);
     SquareWaves::generateDirtySquare(m_waveTables[WaveForms::DIRTY_SQUARE]);
     TriangleWaves::generateTriangle(m_waveTables[WaveForms::TRIANGLE]);
+    addedWaveForms = WaveForms::VENOX + 1;
     m_isInit = true;
 }
 
-WaveTableGroup* WaveTableGenerator::getGroup (int id)
+WaveTableGroup* WaveTableGenerator::getGroup(int id)
 {
     if (!m_isInit)
     {
@@ -49,18 +44,24 @@ WaveTableGroup* WaveTableGenerator::getGroup (int id)
     return nullptr;
 }
 
-void WaveTableGenerator::cleanTables ()
+void WaveTableGenerator::cleanTables()
 {
-    for (auto& m_waveTable : m_waveTables)
+    if (m_isInit)
     {
-        for (auto & m_WaveTable : m_waveTable->m_WaveTables)
+        for (int i = 0; i < addedWaveForms; i++)
         {
-            if (m_waveTable != nullptr && m_WaveTable != nullptr) {
-                delete[] m_WaveTable->m_waveTable;
-                delete m_WaveTable;
+            auto& table = m_waveTables[i];
+            if (table != nullptr)
+            {
+                for (int j = 0; j < table->m_numWaveTables; j++)
+                {
+                    delete table->m_WaveTables[j];
+                    table->m_WaveTables[j] = nullptr;
+                }
+                delete table;
+                table = nullptr;
             }
         }
-        delete m_waveTable;
     }
     m_isInit = false;
 }

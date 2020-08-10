@@ -9,16 +9,28 @@
 
 struct WaveTableObject
 {
+    ~WaveTableObject() {
+        m_waveTable.clear();
+    }
     double m_topFreq;
     int m_waveTableLen;
-    float* m_waveTable;
+    std::vector<float> m_waveTable = {};
 };
+
 struct WaveTableGroup
 {
     static constexpr int numWaveTableSlots = 40;
     WaveTableObject* m_WaveTables[numWaveTableSlots] = {};
     int m_numWaveTables = 0;
+
+    ~WaveTableGroup() {
+        for (auto & m_WaveTable : m_WaveTables)
+        {
+            delete m_WaveTable;
+        }
+    }
 };
+
 enum WaveForms
 {
     SAW = 0,
@@ -48,6 +60,7 @@ public:
     void cleanTables ();
 protected:
     bool m_isInit = false;
+    int addedWaveForms = 0;
     WaveTableGenerator () = default;
     ~WaveTableGenerator () = default;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveTableGenerator)

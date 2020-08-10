@@ -59,6 +59,7 @@ void VenoVoice::controllerMoved(int controllerNumber, int newControllerValue) {
 }
 
 void VenoVoice::renderNextBlock(AudioBuffer<float> &outputBuffer, int startSample, int numSamples) {
+    synth->updateSampleRate(); // is not heavy alot of the time!
     int count = synth->count;
     if (synth->vibrato != nullptr) {
         synth->vibrato->update();
@@ -80,7 +81,7 @@ void VenoVoice::renderNextBlock(AudioBuffer<float> &outputBuffer, int startSampl
                 bool status = osc->render();
                 if (status) {
                     runIntoSample = true;
-                    output[0] += osc->getMono() * envValue;
+                    output[0] += osc->getValue() * envValue;
                     output[1] += osc->getLeft() * envValue;
                     output[2] += osc->getRight() * envValue;
                 }

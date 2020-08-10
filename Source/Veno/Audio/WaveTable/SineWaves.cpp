@@ -30,7 +30,8 @@ void SineWaves::generateSine(WaveTableGroup* group)
         currentAngle += angleDelta;
     }
     auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject();
-    float* waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable = new float[tableLen];
+    auto& waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable;
+    waveTable.resize(tableLen + 1);
     table->m_waveTableLen = tableLen;
     table->m_topFreq = AudioConfig::getInstance()->getSampleRate() / 2;
     ++group->m_numWaveTables;

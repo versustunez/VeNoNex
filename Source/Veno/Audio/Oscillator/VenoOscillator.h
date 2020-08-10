@@ -14,6 +14,7 @@
 #include "Modules/LimiterModule.h"
 #include "Modules/Vibrato.h"
 #include "WaveTableOscillator.h"
+#include "../Engine/Modulator.h"
 
 #define PI 3.141592653589793238462643383
 #define PI_4 0.78539816339
@@ -23,9 +24,9 @@
  * this is the base class from all Oscillator
  * Detune only works with 2 or more Voices
  */
-class VenoOscillator {
+class VenoOscillator : public Modulator {
 public:
-    VenoOscillator(VenoLFO *vibratoLFO);
+    explicit VenoOscillator(VenoLFO *vibratoLFO);
 
     ~VenoOscillator() = default;
 
@@ -37,13 +38,15 @@ public:
 
     void stop();
 
+    void update() override;
+
     void setActive(bool active) {
         VenoOscillator::active = active;
     };
 
     void setVoices(int voiceCount);
 
-    float getMono() {
+    float getValue() override {
         return output[0];
     }
 
