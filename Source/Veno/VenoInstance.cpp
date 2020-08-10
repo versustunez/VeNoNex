@@ -34,7 +34,7 @@ std::shared_ptr<VenoInstance> VenoInstance::createInstance (const std::string& i
 // will return the instance or a empty new on... can find out because the id is fucked!
 std::shared_ptr<VenoInstance> VenoInstance::getInstance (const std::string& id)
 {
-    if (instances.find(id) != instances.end())
+    if (hasInstance(id))
     {
         return instances[id];
     }
@@ -48,7 +48,7 @@ const std::shared_ptr<SynthInstance>& VenoInstance::getSynthInstance () const
 
 void VenoInstance::deleteInstance (const std::string& processId)
 {
-    if (instances.find(processId) != instances.end())
+    if (hasInstance(processId))
     {
         instances[processId].reset();
         instances.erase(processId);
@@ -59,4 +59,9 @@ void VenoInstance::deleteInstance (const std::string& processId)
 std::unordered_map<std::string, std::shared_ptr<VenoInstance>> VenoInstance::getAll ()
 {
     return instances;
+}
+
+bool VenoInstance::hasInstance(const std::string& id)
+{
+    return instances.find(id) != instances.end();
 }

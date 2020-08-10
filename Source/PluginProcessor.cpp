@@ -81,9 +81,8 @@ void VenoAudioProcessor::changeProgramName(int index, const String& newName)
 //==============================================================================
 void VenoAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    auto audioConfig = AudioConfig::getInstance();
-    audioConfig->setSampleRate(sampleRate);
-    audioConfig->initWaveTables();
+    DBG("SampleRate: " << sampleRate);
+    AudioConfig::getInstance()->setSampleRate(sampleRate);
     m_synth.setCurrentPlaybackSampleRate(sampleRate);
     if (!m_isInit)
     {
@@ -127,7 +126,10 @@ void VenoAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer& mi
     int numChannels = buffer.getNumChannels(), numSamples = buffer.getNumSamples();
     instance->matrix.updateSlots();
     instance->audioBuffer->reset(numSamples);
-    m_synth.renderNextBlock(buffer, midiMessages, 0, numSamples);
+    if (m_isInit)
+    {
+        m_synth.renderNextBlock(buffer, midiMessages, 0, numSamples);
+    }
     for (int i = 0; i < numChannels; ++i)
     {
         auto c = buffer.getReadPointer(i);

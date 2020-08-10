@@ -17,6 +17,8 @@ void VenoOscillator::start(int currentMidiNote) {
         return;
     }
     midiNote = currentMidiNote;
+    tableHelper.setWaveTable(waveForm);
+
     tableHelper.setFreq(getFrequencyFromMidiNote(), voices, detune, detuneDensity, midiNote);
     //re-trigger oscillator from start phase else move with the flow
     if (reTrigger) {
@@ -125,7 +127,7 @@ float VenoOscillator::getFrequencyFromMidiNote() {
     } else if (midi > 128) {
         midi = 128;
     }
-    return std::exp((midi - 69) * std::log(2) / 12) * 440;
+    return std::exp((midi - 69) * std::log(2) / 12) * 440.0f;
     //original formel => std::exp((midi - 69) * std::log(2) / 12) * 440;
 }
 
@@ -189,6 +191,11 @@ void VenoOscillator::setPitchBendRangeUp(int up) {
 
 void VenoOscillator::setPitchBendRangeDown(int down) {
     pitchBendRange[1] = down;
+}
+
+// for the Oscillator this functions is doing nothing because it only should render if needed!
+void VenoOscillator::update()
+{
 }
 
 #undef PI

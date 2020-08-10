@@ -6,6 +6,7 @@
 
 void VenoLFO::update() {
     //same shit the updatePhase
+    tableHelper.setWaveTable(WaveForms::SAW);
     tableHelper.updatePhase(0);
 }
 

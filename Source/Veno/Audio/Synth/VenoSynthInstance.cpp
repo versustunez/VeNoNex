@@ -6,21 +6,27 @@
 
 #include <utility>
 
-VenoSynthInstance::VenoSynthInstance(double sampleRate) {
+VenoSynthInstance::VenoSynthInstance(double sampleRate)
+{
+    // this vibrato is not needed! because it should handled via matrix later
     vibrato = new VenoLFO();
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
         oscillators[i] = new VenoOscillator(vibrato);
         oscillators[i]->name = "osc" + std::to_string(i);
         envelopes[i] = new VenoEnvelope(sampleRate);
+        envelopes[i]->name = "osc" + std::to_string(i);
         oscillators[i]->setup();
-        if (i == 0) {
+        if (i == 0)
+        {
             oscillators[i]->setActive(true);
         }
     }
     isInit = true;
 }
 
-VenoSynthInstance::~VenoSynthInstance() {
+VenoSynthInstance::~VenoSynthInstance()
+{
     delete oscillators[0];
     delete oscillators[1];
     delete oscillators[2];
@@ -33,6 +39,18 @@ VenoSynthInstance::~VenoSynthInstance() {
     delete lfos[1];
     delete vibrato;
     // VenoSynthInstance::chain = nullptr;
+}
+void VenoSynthInstance::updateSampleRate()
+{
+    float sRate = AudioConfig::getInstance()->getSampleRate();
+    if (lastSampleRate != sRate)
+    {
+        lastSampleRate = sRate;
+        for (int i = 0; i < count; i++)
+        {
+            envelopes[i]->setSampleRate(lastSampleRate);
+        }
+    }
 }
 
 /* void VenoSynthInstance::setChain(std::shared_ptr<Chain>& chainModule) {

@@ -25,6 +25,7 @@ public:
     void noteOn();
     void noteOff();
     bool reTrigger = false;
+    std::string name;
 protected:
     ADSR::Parameters parameters {};
     ADSR adsr;

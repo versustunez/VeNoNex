@@ -30,6 +30,7 @@ public:
     int count = 4;
     bool isInit = false;
     VenoLFO *vibrato = {};
+    void updateSampleRate();
     // void setChain(std::shared_ptr<Chain>& chainModule);
 
     // std::shared_ptr<Chain> getChain();
@@ -39,6 +40,7 @@ private:
     VenoEnvelope *envelopes[4];
     // 2 free oscillator and one for vibrato...
     VenoLFO *lfos[2]{};
+    float lastSampleRate = 0;
     // std::shared_ptr<Chain> chain;
 };
 

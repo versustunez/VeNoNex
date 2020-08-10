@@ -17,5 +17,6 @@ public:
     VeNoState(std::string pid);
     ~VeNoState();
     VenoConfigScreen* configScreen = nullptr;
+    bool m_isFirstEditor;
 };
 #endif //VENO_VENOSTATE_H
