@@ -5,16 +5,25 @@
 #include "LookHandler.h"
 #include "../../Core/Config.h"
 
-LookHandler::LookHandler() {
+LookHandler::LookHandler ()
+{
     selectLook(Config::getInstance()->getCurrentLook());
 }
 
-LookHandler::~LookHandler() {
+LookHandler::~LookHandler ()
+{
     //delete this shit!
-    delete feels[0];
-    delete feels[1];
+    delete m_feels[0];
+    delete m_feels[1];
+    m_look.reset();
 }
 
-void LookHandler::selectLook(int index) {
-    currentLook = index;
+void LookHandler::selectLook (int index)
+{
+    m_currentLook = index;
+}
+
+LookAndFeel_V4* LookHandler::getLook ()
+{
+    return m_feels[m_currentLook];
 }

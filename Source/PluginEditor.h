@@ -3,19 +3,19 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "Veno/GUI/LookAndFeel/LookHandler.h"
+#include "Veno/GUI/GUIParts/Sidebar/Sidebar.h"
 
-class VenoAudioProcessorEditor  : public AudioProcessorEditor
+class VenoAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
     VenoAudioProcessorEditor (VenoAudioProcessor&);
-    ~VenoAudioProcessorEditor();
+    ~VenoAudioProcessorEditor ();
     void paint (Graphics&) override;
-    void resized() override;
-
+    void resized () override;
 private:
     VenoAudioProcessor& processor;
-    std::string id = Uuid().toString().toStdString();
-    LookAndFeel_V4 *look = new LookHandler();
-
+    std::string m_id = "";
+    LookAndFeel_V4* m_look = new LookHandler();
+    std::unique_ptr<Sidebar> m_sidebar;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoAudioProcessorEditor)
 };

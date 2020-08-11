@@ -7,11 +7,10 @@
 
 #include "JuceHeader.h"
 
-class CrazyLook : public LookAndFeel_V4 {
+class CrazyLook : public LookAndFeel_V4
+{
 private:
 public:
 protected:
 };
-
-
 #endif //VENO_CRAZYLOOK_H

@@ -1,36 +1,35 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "Veno/Core/AudioConfig.h"
 
-//==============================================================================
 VenoAudioProcessor::VenoAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
-                       )
+        : AudioProcessor(BusesProperties()
+#if !JucePlugin_IsMidiEffect
+#if !JucePlugin_IsSynth
+                                 .withInput  ("Input",  AudioChannelSet::stereo(), true)
+#endif
+                                 .withOutput("Output", AudioChannelSet::stereo(), true)
+#endif
+)
 #endif
 {
+    instance = VenoInstance::createInstance(m_id);
+    AudioConfig::registerInstance(m_id);
+
+  for (int p = 0; p < 5; p++) {
+    m_synth.addVoice(new VenoVoice(p, (double)getSampleRate()));
+  }
+  m_synth.addSound(new VenoSound());
 }
 
 VenoAudioProcessor::~VenoAudioProcessor()
 {
+    instance.reset();
+    VenoInstance::deleteInstance(m_id);
+    AudioConfig::deleteInstance(m_id);
 }
 
-//==============================================================================
 const String VenoAudioProcessor::getName() const
 {
     return JucePlugin_Name;
@@ -38,29 +37,17 @@ const String VenoAudioProcessor::getName() const
 
 bool VenoAudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
     return true;
-   #else
-    return false;
-   #endif
 }
 
 bool VenoAudioProcessor::producesMidi() const
 {
-   #if JucePlugin_ProducesMidiOutput
-    return true;
-   #else
     return false;
-   #endif
 }
 
 bool VenoAudioProcessor::isMidiEffect() const
 {
-   #if JucePlugin_IsMidiEffect
-    return true;
-   #else
     return false;
-   #endif
 }
 
 double VenoAudioProcessor::getTailLengthSeconds() const
@@ -70,8 +57,7 @@ double VenoAudioProcessor::getTailLengthSeconds() const
 
 int VenoAudioProcessor::getNumPrograms()
 {
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    return 1;
 }
 
 int VenoAudioProcessor::getCurrentProgram()
@@ -79,112 +65,122 @@ int VenoAudioProcessor::getCurrentProgram()
     return 0;
 }
 
-void VenoAudioProcessor::setCurrentProgram (int index)
+void VenoAudioProcessor::setCurrentProgram(int index)
 {
 }
 
-const String VenoAudioProcessor::getProgramName (int index)
+const String VenoAudioProcessor::getProgramName(int index)
 {
     return {};
 }
 
-void VenoAudioProcessor::changeProgramName (int index, const String& newName)
+void VenoAudioProcessor::changeProgramName(int index, const String& newName)
 {
 }
 
 //==============================================================================
-void VenoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void VenoAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    DBG("SampleRate: " << sampleRate);
+    AudioConfig::getInstance()->setSampleRate(sampleRate);
+    m_synth.setCurrentPlaybackSampleRate(sampleRate);
+    if (!m_isInit)
+    {
+        for (int p = 0; p < 5; p++)
+        {
+            m_synth.addVoice(new VenoVoice(p, sampleRate));
+        }
+        m_synth.addSound(new VenoSound());
+        m_isInit = true;
+    }
 }
 
 void VenoAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool VenoAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+
+bool VenoAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
-  #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
     return true;
-  #else
-    // This is the place where you check if the layout is supported.
-    // In this template code we only support mono or stereo.
+#else
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+        && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
         return false;
-
-    // This checks if the input layout matches the output layout
-   #if ! JucePlugin_IsSynth
+#if !JucePlugin_IsSynth
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-   #endif
-
+#endif
     return true;
-  #endif
+#endif
 }
+
 #endif
 
-void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void VenoAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
-
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
-
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    int numChannels = buffer.getNumChannels(), numSamples = buffer.getNumSamples();
+    instance->matrix.updateSlots();
+    instance->audioBuffer->reset(numSamples);
+    if (m_isInit)
     {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
+        m_synth.renderNextBlock(buffer, midiMessages, 0, numSamples);
     }
+    for (int i = 0; i < numChannels; ++i)
+    {
+        auto c = buffer.getReadPointer(i);
+        for (int j = 0; j < numSamples; ++j)
+        {
+            instance->audioBuffer->addMonoSample(c[j], j);
+            if (i == 0)
+            {
+                instance->audioBuffer->addLeftSample(c[j], j);
+            }
+            if (i == 1 || numChannels == 1)
+            {
+                instance->audioBuffer->addRightSample(c[j], j);
+            }
+        }
+    }
+    instance->audioBuffer->calcPeak();
 }
 
 //==============================================================================
 bool VenoAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    return true;
 }
 
 AudioProcessorEditor* VenoAudioProcessor::createEditor()
 {
-    return new VenoAudioProcessorEditor (*this);
+    return new VenoAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void VenoAudioProcessor::getStateInformation (MemoryBlock& destData)
+void VenoAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    auto matrixXML = instance->matrix.saveMatrixToXML();
+    if (matrixXML != nullptr)
+    {
+        copyXmlToBinary(*matrixXML, destData);
+    }
+    else
+    {
+        DBG("Sorry something went wrong! xml is nullptr");
+    }
 }
 
-void VenoAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void VenoAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    if (xmlState != nullptr)
+        instance->matrix.getMatrixFromXML(xmlState);
 }
 
-//==============================================================================
-// This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new VenoAudioProcessor();
