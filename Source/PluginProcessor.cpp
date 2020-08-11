@@ -16,6 +16,11 @@ VenoAudioProcessor::VenoAudioProcessor()
 {
     instance = VenoInstance::createInstance(m_id);
     AudioConfig::registerInstance(m_id);
+
+  for (int p = 0; p < 5; p++) {
+    m_synth.addVoice(new VenoVoice(p, (double)getSampleRate()));
+  }
+  m_synth.addSound(new VenoSound());
 }
 
 VenoAudioProcessor::~VenoAudioProcessor()
