@@ -29,7 +29,7 @@ public:
 protected:
     ADSR::Parameters parameters {};
     ADSR adsr;
-    double sampleRate;
+    double m_sampleRate = 44100;
 };
 
 #endif //VENO_VENOENVELOPE_H

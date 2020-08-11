@@ -124,7 +124,10 @@ float WaveTableOscillator::getOutputForPhaseAndWaveTable(WaveTableObject *table,
     }
     float val = phase * (float) table->m_waveTableLen;
     int value = (int) val;
-    int temp = (int) val + 1; // should work fine because the table is always 1 bigger
+    int temp = (int) val + 1;
+    if (temp > table->m_waveTableLen) {
+        temp -= table->m_waveTableLen;
+    }
     float sum = table->m_waveTable[value];
     float sum2 = table->m_waveTable[temp];
 
