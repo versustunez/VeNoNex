@@ -11,6 +11,7 @@
 #include "Audio/VenoBuffer.h"
 #include "Audio/Engine/VeNoMatrix.h"
 #include "Core/VeNoState.h"
+#include "Core/ParameterHandler.h"
 #include <unordered_map>
 
 class VenoInstance
@@ -28,8 +29,9 @@ public:
     static bool hasInstance(const std::string& id);
     const std::shared_ptr<SynthInstance>& getSynthInstance () const;
     std::shared_ptr<VenoBuffer> audioBuffer;
-    VeNoMatrix matrix{m_id}; //matrix need a own xml profile to save and restore!
+    VeNoMatrix* matrix; //matrix need a own xml profile to save and restore!
     VeNoState* state;
+    ParameterHandler* handler;
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> getAll ();
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoInstance);

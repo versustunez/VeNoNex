@@ -19,3 +19,10 @@ ModulateValue::~ModulateValue ()
 {
 
 }
+
+void ModulateValue::set(float value, float max, float min)
+{
+    m_baseValue = value;
+    m_maxValue = max;
+    m_minValue = min;
+}

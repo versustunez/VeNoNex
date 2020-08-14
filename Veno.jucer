@@ -184,6 +184,10 @@
           <FILE id="e1wHY7" name="Config.h" compile="0" resource="0" file="Source/Veno/Core/Config.h"/>
           <FILE id="N4N9kE" name="LookupTables.cpp" compile="1" resource="0"
                 file="Source/Veno/Core/LookupTables.cpp"/>
+          <FILE id="u5sNzC" name="ParameterHandler.cpp" compile="1" resource="0"
+                file="Source/Veno/Core/ParameterHandler.cpp"/>
+          <FILE id="LlLIsA" name="ParameterHandler.h" compile="0" resource="0"
+                file="Source/Veno/Core/ParameterHandler.h"/>
           <FILE id="i3vbdH" name="PresetManager.cpp" compile="1" resource="0"
                 file="Source/Veno/Core/PresetManager.cpp"/>
           <FILE id="WV2uuz" name="PresetManager.h" compile="0" resource="0" file="Source/Veno/Core/PresetManager.h"/>

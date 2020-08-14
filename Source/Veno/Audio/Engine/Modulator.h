@@ -10,7 +10,7 @@ class Modulator
 {
 public:
     Modulator ();
-    ~Modulator ();
+    virtual ~Modulator ();
     virtual float getValue ();
     virtual void update ();
 protected:

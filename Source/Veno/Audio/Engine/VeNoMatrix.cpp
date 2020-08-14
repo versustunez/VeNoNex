@@ -7,10 +7,12 @@
 
 VeNoMatrix::VeNoMatrix (const std::string& processId) : m_processId (processId)
 {
+    DBG("Create Matrix with ID: " + processId);
 }
 
 VeNoMatrix::~VeNoMatrix ()
 {
+    DBG("Destroy Matrix!");
     for (auto& m_slot : m_slots)
     {
         delete m_slot.second;

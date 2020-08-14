@@ -8,31 +8,39 @@
 
 std::unordered_map<std::string, std::shared_ptr<VenoInstance>> VenoInstance::instances;
 
-VenoInstance::VenoInstance (std::string id)
+VenoInstance::VenoInstance(std::string id)
 {
     m_id = std::move(id);
     m_synthInstance = std::make_shared<SynthInstance>(id);
     audioBuffer = std::make_shared<VenoBuffer>();
-    state = new VeNoState(id);
+    state = new VeNoState(m_id);
+    matrix = new VeNoMatrix(m_id);
+    handler = new ParameterHandler(m_id);
 }
 
-VenoInstance::~VenoInstance ()
+VenoInstance::~VenoInstance()
 {
     m_synthInstance.reset();
     audioBuffer.reset();
     delete state;
+    delete matrix;
+    delete handler;
 }
 
-std::shared_ptr<VenoInstance> VenoInstance::createInstance (const std::string& id)
+std::shared_ptr<VenoInstance> VenoInstance::createInstance(const std::string& id)
 {
+    if (hasInstance(id))
+    {
+        return getInstance(id);
+    }
     auto instance = std::make_shared<VenoInstance>(id);
     instances.insert(std::pair<std::string, std::shared_ptr<VenoInstance>>(id, instance));
-    VeNo::Logger::debugMessage("Created VenoInstance with id: " + id);
+    DBG("Created VenoInstance with id: " + id);
     return instance;
 }
 
 // will return the instance or a empty new on... can find out because the id is fucked!
-std::shared_ptr<VenoInstance> VenoInstance::getInstance (const std::string& id)
+std::shared_ptr<VenoInstance> VenoInstance::getInstance(const std::string& id)
 {
     if (hasInstance(id))
     {
@@ -41,12 +49,12 @@ std::shared_ptr<VenoInstance> VenoInstance::getInstance (const std::string& id)
     return createInstance(id);
 }
 
-const std::shared_ptr<SynthInstance>& VenoInstance::getSynthInstance () const
+const std::shared_ptr<SynthInstance>& VenoInstance::getSynthInstance() const
 {
     return m_synthInstance;
 }
 
-void VenoInstance::deleteInstance (const std::string& processId)
+void VenoInstance::deleteInstance(const std::string& processId)
 {
     if (hasInstance(processId))
     {
@@ -56,7 +64,7 @@ void VenoInstance::deleteInstance (const std::string& processId)
     }
 }
 
-std::unordered_map<std::string, std::shared_ptr<VenoInstance>> VenoInstance::getAll ()
+std::unordered_map<std::string, std::shared_ptr<VenoInstance>> VenoInstance::getAll()
 {
     return instances;
 }

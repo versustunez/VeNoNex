@@ -32,10 +32,11 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     // Variable to communicate with the GUI and the Processor
-    std::string m_id = Uuid().toString().toStdString();
+    std::string m_id;
     std::shared_ptr<VenoInstance> instance;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoAudioProcessor);
     Synthesiser m_synth;
     bool m_isInit = false;
+    AudioProcessorValueTreeState treeState;
 };
