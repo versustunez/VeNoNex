@@ -10,27 +10,23 @@
 #include "DetuneLookup.h"
 
 struct Voice {
-    double mPhasor = 0.0;
-    double mPhaseInc = 0.0;
-    double mPhaseOfs = 0;
-    WaveTableObject *baseWaveTable = nullptr;
-    WaveTableObject *currentWaveTable = nullptr;
+    double m_phasor = 0.0;
+    double m_phaseInc = 0.0;
+    double m_phaseOfs = 0;
+    WaveTableObject *m_baseWaveTable = nullptr;
+    WaveTableObject *m_currentWaveTable = nullptr;
 };
 
 class WaveTableOscillator {
 private:
-    WaveTableGroup *baseWaveGroup = nullptr;
-    WaveTableGroup *currentWaveGroup = nullptr;
+    WaveTableGroup *m_baseWaveGroup = nullptr;
+    WaveTableGroup *m_currentWaveGroup = nullptr;
     static constexpr int voiceCount = 9;
-    Voice *voices[voiceCount] = {};
-    float detuneBalance[9] = {0.9994299170182994, 0.9986636836409448, 1.0040088043085003, 0.9964991290729566,
-                              1, 1.0005758205730941,
-                              0.9963415939105666, 0.9962643415328123, 1.0005062539081053};
-    bool isSineMode = false;
+    Voice *m_voices[voiceCount]{};
 public:
     WaveTableOscillator();
 
-    ~WaveTableOscillator() = default;
+    ~WaveTableOscillator();
 
     void setFreq(float freq, int unisonVoices, float detuneAmp, float detuneDensity, int midiNote);
 

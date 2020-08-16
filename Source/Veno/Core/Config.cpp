@@ -87,6 +87,9 @@ void Config::removeEditor (const std::string& name)
     m_editors.erase(name);
     if (m_editors.empty())
     {
+        m_instance.reset();
+        m_theme.reset();
+        m_theme = nullptr;
         m_instance = nullptr;
     }
 }
@@ -142,4 +145,9 @@ void Config::setFps (float value)
     m_fps = (int) VeNo::Utils::clamp(value, 15.0f, 90.0f);
     m_config->setValue("waveform_fps", m_fps);
     m_config->setNeedsToBeSaved(true);
+}
+
+bool Config::hasInstance ()
+{
+    return m_instance != nullptr;
 }

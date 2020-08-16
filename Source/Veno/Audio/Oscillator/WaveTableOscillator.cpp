@@ -5,10 +5,11 @@
 #include "WaveTableOscillator.h"
 #include "../../Core/AudioConfig.h"
 #include "../../Utils.h"
+#include "../../Core/LookupTables.h"
 
 WaveTableOscillator::WaveTableOscillator() {
-    baseWaveGroup = WaveTableGenerator::getInstance().getGroup(WaveForms::SAW);
-    for (auto &voice : voices) {
+    m_baseWaveGroup = WaveTableGenerator::getInstance().getGroup(WaveForms::SAW);
+    for (auto &voice : m_voices) {
         voice = new Voice();
     }
 }
@@ -29,73 +30,73 @@ WaveTableOscillator::setFreq(float freq, int unisonVoices, float detuneAmp, floa
 }
 
 void WaveTableOscillator::setPhaseOffset(float offset) {
-    for (auto &voice : voices) {
-        voice->mPhaseOfs = offset;
+    for (auto &voice : m_voices) {
+        voice->m_phaseOfs = offset;
     }
 }
 
 void WaveTableOscillator::updatePhase(int voice) {
-    auto cVoice = voices[voice];
-    cVoice->mPhasor += cVoice->mPhaseInc;
-    if (cVoice->mPhasor >= 1.0)
-        cVoice->mPhasor -= 1.0;
+    auto cVoice = m_voices[voice];
+    cVoice->m_phasor += cVoice->m_phaseInc;
+    if (cVoice->m_phasor >= 1.0)
+        cVoice->m_phasor -= 1.0;
 }
 
 float WaveTableOscillator::getOutput(int voice) {
-    auto cVoice = voices[voice];
-    if (cVoice->mPhaseOfs > 0) {
-        return getOutputPWM(voice) * detuneBalance[voice];
+    auto cVoice = m_voices[voice];
+    if (cVoice->m_phaseOfs > 0) {
+        return getOutputPWM(voice) * LookupTables::detuneLookup[voice];
     }
-    return getOutputRaw(voice, 0) * detuneBalance[voice];
+    return getOutputRaw(voice, 0) * LookupTables::detuneLookup[voice];
 }
 
 void WaveTableOscillator::setFreqForVoice(int voice, float freq) {
-    // if currentWaveGroup == nullptr and the setting is not success return!
-    if (currentWaveGroup == nullptr && setWaveTable(WaveForms::SAW)) {
+    // if m_currentWaveGroup == nullptr and the setting is not success return!
+    if (m_currentWaveGroup == nullptr && setWaveTable(WaveForms::SAW)) {
         return;
     }
     float inc = freq / AudioConfig::getInstance()->getSampleRate();
-    auto currentVoice = voices[voice];
+    auto currentVoice = m_voices[voice];
     //something is complete wrong!
     if (currentVoice == nullptr) {
         return;
     }
-    currentVoice->mPhaseInc = inc;
+    currentVoice->m_phaseInc = inc;
     if (voice == currentMainVoice) {
         int curWaveTable = 0;
-        while ((curWaveTable < (currentWaveGroup->m_numWaveTables - 1) && 
-               (inc >= currentWaveGroup->m_WaveTables[curWaveTable]->m_topFreq))) {
+        while ((curWaveTable < (m_currentWaveGroup->m_numWaveTables - 1) &&
+                (inc >= m_currentWaveGroup->m_WaveTables[curWaveTable]->m_topFreq))) {
             ++curWaveTable;
         }
-        currentVoice->currentWaveTable = currentWaveGroup->m_WaveTables[curWaveTable];
+        currentVoice->m_currentWaveTable = m_currentWaveGroup->m_WaveTables[curWaveTable];
 
-        if (currentWaveGroup != baseWaveGroup) {
+        if (m_currentWaveGroup != m_baseWaveGroup) {
             curWaveTable = 0;
-            while ((curWaveTable < (baseWaveGroup->m_numWaveTables - 1) && 
-                  (inc >= baseWaveGroup->m_WaveTables[curWaveTable]->m_topFreq))) {
+            while ((curWaveTable < (m_baseWaveGroup->m_numWaveTables - 1) &&
+                    (inc >= m_baseWaveGroup->m_WaveTables[curWaveTable]->m_topFreq))) {
                 ++curWaveTable;
             }
         }
-        currentVoice->baseWaveTable = baseWaveGroup->m_WaveTables[curWaveTable];
+        currentVoice->m_baseWaveTable = m_baseWaveGroup->m_WaveTables[curWaveTable];
     } else {
-        currentVoice->currentWaveTable = voices[currentMainVoice]->currentWaveTable;
-        currentVoice->baseWaveTable = voices[currentMainVoice]->baseWaveTable;
+        currentVoice->m_currentWaveTable = m_voices[currentMainVoice]->m_currentWaveTable;
+        currentVoice->m_baseWaveTable = m_voices[currentMainVoice]->m_baseWaveTable;
     }
 }
 
 float WaveTableOscillator::getOutputRaw(int voice, float phaseOffset) {
-    auto cVoice = voices[voice];
-    if (cVoice->baseWaveTable != nullptr) {
-        float phase = (float) cVoice->mPhasor + phaseOffset;
-        auto sum = getOutputForPhaseAndWaveTable(cVoice->baseWaveTable, phase);
-        auto finalSum = getOutputForPhaseAndWaveTable(cVoice->currentWaveTable, phase);
+    auto cVoice = m_voices[voice];
+    if (cVoice->m_baseWaveTable != nullptr) {
+        float phase = (float) cVoice->m_phasor + phaseOffset;
+        auto sum = getOutputForPhaseAndWaveTable(cVoice->m_baseWaveTable, phase);
+        auto finalSum = getOutputForPhaseAndWaveTable(cVoice->m_currentWaveTable, phase);
         return mixTables(sum, finalSum);
     }
     return 0;
 }
 
 float WaveTableOscillator::getOutputPWM(int voice) {
-    auto offset = voices[voice]->mPhaseOfs;
+    auto offset = m_voices[voice]->m_phaseOfs;
     float sumOne = getOutputRaw(voice, 0);
     float sumTwo = getOutputRaw(voice, offset);
     return VeNo::Utils::clamp((sumOne + sumTwo) / 2, -1, 1);
@@ -109,10 +110,9 @@ float WaveTableOscillator::mixTables(float base, float second) {
 }
 
 bool WaveTableOscillator::setWaveTable(int table) {
-    baseWaveGroup = WaveTableGenerator::getInstance().getGroup(WaveForms::SAW);
-    currentWaveGroup = WaveTableGenerator::getInstance().getGroup(table);
-    isSineMode = table == WaveForms::SINE;
-    return currentWaveGroup == nullptr || baseWaveGroup == nullptr;
+    m_baseWaveGroup = WaveTableGenerator::getInstance().getGroup(WaveForms::SAW);
+    m_currentWaveGroup = WaveTableGenerator::getInstance().getGroup(table);
+    return m_currentWaveGroup == nullptr || m_baseWaveGroup == nullptr;
 }
 
 float WaveTableOscillator::getOutputForPhaseAndWaveTable(WaveTableObject *table, float phase) {
@@ -137,7 +137,14 @@ float WaveTableOscillator::getOutputForPhaseAndWaveTable(WaveTableObject *table,
 }
 
 void WaveTableOscillator::reset() {
-    for (auto &voice : voices) {
-        voice->mPhasor = 0;
+    for (auto &voice : m_voices) {
+        voice->m_phasor = 0;
+    }
+}
+
+WaveTableOscillator::~WaveTableOscillator ()
+{
+    for (auto &voice : m_voices) {
+        delete voice;
     }
 }

@@ -76,6 +76,7 @@ void AudioConfig::deleteInstance(std::string& id)
     m_instances.erase(id);
     if (m_instances.empty())
     {
+        WaveTableGenerator::getInstance().cleanTables();
         m_instance.reset();
     }
 }

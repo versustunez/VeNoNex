@@ -51,7 +51,7 @@ void Waveforms::openGLContextClosing()
 
 void Waveforms::renderOpenGL()
 {
-    if (!VenoInstance::hasInstance(m_processId) || m_shaderProgram == nullptr || !m_shaderProgram->getLastError().isEmpty())
+    if (!VenoInstance::hasInstance(m_processId) || !m_context.isActive() || !m_context.isAttached() || m_shaderProgram == nullptr || !m_shaderProgram->getLastError().isEmpty())
     {
         stopTimer();
         return;
@@ -246,6 +246,8 @@ void Waveforms::paint(Graphics& g)
     }
     else if (m_isChangingData)
     {
+        m_dBScale->m_mode = -1;
+        m_dBScale->repaint();
         drawChangedParameter(g, getWidth(), getHeight(), 0, 0);
         m_ticks++;
         if (m_ticks > m_time_needed)
@@ -259,9 +261,9 @@ void Waveforms::paint(Graphics& g)
     {
         if (m_needToClear)
         {
-            g.resetToDefaultState();
             m_dBScale->m_mode = m_mode;
             m_dBScale->repaint();
+            g.resetToDefaultState();
             m_needToClear = false;
         }
         g.setFont(*VenoFonts::getLCD());

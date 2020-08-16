@@ -24,6 +24,7 @@ public:
     int m_fps = 60;
     float m_scale = 1.0f;
     static std::shared_ptr<Config> getInstance ();
+    static bool hasInstance();
     void saveAll ();
     int getCurrentLook ();
     void setColourForIndex (Colour* colour, ThemeColour index);

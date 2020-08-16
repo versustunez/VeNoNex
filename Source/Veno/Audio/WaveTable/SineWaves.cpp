@@ -40,5 +40,7 @@ void SineWaves::generateSine(WaveTableGroup* group)
     for (long x = 0; x < tableLen; x++)
         waveTable[x] = freqWaveRe[x];
     waveTable[tableLen] = waveTable[0];
+    delete[] freqWaveRe;
+    delete[] freqWaveIm;
     VeNo::Logger::infoDebugMessage("Generated clean Sine WaveTable");
 }

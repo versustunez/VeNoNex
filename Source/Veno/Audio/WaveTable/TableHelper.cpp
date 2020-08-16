@@ -88,12 +88,14 @@ float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, dou
         scale = 1.0 / max * .999;
     }
 
-    // normalize
-    auto* wave = new float[len];
-    for (int idx = 0; idx < len; idx++)
-        wave[idx] = ai[idx] * scale;
+
     if (group->m_numWaveTables < WaveTableGroup::numWaveTableSlots)
     {
+        // normalize
+        auto* wave = new float[len];
+        for (int idx = 0; idx < len; idx++)
+            wave[idx] = ai[idx] * scale;
+
         auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject();
         auto& waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable;
         waveTable.resize(len + 1);
@@ -106,6 +108,7 @@ float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, dou
             waveTable[idx] = wave[idx];
         waveTable[len] = waveTable[0];  // duplicate for interpolation wraparound
 
+        delete[] wave;
         return 0;
     }
     else
@@ -124,8 +127,8 @@ int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, i
     const double minVal = 0.000001; // -120 dB
     while ((fabs(freqWaveRe[maxHarmonic]) + fabs(freqWaveIm[maxHarmonic]) < minVal) && maxHarmonic) --maxHarmonic;
     double topFreq = 2.0 / 3.0 / maxHarmonic;
-    double* ar = new double[numSamples];
-    double* ai = new double[numSamples];
+    auto* ar = new double[numSamples];
+    auto* ai = new double[numSamples];
     double scale = 0.0;
     int numTables = 0;
     while (maxHarmonic)
@@ -149,6 +152,10 @@ int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, i
         topFreq *= 2;
         maxHarmonic >>= 1;
     }
+    delete[] freqWaveIm;
+    delete[] freqWaveRe;
+    delete[] ar;
+    delete[] ai;
     return numTables;
 }
 
