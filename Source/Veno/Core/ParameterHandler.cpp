@@ -105,9 +105,9 @@ void ParameterHandler::setupParameter()
         addParameterModulate(id + "stereo", name + " Stereo Wideness", 0, 200, 0, Float);
         // Envelope Part
         addParameter(id + "attack", name + " Attack", 0, 2, 0.01, Float);
-        addParameter(id + "decay", name + " Attack", 0, 2, 0.01, Float);
-        addParameter(id + "sustain", name + " Attack", 0, 2, 0.01, Float);
-        addParameter(id + "release", name + " Attack", 0, 2, 0.01, Float);
+        addParameter(id + "decay", name + " Decay", 0, 2, 0.01, Float);
+        addParameter(id + "sustain", name + " Sustain", 0, 1, 1, Float);
+        addParameter(id + "release", name + " Release", 0, 2, 0.01, Float);
 
         // Waveform
         addParameter(id + "waveform", name + " Waveform", 1, 9, 3, Integer);
