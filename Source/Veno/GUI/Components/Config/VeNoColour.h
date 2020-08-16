@@ -21,7 +21,8 @@ public:
     void setName(std::string name);
     void resized () override;
     void paint (Graphics& g) override;
-private:
+protected:
     void changeListenerCallback (ChangeBroadcaster* source) override;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VeNoColour)
 };
 #endif //VENO_VENOCOLOUR_H

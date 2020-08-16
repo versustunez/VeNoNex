@@ -1,21 +1,26 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "Veno/Core/AudioConfig.h"
 
 VenoAudioProcessor::VenoAudioProcessor()
         : AudioProcessor(BusesProperties().withOutput("Output", AudioChannelSet::stereo(), true)),
-        m_id(Uuid().toString().toStdString()),
-        treeState(*this, nullptr, "VeNo", VenoInstance::getInstance(m_id)->handler->setupProcessor())
+          m_id(Uuid().toString().toStdString()),
+          treeState(*this, nullptr, "VeNo", VenoInstance::getInstance(m_id)->handler->setupProcessor())
 {
-    instance = VenoInstance::createInstance(m_id);
+    instance = VenoInstance::getInstance(m_id);
+    instance->handler->initParameterForListener(&treeState);
     AudioConfig::registerInstance(m_id);
 }
 
 VenoAudioProcessor::~VenoAudioProcessor()
 {
-    instance.reset();
-    VenoInstance::deleteInstance(m_id);
+    m_synth.removeSound(0);
+    for (int i = 0; i < 5; ++i)
+    {
+        m_synth.removeVoice(i);
+    }
     AudioConfig::deleteInstance(m_id);
+    VenoInstance::deleteInstance(m_id);
+    instance.reset();
 }
 
 const String VenoAudioProcessor::getName() const

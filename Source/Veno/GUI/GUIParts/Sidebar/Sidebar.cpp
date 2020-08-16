@@ -50,3 +50,8 @@ void Sidebar::paint (Graphics& g)
         g.drawSingleLineText("VeNo", 0, 25);
     }
 }
+
+std::shared_ptr<Waveforms> Sidebar::getWaveform()
+{
+    return m_lcd->getWaveform();
+}

@@ -24,19 +24,19 @@ Waveforms::Waveforms(const std::string& processId) : BaseComponent(processId)
     m_context.attachTo(*this);
     setFps();
     std::srand(unsigned(time(nullptr)));
-    pickRandomText = (std::rand() % RANDOM_TEXT_COUNT);
+    m_randomText = (std::rand() % RANDOM_TEXT_COUNT);
     m_ticks = 0;
-    dBScale = std::make_unique<DecibelScale>(processId);
-    dBScale->m_mode = -1;
-    addAndMakeVisible(*dBScale);
+    m_dBScale = std::make_unique<DecibelScale>(processId);
+    m_dBScale->m_mode = -1;
+    addAndMakeVisible(*m_dBScale);
 }
 
 Waveforms::~Waveforms()
 {
     stopTimer();
-    shaderProgram.reset();
+    m_shaderProgram.reset();
     m_context.detach();
-    dBScale.reset(nullptr);
+    m_dBScale.reset(nullptr);
 }
 
 void Waveforms::newOpenGLContextCreated()
@@ -51,7 +51,7 @@ void Waveforms::openGLContextClosing()
 
 void Waveforms::renderOpenGL()
 {
-    if (!VenoInstance::hasInstance(m_processId) || shaderProgram == nullptr || !shaderProgram->getLastError().isEmpty())
+    if (!VenoInstance::hasInstance(m_processId) || m_shaderProgram == nullptr || !m_shaderProgram->getLastError().isEmpty())
     {
         stopTimer();
         return;
@@ -71,13 +71,13 @@ void Waveforms::renderOpenGL()
     //glViewport(0, 0, getWidth(), getHeight());
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    shaderProgram->use();
+    m_shaderProgram->use();
     auto color = theme->getColour(ThemeColour::lcd);
-    shaderProgram->setUniform("color", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
-                              color.getFloatAlpha());
+    m_shaderProgram->setUniform("color", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
+                                color.getFloatAlpha());
     // same color currently! will set to a diff if peak is detected!
-    shaderProgram->setUniform("gradientColor", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
-                              color.getFloatAlpha());
+    m_shaderProgram->setUniform("gradientColor", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
+                                color.getFloatAlpha());
     if (m_isWelcome || m_isStarting || m_isChangingData)
     {
         return;
@@ -106,7 +106,7 @@ void Waveforms::compileOpenGLShaderProgram()
         && shaderProgramAttempt->addFragmentShader({BinaryData::WaveForm_fragment_glsl})
         && shaderProgramAttempt->link())
     {
-        shaderProgram = std::move(shaderProgramAttempt);
+        m_shaderProgram = std::move(shaderProgramAttempt);
     }
     else
     {
@@ -125,8 +125,8 @@ void Waveforms::mouseDown(const MouseEvent& e)
     {
         m_mode = 0;
     }
-    dBScale->m_mode = m_mode;
-    dBScale->repaint();
+    m_dBScale->m_mode = m_mode;
+    m_dBScale->repaint();
 }
 
 void Waveforms::mouseDrag(const MouseEvent& e)
@@ -141,7 +141,7 @@ void Waveforms::timerCallback()
         stopTimer();
         return;
     }
-    if (m_isWelcome || m_isStarting || m_isChangingData || needToClear)
+    if (m_isWelcome || m_isStarting || m_isChangingData || m_needToClear)
     {
         repaint();
     }
@@ -168,14 +168,15 @@ void Waveforms::drawAudioOutput()
     glBegin(GL_LINE_STRIP);
     float posX = -1;
     float inc = 2.0f / buffer.size();
-    for (int j = 0; j < buffer.size(); ++j)
+    for (float j : buffer)
     {
         try
         {
-            glVertex2f(posX, buffer.at(j));
+            glVertex2f(posX, j);
             posX += inc;
-        } catch (std::exception e)
+        } catch (std::exception &e)
         {
+            DBG(e.what());
             //something is wrong skip the draw and end it!
             break;
         }
@@ -228,19 +229,19 @@ void Waveforms::paint(Graphics& g)
         {
             m_isWelcome = false;
             m_ticks = 0;
-            needToClear = true;
+            m_needToClear = true;
         }
     }
     else if (m_isStarting)
     {
-        g.drawText(m_warmUpText[pickRandomText], 0, 0, getWidth(), getHeight(),
+        g.drawText(m_warmUpText[m_randomText], 0, 0, getWidth(), getHeight(),
                    Justification::centred, true);
         m_ticks++;
         if (m_ticks > m_time_needed_startup)
         {
             m_isStarting = false;
             m_ticks = 0;
-            needToClear = true;
+            m_needToClear = true;
         }
     }
     else if (m_isChangingData)
@@ -251,17 +252,17 @@ void Waveforms::paint(Graphics& g)
         {
             m_isChangingData = false;
             m_ticks = 0;
-            needToClear = true;
+            m_needToClear = true;
         }
     }
     else
     {
-        if (needToClear)
+        if (m_needToClear)
         {
-            dBScale->m_mode = m_mode;
-            dBScale->repaint();
             g.resetToDefaultState();
-            needToClear = false;
+            m_dBScale->m_mode = m_mode;
+            m_dBScale->repaint();
+            m_needToClear = false;
         }
         g.setFont(*VenoFonts::getLCD());
         VeNo::Utils::setFontSize(16.0f, g);
@@ -285,8 +286,8 @@ void Waveforms::drawChangedParameter(Graphics& g, int w, int h, int x, int y) co
 {
     int halfHeight = h / 2;
     float font = VeNo::Utils::setFontSize(12, g);
-    g.drawText(changingParameter, x, y + halfHeight - font, w, font, Justification::centred, true);
-    g.drawText(std::to_string(changedValue), x, y + halfHeight + 4, w, font, Justification::centred,
+    g.drawText(m_changedParameter, x, y + halfHeight - font, w, font, Justification::centred, true);
+    g.drawText(std::to_string(m_changedValue), x, y + halfHeight + 4, w, font, Justification::centred,
                true);
 }
 
@@ -311,8 +312,8 @@ void Waveforms::selectColourByPeak(float value)
         return;
     }
     auto color = theme->getColour(ThemeColour::lcd);
-    shaderProgram->setUniform("color", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
-                              color.getFloatAlpha());
+    m_shaderProgram->setUniform("color", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
+                                color.getFloatAlpha());
     if (value > 0.87)
     {
         color = theme->getColour(ThemeColour::clip);
@@ -321,8 +322,8 @@ void Waveforms::selectColourByPeak(float value)
     {
         color = theme->getColour(ThemeColour::warning);
     }
-    shaderProgram->setUniform("gradientColor", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
-                              color.getFloatAlpha());
+    m_shaderProgram->setUniform("gradientColor", color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(),
+                                color.getFloatAlpha());
 }
 
 float Waveforms::getdBForChannel(float value)
@@ -337,9 +338,8 @@ void Waveforms::setFps()
     {
         m_currentFps = Config::getInstance()->getFps();
         // is something that
-        m_time_needed = roundToInt(4000 / (1000 / m_currentFps));
-        m_time_needed_startup = roundToInt(1000 / (1000 / m_currentFps));
-        stopTimer();
+        m_time_needed = 4000 / m_currentFps;
+        m_time_needed_startup = 1000 / m_currentFps;
         startTimer(m_currentFps);
     }
 }
@@ -347,7 +347,7 @@ void Waveforms::resized()
 {
     auto halfWidth = getWidth() / 2;
     auto w = VeNo::Utils::getCalculatedWidth(21);
-    dBScale->setBounds(halfWidth - (w / 2), 0, w, getHeight());
+    m_dBScale->setBounds(halfWidth - (w / 2), 0, w, getHeight());
 }
 
 void Waveforms::getState()
@@ -357,5 +357,13 @@ void Waveforms::getState()
         VenoInstance::getInstance(m_processId)->state->m_isFirstEditor = false;
         m_isWelcome = true;
         m_isStarting = true;
+        m_needToClear = true;
     }
+}
+
+void Waveforms::parameterChanged(const std::string& parameterID, const std::string& translation, float newValue)
+{
+    m_changedParameter = translation;
+    m_changedValue = newValue;
+    m_isChangingData = true;
 }

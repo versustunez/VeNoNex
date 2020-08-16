@@ -6,7 +6,7 @@
               pluginManufacturerCode="VSTZ" pluginCode="veno" pluginVST3Category="Generator,Instrument,Synth"
               cppLanguageStandard="17" version="1.0.0" companyCopyright="Copyright VersusTuneZ 2019-2020"
               reportAppUsage="0" displaySplashScreen="0" jucerFormatVersion="1"
-              pluginFormats="buildAU,buildVST3">
+              pluginFormats="buildAU,buildStandalone,buildVST3">
   <MAINGROUP id="m9l7SJ" name="VeNo">
     <GROUP id="{AAF9955A-D1A2-45FF-2C17-02C73D8064D3}" name="Source">
       <GROUP id="{12946A85-B629-A60C-6A3F-4FD136126888}" name="Resources">
@@ -191,6 +191,7 @@
           <FILE id="i3vbdH" name="PresetManager.cpp" compile="1" resource="0"
                 file="Source/Veno/Core/PresetManager.cpp"/>
           <FILE id="WV2uuz" name="PresetManager.h" compile="0" resource="0" file="Source/Veno/Core/PresetManager.h"/>
+          <FILE id="klHoVq" name="VeNoListener.h" compile="0" resource="0" file="Source/Veno/Core/VeNoListener.h"/>
           <FILE id="Wvf9em" name="VeNoState.cpp" compile="1" resource="0" file="Source/Veno/Core/VeNoState.cpp"/>
           <FILE id="skv4zn" name="VeNoState.h" compile="0" resource="0" file="Source/Veno/Core/VeNoState.h"/>
         </GROUP>
@@ -251,7 +252,8 @@
         <MODULEPATH id="juce_dsp" path="../../tools/JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
-    <CLION targetFolder="Builds/CLion" clionMakefileEnabled="1" clionCodeBlocksEnabled="1">
+    <CLION targetFolder="Builds/CLion" clionMakefileEnabled="1" clionCodeBlocksEnabled="1"
+           clionXcodeEnabled="1">
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../Tools/JUCE/modules"/>
         <MODULEPATH id="juce_audio_devices" path="../../Tools/JUCE/modules"/>
@@ -337,7 +339,7 @@
   </MODULES>
   <LIVE_SETTINGS>
     <LINUX/>
-    <WINDOWS/>
+    <WINDOWS buildEnabled="0"/>
     <OSX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"

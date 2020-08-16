@@ -26,5 +26,6 @@ protected:
     std::string m_names[4]{
             "LED", "Blood", "Orange Dream", "Ocean"
     };
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoPreColours)
 };
 #endif //VENO_VENOPRECOLOURS_H

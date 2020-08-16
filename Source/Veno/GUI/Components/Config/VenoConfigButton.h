@@ -16,6 +16,6 @@ public:
     void paint (Graphics& g) override;
     void mouseDown (const MouseEvent& event) override;
 private:
-
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoConfigButton)
 };
 #endif //VENO_VENOCONFIGBUTTON_H

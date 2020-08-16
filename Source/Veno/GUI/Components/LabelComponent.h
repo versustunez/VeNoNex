@@ -28,5 +28,6 @@ private:
     Component* m_parent;
     LabelPosition m_position = LabelPosition::NO_LABEL;
     std::shared_ptr<Label> m_label;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LabelComponent)
 };
 #endif //VENO_LABELCOMPONENT_H

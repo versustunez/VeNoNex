@@ -12,7 +12,7 @@ class VenoVoice : public SynthesiserVoice {
 public:
 	int index = 0;
 	VenoVoice(int _index, double sampleRate);
-	~VenoVoice();
+	~VenoVoice() override;
 	// Geerbt über SynthesiserVoice
 	bool canPlaySound(SynthesiserSound*) override;
 	void startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override;
@@ -27,6 +27,7 @@ private:
 	VenoSynthInstance *synth;
 	float velocity = 0.0;
 	bool playSound = true;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoVoice)
 };
 
 

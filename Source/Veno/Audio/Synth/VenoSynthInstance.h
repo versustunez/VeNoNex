@@ -42,6 +42,7 @@ private:
     VenoLFO *lfos[2]{};
     float lastSampleRate = 0;
     // std::shared_ptr<Chain> chain;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoSynthInstance)
 };
 
 

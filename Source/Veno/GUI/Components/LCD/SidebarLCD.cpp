@@ -9,13 +9,13 @@
 
 SidebarLCD::SidebarLCD (const std::string& process_id) : BaseComponent(process_id)
 {
-    waveform = std::make_unique<Waveforms>(process_id);
+    waveform = std::make_shared<Waveforms>(process_id);
     addAndMakeVisible(*waveform);
 }
 
 SidebarLCD::~SidebarLCD ()
 {
-    waveform.reset(nullptr);
+    waveform.reset();
 }
 
 void SidebarLCD::drawHeadline (Graphics& g)
@@ -60,4 +60,9 @@ void SidebarLCD::paint (Graphics& g)
     g.setFont(*VenoFonts::getLCD());
     drawHeadline(g);
     drawFooter(g);
+}
+
+std::shared_ptr<Waveforms> SidebarLCD::getWaveform()
+{
+    return waveform;
 }

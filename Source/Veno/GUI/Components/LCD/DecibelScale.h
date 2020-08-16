@@ -22,6 +22,7 @@ public:
 protected:
     float m_scale = 0;
     float m_lastY = 0;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DecibelScale)
 };
 
 

@@ -20,10 +20,11 @@ public:
     ~SidebarLCD ();
     void resized () override;
     void paint (Graphics& g) override;
+    std::shared_ptr<Waveforms> getWaveform();
 protected:
     void drawHeadline (Graphics& g);
     void drawFooter (Graphics& g);
-    std::unique_ptr<Waveforms> waveform;
+    std::shared_ptr<Waveforms> waveform;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SidebarLCD);
 };
 #endif //VENO_SIDEBARLCD_H

@@ -16,24 +16,26 @@ VeNoMatrix::~VeNoMatrix ()
     for (auto& m_slot : m_slots)
     {
         delete m_slot.second;
-        m_slots.erase (m_slot.first);
     }
 
     for (auto& value : m_modulationValues)
     {
         delete value.second;
-        m_modulationValues.erase (value.first);
     }
 
     for (auto& value : m_modulators)
     {
         delete value.second;
-        m_modulators.erase (value.first);
     }
+
+    m_slots.clear();
+    m_modulationValues.clear();
+    m_modulators.clear();
 }
 
 void VeNoMatrix::removeModulateValue (const std::string& name)
 {
+    delete m_modulationValues[name];
     m_modulationValues.erase (name);
 }
 
@@ -99,8 +101,8 @@ void VeNoMatrix::getMatrixFromXML (std::unique_ptr<XmlElement>& xml)
     for (auto& m_slot : m_slots)
     {
         delete m_slot.second;
-        m_slots.erase (m_slot.first);
     }
+    m_slots.clear();
     // recreate the matrix from xml...
     auto tree = juce::ValueTree::fromXml (*xml);
     for (int i = 0; i < tree.getNumChildren (); ++i)

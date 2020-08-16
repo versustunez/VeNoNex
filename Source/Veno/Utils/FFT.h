@@ -29,5 +29,6 @@ protected:
     dsp::WindowingFunction<float> window{fftSize, dsp::WindowingFunction<float>::hann};
     float fifo[fftSize]{};
     int fifoIndex = 0;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FFT)
 };
 #endif //VENO_FFT_H

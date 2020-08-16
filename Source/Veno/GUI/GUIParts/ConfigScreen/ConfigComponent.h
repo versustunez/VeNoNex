@@ -26,5 +26,6 @@ protected:
     std::vector<std::unique_ptr<VeNoColour>> m_colors;
     std::unique_ptr<VenoPreColours> m_preColours;
     FlexBox flexBox;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ConfigComponent)
 };
 #endif //VENO_CONFIGCOMPONENT_H
