@@ -124,26 +124,10 @@ void ParameterHandler::setupParameter()
     DBG("PARAMS REGISTERED");
 }
 
-
-void ParameterHandler::registerListener(const std::string& name, VeNoListener* listener)
-{
-    if (m_listener.find(name) == m_listener.end())
-    {
-        m_listener[name] = listener;
-    }
-}
-
-void ParameterHandler::deleteListener(const std::string& name)
-{
-    if (m_listener.find(name) != m_listener.end())
-    {
-        m_listener.erase(name);
-    }
-}
-
 void ParameterHandler::parameterChanged(const String& parameterID, float newValue)
 {
     std::string value = parameterID.toStdString();
+    VenoInstance::getInstance(m_id)->matrix->setBaseValueOfModulationValue(value, newValue);
     std::string getReal = m_paramNames[value];
     for (const auto& element : m_listener)
     {

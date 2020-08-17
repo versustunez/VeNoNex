@@ -14,12 +14,10 @@ VenoAudioProcessorEditor::VenoAudioProcessorEditor (VenoAudioProcessor& p)
     m_sidebar = std::make_unique<Sidebar>(m_id);
     setSize(1200 * Config::getInstance()->getScale(), 700 * Config::getInstance()->getScale());
     addAndMakeVisible(*m_sidebar);
-    VenoInstance::getInstance(m_id)->handler->registerListener("waveForm", m_sidebar->getWaveform().get());
 }
 
 VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
 {
-    VenoInstance::getInstance(m_id)->handler->deleteListener("waveForm");
     LookAndFeel::setDefaultLookAndFeel(nullptr);
     m_sidebar.reset(nullptr);
     delete m_look;

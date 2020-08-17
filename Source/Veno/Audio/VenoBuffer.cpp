@@ -6,79 +6,109 @@
 #include "VenoBuffer.h"
 #include "../Utils.h"
 
-VenoBuffer::VenoBuffer ()
+VenoBuffer::VenoBuffer()
 {
-
+    m_bufferCopy.resize(m_bufferSize);
+    m_rightCopy.resize(m_bufferSize);
+    m_leftCopy.resize(m_bufferSize);
+    m_buffer.resize(m_bufferSize);
+    m_right.resize(m_bufferSize);
+    m_left.resize(m_bufferSize);
 }
 
-VenoBuffer::~VenoBuffer ()
+VenoBuffer::~VenoBuffer()
 {
-    buffer.clear ();
-    right.clear ();
-    left.clear ();
+    m_buffer.clear();
+    m_right.clear();
+    m_left.clear();
+    m_bufferCopy.clear();
+    m_rightCopy.clear();
+    m_leftCopy.clear();
 }
 
-void VenoBuffer::reset (int size)
+void VenoBuffer::reset(int size)
 {
-    if (size != buffer.size ())
+    if (size > m_bufferSize)
     {
-        buffer.resize (size);
-        right.resize (size);
-        left.resize (size);
+        m_bufferCopy.resize(size);
+        m_rightCopy.resize(size);
+        m_leftCopy.resize(size);
+        m_buffer.resize(size);
+        m_right.resize(size);
+        m_left.resize(size);
+        m_bufferSize = size;
+        for (int i = 0; i < size; ++i)
+        {
+            m_bufferCopy[i] = m_buffer[i];
+            m_rightCopy[i] = m_right[i];
+            m_leftCopy[i] = m_left[i];
+        }
     }
-    // reset to 0 dc :D
-    for (int i = 0; i < size; ++i)
+    if (m_isOverflow)
     {
-        buffer[i] = 0;
-        left[i] = 0;
-        right[i] = 0;
+        calcPeak();
+        m_isOverflow = false;
     }
-    leftPeak = -30;
-    rightPeak = -30;
-    monoPeak = -30;
 }
 
-void VenoBuffer::addMonoSample (float value, int index)
+void VenoBuffer::addMonoSample(float value)
 {
-    buffer[index] = value;
+    if (m_buffer.size() > m_bufferSize)
+    {
+        for (int i = 0; i < m_bufferSize; ++i)
+        {
+            m_bufferCopy[i] = m_buffer[i];
+        }
+        m_buffer.clear();
+        m_isOverflow = true;
+    }
+    m_buffer.push_back(value);
 }
 
-void VenoBuffer::addLeftSample (float value, int index)
+void VenoBuffer::addLeftSample(float value)
 {
-    left[index] = value;
+    if (m_left.size() > m_bufferSize)
+    {
+        for (int i = 0; i < m_bufferSize; ++i)
+        {
+            m_leftCopy[i] = m_left[i];
+        }
+        m_left.clear();
+        m_isOverflow = true;
+    }
+    m_left.push_back(value);
 }
 
-void VenoBuffer::addRightSample (float value, int index)
+void VenoBuffer::addRightSample(float value)
 {
-    right[index] = value;
+    if (m_right.size() > m_bufferSize)
+    {
+        for (int i = 0; i < m_bufferSize; ++i)
+        {
+            m_rightCopy[i] = m_right[i];
+        }
+        m_right.clear();
+        m_isOverflow = true;
+    }
+    m_right.push_back(value);
 }
 
-void VenoBuffer::calcPeak ()
+void VenoBuffer::calcPeak()
 {
     float leftRMS = 0;
     float rightRMS = 0;
-    auto size = buffer.size();
+    auto size = m_bufferCopy.size();
     for (int i = 0; i < size; ++i)
     {
-        leftRMS += left[i] * left[i];
-        rightRMS += right[i] * right[i];
+        leftRMS += m_leftCopy[i] * m_leftCopy[i];
+        rightRMS += m_rightCopy[i] * m_rightCopy[i];
     }
-    rightPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (rightRMS / size), -30.0f), -30.0f, 0.0f);
-    leftPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (leftRMS / size), -30.0f), -30.0f, 0.0f);
+    rightPeak = VeNo::Utils::clamp(Decibels::gainToDecibels(std::sqrt(rightRMS / size), -30.0f), -30.0f, 0.0f);
+    leftPeak = VeNo::Utils::clamp(Decibels::gainToDecibels(std::sqrt(leftRMS / size), -30.0f), -30.0f, 0.0f);
     monoPeak = leftPeak;
 }
 
-const std::vector<float>& VenoBuffer::getBuffer () const
+const std::vector<float>& VenoBuffer::getBuffer() const
 {
-    return buffer;
-}
-
-const std::vector<float>& VenoBuffer::getRight () const
-{
-    return right;
-}
-
-const std::vector<float>& VenoBuffer::getLeft () const
-{
-    return left;
+    return m_bufferCopy;
 }

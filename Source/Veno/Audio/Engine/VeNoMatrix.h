@@ -37,6 +37,7 @@ public:
     void setMatrixModulation(const std::string& name, const std::string& source, float amount);
     std::unique_ptr<XmlElement> saveMatrixToXML();
     void getMatrixFromXML(std::unique_ptr<XmlElement>& xml);
+    void setBaseValueOfModulationValue(const std::string& parameter, float value);
 private:
     std::unordered_map<std::string, Modulator*> m_modulators; //all sources
     std::unordered_map<std::string, ModulateValue*> m_modulationValues;

@@ -20,8 +20,6 @@ public:
     void addParameter(const std::string& name, const std::string& showName, float min, float max, float value, ParameterTypes type);
     void addParameterModulate(const std::string& name, const std::string& showName, float min, float max, float value, ParameterTypes type);
     void initParameterForListener(AudioProcessorValueTreeState* state);
-    void registerListener(const std::string& name, VeNoListener* listener);
-    void deleteListener(const std::string& name);
     void parameterChanged(const String& parameterID, float newValue) override;
 protected:
 private:
