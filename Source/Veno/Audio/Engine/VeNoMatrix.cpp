@@ -1,7 +1,3 @@
-//
-// Created by versustune on 13.06.20.
-//
-
 #include "VeNoMatrix.h"
 #include "../../Utils/StringUtils.h"
 

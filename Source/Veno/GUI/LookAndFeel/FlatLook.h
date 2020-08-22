@@ -1,7 +1,3 @@
-//
-// Created by versustune on 17.03.20.
-//
-
 #ifndef VENO_FLATLOOK_H
 #define VENO_FLATLOOK_H
 
@@ -11,7 +7,7 @@ class FlatLook : public LookAndFeel_V4
 {
 private:
 public:
-    FlatLook() = default;
+    FlatLook();
     ~FlatLook() override = default;
     void drawButtonBackground (Graphics& graphics, Button& button, const Colour& backgroundColour,
                                bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;

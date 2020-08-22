@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #ifndef VENO_VENOSTATE_H
 #define VENO_VENOSTATE_H
 
@@ -18,5 +14,6 @@ public:
     ~VeNoState();
     VenoConfigScreen* configScreen = nullptr;
     bool m_isFirstEditor;
+    int m_lcd_mode = 0;
 };
 #endif //VENO_VENOSTATE_H

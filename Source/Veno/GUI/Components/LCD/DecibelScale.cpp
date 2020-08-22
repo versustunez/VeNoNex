@@ -1,11 +1,7 @@
-//
-// Created by Maurice on 29.06.2020.
-//
-
 #include "DecibelScale.h"
 #include "../../../Core/Config.h"
 #include "../../../Utils.h"
-#include "../../../Fonts/Fonts.h"
+#include "../../../GUI/Fonts/Fonts.h"
 
 DecibelScale::DecibelScale (const std::string& process_id) : BaseComponent (process_id)
 {
@@ -19,7 +15,6 @@ void DecibelScale::resized ()
 
 void DecibelScale::paint (Graphics& g)
 {
-    VeNo::Utils::setFontSize(7, g);
     auto theme = Config::getInstance ()->getCurrentTheme ();
     g.setColour (theme->getColour (ThemeColour::lcd));
     g.setFont(*VenoFonts::getLCD());
@@ -47,6 +42,7 @@ int DecibelScale::getScale (float dB)
 
 void DecibelScale::drawLabel (Graphics& g, int y, const std::string& label)
 {
+    VeNo::Utils::setFontSize(11.0f, g);
     auto font = g.getCurrentFont ();
     int currentY = getHeight () - y;
     int thisWidth = getWidth ();

@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #ifndef VENO_VENOCOLOUR_H
 #define VENO_VENOCOLOUR_H
 

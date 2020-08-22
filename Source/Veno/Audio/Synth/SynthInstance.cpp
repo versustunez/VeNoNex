@@ -1,7 +1,3 @@
-//
-// Created by versustune on 09.06.20.
-//
-
 #include "SynthInstance.h"
 #include <utility>
 

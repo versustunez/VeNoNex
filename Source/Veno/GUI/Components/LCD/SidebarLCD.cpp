@@ -1,55 +1,56 @@
-//
-// Created by versustune on 11.06.20.
-//
-
 #include "SidebarLCD.h"
 #include "../../../Utils.h"
 #include "../../../Core/Config.h"
-#include "../../../Fonts/Fonts.h"
+#include "../../../GUI/Fonts/Fonts.h"
 
-SidebarLCD::SidebarLCD (const std::string& process_id) : BaseComponent(process_id)
+SidebarLCD::SidebarLCD(const std::string& process_id) : BaseComponent(process_id)
 {
-    waveform = std::make_shared<Waveforms>(process_id);
-    addAndMakeVisible(*waveform);
+    m_waveform = std::make_shared<Waveforms>(process_id);
+    addAndMakeVisible(*m_waveform);
+
+    m_configButton = std::make_unique<VenoConfigButton>(process_id);
+    addAndMakeVisible(*m_configButton);
 }
 
-SidebarLCD::~SidebarLCD ()
+SidebarLCD::~SidebarLCD()
 {
-    waveform.reset();
+    m_waveform.reset();
 }
 
-void SidebarLCD::drawHeadline (Graphics& g)
+void SidebarLCD::drawHeadline(Graphics& g)
 {
     float fontSize = VeNo::Utils::setFontSize(12.0f, g) + 2;
-    int line = m_innerY + fontSize + 2;
+    int line = fontSize + 2;
     // should draw random stuff? or draw current selected preset :)
-    g.drawText(">>> INIT <<<", 0, m_innerY, getWidth() - m_width, fontSize,
+    g.drawText(">>> INIT <<<", 0, 2, getWidth(), fontSize,
                Justification::centred,
                true);
     g.drawLine(0, line, getWidth(), line);
 }
 
-void SidebarLCD::drawFooter (Graphics& g)
+void SidebarLCD::drawFooter(Graphics& g)
 {
-    float fontSize = VeNo::Utils::setFontSize(8.0f, g) + 4;
-    int space = m_innerY + fontSize;
-    int line = getHeight() - space;
-    g.drawText("by VersusTuneZ for " + SystemStats::getFullUserName(), 0, line, getWidth() - m_width, fontSize,
-               Justification::horizontallyCentred,
-               true);
+    float fontSize = VeNo::Utils::setFontSize(12.0f, g) + 4;
+    int line = getHeight() - fontSize;
     g.drawLine(0, line - 4, getWidth(), line - 4);
 }
 
-void SidebarLCD::resized ()
+void SidebarLCD::resized()
 {
-    float topSpace = (12 * Config::getInstance()->getScale()) + 4 + m_innerY;
-    if (waveform != nullptr)
+    float size = (12 * Config::getInstance()->getScale()) + 4;
+    if (m_waveform != nullptr)
     {
-        waveform->setBounds(0, topSpace * 2, getWidth(), getHeight() - (topSpace * 4));
+        m_waveform->setBounds(0, size * 2, getWidth(), getHeight() - (size*4));
+    }
+
+    auto x = getWidth() / 4;
+    if (m_configButton != nullptr)
+    {
+        m_configButton->setBounds(0, getHeight() - (size), x, size);
     }
 }
 
-void SidebarLCD::paint (Graphics& g)
+void SidebarLCD::paint(Graphics& g)
 {
     std::shared_ptr<Theme> theme = Config::getInstance()->getCurrentTheme();
     auto colour = theme->getColour(ThemeColour::lcd_bg);
@@ -64,5 +65,5 @@ void SidebarLCD::paint (Graphics& g)
 
 std::shared_ptr<Waveforms> SidebarLCD::getWaveform()
 {
-    return waveform;
+    return m_waveform;
 }

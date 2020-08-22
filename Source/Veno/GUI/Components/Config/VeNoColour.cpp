@@ -1,11 +1,8 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #include "VeNoColour.h"
 #include <utility>
 #include "../../../Core/Config.h"
 #include "../../../Utils.h"
+#include "../../../VenoInstance.h"
 
 using ColourOption = ColourSelector::ColourSelectorOptions;
 VeNoColour::~VeNoColour ()
@@ -43,6 +40,9 @@ void VeNoColour::changeListenerCallback (ChangeBroadcaster* source)
                               1.0f);
     Config::getInstance()->getCurrentTheme()->setColour(m_index, colour);
     Config::getInstance()->repaintAll();
+    if (VenoInstance::getInstance(m_processId)->state->configScreen != nullptr) {
+        VenoInstance::getInstance(m_processId)->state->configScreen->repaint();
+    }
 }
 
 void VeNoColour::resized ()
@@ -60,6 +60,8 @@ void VeNoColour::resized ()
 
 void VeNoColour::paint (Graphics& g)
 {
+    m_selector->setCurrentColour(Config::getInstance()->getCurrentTheme()->getColour(m_index),
+                                 NotificationType::dontSendNotification);
     g.setColour(Colours::white);
     BaseComponent::paint(g);
 }

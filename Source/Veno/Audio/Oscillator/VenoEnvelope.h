@@ -1,17 +1,14 @@
-//
-// Created by versustune on 28.09.19.
-//
-
 #pragma once
 #ifndef VENO_VENOENVELOPE_H
 #define VENO_VENOENVELOPE_H
 
 #include "JuceHeader.h"
+#include "../Engine/Modulator.h"
 
 /*
  * this is a small wrapper around JUCE ADSR with saving of the current state
  */
-class VenoEnvelope {
+class VenoEnvelope : public Modulator {
 public:
     VenoEnvelope(double sampleRate);
     ~VenoEnvelope() = default;
@@ -26,6 +23,7 @@ public:
     void noteOff();
     bool reTrigger = false;
     std::string name;
+    void update() override;
 protected:
     ADSR::Parameters parameters {};
     ADSR adsr;

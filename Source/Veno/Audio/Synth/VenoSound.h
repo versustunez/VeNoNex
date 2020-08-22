@@ -1,7 +1,3 @@
-//
-// Created by maurice on 26.09.19.
-//
-
 #ifndef VENO_VENOSOUND_H
 #define VENO_VENOSOUND_H
 

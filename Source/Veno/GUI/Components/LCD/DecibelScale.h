@@ -1,7 +1,3 @@
-//
-// Created by Maurice on 29.06.2020.
-//
-
 #ifndef VENO_DECIBELSCALE_H
 #define VENO_DECIBELSCALE_H
 

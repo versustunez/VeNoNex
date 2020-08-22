@@ -1,7 +1,3 @@
-//
-// Created by maurice on 27.09.19.
-//
-
 #include <cmath>
 #include "../../Core/LookupTables.h"
 #include "VenoOscillator.h"

@@ -1,7 +1,3 @@
-//
-// Created by maurice on 26.09.19.
-//
-
 #include "VenoVoice.h"
 #include "VenoSound.h"
 #include "JuceHeader.h"
@@ -77,6 +73,7 @@ void VenoVoice::renderNextBlock(AudioBuffer<float> &outputBuffer, int startSampl
             }
             if (env->isActive()) {
                 cleanNote = false;
+                env->update();
                 auto envValue = env->getValue();
                 bool status = osc->render();
                 if (status) {

@@ -1,7 +1,3 @@
-//
-// Created by Maurice on 26.09.2019.
-//
-
 /*
 * VenoSynthInstance save all stuff that is needed for the Synth to work => OSC, ENV and other stuff
 */

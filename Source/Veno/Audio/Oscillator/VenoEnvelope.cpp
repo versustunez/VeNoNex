@@ -1,7 +1,3 @@
-//
-// Created by versustune on 28.09.19.
-//
-
 #include "VenoEnvelope.h"
 #include "cmath"
 
@@ -52,7 +48,7 @@ void VenoEnvelope::setDecay(float decay)
 
 float VenoEnvelope::getValue()
 {
-    return adsr.getNextSample();
+    return m_value;
 }
 
 bool VenoEnvelope::isActive()
@@ -81,4 +77,9 @@ void VenoEnvelope::setSampleRate(float sampleRate)
     adsr.setSampleRate(m_sampleRate);
     adsr.setParameters(parameters);
     adsr.reset();
+}
+
+void VenoEnvelope::update()
+{
+    m_value = adsr.getNextSample();
 }

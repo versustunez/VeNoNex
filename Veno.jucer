@@ -17,14 +17,11 @@
                 file="Source/Resources/GL/WaveForm.vertex.glsl"/>
         </GROUP>
         <FILE id="gB4Xst" name="arvo.ttf" compile="0" resource="1" file="Source/Resources/arvo.ttf"/>
+        <FILE id="TaYShr" name="fontAwesome.ttf" compile="0" resource="1" file="Source/Resources/fontAwesome.ttf"/>
         <FILE id="QG10mY" name="lcd.ttf" compile="0" resource="1" file="Source/Resources/lcd.ttf"/>
         <FILE id="yeOELp" name="LogoVeNo.png" compile="0" resource="1" file="Source/Resources/LogoVeNo.png"/>
       </GROUP>
       <GROUP id="{5791B3F9-67EA-BE3E-0208-47B8AF81F72F}" name="Veno">
-        <GROUP id="{BD05234A-1BBB-5055-FA22-C66F1E78CC81}" name="Fonts">
-          <FILE id="D4zlai" name="Fonts.cpp" compile="1" resource="0" file="Source/Veno/Fonts/Fonts.cpp"/>
-          <FILE id="ytenkm" name="Fonts.h" compile="0" resource="0" file="Source/Veno/Fonts/Fonts.h"/>
-        </GROUP>
         <GROUP id="{857B8B89-43D1-9083-E43D-8CE49DC48C2E}" name="Utils">
           <FILE id="bQgR0Y" name="FFT.cpp" compile="1" resource="0" file="Source/Veno/Utils/FFT.cpp"/>
           <FILE id="McoT9E" name="FFT.h" compile="0" resource="0" file="Source/Veno/Utils/FFT.h"/>
@@ -111,6 +108,14 @@
           <GROUP id="{A224AFA7-CD28-E0FE-3B5A-8203BFD9467B}" name="FX"/>
         </GROUP>
         <GROUP id="{EFD25B6B-987D-435F-F8DE-BD6C2B831E62}" name="GUI">
+          <GROUP id="{BD05234A-1BBB-5055-FA22-C66F1E78CC81}" name="Fonts">
+            <FILE id="enoXou" name="Fonts.cpp" compile="1" resource="0" file="Source/Veno/GUI/Fonts/Fonts.cpp"/>
+            <FILE id="PmISnn" name="Fonts.h" compile="0" resource="0" file="Source/Veno/GUI/Fonts/Fonts.h"/>
+            <FILE id="H5em1n" name="Icons.h" compile="0" resource="0" file="Source/Veno/GUI/Fonts/Icons.h"/>
+          </GROUP>
+          <GROUP id="{67F448B4-0846-4256-3B23-0C6BA09F2BE5}" name="GL">
+            <FILE id="pX6tzZ" name="VertexStructs.h" compile="0" resource="0" file="Source/Veno/GUI/GL/VertexStructs.h"/>
+          </GROUP>
           <GROUP id="{9C28E1EA-57BD-A04E-6ED6-3C46B5BC7FC7}" name="GUIParts">
             <GROUP id="{D7ABC90B-205D-31C2-67AD-7A31B96627FF}" name="ConfigScreen">
               <FILE id="klHmJa" name="ConfigComponent.cpp" compile="1" resource="0"
@@ -153,6 +158,7 @@
               <FILE id="Y5kUlM" name="SidebarLCD.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.h"/>
               <FILE id="Ox2oOB" name="Waveforms.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.cpp"/>
               <FILE id="vMrsGE" name="Waveforms.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.h"/>
+              <FILE id="YXbVA2" name="WaveformsGL.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/WaveformsGL.cpp"/>
             </GROUP>
             <FILE id="BobUXL" name="BaseComponent.cpp" compile="1" resource="0"
                   file="Source/Veno/GUI/Components/BaseComponent.cpp"/>
@@ -191,6 +197,10 @@
           <FILE id="i3vbdH" name="PresetManager.cpp" compile="1" resource="0"
                 file="Source/Veno/Core/PresetManager.cpp"/>
           <FILE id="WV2uuz" name="PresetManager.h" compile="0" resource="0" file="Source/Veno/Core/PresetManager.h"/>
+          <FILE id="xG5zqO" name="VeNoChangeListener.cpp" compile="1" resource="0"
+                file="Source/Veno/Core/VeNoChangeListener.cpp"/>
+          <FILE id="vpUtd4" name="VeNoChangeListener.h" compile="0" resource="0"
+                file="Source/Veno/Core/VeNoChangeListener.h"/>
           <FILE id="klHoVq" name="VeNoListener.h" compile="0" resource="0" file="Source/Veno/Core/VeNoListener.h"/>
           <FILE id="Wvf9em" name="VeNoState.cpp" compile="1" resource="0" file="Source/Veno/Core/VeNoState.cpp"/>
           <FILE id="skv4zn" name="VeNoState.h" compile="0" resource="0" file="Source/Veno/Core/VeNoState.h"/>

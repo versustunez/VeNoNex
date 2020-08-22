@@ -1,7 +1,3 @@
-//
-// Created by Maurice on 18.02.2020.
-//
-
 #ifndef VENO_VENOLFO_H
 #define VENO_VENOLFO_H
 

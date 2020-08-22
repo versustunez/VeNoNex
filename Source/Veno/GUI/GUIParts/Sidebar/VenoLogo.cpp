@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #include "VenoLogo.h"
 
 VenoLogo* VenoLogo::instance = nullptr;

@@ -1,7 +1,3 @@
-//
-// Created by Maurice on 18.02.2020.
-//
-
 #include "VenoLFO.h"
 
 void VenoLFO::update() {

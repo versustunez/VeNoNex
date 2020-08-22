@@ -1,7 +1,3 @@
-//
-// Created by versustune on 13.06.20.
-//
-
 #ifndef VENO_MODULATEVALUE_H
 #define VENO_MODULATEVALUE_H
 

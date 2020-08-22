@@ -1,7 +1,3 @@
-//
-// Created by versustune on 08.06.20.
-//
-
 #include "Utils.h"
 #include "Core/Config.h"
 
@@ -113,4 +109,15 @@ float VeNo::Utils::gainToDb (float gain)
 float VeNo::Utils::dbToGain (float decibels)
 {
     return std::pow(10.0, decibels / DB_GAIN_CONVERSION_MULTIPLIER);
+}
+
+float VeNo::Utils::dBForChannel(float value)
+{
+    return jmap(value, -30.0f, 0.0f, -1.0f,
+                0.9f);
+}
+
+float VeNo::Utils::getHigherValue(float a, float b)
+{
+    return a > b ? a : b;
 }

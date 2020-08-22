@@ -1,7 +1,3 @@
-//
-// Created by versustune on 08.06.20.
-//
-
 #ifndef VENO_SAWWAVES_H
 #define VENO_SAWWAVES_H
 

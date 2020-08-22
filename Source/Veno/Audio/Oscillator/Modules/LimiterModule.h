@@ -1,7 +1,3 @@
-//
-// Created by Maurice on 09.10.2019.
-//
-
 #ifndef VENO_LIMITERMODULE_H
 #define VENO_LIMITERMODULE_H
 

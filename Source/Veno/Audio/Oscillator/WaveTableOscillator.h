@@ -1,7 +1,3 @@
-//
-// Created by versustune on 2020-02-28.
-//
-
 #ifndef VENO_WAVETABLEOSCILLATOR_H
 #define VENO_WAVETABLEOSCILLATOR_H
 

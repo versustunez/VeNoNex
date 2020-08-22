@@ -1,12 +1,9 @@
-//
-// Created by versustune on 12.06.20.
-//
-
 #include <cmath>
 #include "VenoBuffer.h"
 #include "../Utils.h"
+#include "../VenoInstance.h"
 
-VenoBuffer::VenoBuffer()
+VenoBuffer::VenoBuffer(const std::string& id)
 {
     m_bufferCopy.resize(m_bufferSize);
     m_rightCopy.resize(m_bufferSize);
@@ -14,6 +11,7 @@ VenoBuffer::VenoBuffer()
     m_buffer.resize(m_bufferSize);
     m_right.resize(m_bufferSize);
     m_left.resize(m_bufferSize);
+    m_id = id;
 }
 
 VenoBuffer::~VenoBuffer()
@@ -28,22 +26,6 @@ VenoBuffer::~VenoBuffer()
 
 void VenoBuffer::reset(int size)
 {
-    if (size > m_bufferSize)
-    {
-        m_bufferCopy.resize(size);
-        m_rightCopy.resize(size);
-        m_leftCopy.resize(size);
-        m_buffer.resize(size);
-        m_right.resize(size);
-        m_left.resize(size);
-        m_bufferSize = size;
-        for (int i = 0; i < size; ++i)
-        {
-            m_bufferCopy[i] = m_buffer[i];
-            m_rightCopy[i] = m_right[i];
-            m_leftCopy[i] = m_left[i];
-        }
-    }
     if (m_isOverflow)
     {
         calcPeak();
@@ -59,8 +41,14 @@ void VenoBuffer::addMonoSample(float value)
         {
             m_bufferCopy[i] = m_buffer[i];
         }
+        VenoInstance::getInstance(m_id)->changeListener->notifyListener("waveform", std::abs(m_highestPeak));
+        m_highestPeak = 0;
         m_buffer.clear();
         m_isOverflow = true;
+    }
+    if (std::abs(value) > m_highestPeak)
+    {
+        m_highestPeak = value;
     }
     m_buffer.push_back(value);
 }

@@ -1,7 +1,3 @@
-//
-// Created by versustune on 2020-02-28.
-//
-
 #include "WaveTableOscillator.h"
 #include "../../Core/AudioConfig.h"
 #include "../../Utils.h"

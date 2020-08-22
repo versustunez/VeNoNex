@@ -1,6 +1,3 @@
-//
-// Created by versustune on 22.03.20.
-//
 #include "AudioConfig.h"
 #include "../Audio/WaveTable/WaveTableGenerator.h"
 

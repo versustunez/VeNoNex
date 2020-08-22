@@ -1,7 +1,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "Veno/Utils/Logger.h"
-#include "Veno/Fonts/Fonts.h"
+#include "Veno/GUI/Fonts/Fonts.h"
 
 #define SIDEBAR_WIDTH 300
 

@@ -1,7 +1,3 @@
-//
-// Created by versustune on 13.06.20.
-//
-
 #ifndef VENO_MODULATOR_H
 #define VENO_MODULATOR_H
 // class that define if it can be a modulator on not

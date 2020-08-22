@@ -1,7 +1,3 @@
-//
-// Created by maurice on 27.09.19.
-//
-
 #ifndef VENO_VENOOSCILLATOR_H
 #define VENO_VENOOSCILLATOR_H
 

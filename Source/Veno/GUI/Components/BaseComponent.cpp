@@ -1,10 +1,6 @@
-//
-// Created by versustune on 17.03.20.
-//
-
 #include "BaseComponent.h"
 #include "../../Utils.h"
-#include "../../Fonts/Fonts.h"
+#include "../../GUI/Fonts/Fonts.h"
 #include <utility>
 
 BaseComponent::BaseComponent (const std::string& processId)
