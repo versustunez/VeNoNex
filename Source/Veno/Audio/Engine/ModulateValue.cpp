@@ -8,7 +8,7 @@ ModulateValue::ModulateValue(const std::string& name, const std::string& process
 
 void ModulateValue::addValue(float d)
 {
-    m_value += d;
+    m_value += m_baseValue * d;
     if (m_value > m_maxValue)
     {
         m_value = m_maxValue;
@@ -32,4 +32,10 @@ void ModulateValue::set(float value, float max, float min)
 void ModulateValue::setBaseValue(float d)
 {
     m_baseValue = d;
+    m_value = d;
+}
+
+float ModulateValue::getValue()
+{
+    return m_value;
 }

@@ -41,7 +41,7 @@ public:
     bool m_isChangingData = false;
     std::string m_changedParameter;
     float m_changedValue = 0;
-    void parameterChanged(const std::string& parameterID, const std::string& translation, float newValue) override;
+    void parameterChanged(VeNoParameter* parameter) override;
     void notify(const std::string& name, float value) override;
 private:
     void handleAsyncUpdate() override;

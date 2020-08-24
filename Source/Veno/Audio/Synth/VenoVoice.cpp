@@ -1,10 +1,12 @@
 #include "VenoVoice.h"
 #include "VenoSound.h"
 #include "JuceHeader.h"
+#include "../../VenoInstance.h"
 
-VenoVoice::VenoVoice(int _index, double sampleRate) {
+VenoVoice::VenoVoice(int _index, double sampleRate, const std::string& id) {
     index = _index;
-    synth = new VenoSynthInstance(sampleRate);
+    m_id = id;
+    synth = new VenoSynthInstance(id, sampleRate);
     synth->index = _index;
 }
 
@@ -23,6 +25,7 @@ void VenoVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound *
     int count = synth->count;
     for (int i = 0; i < count; i++) {
         synth->getOscillator(i)->start(midiNoteNumber);
+        synth->getEnvelope(i)->prepare();
         synth->getEnvelope(i)->noteOn();
     }
 
@@ -44,11 +47,7 @@ void VenoVoice::stopNote(float velocity, bool allowTailOff) {
 
 void VenoVoice::pitchWheelMoved(int newPitchWheelValue) {
     float realValue = (((float) newPitchWheelValue / 16383) * 2) - 1;
-    int count = synth->count;
-    for (int i = 0; i < count; i++) {
-        VenoOscillator *osc = synth->getOscillator(i);
-        osc->setPitchBend(realValue);
-    }
+    VenoInstance::getInstance(m_id)->handler->setParameterValue("pitch__wheel", realValue);
 }
 
 void VenoVoice::controllerMoved(int controllerNumber, int newControllerValue) {
@@ -57,16 +56,13 @@ void VenoVoice::controllerMoved(int controllerNumber, int newControllerValue) {
 void VenoVoice::renderNextBlock(AudioBuffer<float> &outputBuffer, int startSample, int numSamples) {
     synth->updateSampleRate(); // is not heavy alot of the time!
     int count = synth->count;
-    if (synth->vibrato != nullptr) {
-        synth->vibrato->update();
-    }
     int realSamples = numSamples;
     while (--numSamples >= 0) {
         float output[3] = {0, 0, 0};
         bool cleanNote = true;
         bool runIntoSample = false;
         for (int i = 0; i < count; i++) {
-            VenoOscillator *osc = synth->getOscillator(i);
+            SynthOscillator *osc = synth->getOscillator(i);
             VenoEnvelope *env = synth->getEnvelope(i);
             if (osc == nullptr || env == nullptr) {
                 continue;
@@ -78,9 +74,9 @@ void VenoVoice::renderNextBlock(AudioBuffer<float> &outputBuffer, int startSampl
                 bool status = osc->render();
                 if (status) {
                     runIntoSample = true;
-                    output[0] += osc->getValue() * envValue;
-                    output[1] += osc->getLeft() * envValue;
-                    output[2] += osc->getRight() * envValue;
+                    output[0] += osc->getMonoValue() * envValue;
+                    output[1] += osc->getLeftValue() * envValue;
+                    output[2] += osc->getRightValue() * envValue;
                 }
             }
         }

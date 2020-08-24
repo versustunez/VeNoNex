@@ -13,6 +13,7 @@ public:
     void addValue (float d);
     void setBaseValue(float base);
     void set(float value, float max, float min);
+    float getValue();
 private:
     std::string m_name;
     std::string m_processId;

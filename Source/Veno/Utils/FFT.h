@@ -11,9 +11,9 @@ public:
     ~FFT () = default;
     enum
     {
-        fftOrder = 11,
-        fftSize = 2048,
-        scopeSize = 2048
+        fftOrder = 10,
+        fftSize = 1024,
+        scopeSize = 512
     };
     void drawNextFrameOfSpectrum (const std::vector<float>& data);
     float scopeData[scopeSize]{};

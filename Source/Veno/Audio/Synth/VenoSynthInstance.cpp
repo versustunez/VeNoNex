@@ -1,22 +1,18 @@
 #include "VenoSynthInstance.h"
+#include "../../Core/AudioConfig.h"
+#include "../Oscillator/SynthOscillator.h"
 
 #include <utility>
 
-VenoSynthInstance::VenoSynthInstance(double sampleRate)
+VenoSynthInstance::VenoSynthInstance(const std::string& id, double sampleRate)
 {
+    m_id = id;
     // this vibrato is not needed! because it should handled via matrix later
-    vibrato = new VenoLFO();
     for (int i = 0; i < count; i++)
     {
-        oscillators[i] = new VenoOscillator(vibrato);
-        oscillators[i]->name = "osc" + std::to_string(i);
-        envelopes[i] = new VenoEnvelope(sampleRate);
-        envelopes[i]->name = "osc" + std::to_string(i);
-        oscillators[i]->setup();
-        if (i == 0)
-        {
-            oscillators[i]->setActive(true);
-        }
+        auto name = "osc" + std::to_string(i+1);
+        oscillators[i] = new SynthOscillator(id, 9, name);
+        envelopes[i] = new VenoEnvelope(id, name, sampleRate);
     }
     isInit = true;
 }
@@ -31,9 +27,6 @@ VenoSynthInstance::~VenoSynthInstance()
     delete envelopes[1];
     delete envelopes[2];
     delete envelopes[3];
-    delete lfos[0];
-    delete lfos[1];
-    delete vibrato;
     // VenoSynthInstance::chain = nullptr;
 }
 void VenoSynthInstance::updateSampleRate()

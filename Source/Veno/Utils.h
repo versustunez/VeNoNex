@@ -38,6 +38,7 @@ namespace VeNo
         static float dbToGain(float decibels);
         static float dBForChannel(float value);
         static float getHigherValue(float a, float b);
+        static float waveTableMix(float a, float b, float mix);
     };
 }
 #endif //VENO_UTILS_H

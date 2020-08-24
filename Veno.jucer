@@ -29,6 +29,10 @@
           <FILE id="wYGzZw" name="Logger.h" compile="0" resource="0" file="Source/Veno/Utils/Logger.h"/>
           <FILE id="xJwmEr" name="StringUtils.cpp" compile="1" resource="0" file="Source/Veno/Utils/StringUtils.cpp"/>
           <FILE id="C21Iyn" name="StringUtils.h" compile="0" resource="0" file="Source/Veno/Utils/StringUtils.h"/>
+          <FILE id="JQeKVe" name="VeNoParameterStringHelper.cpp" compile="1"
+                resource="0" file="Source/Veno/Utils/VeNoParameterStringHelper.cpp"/>
+          <FILE id="nRun9a" name="VeNoParameterStringHelper.h" compile="0" resource="0"
+                file="Source/Veno/Utils/VeNoParameterStringHelper.h"/>
         </GROUP>
         <FILE id="XtqjAL" name="VenoInstance.h" compile="0" resource="0" file="Source/Veno/VenoInstance.h"/>
         <FILE id="LItgbD" name="VenoInstance.cpp" compile="1" resource="0"
@@ -36,6 +40,59 @@
         <FILE id="nB3dnt" name="Utils.h" compile="0" resource="0" file="Source/Veno/Utils.h"/>
         <FILE id="jHgT3X" name="Utils.cpp" compile="1" resource="0" file="Source/Veno/Utils.cpp"/>
         <GROUP id="{95543E53-EBB6-70D0-E280-A334ED5EAB84}" name="Audio">
+          <GROUP id="{7D30BA60-DB7B-2746-FEE4-097E11C4B888}" name="Oscillator">
+            <GROUP id="{3035E521-6A17-BB25-CC25-F4306C21DD5E}" name="Helper">
+              <GROUP id="{38D8E91D-9AB3-55E1-E58B-BCFEA238A473}" name="DetuneAlgos">
+                <FILE id="jiDsGK" name="DetuneLookup.cpp" compile="1" resource="0"
+                      file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/DetuneLookup.cpp"/>
+                <FILE id="ec1Ky4" name="DetuneLookup.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/DetuneLookup.h"/>
+                <FILE id="aL1KJg" name="FastLookDetune.cpp" compile="1" resource="0"
+                      file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/FastLookDetune.cpp"/>
+                <FILE id="Q38ufA" name="FastLookDetune.h" compile="0" resource="0"
+                      file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/FastLookDetune.h"/>
+                <FILE id="b1w1SF" name="SuperDetune.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/SuperDetune.cpp"/>
+                <FILE id="Ccbb9Z" name="SuperDetune.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/SuperDetune.h"/>
+                <FILE id="ej94Mk" name="VeNoXDetune.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/VeNoXDetune.cpp"/>
+                <FILE id="zj771D" name="VeNoXDetune.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Helper/DetuneAlgos/VeNoXDetune.h"/>
+              </GROUP>
+              <FILE id="XtQRz6" name="DetuneHelper.cpp" compile="1" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Helper/DetuneHelper.cpp"/>
+              <FILE id="yEQe6K" name="DetuneHelper.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Helper/DetuneHelper.h"/>
+              <FILE id="sMUY4f" name="OscillatorParameters.cpp" compile="1" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Helper/OscillatorParameters.cpp"/>
+              <FILE id="mey5EQ" name="OscillatorParameters.h" compile="0" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Helper/OscillatorParameters.h"/>
+              <FILE id="WGyUGc" name="WaveTableWrapper.cpp" compile="1" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Helper/WaveTableWrapper.cpp"/>
+              <FILE id="Vl7BA6" name="WaveTableWrapper.h" compile="0" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Helper/WaveTableWrapper.h"/>
+            </GROUP>
+            <GROUP id="{C4562447-FD67-ED8A-69AE-08279C7D46D0}" name="Modules">
+              <FILE id="DZZQ2H" name="Filter.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Filter.cpp"/>
+              <FILE id="SDNE70" name="Filter.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Filter.h"/>
+              <FILE id="zZG3ux" name="Limiter.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Limiter.cpp"/>
+              <FILE id="MHKXCu" name="Limiter.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Limiter.h"/>
+              <FILE id="WJgQI9" name="OscillatorVoice.cpp" compile="1" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Modules/OscillatorVoice.cpp"/>
+              <FILE id="ayB0RV" name="OscillatorVoice.h" compile="0" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Modules/OscillatorVoice.h"/>
+              <FILE id="GAlHzk" name="Widener.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Widener.cpp"/>
+              <FILE id="NPefRi" name="Widener.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Widener.h"/>
+            </GROUP>
+            <FILE id="ejVyDJ" name="BaseOscillator.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Oscillator/BaseOscillator.cpp"/>
+            <FILE id="Be2g7b" name="BaseOscillator.h" compile="0" resource="0"
+                  file="Source/Veno/Audio/Oscillator/BaseOscillator.h"/>
+            <FILE id="u6pmvg" name="SynthOscillator.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Oscillator/SynthOscillator.cpp"/>
+            <FILE id="kbKUAe" name="SynthOscillator.h" compile="0" resource="0"
+                  file="Source/Veno/Audio/Oscillator/SynthOscillator.h"/>
+            <FILE id="Hd41X2" name="VenoEnvelope.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Oscillator/VenoEnvelope.cpp"/>
+            <FILE id="esU1T3" name="VenoEnvelope.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VenoEnvelope.h"/>
+            <FILE id="LrmKi3" name="VenoLFO.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/VenoLFO.cpp"/>
+            <FILE id="ldzZY5" name="VenoLFO.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VenoLFO.h"/>
+          </GROUP>
           <GROUP id="{54E62D70-D597-6F59-0770-96E3824F110B}" name="Engine">
             <FILE id="tKRVBt" name="ModulateValue.cpp" compile="1" resource="0"
                   file="Source/Veno/Audio/Engine/ModulateValue.cpp"/>
@@ -44,6 +101,9 @@
             <FILE id="eA6ftc" name="Modulator.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/Modulator.h"/>
             <FILE id="rkTKQ1" name="VeNoMatrix.cpp" compile="1" resource="0" file="Source/Veno/Audio/Engine/VeNoMatrix.cpp"/>
             <FILE id="v4AuOK" name="VeNoMatrix.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/VeNoMatrix.h"/>
+            <FILE id="lrpoL2" name="VeNoParameter.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Engine/VeNoParameter.cpp"/>
+            <FILE id="SOHSwe" name="VeNoParameter.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/VeNoParameter.h"/>
           </GROUP>
           <FILE id="tHbIrz" name="VenoBuffer.cpp" compile="1" resource="0" file="Source/Veno/Audio/VenoBuffer.cpp"/>
           <FILE id="ufeJaH" name="VenoBuffer.h" compile="0" resource="0" file="Source/Veno/Audio/VenoBuffer.h"/>
@@ -79,31 +139,6 @@
                   file="Source/Veno/Audio/WaveTable/WaveTableGenerator.cpp"/>
             <FILE id="yI9w2X" name="WaveTableGenerator.h" compile="0" resource="0"
                   file="Source/Veno/Audio/WaveTable/WaveTableGenerator.h"/>
-          </GROUP>
-          <GROUP id="{16AA5D0B-E67A-8176-4F36-1180ADAFA480}" name="Oscillator">
-            <GROUP id="{11919811-0FD4-ED1C-3B22-74D1A9ABCBAB}" name="Modules">
-              <FILE id="V8DbJJ" name="FilterModule.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/FilterModule.h"/>
-              <FILE id="w8ubHk" name="LimiterModule.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/LimiterModule.h"/>
-              <FILE id="Y17n51" name="Vibrato.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Vibrato.h"/>
-              <FILE id="pYkPvD" name="WideningModule.h" compile="0" resource="0"
-                    file="Source/Veno/Audio/Oscillator/Modules/WideningModule.h"/>
-            </GROUP>
-            <FILE id="aCWace" name="DetuneLookup.cpp" compile="1" resource="0"
-                  file="Source/Veno/Audio/Oscillator/DetuneLookup.cpp"/>
-            <FILE id="PGduYn" name="DetuneLookup.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/DetuneLookup.h"/>
-            <FILE id="Zj0aIp" name="VenoEnvelope.cpp" compile="1" resource="0"
-                  file="Source/Veno/Audio/Oscillator/VenoEnvelope.cpp"/>
-            <FILE id="hvTfpc" name="VenoEnvelope.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VenoEnvelope.h"/>
-            <FILE id="NB2urs" name="VenoLFO.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/VenoLFO.cpp"/>
-            <FILE id="PDH808" name="VenoLFO.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VenoLFO.h"/>
-            <FILE id="mR7Uhb" name="VenoOscillator.cpp" compile="1" resource="0"
-                  file="Source/Veno/Audio/Oscillator/VenoOscillator.cpp"/>
-            <FILE id="wCLUkx" name="VenoOscillator.h" compile="0" resource="0"
-                  file="Source/Veno/Audio/Oscillator/VenoOscillator.h"/>
-            <FILE id="gcplp2" name="WaveTableOscillator.cpp" compile="1" resource="0"
-                  file="Source/Veno/Audio/Oscillator/WaveTableOscillator.cpp"/>
-            <FILE id="KznTwW" name="WaveTableOscillator.h" compile="0" resource="0"
-                  file="Source/Veno/Audio/Oscillator/WaveTableOscillator.h"/>
           </GROUP>
           <GROUP id="{A224AFA7-CD28-E0FE-3B5A-8203BFD9467B}" name="FX"/>
         </GROUP>

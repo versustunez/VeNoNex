@@ -1,5 +1,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "Veno/Core/AudioConfig.h"
 
 VenoAudioProcessor::VenoAudioProcessor()
         : AudioProcessor(BusesProperties().withOutput("Output", AudioChannelSet::stereo(), true)),
@@ -81,7 +82,7 @@ void VenoAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     {
         for (int p = 0; p < 5; p++)
         {
-            m_synth.addVoice(new VenoVoice(p, sampleRate));
+            m_synth.addVoice(new VenoVoice(p, sampleRate, m_id));
         }
         m_synth.addSound(new VenoSound());
         m_isInit = true;

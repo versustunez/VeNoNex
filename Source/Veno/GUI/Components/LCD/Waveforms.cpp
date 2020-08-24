@@ -160,10 +160,10 @@ void Waveforms::getState()
     }
 }
 
-void Waveforms::parameterChanged(const std::string& parameterID, const std::string& translation, float newValue)
+void Waveforms::parameterChanged(VeNoParameter* parameter)
 {
-    m_changedParameter = translation;
-    m_changedValue = newValue;
+    m_changedParameter = parameter->getShowName();
+    m_changedValue = parameter->getBaseValue();
     m_isChangingData = true;
     m_ticks = 0;
     startTimer(1000);

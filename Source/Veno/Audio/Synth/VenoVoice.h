@@ -7,7 +7,7 @@
 class VenoVoice : public SynthesiserVoice {
 public:
 	int index = 0;
-	VenoVoice(int _index, double sampleRate);
+	VenoVoice(int _index, double sampleRate, const std::string& id);
 	~VenoVoice() override;
 	// Geerbt über SynthesiserVoice
 	bool canPlaySound(SynthesiserSound*) override;
@@ -23,6 +23,7 @@ private:
 	VenoSynthInstance *synth;
 	float velocity = 0.0;
 	bool playSound = true;
+	std::string m_id;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoVoice)
 };
 
