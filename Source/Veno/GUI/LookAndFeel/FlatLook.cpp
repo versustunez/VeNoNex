@@ -1,9 +1,12 @@
-//
-// Created by versustune on 17.03.20.
-//
-
 #include "FlatLook.h"
+#include "../../GUI/Fonts/Fonts.h"
 #include "../../Core/Config.h"
+
+
+FlatLook::FlatLook ()
+{
+    setDefaultSansSerifTypeface (VenoFonts::getNormal ()->getTypeface ());
+}
 
 void FlatLook::drawButtonBackground (Graphics& graphics, Button& button, const Colour& backgroundColour,
                                      bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
@@ -46,7 +49,8 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
                        true);
     arc.applyTransform (AffineTransform ().translated (centreX, centreY));
     g.setGradientFill (
-            ColourGradient::horizontal (theme->getColour (ThemeColour::accent_two), centreX - radius,theme->getColour (ThemeColour::accent),
+            ColourGradient::horizontal (theme->getColour (ThemeColour::accent_two), centreX - radius,
+                                        theme->getColour (ThemeColour::accent),
                                         centreX + radius));
     g.strokePath (arc, PathStrokeType (3.0f));
 

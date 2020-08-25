@@ -1,7 +1,3 @@
-//
-// Created by versustune on 08.06.20.
-//
-
 #ifndef VENO_WAVETABLEGENERATOR_H
 #define VENO_WAVETABLEGENERATOR_H
 
@@ -9,9 +5,11 @@
 
 struct WaveTableObject
 {
-    ~WaveTableObject() {
-        m_waveTable.clear();
+    ~WaveTableObject ()
+    {
+        m_waveTable.clear ();
     }
+
     double m_topFreq;
     int m_waveTableLen;
     std::vector<float> m_waveTable = {};
@@ -23,8 +21,9 @@ struct WaveTableGroup
     WaveTableObject* m_WaveTables[numWaveTableSlots] = {};
     int m_numWaveTables = 0;
 
-    ~WaveTableGroup() {
-        for (auto & m_WaveTable : m_WaveTables)
+    ~WaveTableGroup ()
+    {
+        for (auto& m_WaveTable : m_WaveTables)
         {
             delete m_WaveTable;
         }
@@ -43,6 +42,7 @@ enum WaveForms
     SYNTH_TWO,
     VENOX
 };
+
 class WaveTableGenerator
 {
 private:
@@ -56,13 +56,19 @@ public:
     }
 
     WaveTableGroup* getGroup (int id);
+
     void init ();
+
     void cleanTables ();
+
 protected:
     bool m_isInit = false;
     int addedWaveForms = 0;
+
     WaveTableGenerator () = default;
+
     ~WaveTableGenerator () = default;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveTableGenerator)
 };
+
 #endif //VENO_WAVETABLEGENERATOR_H

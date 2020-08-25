@@ -1,37 +1,37 @@
-//
-// Created by versustune on 13.06.20.
-//
-
 #include "VeNoMatrix.h"
 #include "../../Utils/StringUtils.h"
 
 VeNoMatrix::VeNoMatrix (const std::string& processId) : m_processId (processId)
 {
+    DBG("Create Matrix with ID: " + processId);
 }
 
 VeNoMatrix::~VeNoMatrix ()
 {
+    DBG("Destroy Matrix!");
     for (auto& m_slot : m_slots)
     {
         delete m_slot.second;
-        m_slots.erase (m_slot.first);
     }
 
     for (auto& value : m_modulationValues)
     {
         delete value.second;
-        m_modulationValues.erase (value.first);
     }
 
     for (auto& value : m_modulators)
     {
         delete value.second;
-        m_modulators.erase (value.first);
     }
+
+    m_slots.clear ();
+    m_modulationValues.clear ();
+    m_modulators.clear ();
 }
 
 void VeNoMatrix::removeModulateValue (const std::string& name)
 {
+    delete m_modulationValues[name];
     m_modulationValues.erase (name);
 }
 
@@ -66,6 +66,7 @@ void VeNoMatrix::updateSlots ()
         value->addValue (source->getValue () * amount);
     }
 }
+
 void VeNoMatrix::setMatrixModulation (const std::string& name, const std::string& source, float amount)
 {
     auto c = std::string (source + name);
@@ -97,8 +98,8 @@ void VeNoMatrix::getMatrixFromXML (std::unique_ptr<XmlElement>& xml)
     for (auto& m_slot : m_slots)
     {
         delete m_slot.second;
-        m_slots.erase (m_slot.first);
     }
+    m_slots.clear ();
     // recreate the matrix from xml...
     auto tree = juce::ValueTree::fromXml (*xml);
     for (int i = 0; i < tree.getNumChildren (); ++i)
@@ -110,6 +111,14 @@ void VeNoMatrix::getMatrixFromXML (std::unique_ptr<XmlElement>& xml)
         {
             m_slots[name.toString ().toStdString ()] = slot;
         }
+    }
+}
+
+void VeNoMatrix::setBaseValueOfModulationValue (const std::string& parameter, float value)
+{
+    if (m_modulationValues.find (parameter) != m_modulationValues.end ())
+    {
+        m_modulationValues[parameter]->setBaseValue (value);
     }
 }
 

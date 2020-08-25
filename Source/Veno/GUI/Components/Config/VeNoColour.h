@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #ifndef VENO_VENOCOLOUR_H
 #define VENO_VENOCOLOUR_H
 
@@ -17,11 +13,18 @@ private:
     std::string m_name;
 public:
     explicit VeNoColour (const std::string& processId, ThemeColour index);
+
     ~VeNoColour () override;
-    void setName(std::string name);
+
+    void setName (std::string name);
+
     void resized () override;
+
     void paint (Graphics& g) override;
-private:
+
+protected:
     void changeListenerCallback (ChangeBroadcaster* source) override;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VeNoColour)
 };
+
 #endif //VENO_VENOCOLOUR_H

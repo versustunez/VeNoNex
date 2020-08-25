@@ -1,7 +1,3 @@
-//
-// Created by versustune on 08.06.20.
-//
-
 #ifndef VENO_TRIANGLEWAVES_H
 #define VENO_TRIANGLEWAVES_H
 
@@ -10,6 +6,7 @@
 class TriangleWaves
 {
 public:
-    static void generateTriangle(WaveTableGroup* group);
+    static void generateTriangle (WaveTableGroup* group);
 };
+
 #endif //VENO_TRIANGLEWAVES_H

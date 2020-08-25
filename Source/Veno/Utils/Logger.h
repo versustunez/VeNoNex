@@ -9,6 +9,7 @@ namespace VeNo
     {
     public:
         static void debugMessage (const std::string& message);
+
         static void infoDebugMessage (const std::string& message);
     };
 }

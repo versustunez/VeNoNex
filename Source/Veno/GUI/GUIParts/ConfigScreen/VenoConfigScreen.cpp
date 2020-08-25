@@ -1,38 +1,34 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #include "VenoConfigScreen.h"
 #include "../../../VenoInstance.h"
 
-VenoConfigScreen::VenoConfigScreen (const std::string& pid) : DocumentWindow("VeNo Config", Colours::black,
-                                                                             DocumentWindow::closeButton, true)
+VenoConfigScreen::VenoConfigScreen (const std::string& pid) : DocumentWindow ("VeNo Config", Colours::black,
+                                                                              DocumentWindow::closeButton, true)
 {
     m_pid = pid;
     auto w = 840;
     auto h = 800;
-    component = std::make_shared<ConfigComponent>(pid);
-    component->setSize(w, h);
-    m_lookHandler = std::make_unique<LookHandler>();
-    component->setLookAndFeel(m_lookHandler->getLook());
-    centreWithSize(w, h);
-    setAlwaysOnTop(true);
-    setContentOwned(component.get(), false);
-    setResizable(false, false);
-    setUsingNativeTitleBar(true);
-    setVisible(true);
+    component = std::make_shared<ConfigComponent> (m_pid);
+    component->setSize (w, h);
+    m_lookHandler = std::make_unique<LookHandler> ();
+    component->setLookAndFeel (m_lookHandler->getLook ());
+    centreWithSize (w, h);
+    setAlwaysOnTop (true);
+    setContentOwned (component.get (), false);
+    setResizable (false, false);
+    setUsingNativeTitleBar (true);
+    setVisible (true);
 }
 
 VenoConfigScreen::~VenoConfigScreen ()
 {
-    component->setLookAndFeel(nullptr);
-    m_lookHandler.reset();
-    component.reset();
+    component->setLookAndFeel (nullptr);
+    m_lookHandler.reset ();
+    component.reset ();
 }
 
 void VenoConfigScreen::closeButtonPressed ()
 {
-    auto state = VenoInstance::getInstance(m_pid)->state;
+    auto state = VenoInstance::getInstance (m_pid)->state;
     if (state != nullptr && state->configScreen != nullptr)
     {
         delete state->configScreen;

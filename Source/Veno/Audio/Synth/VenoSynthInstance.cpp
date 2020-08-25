@@ -1,31 +1,23 @@
-//
-// Created by Maurice on 26.09.2019.
-//
-
 #include "VenoSynthInstance.h"
+#include "../../Core/AudioConfig.h"
+#include "../Oscillator/SynthOscillator.h"
 
 #include <utility>
 
-VenoSynthInstance::VenoSynthInstance(double sampleRate)
+VenoSynthInstance::VenoSynthInstance (const std::string& id, double sampleRate)
 {
+    m_id = id;
     // this vibrato is not needed! because it should handled via matrix later
-    vibrato = new VenoLFO();
     for (int i = 0; i < count; i++)
     {
-        oscillators[i] = new VenoOscillator(vibrato);
-        oscillators[i]->name = "osc" + std::to_string(i);
-        envelopes[i] = new VenoEnvelope(sampleRate);
-        envelopes[i]->name = "osc" + std::to_string(i);
-        oscillators[i]->setup();
-        if (i == 0)
-        {
-            oscillators[i]->setActive(true);
-        }
+        auto name = "osc" + std::to_string (i + 1);
+        oscillators[i] = new SynthOscillator (id, 9, name);
+        envelopes[i] = new VenoEnvelope (id, name, sampleRate);
     }
     isInit = true;
 }
 
-VenoSynthInstance::~VenoSynthInstance()
+VenoSynthInstance::~VenoSynthInstance ()
 {
     delete oscillators[0];
     delete oscillators[1];
@@ -35,20 +27,18 @@ VenoSynthInstance::~VenoSynthInstance()
     delete envelopes[1];
     delete envelopes[2];
     delete envelopes[3];
-    delete lfos[0];
-    delete lfos[1];
-    delete vibrato;
     // VenoSynthInstance::chain = nullptr;
 }
-void VenoSynthInstance::updateSampleRate()
+
+void VenoSynthInstance::updateSampleRate ()
 {
-    float sRate = AudioConfig::getInstance()->getSampleRate();
+    float sRate = AudioConfig::getInstance ()->getSampleRate ();
     if (lastSampleRate != sRate)
     {
         lastSampleRate = sRate;
         for (int i = 0; i < count; i++)
         {
-            envelopes[i]->setSampleRate(lastSampleRate);
+            envelopes[i]->setSampleRate (lastSampleRate);
         }
     }
 }

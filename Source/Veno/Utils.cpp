@@ -1,7 +1,3 @@
-//
-// Created by versustune on 08.06.20.
-//
-
 #include "Utils.h"
 #include "Core/Config.h"
 
@@ -86,13 +82,17 @@ int VeNo::Utils::getCalculatedHeight (int height)
 float VeNo::Utils::polyBlep (float t, float phaseInc)
 {
     double dt = phaseInc / DOUBLE_PI;
-    if (t < dt) {
+    if (t < dt)
+    {
         t /= (float) dt;
         return t + t - t * t - 1.0f;
-    } else if (t > 1.0 - dt) {
+    }
+    else if (t > 1.0 - dt)
+    {
         t = (t - 1.0f) / (float) dt;
         return t * t + t + t + 1.0f;
-    } else return 0.0f;
+    }
+    else return 0.0f;
 }
 
 float VeNo::Utils::lerp (float a, float b, float f)
@@ -102,15 +102,34 @@ float VeNo::Utils::lerp (float a, float b, float f)
 
 float VeNo::Utils::centsToRatio (float cents)
 {
-    return std::pow(2.0, cents / (float) CENTS_PER_OCTAVE);
+    return std::pow (2.0, cents / (float) CENTS_PER_OCTAVE);
 }
 
 float VeNo::Utils::gainToDb (float gain)
 {
-    return DB_GAIN_CONVERSION_MULTIPLIER * std::log10(gain);
+    return DB_GAIN_CONVERSION_MULTIPLIER * std::log10 (gain);
 }
 
 float VeNo::Utils::dbToGain (float decibels)
 {
-    return std::pow(10.0, decibels / DB_GAIN_CONVERSION_MULTIPLIER);
+    return std::pow (10.0, decibels / DB_GAIN_CONVERSION_MULTIPLIER);
+}
+
+float VeNo::Utils::dBForChannel (float value)
+{
+    return jmap (value, -30.0f, 0.0f, -1.0f,
+                 0.9f);
+}
+
+float VeNo::Utils::getHigherValue (float a, float b)
+{
+    return a > b ? a : b;
+}
+
+float VeNo::Utils::waveTableMix (float a, float b, float mix)
+{
+    float diff = 1 - mix;
+    a *= diff;
+    b *= mix;
+    return VeNo::Utils::clamp (a + b, -1, 1);
 }

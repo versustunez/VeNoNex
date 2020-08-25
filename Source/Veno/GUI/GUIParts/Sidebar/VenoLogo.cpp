@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #include "VenoLogo.h"
 
 VenoLogo* VenoLogo::instance = nullptr;
@@ -10,7 +6,7 @@ VenoLogo* VenoLogo::getInstance ()
 {
     if (instance == nullptr)
     {
-        instance = new VenoLogo();
+        instance = new VenoLogo ();
     }
     return instance;
 }
@@ -18,13 +14,13 @@ VenoLogo* VenoLogo::getInstance ()
 VenoLogo::VenoLogo ()
 {
     MemoryOutputStream mo;
-    auto result = ImageCache::getFromMemory(BinaryData::LogoVeNo_png, BinaryData::LogoVeNo_pngSize);
+    auto result = ImageCache::getFromMemory (BinaryData::LogoVeNo_png, BinaryData::LogoVeNo_pngSize);
     realLogo = result;
 }
 
 Image VenoLogo::getLogo ()
 {
-    return getInstance()->realLogo;
+    return getInstance ()->realLogo;
 }
 
 void VenoLogo::deleteInstance ()

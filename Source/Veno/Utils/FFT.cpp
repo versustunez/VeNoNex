@@ -1,36 +1,28 @@
-//
-// Created by versustune on 12.06.20.
-//
-
 #include "FFT.h"
+#include "../Utils.h"
 
-void FFT::pushNextSampleIntoFifo (float sample) noexcept
+using VeNo::Utils;
+
+void FFT::drawNextFrameOfSpectrum (const std::vector<float>& data)
 {
+    for (int i = 0; i < data.size (); ++i)
     {
-        if (fifoIndex == fftSize)    // [11]
+        if (i > fftSize)
         {
-            if (!nextFFTBlockReady) // [12]
-            {
-                zeromem(fftData, sizeof(fftData));
-                memcpy(fftData, fifo, sizeof(fifo));
-                nextFFTBlockReady = true;
-            }
-            fifoIndex = 0;
+            break;
         }
-        fifo[fifoIndex++] = sample;  // [12]
+        fftData[i] = data[i];
     }
-}
+    window.multiplyWithWindowingTable (fftData, fftSize);
+    fft.performFrequencyOnlyForwardTransform (fftData);
 
-void FFT::drawNextFrameOfSpectrum ()
-{
-    window.multiplyWithWindowingTable(fftData, fftSize);      // [1]
-    fft.performFrequencyOnlyForwardTransform(fftData); // [2]
-
-    auto mindB = -80.0f;
-    auto maxdB = 0.0f;
+    auto mindB = -64.0f;
+    auto maxdB = 6.0f;
     for (int i = 0; i < scopeSize; ++i)
     {
-        auto level = jmap(Decibels::gainToDecibels(fftData[i], mindB), mindB, maxdB, -1.0f, 1.0f);
-        scopeData[i] = level;
+        /* auto skewedProportionX = 1.0f - std::exp(std::log(1.0f - (float) i / (float) scopeSize) * 0.2f);
+         int fftDataIndex = (int) Utils::clamp((skewedProportionX * (float) fftSize * 0.5f), 0, fftSize / 2);*/
+        auto gain = Utils::clamp (Decibels::gainToDecibels (fftData[i], mindB), mindB, maxdB);
+        scopeData[i] = juce::jmap (gain, mindB, maxdB, 0.7f, -1.0f);
     }
 }
