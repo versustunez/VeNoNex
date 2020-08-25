@@ -1,7 +1,3 @@
-//
-// Created by versustune on 09.06.20.
-//
-
 #include "VenoInstance.h"
 #include <utility>
 #include "Utils/Logger.h"
@@ -11,11 +7,12 @@ std::unordered_map<std::string, std::shared_ptr<VenoInstance>> VenoInstance::ins
 VenoInstance::VenoInstance(std::string id)
 {
     m_id = std::move(id);
-    m_synthInstance = std::make_shared<SynthInstance>(id);
-    audioBuffer = std::make_shared<VenoBuffer>();
+    m_synthInstance = std::make_shared<SynthInstance>(m_id);
+    audioBuffer = std::make_shared<VenoBuffer>(m_id);
     state = new VeNoState(m_id);
     matrix = new VeNoMatrix(m_id);
     handler = new ParameterHandler(m_id);
+    changeListener = new VeNoChangeListener();
 }
 
 VenoInstance::~VenoInstance()
@@ -25,6 +22,7 @@ VenoInstance::~VenoInstance()
     delete state;
     delete matrix;
     delete handler;
+    delete changeListener;
 }
 
 std::shared_ptr<VenoInstance> VenoInstance::createInstance(const std::string& id)

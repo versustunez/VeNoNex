@@ -1,7 +1,3 @@
-//
-// Created by versustune on 07.06.20.
-//
-
 #include "LabelComponent.h"
 
 LabelComponent::LabelComponent (Component* parent, std::string name)

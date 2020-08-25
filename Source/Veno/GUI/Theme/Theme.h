@@ -1,7 +1,3 @@
-//
-// Created by versustune on 01.03.20.
-//
-
 #ifndef VENO_THEME_H
 #define VENO_THEME_H
 

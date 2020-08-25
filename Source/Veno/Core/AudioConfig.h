@@ -1,7 +1,3 @@
-//
-// Created by versustune on 22.03.20.
-//
-
 #ifndef VENO_AUDIOCONFIG_H
 #define VENO_AUDIOCONFIG_H
 #include <unordered_map>

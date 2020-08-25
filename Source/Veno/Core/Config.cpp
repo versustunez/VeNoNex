@@ -1,9 +1,5 @@
-//
-// Created by versustune on 01.03.20.
-//
-
 #include "Config.h"
-#include "../Fonts/Fonts.h"
+#include "../GUI/Fonts/Fonts.h"
 #include "../GUI/GUIParts/Sidebar/VenoLogo.h"
 #include "../Utils.h"
 

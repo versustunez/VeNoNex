@@ -1,7 +1,3 @@
-//
-// Created by Maurice on 08.07.2020.
-//
-
 #ifndef VENO_STRINGUTILS_H
 #define VENO_STRINGUTILS_H
 

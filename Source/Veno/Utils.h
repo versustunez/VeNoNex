@@ -1,7 +1,3 @@
-//
-// Created by versustune on 08.06.20.
-//
-
 #ifndef VENO_UTILS_H
 #define VENO_UTILS_H
 
@@ -40,6 +36,9 @@ namespace VeNo
         static float centsToRatio(float cents);
         static float gainToDb(float gain);
         static float dbToGain(float decibels);
+        static float dBForChannel(float value);
+        static float getHigherValue(float a, float b);
+        static float waveTableMix(float a, float b, float mix);
     };
 }
 #endif //VENO_UTILS_H

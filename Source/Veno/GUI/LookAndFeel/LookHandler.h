@@ -1,7 +1,3 @@
-//
-// Created by versustune on 17.03.20.
-//
-
 #ifndef VENO_LOOKHANDLER_H
 #define VENO_LOOKHANDLER_H
 

@@ -1,7 +1,3 @@
-//
-// Created by Maurice on 08.07.2020.
-//
-
 #include "StringUtils.h"
 
 std::vector<std::string> VeNo::StringUtils::split (std::string input, std::string separator)

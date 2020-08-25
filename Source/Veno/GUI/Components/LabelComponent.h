@@ -1,7 +1,3 @@
-//
-// Created by versustune on 07.06.20.
-//
-
 #ifndef VENO_LABELCOMPONENT_H
 #define VENO_LABELCOMPONENT_H
 

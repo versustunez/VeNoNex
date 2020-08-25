@@ -1,7 +1,3 @@
-//
-// Created by versustune on 09.06.20.
-//
-
 #ifndef VENO_VENOINSTANCE_H
 #define VENO_VENOINSTANCE_H
 
@@ -12,6 +8,7 @@
 #include "Audio/Engine/VeNoMatrix.h"
 #include "Core/VeNoState.h"
 #include "Core/ParameterHandler.h"
+#include "Core/VeNoChangeListener.h"
 #include <unordered_map>
 
 class VenoInstance
@@ -27,11 +24,12 @@ public:
     static std::shared_ptr<VenoInstance> getInstance (const std::string& id);
     static void deleteInstance (const std::string& processId);
     static bool hasInstance(const std::string& id);
-    const std::shared_ptr<SynthInstance>& getSynthInstance () const;
+    [[nodiscard]] const std::shared_ptr<SynthInstance>& getSynthInstance () const;
     std::shared_ptr<VenoBuffer> audioBuffer;
     VeNoMatrix* matrix; //matrix need a own xml profile to save and restore!
     VeNoState* state;
     ParameterHandler* handler;
+    VeNoChangeListener* changeListener;
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> getAll ();
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoInstance);

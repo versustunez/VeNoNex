@@ -1,12 +1,13 @@
-//
-// Created by versustune on 28.09.19.
-//
-
 #include "VenoEnvelope.h"
 #include "cmath"
+#include "../../VenoInstance.h"
+#include "../../Utils/VeNoParameterStringHelper.h"
 
-VenoEnvelope::VenoEnvelope(double sampleRate)
+VenoEnvelope::VenoEnvelope(const std::string& id, const std::string& name, double sampleRate)
 {
+    m_id = id;
+    m_name = name;
+    m_handler = VenoInstance::getInstance(id)->handler;
     if (sampleRate > 0)
     {
         m_sampleRate = sampleRate;
@@ -14,71 +15,45 @@ VenoEnvelope::VenoEnvelope(double sampleRate)
     }
 }
 
-void VenoEnvelope::setAttack(float attack)
-{
-    if (parameters.attack != attack)
-    {
-        parameters.attack = attack;
-        adsr.setParameters(parameters);
-    }
-}
-
-void VenoEnvelope::setRelease(float release)
-{
-    if (parameters.release != release)
-    {
-        parameters.release = release;
-        adsr.setParameters(parameters);
-    }
-}
-
-void VenoEnvelope::setSustain(float sustain)
-{
-    if (parameters.sustain != sustain)
-    {
-        parameters.sustain = sustain;
-        adsr.setParameters(parameters);
-    }
-}
-
-void VenoEnvelope::setDecay(float decay)
-{
-    if (parameters.decay != decay)
-    {
-        parameters.decay = decay;
-        adsr.setParameters(parameters);
-    }
-}
-
 float VenoEnvelope::getValue()
 {
-    return adsr.getNextSample();
+    return m_value;
 }
 
 bool VenoEnvelope::isActive()
 {
-    return adsr.isActive();
+    return m_adsr.isActive();
 }
 
 void VenoEnvelope::noteOn()
 {
-    if (reTrigger)
-    {
-        adsr.reset();
-    }
-    adsr.noteOn();
+    m_adsr.noteOn();
 }
 
 void VenoEnvelope::noteOff()
 {
-    adsr.noteOff();
+    m_adsr.noteOff();
 }
 
 void VenoEnvelope::setSampleRate(float sampleRate)
 {
     VenoEnvelope::m_sampleRate = sampleRate;
-    adsr = ADSR();
-    adsr.setSampleRate(m_sampleRate);
-    adsr.setParameters(parameters);
-    adsr.reset();
+    m_adsr = ADSR();
+    m_adsr.setSampleRate(m_sampleRate);
+    m_adsr.setParameters(m_parameters);
+    m_adsr.reset();
+}
+
+void VenoEnvelope::update()
+{
+    m_value = m_adsr.getNextSample();
+}
+
+void VenoEnvelope::prepare()
+{
+    m_parameters.release = m_handler->getParameterValue(VeNoParameterStringHelper::getForOscillator(m_name, 15));
+    m_parameters.sustain = m_handler->getParameterValue(VeNoParameterStringHelper::getForOscillator(m_name, 14));
+    m_parameters.decay = m_handler->getParameterValue(VeNoParameterStringHelper::getForOscillator(m_name, 13));
+    m_parameters.attack = m_handler->getParameterValue(VeNoParameterStringHelper::getForOscillator(m_name, 12));
+    m_adsr.setParameters(m_parameters);
 }

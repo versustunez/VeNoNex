@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #ifndef VENO_VENOPRECOLOURS_H
 #define VENO_VENOPRECOLOURS_H
 
@@ -20,7 +16,7 @@ public:
 private:
     void buttonClicked (Button* button) override;
 protected:
-    std::shared_ptr<Slider> m_fpsSlider;
+    std::shared_ptr<Label> m_scaleSliderLabel;
     std::shared_ptr<Slider> m_scaleSlider;
     std::vector<std::unique_ptr<TextButton>> m_pre;
     std::string m_names[4]{

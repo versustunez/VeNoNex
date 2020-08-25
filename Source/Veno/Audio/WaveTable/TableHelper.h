@@ -1,7 +1,3 @@
-//
-// Created by versustune on 08.06.20.
-//
-
 #ifndef VENO_TABLEHELPER_H
 #define VENO_TABLEHELPER_H
 

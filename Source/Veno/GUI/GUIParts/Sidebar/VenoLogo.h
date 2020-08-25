@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #ifndef VENO_VENOLOGO_H
 #define VENO_VENOLOGO_H
 

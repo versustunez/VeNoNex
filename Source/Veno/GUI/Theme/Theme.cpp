@@ -1,7 +1,3 @@
-//
-// Created by versustune on 01.03.20.
-//
-
 #include "Theme.h"
 #include "ThemePresets.cpp"
 #include "../../Core/Config.h"

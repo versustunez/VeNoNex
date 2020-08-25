@@ -1,7 +1,3 @@
-//
-// Created by versustune on 14.06.20.
-//
-
 #include "ConfigComponent.h"
 #include <utility>
 
@@ -12,11 +8,11 @@ ConfigComponent::ConfigComponent (std::string pid)
     auto theme = Config::getInstance()->getCurrentTheme();
     for (int i = 0; i < 8; i++)
     {
-        m_colors[i] = std::make_unique<VeNoColour>(pid, getColorForId(i));
+        m_colors[i] = std::make_unique<VeNoColour>(m_pid, getColorForId(i));
         m_colors[i]->setName(m_names[i]);
         addAndMakeVisible(m_colors[i].get());
     }
-    m_preColours = std::make_unique<VenoPreColours>(pid);
+    m_preColours = std::make_unique<VenoPreColours>(m_pid);
     addAndMakeVisible(*m_preColours);
     flexBox.flexDirection = FlexBox::Direction::row;
     flexBox.justifyContent = FlexBox::JustifyContent::flexStart;

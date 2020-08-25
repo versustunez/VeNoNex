@@ -1,7 +1,3 @@
-//
-// Created by versustune on 09.06.20.
-//
-
 #ifndef VENO_SYNTHINSTANCE_H
 #define VENO_SYNTHINSTANCE_H
 

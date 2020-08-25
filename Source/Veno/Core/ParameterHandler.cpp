@@ -10,12 +10,17 @@ ParameterHandler::ParameterHandler(const std::string& id)
 ParameterHandler::~ParameterHandler()
 {
     DBG("Deleting Parameter Handler");
-    m_params.clear();
-    m_paramNames.clear();
-    for (auto & listener : m_listener)
+    for (auto& listener : m_listener)
     {
         delete listener.second;
     }
+
+    for (auto& parameter : m_parameters)
+    {
+        delete parameter.second;
+    }
+    m_params.clear();
+    m_parameters.clear();
     m_listener.clear();
 }
 
@@ -23,20 +28,10 @@ void
 ParameterHandler::addParameter(const std::string& name, const std::string& showName, float min, float max, float value,
                                ParameterTypes type)
 {
-    m_paramNames[name] = showName;
-    switch (type)
-    {
-        case Integer:
-            m_params.push_back(std::make_unique<AudioParameterInt>(name, showName, min, max, value));
-            break;
-        case Float:
-            m_params.push_back(std::make_unique<AudioParameterFloat>(name, showName, min, max, value));
-            break;
-        case Boolean:
-            m_params.push_back(std::make_unique<AudioParameterBool>(name, showName, value == 1));
-            break;
-    }
+    m_parameters[name] = new VeNoParameter(name, showName, min, max, value, m_id);
+    m_params.push_back(m_parameters[name]->createParameter(type));
 }
+
 
 AudioProcessorValueTreeState::ParameterLayout ParameterHandler::setupProcessor()
 {
@@ -50,15 +45,13 @@ AudioProcessorValueTreeState::ParameterLayout ParameterHandler::setupProcessor()
 void ParameterHandler::addParameterModulate(const std::string& name, const std::string& showName, float min, float max,
                                             float value, ParameterTypes type)
 {
+    addParameter(name, showName, min, max, value, type);
     // no support for Boolean Modulations!
     if (type == ParameterTypes::Boolean)
     {
         return;
     }
-    auto modulateValue = new ModulateValue(name, m_id);
-    modulateValue->set(value, max, min);
-    VenoInstance::getInstance(m_id)->matrix->addModulateValue(name, modulateValue);
-    addParameter(name, showName, min, max, value, type);
+    m_parameters[name]->createModulationValue();
 }
 
 /**
@@ -99,24 +92,25 @@ void ParameterHandler::setupParameter()
         std::string id = "osc" + std::to_string(i) + "__";
         std::string name = "OSC" + std::to_string(i);
         addParameter(id + "active", name + " Active", 0, 1, i == 1 ? 1 : 0, Boolean);
-        addParameter(id + "voices", name + " Voices", 0, 8, 8, Integer);
+        addParameter(id + "voices", name + " Voices", 1, 9, 1, Integer);
         addParameter(id + "semitones", name + " Semitones", -24, 24, 0, Integer);
         addParameterModulate(id + "cents", name + " Fine", -100, 100, 0, Integer);
         addParameterModulate(id + "level", name + " Volume", 0.0f, 1.0f, 0.8f, Float);
-        addParameterModulate(id + "panning", name + " Pan", 0.0f, 1.0f, 0.5f, Float);
+        addParameterModulate(id + "panning", name + " Pan", -1.0f, 1.0f, 0, Float);
         addParameterModulate(id + "detune_amount", name + " Detune Amount", 0.0f, 1.0f, 0, Float);
-        addParameterModulate(id + "detune_dense", name + " Detune Dense", 0.0f, 1.0f, 0, Float);
-        addParameter(id + "detune_mode", name + " Detune Mode", 1, 2, 1, Integer);
+        addParameterModulate(id + "detune_dense", name + " Detune Dense", 0.0f, 200.0f, 0, Float);
+        addParameter(id + "detune_mode", name + " Detune Mode", 1, 3, 1, Integer);
         addParameterModulate(id + "phase", name + " Phase offset", 0, 1, 0, Float);
         addParameter(id + "random_phase", name + " Random Phase", 0, 1, 0, Boolean);
         addParameterModulate(id + "stereo", name + " Stereo Wideness", 0, 200, 0, Float);
         // Envelope Part
         addParameter(id + "attack", name + " Attack", 0, 2, 0.01, Float);
-        addParameter(id + "decay", name + " Decay", 0, 2, 0.01, Float);
+        addParameter(id + "decay", name + " Decay", 0, 2, 0, Float);
         addParameter(id + "sustain", name + " Sustain", 0, 1, 1, Float);
         addParameter(id + "release", name + " Release", 0, 2, 0.01, Float);
 
         // Waveform
+        addParameter(id + "waveform_base", name + " Base Waveform", 1, 9, 3, Integer);
         addParameter(id + "waveform", name + " Waveform", 1, 9, 3, Integer);
         addParameterModulate(id + "waveform_mix", name + " Waveform Mix", 0, 1, 0, Float);
     }
@@ -124,40 +118,52 @@ void ParameterHandler::setupParameter()
     DBG("PARAMS REGISTERED");
 }
 
-
-void ParameterHandler::registerListener(const std::string& name, VeNoListener* listener)
-{
-    if (m_listener.find(name) == m_listener.end())
-    {
-        m_listener[name] = listener;
-    }
-}
-
-void ParameterHandler::deleteListener(const std::string& name)
-{
-    if (m_listener.find(name) != m_listener.end())
-    {
-        m_listener.erase(name);
-    }
-}
-
 void ParameterHandler::parameterChanged(const String& parameterID, float newValue)
 {
     std::string value = parameterID.toStdString();
-    std::string getReal = m_paramNames[value];
+    m_parameters[value]->setValue(newValue);
     for (const auto& element : m_listener)
     {
-       element.second->parameterChanged(value, getReal, newValue);
+        element.second->parameterChanged(m_parameters[value]);
     }
 }
 
 void ParameterHandler::initParameterForListener(AudioProcessorValueTreeState* state)
 {
-    if (m_paramNames.empty()) {
+    if (m_parameters.empty())
+    {
         DBG("NO PARAMS REGISTER");
     }
-    for (auto & m_param : m_paramNames)
+    for (auto& m_param : m_parameters)
     {
         state->addParameterListener(m_param.first, this);
+    }
+}
+
+VeNoParameter* ParameterHandler::getParameter(const std::string& name)
+{
+    return m_parameters[name];
+}
+
+float ParameterHandler::getParameterValue(const std::string& name)
+{
+    return getParameterValue(name, 0);
+}
+
+float ParameterHandler::getParameterValue(const std::string& name, float defaultValue)
+{
+    auto param = m_parameters[name];
+    if (param != nullptr)
+    {
+        return param->getValue();
+    }
+    return defaultValue;
+}
+
+void ParameterHandler::setParameterValue(const std::string& parameterId, float value)
+{
+    if (m_parameters.find(parameterId) != m_parameters.end())
+    {
+        return m_parameters[parameterId]->setValue(value);
     }
 }
