@@ -11,8 +11,9 @@
 class OscillatorParameters
 {
 public:
-    OscillatorParameters(ParameterHandler* handler, const std::string& name);
-    ~OscillatorParameters() = default;
+    OscillatorParameters (ParameterHandler* handler, const std::string& name);
+
+    ~OscillatorParameters () = default;
 
     VeNoParameter* m_pitchWheel;
     VeNoParameter* m_pitchUp;
@@ -38,7 +39,7 @@ public:
     std::string m_name;
     ParameterHandler* m_handler;
 protected:
-    VeNoParameter* getParameter(int index);
+    VeNoParameter* getParameter (int index);
 };
 
 

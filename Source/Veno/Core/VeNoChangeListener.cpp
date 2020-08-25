@@ -1,30 +1,30 @@
 #include "VeNoChangeListener.h"
 
-void VeNoChangeListener::addListener(const std::string& name, VeNoListener* listener)
+void VeNoChangeListener::addListener (const std::string& name, VeNoListener* listener)
 {
-    if (!hasListener(name))
+    if (!hasListener (name))
     {
         m_listener[name] = listener;
     }
 }
 
-void VeNoChangeListener::removeListener(const std::string& name)
+void VeNoChangeListener::removeListener (const std::string& name)
 {
-    if (hasListener(name))
+    if (hasListener (name))
     {
-        m_listener.erase(name);
+        m_listener.erase (name);
     }
 }
 
-void VeNoChangeListener::notifyListener(const std::string& name, float value)
+void VeNoChangeListener::notifyListener (const std::string& name, float value)
 {
-    if (hasListener(name) && m_listener[name] != nullptr)
+    if (hasListener (name) && m_listener[name] != nullptr)
     {
-        m_listener[name]->notify(name, value);
+        m_listener[name]->notify (name, value);
     }
 }
 
-bool VeNoChangeListener::hasListener(const std::string& name)
+bool VeNoChangeListener::hasListener (const std::string& name)
 {
-    return m_listener.find(name) != m_listener.end();
+    return m_listener.find (name) != m_listener.end ();
 }

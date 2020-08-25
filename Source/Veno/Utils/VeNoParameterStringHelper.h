@@ -25,13 +25,20 @@ public:
         static VeNoParameterStringHelper instance;
         return instance;
     }
-    VeNoParameterStringHelper();
-    ~VeNoParameterStringHelper() = default;
-    void initOscillatorCaches();
-    void initBaseCaches();
-    static std::string& getForOscillator(std::string& name, int index);
-    static std::string& getBase(int index);
-    std::vector<std::string>& getRealContainer(int index);
+
+    VeNoParameterStringHelper ();
+
+    ~VeNoParameterStringHelper () = default;
+
+    void initOscillatorCaches ();
+
+    void initBaseCaches ();
+
+    static std::string& getForOscillator (std::string& name, int index);
+
+    static std::string& getBase (int index);
+
+    std::vector<std::string>& getRealContainer (int index);
 };
 
 

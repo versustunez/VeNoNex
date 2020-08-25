@@ -30,30 +30,51 @@ protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Waveforms);
 public:
     explicit Waveforms (const std::string& processId);
+
     ~Waveforms () override;
+
     void newOpenGLContextCreated () override;
+
     void openGLContextClosing () override;
+
     void renderOpenGL () override;
+
     void mouseDown (const MouseEvent& e) override;
+
     void mouseDrag (const MouseEvent& e) override;
+
     void paint (Graphics& g) override;
+
     void resized () override;
+
     bool m_isChangingData = false;
     std::string m_changedParameter;
     float m_changedValue = 0;
-    void parameterChanged(VeNoParameter* parameter) override;
-    void notify(const std::string& name, float value) override;
+
+    void parameterChanged (VeNoParameter* parameter) override;
+
+    void notify (const std::string& name, float value) override;
+
 private:
-    void handleAsyncUpdate() override;
+    void handleAsyncUpdate () override;
+
     void timerCallback () override;
+
     void drawWaveTable ();
+
     void drawAudioOutput ();
+
     void drawSpectrum ();
+
     void drawPeakMeter (); //?!
     void drawChangedParameter (Graphics& g, int w, int h, int x, int y) const;
+
     void compileOpenGLShaderProgram ();
+
     void selectColourByPeak (float value);
-    void getState();
+
+    void getState ();
+
     OpenGLContext m_context;
     std::unique_ptr<OpenGLShaderProgram> m_shaderProgram;
     std::unique_ptr<DecibelScale> m_dBScale;
@@ -64,4 +85,5 @@ private:
     unsigned int vbo;
     std::vector<VeNo::GL::Vertex2> m_vertexBuffer;
 };
+
 #endif //VENO_WAVEFORMS_H

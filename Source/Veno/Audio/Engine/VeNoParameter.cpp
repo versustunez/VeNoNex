@@ -1,7 +1,7 @@
 #include "VeNoParameter.h"
 
-VeNoParameter::VeNoParameter(const std::string& name, const std::string& shownName, float min, float max, float value,
-                             const std::string& id)
+VeNoParameter::VeNoParameter (const std::string& name, const std::string& shownName, float min, float max, float value,
+                              const std::string& id)
 {
     m_name = name;
     m_showName = shownName;
@@ -10,67 +10,67 @@ VeNoParameter::VeNoParameter(const std::string& name, const std::string& shownNa
     m_value = value;
 }
 
-VeNoParameter::~VeNoParameter()
+VeNoParameter::~VeNoParameter ()
 {
-    m_modulateValue.reset(nullptr);
+    m_modulateValue.reset (nullptr);
 }
 
-void VeNoParameter::createModulationValue()
+void VeNoParameter::createModulationValue ()
 {
-    m_modulateValue = std::make_unique<ModulateValue>(m_name, m_id);
-    m_modulateValue->set(m_value, m_max, m_min);
+    m_modulateValue = std::make_unique<ModulateValue> (m_name, m_id);
+    m_modulateValue->set (m_value, m_max, m_min);
     m_isModulation = true;
 }
 
-void VeNoParameter::setValue(float value)
+void VeNoParameter::setValue (float value)
 {
     m_value = value;
     if (m_isModulation)
     {
-        m_modulateValue->setBaseValue(m_value);
+        m_modulateValue->setBaseValue (m_value);
     }
 }
 
-float VeNoParameter::getValue()
+float VeNoParameter::getValue ()
 {
     if (m_isModulation)
     {
-        return m_modulateValue->getValue();
+        return m_modulateValue->getValue ();
     }
     return m_value;
 }
 
-std::string VeNoParameter::getShowName()
+std::string VeNoParameter::getShowName ()
 {
     return m_showName;
 }
 
-std::unique_ptr<RangedAudioParameter> VeNoParameter::createParameter(ParameterTypes type)
+std::unique_ptr<RangedAudioParameter> VeNoParameter::createParameter (ParameterTypes type)
 {
     switch (type)
     {
         case Integer:
-            return std::make_unique<AudioParameterInt>(m_name, m_showName, m_min, m_max, m_value);
+            return std::make_unique<AudioParameterInt> (m_name, m_showName, m_min, m_max, m_value);
         case Float:
-            return std::make_unique<AudioParameterFloat>(m_name, m_showName, m_min, m_max, m_value);
+            return std::make_unique<AudioParameterFloat> (m_name, m_showName, m_min, m_max, m_value);
         case Boolean:
-            return std::make_unique<AudioParameterBool>(m_name, m_showName, m_value == 1);
+            return std::make_unique<AudioParameterBool> (m_name, m_showName, m_value == 1);
         default:
-            return std::make_unique<AudioParameterFloat>(m_name, m_showName, m_min, m_max, m_value);
+            return std::make_unique<AudioParameterFloat> (m_name, m_showName, m_min, m_max, m_value);
     }
 }
 
-bool VeNoParameter::getAsBoolean()
+bool VeNoParameter::getAsBoolean ()
 {
     return m_value > 0.5;
 }
 
-int VeNoParameter::getAsInt()
+int VeNoParameter::getAsInt ()
 {
-    return (int) getValue();
+    return (int) getValue ();
 }
 
-float VeNoParameter::getBaseValue()
+float VeNoParameter::getBaseValue ()
 {
     return m_value;
 }

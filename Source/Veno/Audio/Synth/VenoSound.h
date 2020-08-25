@@ -3,10 +3,13 @@
 
 #include "JuceHeader.h"
 
-class VenoSound : public SynthesiserSound {
+class VenoSound : public SynthesiserSound
+{
 public:
-	virtual bool appliesToNote(int midiNoteNumber) override;
-	virtual bool appliesToChannel(int midiChannel) override;
+    virtual bool appliesToNote (int midiNoteNumber) override;
+
+    virtual bool appliesToChannel (int midiChannel) override;
+
 private:
 protected:
 };

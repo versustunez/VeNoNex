@@ -9,7 +9,9 @@ class SidebarMixer : public BaseComponent
 private:
 public:
     SidebarMixer (const std::string& processId);
-    ~SidebarMixer() = default;
+
+    ~SidebarMixer () = default;
+
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SidebarMixer)
 };

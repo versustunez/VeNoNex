@@ -13,9 +13,11 @@ private:
     std::string m_name;
     std::shared_ptr<OscillatorParameters> m_parameters;
 public:
-    explicit Limiter(const std::string& name, std::shared_ptr<OscillatorParameters>& parameters);
-    ~Limiter() = default;
-    void apply(std::vector<float> &values, std::vector<float> &panned);
+    explicit Limiter (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters);
+
+    ~Limiter () = default;
+
+    void apply (std::vector<float>& values, std::vector<float>& panned);
 };
 
 

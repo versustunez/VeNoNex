@@ -10,11 +10,16 @@ class DetuneLookup
 {
 // maybe later via parameter?
 public:
-    explicit DetuneLookup(int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name);
-    virtual ~DetuneLookup() = default;
-    void setFrequency(float frequency, int midiNote);
-    virtual void prepareDetune(int voices) = 0;
-    float getDetuneFreq(int index);
+    explicit DetuneLookup (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name);
+
+    virtual ~DetuneLookup () = default;
+
+    void setFrequency (float frequency, int midiNote);
+
+    virtual void prepareDetune (int voices) = 0;
+
+    float getDetuneFreq (int index);
+
 protected:
     int m_size;
     std::vector<float> m_lookup;

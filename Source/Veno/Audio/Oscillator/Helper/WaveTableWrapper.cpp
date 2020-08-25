@@ -4,38 +4,39 @@
 #include "../../../Utils.h"
 #include "../../../Utils/VeNoParameterStringHelper.h"
 
-WaveTableWrapper::WaveTableWrapper(const std::string& name, std::shared_ptr<OscillatorParameters>& parameters, int maxVoices)
+WaveTableWrapper::WaveTableWrapper (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters,
+                                    int maxVoices)
 {
     m_name = name;
     m_parameters = parameters;
-    m_voices.resize(maxVoices);
+    m_voices.resize (maxVoices);
     for (int i = 0; i < maxVoices; ++i)
     {
-        m_voices[i] = new Voice();
+        m_voices[i] = new Voice ();
     }
 }
 
-bool WaveTableWrapper::prepare()
+bool WaveTableWrapper::prepare ()
 {
-    auto phase = m_parameters->m_phase->getValue();
+    auto phase = m_parameters->m_phase->getValue ();
     for (auto& voice : m_voices)
     {
         voice->m_phaseOfs = phase;
     }
-    auto baseWaveTable = m_parameters->m_waveformPrimary->getValue() - 1;
-    auto secondWaveTable = m_parameters->m_waveformSecond->getValue() - 1;
-    m_baseWaveGroup = WaveTableGenerator::getInstance().getGroup(baseWaveTable);
-    m_currentWaveGroup = WaveTableGenerator::getInstance().getGroup(secondWaveTable);
+    auto baseWaveTable = m_parameters->m_waveformPrimary->getValue () - 1;
+    auto secondWaveTable = m_parameters->m_waveformSecond->getValue () - 1;
+    m_baseWaveGroup = WaveTableGenerator::getInstance ().getGroup (baseWaveTable);
+    m_currentWaveGroup = WaveTableGenerator::getInstance ().getGroup (secondWaveTable);
     return m_currentWaveGroup != nullptr && m_baseWaveGroup != nullptr;
 }
 
-void WaveTableWrapper::setFrequencyForVoice(int index, float freq)
+void WaveTableWrapper::setFrequencyForVoice (int index, float freq)
 {
-    if (m_currentWaveGroup == nullptr && !prepare())
+    if (m_currentWaveGroup == nullptr && !prepare ())
     {
         return;
     }
-    float inc = freq / AudioConfig::getInstance()->getSampleRate();
+    float inc = freq / AudioConfig::getInstance ()->getSampleRate ();
     auto currentVoice = m_voices[index];
     //something is complete wrong!
     currentVoice->m_phaseInc = inc;
@@ -67,16 +68,16 @@ void WaveTableWrapper::setFrequencyForVoice(int index, float freq)
     }
 }
 
-void WaveTableWrapper::setRandomPhase()
+void WaveTableWrapper::setRandomPhase ()
 {
-    std::srand(1);
+    std::srand (1);
     for (auto& m_voice : m_voices)
     {
-        m_voice->m_phasor = std::rand() / RAND_MAX;
+        m_voice->m_phasor = std::rand () / RAND_MAX;
     }
 }
 
-void WaveTableWrapper::reset()
+void WaveTableWrapper::reset ()
 {
     for (auto& voice : m_voices)
     {
@@ -84,7 +85,7 @@ void WaveTableWrapper::reset()
     }
 }
 
-void WaveTableWrapper::updatePhase(int index)
+void WaveTableWrapper::updatePhase (int index)
 {
     auto cVoice = m_voices[index];
     cVoice->m_phasor += cVoice->m_phaseInc;
@@ -92,39 +93,39 @@ void WaveTableWrapper::updatePhase(int index)
         cVoice->m_phasor -= 1.0;
 }
 
-float WaveTableWrapper::getOutput(int index)
+float WaveTableWrapper::getOutput (int index)
 {
     auto cVoice = m_voices[index];
     if (cVoice->m_phaseOfs > 0)
     {
-        return getOutputPWM(index) * LookupTables::detuneLookup[index];
+        return getOutputPWM (index) * LookupTables::detuneLookup[index];
     }
-    return getOutputRaw(index, 0) * LookupTables::detuneLookup[index];
+    return getOutputRaw (index, 0) * LookupTables::detuneLookup[index];
 }
 
-float WaveTableWrapper::getOutputRaw(int index, float offset)
+float WaveTableWrapper::getOutputRaw (int index, float offset)
 {
     auto cVoice = m_voices[index];
     if (cVoice->m_baseWaveTable != nullptr)
     {
-        auto mixValue = m_parameters->m_waveformMix->getValue();
+        auto mixValue = m_parameters->m_waveformMix->getValue ();
         float phase = (float) cVoice->m_phasor + offset;
-        auto sum = getWaveTableValue(cVoice->m_baseWaveTable, phase);
-        auto finalSum = getWaveTableValue(cVoice->m_currentWaveTable, phase);
-        return VeNo::Utils::waveTableMix(sum, finalSum, mixValue);
+        auto sum = getWaveTableValue (cVoice->m_baseWaveTable, phase);
+        auto finalSum = getWaveTableValue (cVoice->m_currentWaveTable, phase);
+        return VeNo::Utils::waveTableMix (sum, finalSum, mixValue);
     }
     return 0;
 }
 
-float WaveTableWrapper::getOutputPWM(int index)
+float WaveTableWrapper::getOutputPWM (int index)
 {
     auto offset = m_voices[index]->m_phaseOfs;
-    float sumOne = getOutputRaw(index, 0);
-    float sumTwo = getOutputRaw(index, offset);
-    return VeNo::Utils::clamp((sumOne + sumTwo) / 2, -1, 1);
+    float sumOne = getOutputRaw (index, 0);
+    float sumTwo = getOutputRaw (index, offset);
+    return VeNo::Utils::clamp ((sumOne + sumTwo) / 2, -1, 1);
 }
 
-float WaveTableWrapper::getWaveTableValue(WaveTableObject* table, float phase)
+float WaveTableWrapper::getWaveTableValue (WaveTableObject* table, float phase)
 {
     if (table == nullptr)
     {
@@ -149,7 +150,7 @@ float WaveTableWrapper::getWaveTableValue(WaveTableObject* table, float phase)
     return finalSum;
 }
 
-WaveTableWrapper::~WaveTableWrapper()
+WaveTableWrapper::~WaveTableWrapper ()
 {
     for (auto& voice : m_voices)
     {

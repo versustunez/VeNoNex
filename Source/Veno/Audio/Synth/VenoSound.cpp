@@ -1,11 +1,11 @@
 #include "VenoSound.h"
 
-bool VenoSound::appliesToNote(int midiNoteNumber)
+bool VenoSound::appliesToNote (int midiNoteNumber)
 {
-	return true;
+    return true;
 }
 
-bool VenoSound::appliesToChannel(int midiChannel)
+bool VenoSound::appliesToChannel (int midiChannel)
 {
-	return true;
+    return true;
 }

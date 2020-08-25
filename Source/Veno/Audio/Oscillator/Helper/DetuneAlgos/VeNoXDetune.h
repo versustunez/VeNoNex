@@ -7,10 +7,12 @@
 class VeNoXDetune : public DetuneLookup
 {
 public:
-    VeNoXDetune(int maxSize, std::shared_ptr<OscillatorParameters>& handler, const std::string& name);
-    void prepareDetune(int voices) override;
+    VeNoXDetune (int maxSize, std::shared_ptr<OscillatorParameters>& handler, const std::string& name);
+
+    void prepareDetune (int voices) override;
+
 protected:
-    void getRealDetune();
+    void getRealDetune ();
 };
 
 

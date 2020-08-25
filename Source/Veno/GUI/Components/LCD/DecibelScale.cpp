@@ -10,14 +10,14 @@ DecibelScale::DecibelScale (const std::string& process_id) : BaseComponent (proc
 
 void DecibelScale::resized ()
 {
-    m_scale = 0.95 * getHeight();
+    m_scale = 0.95 * getHeight ();
 }
 
 void DecibelScale::paint (Graphics& g)
 {
     auto theme = Config::getInstance ()->getCurrentTheme ();
     g.setColour (theme->getColour (ThemeColour::lcd));
-    g.setFont(*VenoFonts::getLCD());
+    g.setFont (*VenoFonts::getLCD ());
     if (m_mode == 0)
     {
         drawLabel (g, getScale (0), "0");
@@ -36,13 +36,13 @@ void DecibelScale::paint (Graphics& g)
 
 int DecibelScale::getScale (float dB)
 {
-    float fDef = (dB+30) / 30;
+    float fDef = (dB + 30) / 30;
     return int (fDef * m_scale);
 }
 
 void DecibelScale::drawLabel (Graphics& g, int y, const std::string& label)
 {
-    VeNo::Utils::setFontSize(11.0f, g);
+    VeNo::Utils::setFontSize (11.0f, g);
     auto font = g.getCurrentFont ();
     int currentY = getHeight () - y;
     int thisWidth = getWidth ();

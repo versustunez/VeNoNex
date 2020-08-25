@@ -6,7 +6,9 @@
 class SquareWaves
 {
 public:
-    static void generateSquare(WaveTableGroup* group);
-    static void generateDirtySquare(WaveTableGroup* group);
+    static void generateSquare (WaveTableGroup* group);
+
+    static void generateDirtySquare (WaveTableGroup* group);
 };
+
 #endif //VENO_SQUAREWAVES_H

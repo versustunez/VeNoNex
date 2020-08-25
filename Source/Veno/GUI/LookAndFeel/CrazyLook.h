@@ -7,9 +7,12 @@ class CrazyLook : public LookAndFeel_V4
 {
 private:
 public:
-    CrazyLook() = default;
-    ~CrazyLook() override = default;
+    CrazyLook () = default;
+
+    ~CrazyLook () override = default;
+
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CrazyLook)
 };
+
 #endif //VENO_CRAZYLOOK_H

@@ -26,22 +26,33 @@ private:
     std::shared_ptr<DetuneHelper> m_DetuneHelper;
     std::shared_ptr<OscillatorParameters> m_parameters;
 public:
-    BaseOscillator(const std::string& id, const std::string& name, int maxVoices);
-    ~BaseOscillator();
-    bool start(int currentMidiNote);
-    void stop();
-    bool render();
-    bool applyModules();
-    void initModules();
-    void setFrequency();
+    BaseOscillator (const std::string& id, const std::string& name, int maxVoices);
+
+    ~BaseOscillator ();
+
+    bool start (int currentMidiNote);
+
+    void stop ();
+
+    bool render ();
+
+    bool applyModules ();
+
+    void initModules ();
+
+    void setFrequency ();
 
     // getter
-    const std::vector<float>& getValue();
-    float getLeftValue();
-    float getRightValue();
-    float getMonoValue();
+    const std::vector<float>& getValue ();
 
-    float getPitchBend();
+    float getLeftValue ();
+
+    float getRightValue ();
+
+    float getMonoValue ();
+
+    float getPitchBend ();
+
 protected:
     //modules
     std::shared_ptr<Widener> m_widener;

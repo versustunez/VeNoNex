@@ -9,15 +9,22 @@ enum LabelPosition
     TOP,
     BOTTOM
 };
+
 class LabelComponent : public Component
 {
 public:
     LabelComponent (Component* parent, std::string name);
+
     ~LabelComponent () override;
+
     void resized () override;
+
     void paint (Graphics& g) override;
+
     void setPosition (LabelPosition position);
+
     LabelPosition getLabelPosition ();
+
 protected:
 private:
     std::string m_text;
@@ -26,4 +33,5 @@ private:
     std::shared_ptr<Label> m_label;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LabelComponent)
 };
+
 #endif //VENO_LABELCOMPONENT_H

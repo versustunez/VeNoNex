@@ -18,18 +18,28 @@ private:
     std::string m_id;
 public:
     VenoBuffer (const std::string& id);
+
     ~VenoBuffer ();
+
     void reset (int size);
+
     void addMonoSample (float value);
+
     void addLeftSample (float value);
+
     void addRightSample (float value);
+
     void calcPeak ();
+
     float leftPeak{};
     float rightPeak{};
     float monoPeak{};
     float m_highestPeak = 0;
+
     const std::vector<float>& getBuffer () const;
+
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoBuffer);
 };
+
 #endif //VENO_VENOBUFFER_H

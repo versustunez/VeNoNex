@@ -9,11 +9,17 @@ class DecibelScale : public BaseComponent
 private:
 public:
     explicit DecibelScale (const std::string& process_id);
+
     ~DecibelScale () override = default;
+
     void resized () override;
+
     void paint (Graphics& g) override;
-    int getScale(float dB);
-    void drawLabel(Graphics& g, int y, const std::string& label);
+
+    int getScale (float dB);
+
+    void drawLabel (Graphics& g, int y, const std::string& label);
+
     int m_mode = 0;
 protected:
     float m_scale = 0;

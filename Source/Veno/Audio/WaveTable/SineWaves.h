@@ -6,6 +6,7 @@
 class SineWaves
 {
 public:
-    static void generateSine(WaveTableGroup* group);
+    static void generateSine (WaveTableGroup* group);
 };
+
 #endif //VENO_SINEWAVES_H

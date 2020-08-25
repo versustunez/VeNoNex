@@ -2,17 +2,18 @@
 #include "../../../../Utils.h"
 #include "../../../../Utils/VeNoParameterStringHelper.h"
 
-void SuperDetune::prepareDetune(int voices)
+void SuperDetune::prepareDetune (int voices)
 {
-    prepareSuperLookup();
-    float detune = m_parameters->m_detuneDense->getValue();
-    if (m_lookup.empty() || voices != m_lastVoices || m_lastDetune != detune)
+    prepareSuperLookup ();
+    float detune = m_parameters->m_detuneDense->getValue ();
+    if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
     {
         m_lastDetune = detune;
-        getRealDetune();
+        getRealDetune ();
         m_lookup[0] = 1;
 
-        if (voices == 1) {
+        if (voices == 1)
+        {
             return;
         }
 
@@ -24,11 +25,11 @@ void SuperDetune::prepareDetune(int voices)
             float plus;
             if ((i & 1) == 1)
             {
-                plus = VeNo::Utils::centsToRatio(-cents) * m_superLookup[m_midiNote];
+                plus = VeNo::Utils::centsToRatio (-cents) * m_superLookup[m_midiNote];
             }
             else
             {
-                plus = VeNo::Utils::centsToRatio(cents) * m_superLookup[m_midiNote];
+                plus = VeNo::Utils::centsToRatio (cents) * m_superLookup[m_midiNote];
             }
             m_lookup[i] = plus;
         }
@@ -36,7 +37,7 @@ void SuperDetune::prepareDetune(int voices)
     m_lastVoices = voices;
 }
 
-void SuperDetune::getRealDetune()
+void SuperDetune::getRealDetune ()
 {
     float d = m_lastDetune / m_detuneCents;
     if (d > 0.5f)
@@ -46,19 +47,21 @@ void SuperDetune::getRealDetune()
     m_currentDetune = d * m_detuneCents;
 
 }
-void SuperDetune::prepareSuperLookup()
+
+void SuperDetune::prepareSuperLookup ()
 {
-    if (m_superLookup.size() != 128 || m_superLookup.empty())
+    if (m_superLookup.size () != 128 || m_superLookup.empty ())
     {
-        m_superLookup.resize(128);
+        m_superLookup.resize (128);
         for (int i = 0; i < 127; ++i)
         {
-            m_superLookup[i] = int(i / 7) / 127;
+            m_superLookup[i] = int (i / 7) / 127;
         }
     }
 }
-SuperDetune::SuperDetune(int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name)
-        : DetuneLookup(maxSize, parameters, name)
+
+SuperDetune::SuperDetune (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name)
+        : DetuneLookup (maxSize, parameters, name)
 {
 
 }

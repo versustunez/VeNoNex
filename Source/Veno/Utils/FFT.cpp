@@ -3,9 +3,9 @@
 
 using VeNo::Utils;
 
-void FFT::drawNextFrameOfSpectrum(const std::vector<float>& data)
+void FFT::drawNextFrameOfSpectrum (const std::vector<float>& data)
 {
-    for (int i = 0; i < data.size(); ++i)
+    for (int i = 0; i < data.size (); ++i)
     {
         if (i > fftSize)
         {
@@ -13,8 +13,8 @@ void FFT::drawNextFrameOfSpectrum(const std::vector<float>& data)
         }
         fftData[i] = data[i];
     }
-    window.multiplyWithWindowingTable(fftData, fftSize);
-    fft.performFrequencyOnlyForwardTransform(fftData);
+    window.multiplyWithWindowingTable (fftData, fftSize);
+    fft.performFrequencyOnlyForwardTransform (fftData);
 
     auto mindB = -64.0f;
     auto maxdB = 6.0f;
@@ -22,7 +22,7 @@ void FFT::drawNextFrameOfSpectrum(const std::vector<float>& data)
     {
         /* auto skewedProportionX = 1.0f - std::exp(std::log(1.0f - (float) i / (float) scopeSize) * 0.2f);
          int fftDataIndex = (int) Utils::clamp((skewedProportionX * (float) fftSize * 0.5f), 0, fftSize / 2);*/
-        auto gain = Utils::clamp(Decibels::gainToDecibels(fftData[i], mindB), mindB, maxdB);
-        scopeData[i] = juce::jmap(gain, mindB, maxdB, 0.7f, -1.0f);
+        auto gain = Utils::clamp (Decibels::gainToDecibels (fftData[i], mindB), mindB, maxdB);
+        scopeData[i] = juce::jmap (gain, mindB, maxdB, 0.7f, -1.0f);
     }
 }

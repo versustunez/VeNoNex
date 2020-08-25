@@ -3,13 +3,13 @@
 #include "TableHelper.h"
 #include "../../Core/AudioConfig.h"
 
-void SineWaves::generateSine(WaveTableGroup* group)
+void SineWaves::generateSine (WaveTableGroup* group)
 {
     if (group == nullptr)
     {
         return;
     }
-    int tableLen = findTableLen();
+    int tableLen = findTableLen ();
     int idx;
     auto* freqWaveRe = new double[tableLen];
     auto* freqWaveIm = new double[tableLen];
@@ -22,14 +22,14 @@ void SineWaves::generateSine(WaveTableGroup* group)
     float currentAngle = 0;
     for (idx = 0; idx < tableLen; idx++)
     {
-        freqWaveRe[idx] = std::sin(currentAngle);
+        freqWaveRe[idx] = std::sin (currentAngle);
         currentAngle += angleDelta;
     }
-    auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject();
+    auto table = group->m_WaveTables[group->m_numWaveTables] = new WaveTableObject ();
     auto& waveTable = group->m_WaveTables[group->m_numWaveTables]->m_waveTable;
-    waveTable.resize(tableLen + 1);
+    waveTable.resize (tableLen + 1);
     table->m_waveTableLen = tableLen;
-    table->m_topFreq = AudioConfig::getInstance()->getSampleRate() / 2;
+    table->m_topFreq = AudioConfig::getInstance ()->getSampleRate () / 2;
     ++group->m_numWaveTables;
 
     // fill in wave
@@ -38,5 +38,5 @@ void SineWaves::generateSine(WaveTableGroup* group)
     waveTable[tableLen] = waveTable[0];
     delete[] freqWaveRe;
     delete[] freqWaveIm;
-    VeNo::Logger::infoDebugMessage("Generated clean Sine WaveTable");
+    VeNo::Logger::infoDebugMessage ("Generated clean Sine WaveTable");
 }

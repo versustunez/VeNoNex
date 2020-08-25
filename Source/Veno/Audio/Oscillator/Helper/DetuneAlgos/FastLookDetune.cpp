@@ -2,10 +2,10 @@
 #include "../../../../Utils.h"
 #include "../../../../Utils/VeNoParameterStringHelper.h"
 
-void FastLookDetune::prepareDetune(int voices)
+void FastLookDetune::prepareDetune (int voices)
 {
-    float detune = m_parameters->m_detuneDense->getValue();
-    if (m_lookup.empty() || voices != m_lastVoices || m_lastDetune != detune)
+    float detune = m_parameters->m_detuneDense->getValue ();
+    if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
     {
         m_lastDetune = detune;
         m_currentDetune = detune;
@@ -17,11 +17,11 @@ void FastLookDetune::prepareDetune(int voices)
             float plus;
             if ((i & 1) == 1)
             {
-                plus = VeNo::Utils::centsToRatio(-cents);
+                plus = VeNo::Utils::centsToRatio (-cents);
             }
             else
             {
-                plus = VeNo::Utils::centsToRatio(cents);
+                plus = VeNo::Utils::centsToRatio (cents);
             }
             cents += split;
             m_lookup[i] = plus;
@@ -29,8 +29,9 @@ void FastLookDetune::prepareDetune(int voices)
     }
     m_lastVoices = voices;
 }
-FastLookDetune::FastLookDetune(int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name)
-        : DetuneLookup(maxSize, parameters, name)
+
+FastLookDetune::FastLookDetune (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name)
+        : DetuneLookup (maxSize, parameters, name)
 {
 
 }

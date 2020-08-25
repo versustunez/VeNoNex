@@ -19,26 +19,45 @@ private:
 public:
     int m_fps = 60;
     float m_scale = 1.0f;
+
     static std::shared_ptr<Config> getInstance ();
-    static bool hasInstance();
+
+    static bool hasInstance ();
+
     void saveAll ();
+
     int getCurrentLook ();
+
     void setColourForIndex (Colour* colour, ThemeColour index);
+
     std::shared_ptr<Theme> getCurrentTheme ();
+
     double getScale () const;
+
     // can be public but doesnt need!
     Config ();
+
     ~Config ();
+
     void registerEditor (AudioProcessorEditor* editor, const std::string& name);
+
     void removeEditor (const std::string& name);
+
     int getEditorCount ();
+
     int getFps () const;
-    void setScale(float value);
-    void setFps(float value);
+
+    void setScale (float value);
+
+    void setFps (float value);
+
     void timerCallback () override;
-    void repaintAll();
+
+    void repaintAll ();
+
 protected:
     void initConfig ();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Config);
 };
+
 #endif //VENO_CONFIG_H

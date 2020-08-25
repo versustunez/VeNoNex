@@ -4,20 +4,20 @@
 
 #include <utility>
 
-VenoSynthInstance::VenoSynthInstance(const std::string& id, double sampleRate)
+VenoSynthInstance::VenoSynthInstance (const std::string& id, double sampleRate)
 {
     m_id = id;
     // this vibrato is not needed! because it should handled via matrix later
     for (int i = 0; i < count; i++)
     {
-        auto name = "osc" + std::to_string(i+1);
-        oscillators[i] = new SynthOscillator(id, 9, name);
-        envelopes[i] = new VenoEnvelope(id, name, sampleRate);
+        auto name = "osc" + std::to_string (i + 1);
+        oscillators[i] = new SynthOscillator (id, 9, name);
+        envelopes[i] = new VenoEnvelope (id, name, sampleRate);
     }
     isInit = true;
 }
 
-VenoSynthInstance::~VenoSynthInstance()
+VenoSynthInstance::~VenoSynthInstance ()
 {
     delete oscillators[0];
     delete oscillators[1];
@@ -29,15 +29,16 @@ VenoSynthInstance::~VenoSynthInstance()
     delete envelopes[3];
     // VenoSynthInstance::chain = nullptr;
 }
-void VenoSynthInstance::updateSampleRate()
+
+void VenoSynthInstance::updateSampleRate ()
 {
-    float sRate = AudioConfig::getInstance()->getSampleRate();
+    float sRate = AudioConfig::getInstance ()->getSampleRate ();
     if (lastSampleRate != sRate)
     {
         lastSampleRate = sRate;
         for (int i = 0; i < count; i++)
         {
-            envelopes[i]->setSampleRate(lastSampleRate);
+            envelopes[i]->setSampleRate (lastSampleRate);
         }
     }
 }

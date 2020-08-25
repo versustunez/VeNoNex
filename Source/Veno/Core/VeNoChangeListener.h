@@ -8,15 +8,20 @@
 class VeNoChangeListener
 {
 public:
-    VeNoChangeListener() = default;
-    ~VeNoChangeListener() = default;
-    void addListener(const std::string& name, VeNoListener* listener);
-    void removeListener(const std::string& name);
-    void notifyListener(const std::string& name, float value);
+    VeNoChangeListener () = default;
+
+    ~VeNoChangeListener () = default;
+
+    void addListener (const std::string& name, VeNoListener* listener);
+
+    void removeListener (const std::string& name);
+
+    void notifyListener (const std::string& name, float value);
+
 private:
     std::unordered_map<std::string, VeNoListener*> m_listener;
 protected:
-    bool hasListener(const std::string& name);
+    bool hasListener (const std::string& name);
 };
 
 

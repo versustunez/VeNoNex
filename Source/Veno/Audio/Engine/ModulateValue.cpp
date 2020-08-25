@@ -1,12 +1,12 @@
 #include "ModulateValue.h"
 
-ModulateValue::ModulateValue(const std::string& name, const std::string& processId)
+ModulateValue::ModulateValue (const std::string& name, const std::string& processId)
 {
     m_name = name;
     m_processId = processId;
 }
 
-void ModulateValue::addValue(float d)
+void ModulateValue::addValue (float d)
 {
     m_value += m_baseValue * d;
     if (m_value > m_maxValue)
@@ -19,9 +19,9 @@ void ModulateValue::addValue(float d)
     }
 }
 
-ModulateValue::~ModulateValue() = default;
+ModulateValue::~ModulateValue () = default;
 
-void ModulateValue::set(float value, float max, float min)
+void ModulateValue::set (float value, float max, float min)
 {
     m_baseValue = value;
     m_value = value;
@@ -29,13 +29,13 @@ void ModulateValue::set(float value, float max, float min)
     m_minValue = min;
 }
 
-void ModulateValue::setBaseValue(float d)
+void ModulateValue::setBaseValue (float d)
 {
     m_baseValue = d;
     m_value = d;
 }
 
-float ModulateValue::getValue()
+float ModulateValue::getValue ()
 {
     return m_value;
 }

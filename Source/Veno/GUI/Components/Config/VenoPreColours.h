@@ -8,13 +8,20 @@ class VenoPreColours : public BaseComponent, public Slider::Listener, Button::Li
 {
 public:
     VenoPreColours (const std::string& processId);
-    ~VenoPreColours();
-    void initSliders();
-    void initButtons();
+
+    ~VenoPreColours ();
+
+    void initSliders ();
+
+    void initButtons ();
+
     void sliderValueChanged (Slider* slider) override;
+
     void resized () override;
+
 private:
     void buttonClicked (Button* button) override;
+
 protected:
     std::shared_ptr<Label> m_scaleSliderLabel;
     std::shared_ptr<Slider> m_scaleSlider;
@@ -24,4 +31,5 @@ protected:
     };
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoPreColours)
 };
+
 #endif //VENO_VENOPRECOLOURS_H

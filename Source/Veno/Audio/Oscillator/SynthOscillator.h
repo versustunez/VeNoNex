@@ -10,10 +10,14 @@ class SynthOscillator : public Modulator,
 {
 private:
 public:
-    explicit SynthOscillator(const std::string& id, int maxVoices, const std::string& name);
-    ~SynthOscillator();
-    float getValue() override;
-    void update() override;
+    explicit SynthOscillator (const std::string& id, int maxVoices, const std::string& name);
+
+    ~SynthOscillator ();
+
+    float getValue () override;
+
+    void update () override;
+
 protected:
 };
 

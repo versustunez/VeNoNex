@@ -7,10 +7,14 @@
 class SuperDetune : public DetuneLookup
 {
 public:
-    SuperDetune(int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name);
-    void prepareDetune(int voices) override;
-    void prepareSuperLookup();
-    void getRealDetune();
+    SuperDetune (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name);
+
+    void prepareDetune (int voices) override;
+
+    void prepareSuperLookup ();
+
+    void getRealDetune ();
+
 protected:
     std::vector<float> m_superLookup;
 };

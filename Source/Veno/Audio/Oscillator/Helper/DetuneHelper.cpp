@@ -4,39 +4,39 @@
 #include "DetuneAlgos/FastLookDetune.h"
 #include "../../../Utils/VeNoParameterStringHelper.h"
 
-DetuneHelper::DetuneHelper(const std::string& name, std::shared_ptr<OscillatorParameters>& parameters, int voiceCount)
+DetuneHelper::DetuneHelper (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters, int voiceCount)
 {
     m_name = name;
     m_parameters = parameters;
-    m_detuneAlgos.resize(3);
-    m_detuneAlgos[0] = new VeNoXDetune(voiceCount, parameters, name);
-    m_detuneAlgos[1] = new SuperDetune(voiceCount, parameters, name);
-    m_detuneAlgos[2] = new FastLookDetune(voiceCount, parameters, name);
+    m_detuneAlgos.resize (3);
+    m_detuneAlgos[0] = new VeNoXDetune (voiceCount, parameters, name);
+    m_detuneAlgos[1] = new SuperDetune (voiceCount, parameters, name);
+    m_detuneAlgos[2] = new FastLookDetune (voiceCount, parameters, name);
 }
 
-DetuneHelper::~DetuneHelper()
+DetuneHelper::~DetuneHelper ()
 {
-    for (auto & m_detuneAlgo : m_detuneAlgos)
+    for (auto& m_detuneAlgo : m_detuneAlgos)
     {
         delete m_detuneAlgo;
     }
-    m_detuneAlgos.clear();
+    m_detuneAlgos.clear ();
 }
 
-float DetuneHelper::getDetuneFreq(int index)
+float DetuneHelper::getDetuneFreq (int index)
 {
-    return m_detuneAlgos[m_mode]->getDetuneFreq(index);
+    return m_detuneAlgos[m_mode]->getDetuneFreq (index);
 }
 
-void DetuneHelper::setMode()
+void DetuneHelper::setMode ()
 {
-    m_mode = (int) m_parameters->m_detuneMode->getValue() - 1;
+    m_mode = (int) m_parameters->m_detuneMode->getValue () - 1;
 }
 
-void DetuneHelper::update(float freq, int midiNote)
+void DetuneHelper::update (float freq, int midiNote)
 {
-    setMode();
-    int voices = m_parameters->m_voices->getAsInt();
-    m_detuneAlgos[m_mode]->setFrequency(freq, midiNote);
-    m_detuneAlgos[m_mode]->prepareDetune(voices);
+    setMode ();
+    int voices = m_parameters->m_voices->getAsInt ();
+    m_detuneAlgos[m_mode]->setFrequency (freq, midiNote);
+    m_detuneAlgos[m_mode]->prepareDetune (voices);
 }

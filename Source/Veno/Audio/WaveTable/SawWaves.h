@@ -6,8 +6,9 @@
 class SawWaves
 {
 public:
-    static void generateSaw(WaveTableGroup* group);
-    static void generateDirtySaw(WaveTableGroup* group);
+    static void generateSaw (WaveTableGroup* group);
+
+    static void generateDirtySaw (WaveTableGroup* group);
 };
 
 #endif //VENO_SAWWAVES_H

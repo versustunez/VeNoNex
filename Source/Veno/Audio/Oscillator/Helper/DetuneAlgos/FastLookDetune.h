@@ -7,8 +7,9 @@
 class FastLookDetune : public DetuneLookup
 {
 public:
-    FastLookDetune(int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name);
-    void prepareDetune(int voices) override;
+    FastLookDetune (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name);
+
+    void prepareDetune (int voices) override;
 };
 
 

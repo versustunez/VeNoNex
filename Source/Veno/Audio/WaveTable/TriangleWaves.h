@@ -6,6 +6,7 @@
 class TriangleWaves
 {
 public:
-    static void generateTriangle(WaveTableGroup* group);
+    static void generateTriangle (WaveTableGroup* group);
 };
+
 #endif //VENO_TRIANGLEWAVES_H

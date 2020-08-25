@@ -15,11 +15,15 @@ private:
     std::vector<DetuneLookup*> m_detuneAlgos;
     int m_mode = 0;
 public:
-    DetuneHelper(const std::string& name, std::shared_ptr<OscillatorParameters>& handler, int voiceCount);
-    ~DetuneHelper();
-    void update(float freq, int midiNote);
-    void setMode();
-    float getDetuneFreq(int index);
+    DetuneHelper (const std::string& name, std::shared_ptr<OscillatorParameters>& handler, int voiceCount);
+
+    ~DetuneHelper ();
+
+    void update (float freq, int midiNote);
+
+    void setMode ();
+
+    float getDetuneFreq (int index);
 };
 
 

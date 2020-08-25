@@ -3,7 +3,7 @@
 
 LookHandler::LookHandler ()
 {
-    selectLook(Config::getInstance()->getCurrentLook());
+    selectLook (Config::getInstance ()->getCurrentLook ());
 }
 
 LookHandler::~LookHandler ()
@@ -11,7 +11,7 @@ LookHandler::~LookHandler ()
     //delete this shit!
     delete m_feels[0];
     delete m_feels[1];
-    m_look.reset();
+    m_look.reset ();
 }
 
 void LookHandler::selectLook (int index)
