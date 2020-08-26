@@ -25,6 +25,7 @@ private:
     std::shared_ptr<WaveTableWrapper> m_waveTableHelper;
     std::shared_ptr<DetuneHelper> m_DetuneHelper;
     std::shared_ptr<OscillatorParameters> m_parameters;
+    int m_index = 0;
 public:
     BaseOscillator (const std::string& id, const std::string& name, int maxVoices);
 
@@ -52,6 +53,8 @@ public:
     float getMonoValue ();
 
     float getPitchBend ();
+
+    void setIndex(int index);
 
 protected:
     //modules

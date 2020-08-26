@@ -123,6 +123,7 @@ void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
     if (m_isInit)
     {
         m_synth.renderNextBlock (buffer, midiMessages, 0, numSamples);
+        buffer.applyGain(instance->handler->getParameterValue("master__volume", 1));
         for (int i = 0; i < numChannels; ++i)
         {
             auto c = buffer.getReadPointer (i);

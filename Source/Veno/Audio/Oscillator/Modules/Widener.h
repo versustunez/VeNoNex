@@ -25,11 +25,11 @@ public:
 
     float getDetunePan ();
 
-    float m_coefficientM;
-    float m_coefficient;
-    float m_coefficientDetune;
-    float m_wide;
-    float m_lastPanning;
+    float m_coefficientM = 0.0f;
+    float m_coefficient = 0.0f;
+    float m_coefficientDetune = 0.0f;
+    float m_wide = 0;
+    float m_lastPanning = 0;
 };
 
 #undef SQRT2_2

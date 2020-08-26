@@ -14,11 +14,14 @@ public:
 
     void addValue (float d);
 
+    void addValueForVoice(float value, int voice);
+
     void setBaseValue (float base);
 
     void set (float value, float max, float min);
 
     float getValue ();
+    float getValueForVoice (int i);
 
 private:
     std::string m_name;
@@ -27,6 +30,7 @@ private:
     float m_baseValue = 0;
     float m_maxValue = 1;
     float m_minValue = -1;
+    std::vector<float> m_voiceValues;
 
     JUCE_LEAK_DETECTOR(ModulateValue)
 };

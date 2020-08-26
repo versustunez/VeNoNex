@@ -35,6 +35,8 @@ public:
 
     void setParameterValue (const std::string& parameterId, float value);
 
+    std::shared_ptr<ModulateValue> getModulateValue (const std::string& name);
+
 protected:
 private:
     std::string m_id;

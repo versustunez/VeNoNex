@@ -21,7 +21,7 @@ private:
     float m_max;
     float m_min;
     bool m_isModulation = false;
-    std::unique_ptr<ModulateValue> m_modulateValue;
+    std::shared_ptr<ModulateValue> m_modulateValue;
 public:
     VeNoParameter (const std::string& name, const std::string& shownName, float min, float max, float value,
                    const std::string& id);
@@ -35,6 +35,7 @@ public:
     void setValue (float value);
 
     float getValue ();
+    float getValueForVoice (int voice);
 
     float getBaseValue ();
 
@@ -43,6 +44,8 @@ public:
     int getAsInt ();
 
     std::string getShowName ();
+
+    std::shared_ptr<ModulateValue> getModulateValue ();
 };
 
 

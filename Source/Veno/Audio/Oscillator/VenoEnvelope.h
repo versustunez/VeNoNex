@@ -38,6 +38,10 @@ protected:
     std::string m_id;
     std::string m_name;
     ParameterHandler* m_handler;
+    VeNoParameter* m_attack;
+    VeNoParameter* m_decay;
+    VeNoParameter* m_sustain;
+    VeNoParameter* m_release;
 };
 
 #endif //VENO_VENOENVELOPE_H

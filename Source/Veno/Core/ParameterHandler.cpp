@@ -167,3 +167,8 @@ void ParameterHandler::setParameterValue (const std::string& parameterId, float 
         return m_parameters[parameterId]->setValue (value);
     }
 }
+
+std::shared_ptr<ModulateValue> ParameterHandler::getModulateValue (const std::string& name)
+{
+    return m_parameters[name]->getModulateValue();
+}

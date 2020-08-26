@@ -18,7 +18,7 @@ WaveTableWrapper::WaveTableWrapper (const std::string& name, std::shared_ptr<Osc
 
 bool WaveTableWrapper::prepare ()
 {
-    auto phase = m_parameters->m_phase->getValue ();
+    auto phase = m_parameters->m_phase->getValueForVoice(m_parameters->m_index);
     for (auto& voice : m_voices)
     {
         voice->m_phaseOfs = phase;
@@ -71,9 +71,10 @@ void WaveTableWrapper::setFrequencyForVoice (int index, float freq)
 void WaveTableWrapper::setRandomPhase ()
 {
     std::srand (1);
+    m_voices[0]->m_phasor = std::rand () / RAND_MAX;
     for (auto& m_voice : m_voices)
     {
-        m_voice->m_phasor = std::rand () / RAND_MAX;
+        m_voice->m_phasor = m_voices[0]->m_phasor;
     }
 }
 

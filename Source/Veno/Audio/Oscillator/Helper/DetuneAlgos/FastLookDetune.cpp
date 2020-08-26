@@ -4,13 +4,13 @@
 
 void FastLookDetune::prepareDetune (int voices)
 {
-    float detune = m_parameters->m_detuneDense->getValue ();
+    float detune = m_parameters->m_detuneDense->getValueForVoice(m_parameters->m_index);
     if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
     {
         m_lastDetune = detune;
         m_currentDetune = detune;
         m_lookup[0] = 1;
-        float split = detune / (m_size - 1);
+        float split = detune / (voices - 1);
         float cents = 0;
         for (int i = 1; i < m_size; ++i)
         {

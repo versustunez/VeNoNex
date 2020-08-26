@@ -38,6 +38,7 @@ public:
 
     std::string m_name;
     ParameterHandler* m_handler;
+    int m_index = 0;
 protected:
     VeNoParameter* getParameter (int index);
 };

@@ -7,7 +7,7 @@
 class VenoVoice : public SynthesiserVoice
 {
 public:
-    int index = 0;
+    int m_index = 0;
 
     VenoVoice (int _index, double sampleRate, const std::string& id);
 
@@ -30,7 +30,7 @@ public:
     VenoSynthInstance* getSynth ();
 
 private:
-    VenoSynthInstance* synth;
+    VenoSynthInstance* m_synth;
     float velocity = 0.0;
     bool playSound = true;
     std::string m_id;

@@ -5,7 +5,7 @@
 void SuperDetune::prepareDetune (int voices)
 {
     prepareSuperLookup ();
-    float detune = m_parameters->m_detuneDense->getValue ();
+    float detune = m_parameters->m_detuneDense->getValueForVoice(m_parameters->m_index);
     if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
     {
         m_lastDetune = detune;

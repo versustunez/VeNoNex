@@ -26,17 +26,17 @@ float Widener::getDetunePan ()
 
 void Widener::update ()
 {
-    auto wide = m_parameters->m_stereo->getValue ();
+    auto wide = m_parameters->m_stereo->getValueForVoice(m_parameters->m_index);
     if (m_wide != wide)
     {
         float _width = wide / 200;
         float tmp = 1 / fmax (1 + _width, 2);
         m_coefficientM = 1 * tmp;
         m_coefficient = _width * tmp;
-        m_coefficientDetune = m_coefficient * .3;
         m_wide = wide;
     }
-    auto panning = m_parameters->m_panning->getValue ();
+    m_coefficientDetune = m_coefficient * m_parameters->m_detuneAmount->getValueForVoice(m_parameters->m_index);
+    auto panning = m_parameters->m_panning->getValueForVoice(m_parameters->m_index);
     if (panning != m_lastPanning)
     {
         float angle = panning * PI_4;

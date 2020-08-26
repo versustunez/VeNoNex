@@ -14,9 +14,9 @@
 class VenoSynthInstance
 {
 public:
-    int index = 0;
+    int m_index = 0;
 
-    VenoSynthInstance (const std::string& id, double sampleRate);
+    VenoSynthInstance (const std::string& id, double sampleRate, int index);
 
     ~VenoSynthInstance ();
 
@@ -40,8 +40,8 @@ public:
     // std::shared_ptr<Chain> getChain();
 
 private:
-    SynthOscillator* oscillators[4];
-    VenoEnvelope* envelopes[4];
+    SynthOscillator* oscillators[4]{};
+    VenoEnvelope* envelopes[4]{};
     float lastSampleRate = 0;
     std::string m_id;
     // std::shared_ptr<Chain> chain;

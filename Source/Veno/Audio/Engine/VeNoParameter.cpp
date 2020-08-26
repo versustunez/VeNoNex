@@ -12,7 +12,7 @@ VeNoParameter::VeNoParameter (const std::string& name, const std::string& shownN
 
 VeNoParameter::~VeNoParameter ()
 {
-    m_modulateValue.reset (nullptr);
+    m_modulateValue.reset ();
 }
 
 void VeNoParameter::createModulationValue ()
@@ -73,4 +73,18 @@ int VeNoParameter::getAsInt ()
 float VeNoParameter::getBaseValue ()
 {
     return m_value;
+}
+
+float VeNoParameter::getValueForVoice (int voice)
+{
+    if (m_isModulation)
+    {
+        return m_modulateValue->getValueForVoice (voice);
+    }
+    return m_value;
+}
+
+std::shared_ptr<ModulateValue> VeNoParameter::getModulateValue ()
+{
+    return m_modulateValue;
 }

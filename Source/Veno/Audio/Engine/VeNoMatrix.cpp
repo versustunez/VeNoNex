@@ -1,5 +1,6 @@
 #include "VeNoMatrix.h"
 #include "../../Utils/StringUtils.h"
+#include "../../VenoInstance.h"
 
 VeNoMatrix::VeNoMatrix (const std::string& processId) : m_processId (processId)
 {
@@ -14,25 +15,8 @@ VeNoMatrix::~VeNoMatrix ()
         delete m_slot.second;
     }
 
-    for (auto& value : m_modulationValues)
-    {
-        delete value.second;
-    }
-
-    for (auto& value : m_modulators)
-    {
-        delete value.second;
-    }
-
     m_slots.clear ();
-    m_modulationValues.clear ();
     m_modulators.clear ();
-}
-
-void VeNoMatrix::removeModulateValue (const std::string& name)
-{
-    delete m_modulationValues[name];
-    m_modulationValues.erase (name);
 }
 
 void VeNoMatrix::removeModulator (const std::string& name)
@@ -40,10 +24,6 @@ void VeNoMatrix::removeModulator (const std::string& name)
     m_modulators.erase (name);
 }
 
-void VeNoMatrix::addModulateValue (const std::string& name, ModulateValue* modulateValue)
-{
-    m_modulationValues.emplace (std::pair<const std::string&, ModulateValue*> (name, modulateValue));
-}
 
 void VeNoMatrix::addModulator (const std::string& name, Modulator* modulator)
 {
@@ -53,6 +33,7 @@ void VeNoMatrix::addModulator (const std::string& name, Modulator* modulator)
 //matrix is not in the valueTree-state is some own implementation!
 void VeNoMatrix::updateSlots ()
 {
+    ParameterHandler* handler = VenoInstance::getInstance (m_processId)->handler;
     for (auto& m_source : m_modulators)
     {
         m_source.second->update ();
@@ -61,9 +42,19 @@ void VeNoMatrix::updateSlots ()
     for (auto& m_slot : m_slots)
     {
         auto source = m_modulators[m_slot.second->source];
-        auto value = m_modulationValues[m_slot.second->name];
+        auto value = handler->getModulateValue (m_slot.second->name);
+        if (value == nullptr || source == nullptr)
+            continue;
         auto amount = m_slot.second->amount;
-        value->addValue (source->getValue () * amount);
+        auto valueToAdd = source->getValue () * amount;
+        if (source->getVoice () != -1)
+        {
+            value->addValueForVoice (valueToAdd, source->getVoice ());
+        }
+        else
+        {
+            value->addValue (source->getValue () * amount);
+        }
     }
 }
 
@@ -111,14 +102,6 @@ void VeNoMatrix::getMatrixFromXML (std::unique_ptr<XmlElement>& xml)
         {
             m_slots[name.toString ().toStdString ()] = slot;
         }
-    }
-}
-
-void VeNoMatrix::setBaseValueOfModulationValue (const std::string& parameter, float value)
-{
-    if (m_modulationValues.find (parameter) != m_modulationValues.end ())
-    {
-        m_modulationValues[parameter]->setBaseValue (value);
     }
 }
 

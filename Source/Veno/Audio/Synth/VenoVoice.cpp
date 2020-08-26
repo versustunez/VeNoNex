@@ -5,48 +5,47 @@
 
 VenoVoice::VenoVoice (int _index, double sampleRate, const std::string& id)
 {
-    index = _index;
+    m_index = _index;
     m_id = id;
-    synth = new VenoSynthInstance (id, sampleRate);
-    synth->index = _index;
+    m_synth = new VenoSynthInstance (id, sampleRate, m_index);
 }
 
 VenoVoice::~VenoVoice ()
 {
-    delete synth;
+    delete m_synth;
 }
 
 //make sure it's can only play sound if the voice count is >= the current voice index
 //so we can make sure that we can create mono-legato sounds
 bool VenoVoice::canPlaySound (SynthesiserSound* sound)
 {
-    return (synth->isInit && playSound && dynamic_cast<VenoSound*> (sound) != nullptr);
+    return (m_synth->isInit && playSound && dynamic_cast<VenoSound*> (sound) != nullptr);
 }
 
 void VenoVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
     VenoVoice::velocity = velocity;
-    int count = synth->count;
+    int count = m_synth->count;
     for (int i = 0; i < count; i++)
     {
-        synth->getOscillator (i)->start (midiNoteNumber);
-        synth->getEnvelope (i)->prepare ();
-        synth->getEnvelope (i)->noteOn ();
+        m_synth->getOscillator (i)->start (midiNoteNumber);
+        m_synth->getEnvelope (i)->prepare ();
+        m_synth->getEnvelope (i)->noteOn ();
     }
 
 }
 
 void VenoVoice::stopNote (float velocity, bool allowTailOff)
 {
-    int count = synth->count;
+    int count = m_synth->count;
     allowTailOff = true;
     for (int i = 0; i < count; i++)
     {
-        VenoEnvelope* env = synth->getEnvelope (i);
+        VenoEnvelope* env = m_synth->getEnvelope (i);
         env->noteOff ();
         if (!env->isActive () || velocity == 0)
         {
-            synth->getOscillator (i)->stop ();
+            m_synth->getOscillator (i)->stop ();
             clearCurrentNote ();
             VenoVoice::velocity = velocity;
         }
@@ -65,8 +64,8 @@ void VenoVoice::controllerMoved (int controllerNumber, int newControllerValue)
 
 void VenoVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
-    synth->updateSampleRate (); // is not heavy alot of the time!
-    int count = synth->count;
+    m_synth->updateSampleRate (); // is not heavy alot of the time!
+    int count = m_synth->count;
     int realSamples = numSamples;
     while (--numSamples >= 0)
     {
@@ -75,8 +74,8 @@ void VenoVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSamp
         bool runIntoSample = false;
         for (int i = 0; i < count; i++)
         {
-            SynthOscillator* osc = synth->getOscillator (i);
-            VenoEnvelope* env = synth->getEnvelope (i);
+            SynthOscillator* osc = m_synth->getOscillator (i);
+            VenoEnvelope* env = m_synth->getEnvelope (i);
             if (osc == nullptr || env == nullptr)
             {
                 continue;
@@ -124,5 +123,5 @@ void VenoVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSamp
 
 VenoSynthInstance* VenoVoice::getSynth ()
 {
-    return synth;
+    return m_synth;
 }

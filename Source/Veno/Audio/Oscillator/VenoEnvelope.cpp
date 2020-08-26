@@ -1,5 +1,4 @@
 #include "VenoEnvelope.h"
-#include "cmath"
 #include "../../VenoInstance.h"
 #include "../../Utils/VeNoParameterStringHelper.h"
 
@@ -13,6 +12,11 @@ VenoEnvelope::VenoEnvelope (const std::string& id, const std::string& name, doub
         m_sampleRate = sampleRate;
         setSampleRate (m_sampleRate);
     }
+    VenoInstance::getInstance(m_id)->matrix->addModulator(name, this);
+    m_release = m_handler->getParameter(VeNoParameterStringHelper::getForOscillator (m_name, 15));
+    m_sustain = m_handler->getParameter (VeNoParameterStringHelper::getForOscillator (m_name, 14));
+    m_decay = m_handler->getParameter (VeNoParameterStringHelper::getForOscillator (m_name, 13));
+    m_attack = m_handler->getParameter (VeNoParameterStringHelper::getForOscillator (m_name, 12));
 }
 
 float VenoEnvelope::getValue ()
@@ -51,9 +55,9 @@ void VenoEnvelope::update ()
 
 void VenoEnvelope::prepare ()
 {
-    m_parameters.release = m_handler->getParameterValue (VeNoParameterStringHelper::getForOscillator (m_name, 15));
-    m_parameters.sustain = m_handler->getParameterValue (VeNoParameterStringHelper::getForOscillator (m_name, 14));
-    m_parameters.decay = m_handler->getParameterValue (VeNoParameterStringHelper::getForOscillator (m_name, 13));
-    m_parameters.attack = m_handler->getParameterValue (VeNoParameterStringHelper::getForOscillator (m_name, 12));
+    m_parameters.release = m_release->getValue();
+    m_parameters.sustain = m_sustain->getValue();
+    m_parameters.decay = m_decay->getValue();
+    m_parameters.attack = m_attack->getValue();
     m_adsr.setParameters (m_parameters);
 }
