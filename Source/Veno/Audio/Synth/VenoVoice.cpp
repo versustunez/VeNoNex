@@ -38,7 +38,6 @@ void VenoVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound*
 void VenoVoice::stopNote (float velocity, bool allowTailOff)
 {
     int count = m_synth->count;
-    allowTailOff = true;
     for (int i = 0; i < count; i++)
     {
         VenoEnvelope* env = m_synth->getEnvelope (i);

@@ -9,10 +9,19 @@ class SynthInstance
 {
 private:
     std::string m_processId;
+    Synthesiser m_synth;
+    double m_sampleRate = -1;
+    bool m_isInit = false;
 public:
     explicit SynthInstance (std::string processId);
+    ~SynthInstance ();
 
-    ~SynthInstance () = default;
+    void render (AudioBuffer<float>& buffer, const MidiBuffer& midiMessages, int startSample, int numSamples);
+    void setSampleRate(double sampleRate);
+    bool isInit() const;
+
+    void noteOn (int i, int i1, float d);
+    void noteOff (int i, int i1, float d);
 
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SynthInstance)

@@ -14,11 +14,6 @@ VenoAudioProcessor::VenoAudioProcessor ()
 
 VenoAudioProcessor::~VenoAudioProcessor ()
 {
-    m_synth.removeSound (0);
-    for (int i = 0; i < 5; ++i)
-    {
-        m_synth.removeVoice (i);
-    }
     AudioConfig::deleteInstance (m_id);
     VenoInstance::deleteInstance (m_id);
     instance.reset ();
@@ -75,18 +70,8 @@ void VenoAudioProcessor::changeProgramName (int index, const String& newName)
 //==============================================================================
 void VenoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    DBG("SampleRate: " << sampleRate);
     AudioConfig::getInstance ()->setSampleRate (sampleRate);
-    m_synth.setCurrentPlaybackSampleRate (sampleRate);
-    if (!m_isInit)
-    {
-        for (int p = 0; p < 5; p++)
-        {
-            m_synth.addVoice (new VenoVoice (p, sampleRate, m_id));
-        }
-        m_synth.addSound (new VenoSound ());
-        m_isInit = true;
-    }
+    instance->getSynthInstance()->setSampleRate(sampleRate);
 }
 
 void VenoAudioProcessor::releaseResources ()
@@ -120,9 +105,9 @@ void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
     int numChannels = buffer.getNumChannels (), numSamples = buffer.getNumSamples ();
     instance->matrix->updateSlots ();
     instance->audioBuffer->reset (numSamples);
-    if (m_isInit)
+    if (instance->getSynthInstance()->isInit())
     {
-        m_synth.renderNextBlock (buffer, midiMessages, 0, numSamples);
+        instance->getSynthInstance ()->render (buffer, midiMessages, 0, numSamples);
         buffer.applyGain(instance->handler->getParameterValue("master__volume", 1));
         for (int i = 0; i < numChannels; ++i)
         {

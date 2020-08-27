@@ -10,7 +10,10 @@ BaseComponent::BaseComponent (const std::string& processId)
 
 BaseComponent::~BaseComponent ()
 {
-    m_label.reset ();
+    if (m_enableLabel)
+    {
+        m_label.reset ();
+    }
 }
 
 void BaseComponent::addLabel (const std::string& label_text, LabelPosition labelPosition)

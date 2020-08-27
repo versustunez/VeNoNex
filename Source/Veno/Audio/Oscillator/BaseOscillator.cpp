@@ -85,9 +85,12 @@ bool BaseOscillator::render ()
         m_panning[1] += m_voices[i]->getRightValue ();
         detuneOutput += m_voices[i]->getMonoValue ();
     }
-    detuneOutput /= (float) voices;
-    detuneOutput *= m_parameters->m_detuneAmount->getValueForVoice (m_index);
-    m_values[0] += detuneOutput;
+    if (voices > 1) {
+        detuneOutput *= m_parameters->m_detuneAmount->getValueForVoice (m_index);
+        detuneOutput /= (float) (voices - 1);
+        m_values[0] += detuneOutput;
+    }
+
     float volumeLevel = m_parameters->m_level->getValueForVoice (m_index);
     m_values[0] *= volumeLevel;
     m_panning[0] *= volumeLevel;

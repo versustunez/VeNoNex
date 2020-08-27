@@ -77,7 +77,7 @@ float VeNoParameter::getBaseValue ()
 
 float VeNoParameter::getValueForVoice (int voice)
 {
-    if (m_isModulation)
+    if (m_isModulation && voice != -1)
     {
         return m_modulateValue->getValueForVoice (voice);
     }

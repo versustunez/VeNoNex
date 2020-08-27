@@ -38,5 +38,22 @@ a list of all available Parameters and they values
 | OSC{i} Waveform        | osc{i}__waveform      | No       | 1    | 9    | 3        | Integer | 17          |
 | OSC{i} Waveform Mix    | osc{i}__waveform_mix  | Yes      | 0    | 1    | 9        | Float   | 18          |
 
+## LFO
+
+| name                   | id                    | Modulate | min  | max  | default  | Type    | Internal ID |
+|------------------------|-----------------------|----------|------|------|----------|---------|-------------|
+| LFO{i} Voices          | lfo{i}__voices        | No       | 1    | 9    | 1        | Integer | 0           |
+| LFO{i} Rate            | lfo{i}__rate          | Yes      | 0    | 30   | 0        | Float   | 1           |
+| LFO{i} Volume          | lfo{i}__level         | Yes      | 0    | 1    | 0.8      | Float   | 2           |
+| LFO{i} Detune Amount   | lfo{i}__detune_amount | Yes      | 0    | 1    | 0        | Float   | 3           |
+| LFO{i} Detune Dense    | lfo{i}__detune_dense  | Yes      | 0    | 200  | 0        | Float   | 4           |
+| LFO{i} Detune Mode     | lfo{i}__detune_mode   | No       | 1    | 3    | 1        | Integer | 5           |
+| LFO{i} Phase offset    | lfo{i}__phase         | Yes      | 0    | 1    | 0        | Float   | 6           |
+| LFO{i} Random Phase    | lfo{i}__random_phase  | No       | 0    | 1    | 0        | Boolean | 7           |
+|                        |                       |          |      |      |          |         |             |
+| LFO{i} Base Waveform   | lfo{i}__waveform_base | No       | 1    | 9    | 1        | Integer | 8           |
+| LFO{i} Waveform        | lfo{i}__waveform      | No       | 1    | 9    | 3        | Integer | 9           |
+| LFO{i} Waveform Mix    | lfo{i}__waveform_mix  | Yes      | 0    | 1    | 9        | Float   | 10          |
+
 ## FX Series
     

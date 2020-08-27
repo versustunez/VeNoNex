@@ -202,6 +202,9 @@
                   file="Source/Veno/GUI/Components/LabelComponent.cpp"/>
             <FILE id="jZrLeG" name="LabelComponent.h" compile="0" resource="0"
                   file="Source/Veno/GUI/Components/LabelComponent.h"/>
+            <FILE id="s38xbL" name="VeNoKeyboard.cpp" compile="1" resource="0"
+                  file="Source/Veno/GUI/Components/VeNoKeyboard.cpp"/>
+            <FILE id="hdsvUX" name="VeNoKeyboard.h" compile="0" resource="0" file="Source/Veno/GUI/Components/VeNoKeyboard.h"/>
           </GROUP>
           <GROUP id="{EDE17E47-34A6-CDD7-4D68-0477CFCF0A64}" name="LookAndFeel">
             <FILE id="SbCAQ4" name="CrazyLook.cpp" compile="1" resource="0" file="Source/Veno/GUI/LookAndFeel/CrazyLook.cpp"/>
