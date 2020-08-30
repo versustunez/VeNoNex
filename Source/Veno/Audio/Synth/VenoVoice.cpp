@@ -40,7 +40,7 @@ void VenoVoice::stopNote (float velocity, bool allowTailOff)
     int count = m_synth->count;
     for (int i = 0; i < count; i++)
     {
-        VenoEnvelope* env = m_synth->getEnvelope (i);
+        VeNoEnvelope* env = m_synth->getEnvelope (i);
         env->noteOff ();
         if (!env->isActive () || velocity == 0)
         {
@@ -74,7 +74,7 @@ void VenoVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSamp
         for (int i = 0; i < count; i++)
         {
             SynthOscillator* osc = m_synth->getOscillator (i);
-            VenoEnvelope* env = m_synth->getEnvelope (i);
+            VeNoEnvelope* env = m_synth->getEnvelope (i);
             if (osc == nullptr || env == nullptr)
             {
                 continue;

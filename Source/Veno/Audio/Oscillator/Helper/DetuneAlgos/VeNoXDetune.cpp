@@ -1,6 +1,5 @@
 #include "VeNoXDetune.h"
 #include "../../../../Utils.h"
-#include "../../../../Utils/VeNoParameterStringHelper.h"
 
 void VeNoXDetune::prepareDetune (int voices)
 {

@@ -2,7 +2,6 @@
 #include "../../../Core/AudioConfig.h"
 #include "../../../Core/LookupTables.h"
 #include "../../../Utils.h"
-#include "../../../Utils/VeNoParameterStringHelper.h"
 
 WaveTableWrapper::WaveTableWrapper (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters,
                                     int maxVoices)
@@ -18,7 +17,7 @@ WaveTableWrapper::WaveTableWrapper (const std::string& name, std::shared_ptr<Osc
 
 bool WaveTableWrapper::prepare ()
 {
-    auto phase = m_parameters->m_phase->getValueForVoice(m_parameters->m_index);
+    auto phase = m_parameters->m_phase->getValueForVoice (m_parameters->m_index);
     for (auto& voice : m_voices)
     {
         voice->m_phaseOfs = phase;
@@ -70,11 +69,10 @@ void WaveTableWrapper::setFrequencyForVoice (int index, float freq)
 
 void WaveTableWrapper::setRandomPhase ()
 {
-    std::srand (1);
-    m_voices[0]->m_phasor = std::rand () / RAND_MAX;
+    std::srand (135035011);
     for (auto& m_voice : m_voices)
     {
-        m_voice->m_phasor = m_voices[0]->m_phasor;
+        m_voice->m_phasor = std::rand () / RAND_MAX;
     }
 }
 

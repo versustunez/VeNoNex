@@ -189,10 +189,6 @@ void Waveforms::selectColourByPeak (float value)
     {
         color = theme->getColour (ThemeColour::clip);
     }
-    else if (value > 0.75)
-    {
-        color = theme->getColour (ThemeColour::warning);
-    }
     m_shaderProgram->setUniform ("gradientColor", color.getFloatRed (), color.getFloatGreen (), color.getFloatBlue (),
                                  color.getFloatAlpha ());
 }

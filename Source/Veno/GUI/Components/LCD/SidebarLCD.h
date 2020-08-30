@@ -4,7 +4,7 @@
 #include "JuceHeader.h"
 #include "../BaseComponent.h"
 #include "Waveforms.h"
-#include "../Config/VenoConfigButton.h"
+#include "../Config/VeNoActionButton.h"
 
 class SidebarLCD : public BaseComponent
 {
@@ -26,7 +26,10 @@ protected:
     void drawFooter (Graphics& g);
 
     std::shared_ptr<Waveforms> m_waveform;
-    std::unique_ptr<VenoConfigButton> m_configButton;
+    std::unique_ptr<VeNoActionButton> m_configButton;
+    std::unique_ptr<VeNoActionButton> m_matrixButton;
+    std::unique_ptr<VeNoActionButton> m_debugButton;
+    std::unique_ptr<VeNoActionButton> m_presetManager;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SidebarLCD);
 };
 

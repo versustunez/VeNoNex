@@ -26,8 +26,8 @@ protected:
     std::shared_ptr<Label> m_scaleSliderLabel;
     std::shared_ptr<Slider> m_scaleSlider;
     std::vector<std::unique_ptr<TextButton>> m_pre;
-    std::string m_names[4]{
-            "LED", "Blood", "Orange Dream", "Ocean"
+    std::string m_names[5]{
+            "LED", "Blood", "Orange Dream", "Ocean", "Girl"
     };
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoPreColours)
 };

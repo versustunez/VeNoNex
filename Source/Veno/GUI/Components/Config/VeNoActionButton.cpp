@@ -1,4 +1,6 @@
-#include "VenoConfigButton.h"
+#include "VeNoActionButton.h"
+
+#include <utility>
 #include "../../../Core/Config.h"
 #include "../../../Utils.h"
 #include "../../../VenoInstance.h"
@@ -6,12 +8,13 @@
 #include "../../../GUI/Fonts/Fonts.h"
 #include "../../../GUI/Fonts/Icons.h"
 
-VenoConfigButton::VenoConfigButton (const std::string& processId) : BaseComponent (processId)
+VeNoActionButton::VeNoActionButton (const std::string& processId, std::string name, ButtonType type)
+        : BaseComponent (processId), m_name (std::move (name)), m_type (type)
 {
     setMouseCursor (MouseCursor::PointingHandCursor);
 }
 
-void VenoConfigButton::paint (Graphics& g)
+void VeNoActionButton::paint (Graphics& g)
 {
     auto theme = Config::getInstance ()->getCurrentTheme ();
     VeNo::Utils::setFontSize (16.0f, g);
@@ -19,10 +22,24 @@ void VenoConfigButton::paint (Graphics& g)
     g.drawLine (0, 0, 0, getHeight ());
     g.drawLine (getWidth (), 0, getWidth (), getHeight ());
     auto rect = Rectangle<int> (0, 0, getWidth (), getHeight ());
-    VenoFonts::drawIcon (FontAwesome_Cog, g, rect);
+    switch (m_type)
+    {
+        case Config:
+            VenoFonts::drawIcon (FontAwesome_Cog, g, rect);
+            break;
+        case Matrix:
+            VenoFonts::drawIcon (FontAwesome_Dna, g, rect);
+            break;
+        case Debug:
+            VenoFonts::drawIcon (FontAwesome_Terminal, g, rect);
+            break;
+        case Presets:
+            VenoFonts::drawIcon (FontAwesome_Bars, g, rect);
+    }
+
 }
 
-void VenoConfigButton::mouseDown (const MouseEvent& event)
+void VeNoActionButton::mouseDown (const MouseEvent& event)
 {
     // open Window on click :)
     auto instance = VenoInstance::getInstance (m_processId);

@@ -14,17 +14,9 @@ class BaseOscillator
 private:
     std::string m_id;
     std::string m_name;
-    std::vector<OscillatorVoice*> m_voices;
     ParameterHandler* m_handler = nullptr;
     int m_maxVoices = 9;
-    float m_freq = 0.0;
-    int m_midiNote = 0;
     bool m_hasDetune = true;
-    std::vector<float> m_values{0, 0, 0};
-    std::vector<float> m_panning{0, 0};
-    std::shared_ptr<WaveTableWrapper> m_waveTableHelper;
-    std::shared_ptr<DetuneHelper> m_DetuneHelper;
-    std::shared_ptr<OscillatorParameters> m_parameters;
     int m_index = 0;
 public:
     BaseOscillator (const std::string& id, const std::string& name, int maxVoices);
@@ -35,9 +27,13 @@ public:
 
     void stop ();
 
-    bool render ();
+    virtual bool render ();
 
-    bool applyModules ();
+    bool postProcessing ();
+
+    bool preProcessing ();
+
+    bool processVoices (int i);
 
     void initModules ();
 
@@ -54,9 +50,18 @@ public:
 
     float getPitchBend ();
 
-    void setIndex(int index);
+    void setIndex (int index);
 
 protected:
+    float m_freq = 0.0;
+    int m_midiNote = 0;
+    std::vector<OscillatorVoice*> m_voices;
+    std::shared_ptr<WaveTableWrapper> m_waveTableHelper;
+    std::shared_ptr<DetuneHelper> m_DetuneHelper;
+    std::shared_ptr<OscillatorParameters> m_parameters;
+    std::vector<float> m_values{0, 0, 0};
+    std::vector<float> m_panning{0, 0};
+
     //modules
     std::shared_ptr<Widener> m_widener;
     std::shared_ptr<Limiter> m_limiter;

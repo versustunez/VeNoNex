@@ -4,7 +4,6 @@
 #include "BaseOscillator.h"
 #include "../../Utils.h"
 #include "../../VenoInstance.h"
-#include "../../Utils/VeNoParameterStringHelper.h"
 
 BaseOscillator::BaseOscillator (const std::string& id, const std::string& name, int maxVoices)
 {
@@ -37,20 +36,15 @@ void BaseOscillator::initModules ()
 
 bool BaseOscillator::start (int currentMidiNote)
 {
-    if (currentMidiNote == 0 ||
-        !m_handler->getParameter (VeNoParameterStringHelper::getForOscillator (m_name, 0))->getAsBoolean ())
-    {
+    if (currentMidiNote == 0 || !m_parameters->m_active->getAsBoolean ())
         return false;
-    }
+
     m_midiNote = currentMidiNote;
     if (!m_waveTableHelper->prepare ())
-    {
-        DBG("SELECT IS FALSE!");
-    }
-    if (m_handler->getParameter (VeNoParameterStringHelper::getForOscillator (m_name, 10))->getAsBoolean ())
-    {
+        return false;
+
+    if (m_parameters->m_randomPhase->getAsBoolean ())
         m_waveTableHelper->setRandomPhase ();
-    }
     return true;
 }
 
@@ -65,19 +59,28 @@ bool BaseOscillator::render ()
 {
     int voices = m_parameters->m_voices->getAsInt ();
     if (m_midiNote == 0 || voices == 0 || !m_parameters->m_active->getAsBoolean ())
-    {
         return false;
-    }
-    setFrequency ();
-    m_widener->update ();
-    m_DetuneHelper->update (m_freq, m_midiNote);
-    float detuneOutput = 0.0;
     m_voices[0]->processValue (m_freq);
     m_values[0] = m_voices[0]->getMonoValue () * 0.75;
     m_values[1] = 0;
     m_values[2] = 0;
     m_panning[0] = 0;
     m_panning[1] = 0;
+    if (voices > 1)
+    {
+        if (!processVoices (voices))
+            return false;
+    }
+    float volumeLevel = m_parameters->m_level->getValueForVoice (m_index);
+    m_values[0] *= volumeLevel;
+    m_panning[0] *= volumeLevel;
+    m_panning[1] *= volumeLevel;
+    return true;
+}
+
+bool BaseOscillator::processVoices (int voices)
+{
+    float detuneOutput = 0.0;
     for (int i = 1; i < voices; ++i)
     {
         m_voices[i]->processValue (m_freq);
@@ -85,31 +88,31 @@ bool BaseOscillator::render ()
         m_panning[1] += m_voices[i]->getRightValue ();
         detuneOutput += m_voices[i]->getMonoValue ();
     }
-    if (voices > 1) {
-        detuneOutput *= m_parameters->m_detuneAmount->getValueForVoice (m_index);
-        detuneOutput /= (float) (voices - 1);
-        m_values[0] += detuneOutput;
-    }
+    detuneOutput *= m_parameters->m_detuneAmount->getValueForVoice (m_index);
+    detuneOutput /= (float) (voices - 1);
+    m_values[0] += detuneOutput;
 
-    float volumeLevel = m_parameters->m_level->getValueForVoice (m_index);
-    m_values[0] *= volumeLevel;
-    m_panning[0] *= volumeLevel;
-    m_panning[1] *= volumeLevel;
-    applyModules ();
     return true;
 }
 
-bool BaseOscillator::applyModules ()
+bool BaseOscillator::postProcessing ()
 {
     m_widener->apply (m_values, m_panning);
     m_limiter->apply (m_values, m_panning);
     return true;
 }
 
+bool BaseOscillator::preProcessing ()
+{
+    m_widener->update ();
+    m_DetuneHelper->update (m_freq, m_midiNote);
+    return true;
+}
+
 void BaseOscillator::setFrequency ()
 {
     float midi = m_midiNote;
-    auto semitones = m_parameters->m_semitones->getAsInt();
+    auto semitones = m_parameters->m_semitones->getAsInt ();
     auto cents = m_parameters->m_cents->getValueForVoice (m_index) / 100;
     midi = VeNo::Utils::clamp (midi + semitones + cents + getPitchBend (), 1, 127);
     m_freq = std::exp ((midi - 69) * std::log (2) / 12) * 440.0f;
@@ -119,17 +122,11 @@ float BaseOscillator::getPitchBend ()
 {
     auto wheelPos = m_parameters->m_pitchWheel->getValue ();
     if (wheelPos == 0)
-    {
         return 0;
-    }
     if (wheelPos > 0)
-    {
         return m_parameters->m_pitchUp->getValue () * wheelPos;
-    }
     else
-    {
         return m_parameters->m_pitchDown->getValue () * wheelPos;
-    }
 }
 
 BaseOscillator::~BaseOscillator ()
@@ -141,9 +138,7 @@ BaseOscillator::~BaseOscillator ()
     m_handler = nullptr;
     m_parameters.reset ();
     for (auto& m_voice : m_voices)
-    {
         delete m_voice;
-    }
     m_voices.clear ();
 }
 

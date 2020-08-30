@@ -5,9 +5,9 @@ VeNoKeyboard::VeNoKeyboard (const std::string& id) : BaseComponent (id)
 {
     keyboardComponent = std::make_unique<MidiKeyboardComponent>(keyboardState, MidiKeyboardComponent::horizontalKeyboard);
     keyboardState.addListener(this);
-    keyboardComponent->setMidiChannelsToDisplay(0);
-    keyboardComponent->setKeyWidth(std::floor(getWidth() / 22));
-    keyboardComponent->setAvailableRange(57, 93);
+    keyboardComponent->setMidiChannelsToDisplay (0);
+    keyboardComponent->setKeyWidth (27);
+    keyboardComponent->setAvailableRange (57, 93);
     addAndMakeVisible(*keyboardComponent);
 }
 

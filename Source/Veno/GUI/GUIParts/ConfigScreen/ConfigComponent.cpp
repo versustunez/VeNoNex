@@ -50,7 +50,7 @@ ThemeColour ConfigComponent::getColorForId (int id)
         case 3:
             return ThemeColour::accent_two;
         case 4:
-            return ThemeColour::warning;
+            return ThemeColour::font;
         case 5:
             return ThemeColour::clip;
         case 6:

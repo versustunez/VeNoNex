@@ -1,6 +1,5 @@
 #include "SuperDetune.h"
 #include "../../../../Utils.h"
-#include "../../../../Utils/VeNoParameterStringHelper.h"
 
 void SuperDetune::prepareDetune (int voices)
 {

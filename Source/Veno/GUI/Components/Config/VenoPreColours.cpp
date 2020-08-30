@@ -42,8 +42,8 @@ void VenoPreColours::sliderValueChanged (Slider* slider)
 void VenoPreColours::initButtons ()
 {
     //4
-    m_pre.resize (4);
-    for (int i = 0; i < 4; ++i)
+    m_pre.resize (5);
+    for (int i = 0; i < 5; ++i)
     {
         m_pre[i] = std::make_unique<TextButton> (m_names[i]);
         m_pre[i]->addListener (this);
@@ -66,8 +66,8 @@ void VenoPreColours::resized ()
 {
     auto bounds = Rectangle<int> ();
     bounds.setBounds (0, 0, getWidth (), getHeight () - 100);
-    auto bWidth = (getWidth () - 80) / 4;
-    for (int i = 0; i < 4; ++i)
+    auto bWidth = (getWidth () - 80) / 5;
+    for (int i = 0; i < 5; ++i)
     {
         m_pre[i]->setBounds ((bWidth * i) + 40, 110, bWidth, 50);
     }

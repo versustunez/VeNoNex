@@ -22,7 +22,7 @@ protected:
 
     std::string m_pid;
     std::string m_names[8]{
-            "Background", "BackgroundTwo", "Accent", "Accent Two", "Warning", "Clip", "LCD Background", "LCD"
+            "Background", "BackgroundTwo", "Accent", "Accent Two", "Font", "Clip", "LCD Background", "LCD"
     };
     std::vector<std::unique_ptr<VeNoColour>> m_colors;
     std::unique_ptr<VenoPreColours> m_preColours;

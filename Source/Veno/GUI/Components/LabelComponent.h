@@ -23,6 +23,12 @@ public:
 
     void setPosition (LabelPosition position);
 
+    void setListener (Label::Listener* listener);
+
+    void setEditable (bool editable);
+
+    void setJustification (Justification::Flags justification);
+
     LabelPosition getLabelPosition ();
 
 protected:

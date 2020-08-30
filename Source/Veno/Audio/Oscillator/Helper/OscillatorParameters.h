@@ -40,7 +40,7 @@ public:
     ParameterHandler* m_handler;
     int m_index = 0;
 protected:
-    VeNoParameter* getParameter (int index);
+    VeNoParameter* getParameter (const std::string& name);
 };
 
 

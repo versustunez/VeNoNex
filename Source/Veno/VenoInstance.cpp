@@ -13,6 +13,7 @@ VenoInstance::VenoInstance (std::string id)
     matrix = new VeNoMatrix (m_id);
     handler = new ParameterHandler (m_id);
     changeListener = new VeNoChangeListener ();
+    presetManager = new PresetManager (m_id);
 }
 
 VenoInstance::~VenoInstance ()
@@ -23,6 +24,7 @@ VenoInstance::~VenoInstance ()
     delete matrix;
     delete handler;
     delete changeListener;
+    delete presetManager;
 }
 
 std::shared_ptr<VenoInstance> VenoInstance::createInstance (const std::string& id)

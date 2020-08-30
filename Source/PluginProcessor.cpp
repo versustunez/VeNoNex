@@ -9,6 +9,7 @@ VenoAudioProcessor::VenoAudioProcessor ()
 {
     instance = VenoInstance::getInstance (m_id);
     instance->handler->initParameterForListener (&treeState);
+    instance->treeState = &treeState;
     AudioConfig::registerInstance (m_id);
 }
 

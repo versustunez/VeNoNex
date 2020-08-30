@@ -9,6 +9,7 @@
 #include "Core/VeNoState.h"
 #include "Core/ParameterHandler.h"
 #include "Core/VeNoChangeListener.h"
+#include "Core/PresetManager.h"
 #include <unordered_map>
 
 class VenoInstance
@@ -37,6 +38,8 @@ public:
     VeNoState* state;
     ParameterHandler* handler;
     VeNoChangeListener* changeListener;
+    AudioProcessorValueTreeState* treeState;
+    PresetManager* presetManager;
 
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> getAll ();
 

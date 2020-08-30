@@ -1,6 +1,6 @@
 #include "Theme.h"
-#include "ThemePresets.cpp"
 #include "../../Core/Config.h"
+#include "ThemePresets.h"
 
 Theme::Theme (std::shared_ptr<PropertiesFile> file)
 {
@@ -25,7 +25,7 @@ void Theme::setColour (ThemeColour index, Colour* colour)
     {
         m_colours[index] = colour;
     }
-    m_configFile->setValue (ThemeColourToString (index), colour->toString ());
+    m_configFile->setValue (ThemePresets::ThemeColourToString (index), colour->toString ());
     m_configFile->setNeedsToBeSaved (true);
 
 }
@@ -36,7 +36,7 @@ void Theme::init ()
     getColourFromConfig (ThemeColour::bg_two);
     getColourFromConfig (ThemeColour::accent);
     getColourFromConfig (ThemeColour::accent_two);
-    getColourFromConfig (ThemeColour::warning);
+    getColourFromConfig (ThemeColour::font);
     getColourFromConfig (ThemeColour::clip);
     getColourFromConfig (ThemeColour::lcd_bg);
     getColourFromConfig (ThemeColour::lcd);
@@ -44,7 +44,7 @@ void Theme::init ()
 
 void Theme::getColourFromConfig (ThemeColour index)
 {
-    std::string key = ThemeColourToString (index);
+    std::string key = ThemePresets::ThemeColourToString (index);
     if (m_configFile->containsKey (key))
     {
         auto baseColour = Colour::fromString (m_configFile->getValue (key));
@@ -55,7 +55,7 @@ void Theme::getColourFromConfig (ThemeColour index)
     else
     {
         // should only trigger if config is broken or empty :)
-        setLEDTheme (this);
+        ThemePresets::setLEDTheme (this);
     }
 }
 
@@ -73,16 +73,20 @@ void Theme::setColourThemeById (int id)
     switch (id)
     {
         case 1:
-            setLEDTheme (this);
+            ThemePresets::setLEDTheme (this);
             break;
         case 2:
-            setOrangeDreamTheme (this);
+            ThemePresets::setOrangeDreamTheme (this);
             break;
         case 3:
-            setBloodTheme (this);
+            ThemePresets::setBloodTheme (this);
             break;
         case 4:
-            setOceanTheme (this);
+            ThemePresets::setOceanTheme (this);
+            break;
+        case 5:
+            ThemePresets::setGirlTheme(this);
+            break;
         default:
             break;
     }
@@ -92,19 +96,23 @@ void Theme::setDefault (const std::string& value)
 {
     if (value == "LED")
     {
-        setLEDTheme (this);
+        ThemePresets::setLEDTheme (this);
     }
     if (value == "Blood")
     {
-        setBloodTheme (this);
+        ThemePresets::setBloodTheme (this);
     }
     if (value == "Orange Dream")
     {
-        setOrangeDreamTheme (this);
+        ThemePresets::setOrangeDreamTheme (this);
     }
     if (value == "Ocean")
     {
-        setOceanTheme (this);
+        ThemePresets::setOceanTheme (this);
+    }
+    if (value == "Girl")
+    {
+        ThemePresets::setGirlTheme(this);
     }
     Config::getInstance ()->repaintAll ();
 }

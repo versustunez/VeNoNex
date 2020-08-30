@@ -37,12 +37,17 @@ public:
 
     std::shared_ptr<ModulateValue> getModulateValue (const std::string& name);
 
+    void registerListener (const std::string& parameterId, VeNoListener* listener);
+
+    void unregisterListener (const std::string& parameterId);
+
 protected:
 private:
     std::string m_id;
     std::vector<std::unique_ptr<RangedAudioParameter>> m_params;
     std::unordered_map<std::string, VeNoParameter*> m_parameters;
     std::unordered_map<std::string, VeNoListener*> m_listener;
+    AudioProcessorValueTreeState* m_treeState;
 
     JUCE_LEAK_DETECTOR (ParameterHandler)
 };

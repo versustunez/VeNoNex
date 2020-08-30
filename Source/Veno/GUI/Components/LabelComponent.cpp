@@ -10,7 +10,10 @@ LabelComponent::LabelComponent (Component* parent, std::string name)
 
 LabelComponent::~LabelComponent ()
 {
-    m_label.reset ();
+    if (m_label != nullptr)
+    {
+        m_label.reset ();
+    }
 }
 
 void LabelComponent::resized ()
@@ -33,4 +36,19 @@ void LabelComponent::setPosition (LabelPosition position)
 LabelPosition LabelComponent::getLabelPosition ()
 {
     return m_position;
+}
+
+void LabelComponent::setListener (Label::Listener* listener)
+{
+    m_label->addListener (listener);
+}
+
+void LabelComponent::setEditable (bool editable)
+{
+    m_label->setEditable (editable, false, true);
+}
+
+void LabelComponent::setJustification (Justification::Flags justification)
+{
+    m_label->setJustificationType (justification);
 }

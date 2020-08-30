@@ -1,6 +1,7 @@
 #include "FlatLook.h"
 #include "../../GUI/Fonts/Fonts.h"
 #include "../../Core/Config.h"
+#include "../../Utils.h"
 
 
 FlatLook::FlatLook ()
@@ -29,10 +30,11 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
 {
     auto theme = Config::getInstance ()->getCurrentTheme ();
     float MAX_RADIAN = 2.53073;
-    auto radius = jmin (width / 2, height / 2) - 4.0f;
+    auto radius = jmin (width / 2, height / 2) - VeNo::Utils::getCalculatedHeight (3.5f);
     auto centreX = x + width * 0.5f;
     auto centreY = y + height * 0.5f;
     auto angle = rotaryStartAngle + sliderPosProportional * (rotaryEndAngle - rotaryStartAngle);
+    float size = VeNo::Utils::getCalculatedHeight (3.5f);
 
     //---[the real draw]---//
     Path outerArc;
@@ -40,8 +42,8 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
                             MAX_RADIAN,
                             true);
     outerArc.applyTransform (AffineTransform ().translated (centreX, centreY));
-    g.setColour (Colour (65, 65, 65));
-    g.strokePath (outerArc, PathStrokeType (3.0f));
+    g.setColour (theme->getColour(ThemeColour::accent).withAlpha(0.2f));
+    g.strokePath (outerArc, PathStrokeType (size));
 
     //prepare pointer for drawing
     Path arc;
@@ -52,13 +54,14 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
             ColourGradient::horizontal (theme->getColour (ThemeColour::accent_two), centreX - radius,
                                         theme->getColour (ThemeColour::accent),
                                         centreX + radius));
-    g.strokePath (arc, PathStrokeType (3.0f));
+    g.strokePath (arc, PathStrokeType (size));
 
     Path pointer;
-    auto pointerThickness = 3;
-    pointer.addEllipse (-pointerThickness * 0.25f, -(radius - 5), pointerThickness, pointerThickness);
+    auto pointerThickness = VeNo::Utils::getCalculatedHeight (2.5f);
+    auto l = VeNo::Utils::getCalculatedHeight (5);
+    pointer.addEllipse (-pointerThickness * 0.25f, -(radius - l), pointerThickness, pointerThickness);
     pointer.applyTransform (AffineTransform::rotation (angle).translated (centreX, centreY));
-    g.setColour (Colour (125, 125, 125));
+    g.setColour (theme->getColour(ThemeColour::accent));
     g.fillPath (pointer);
 }
 
@@ -73,13 +76,33 @@ void FlatLook::drawTextEditorOutline (Graphics& graphics, int width, int height,
                     width
             )
     );
-    graphics.drawLine (10, height, width - 10, height, 0.9f);
+    auto p = VeNo::Utils::getCalculatedHeight (10);
+    graphics.drawLine (p, height, width - p, height, 0.9f);
 }
 
 void FlatLook::drawToggleButton (Graphics& graphics, ToggleButton& button, bool shouldDrawButtonAsHighlighted,
                                  bool shouldDrawButtonAsDown)
 {
-    LookAndFeel_V4::drawToggleButton (graphics, button, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown);
+    int height = button.getHeight ();
+    int width = button.getWidth ();
+    auto theme = Config::getInstance ()->getCurrentTheme ();
+    std::string text;
+    if (shouldDrawButtonAsDown || button.getToggleStateValue () == button.buttonDown)
+    {
+        graphics.setColour (theme->getColour (ThemeColour::accent));
+        text = "On";
+    }
+    else
+    {
+        graphics.setColour (theme->getColour (ThemeColour::accent).withAlpha (0.2f));
+        text = "Off";
+    }
+
+    auto l = VeNo::Utils::getCalculatedHeight (2);
+    auto p = VeNo::Utils::getCalculatedHeight (4);
+    graphics.fillRect (l, l, width - p, height - p);
+    graphics.setColour (theme->getColour (ThemeColour::font));
+    graphics.drawText (text, l, l, width - p, height - p, Justification::centred, true);
 }
 
 void FlatLook::drawTabButton (TabBarButton& button, Graphics& graphics, bool isMouseOver, bool isMouseDown)
@@ -90,9 +113,24 @@ void FlatLook::drawTabButton (TabBarButton& button, Graphics& graphics, bool isM
 void FlatLook::drawComboBox (Graphics& graphics, int width, int height, bool isButtonDown, int buttonX, int buttonY,
                              int buttonW, int buttonH, ComboBox& box)
 {
+    auto borderHeight = VeNo::Utils::getCalculatedHeight (2);
     auto theme = Config::getInstance ()->getCurrentTheme ();
-    graphics.setColour (theme->getColour (ThemeColour::bg));
-    graphics.fillRect (0, 0, width, height);
     graphics.setColour (theme->getColour (ThemeColour::accent));
-    graphics.drawRect (0, 0, width, height);
+    graphics.fillRect (0, height - borderHeight, width, borderHeight);
+}
+
+void FlatLook::drawLabel (Graphics& graphics, Label& label)
+{
+    auto theme = Config::getInstance ()->getCurrentTheme ();
+    graphics.fillAll (label.findColour (Label::backgroundColourId));
+    if (!label.isBeingEdited ())
+    {
+        auto alpha = label.isEnabled () ? 1.0f : 0.5f;
+        const Font font (getLabelFont (label));
+        graphics.setColour (theme->getColour (ThemeColour::font).withAlpha (alpha));
+        auto textArea = getLabelBorderSize (label).subtractedFrom (label.getLocalBounds ());
+        graphics.drawFittedText (label.getText (), textArea, label.getJustificationType (),
+                                 jmax (1, (int) ((float) textArea.getHeight () / font.getHeight ())),
+                                 label.getMinimumHorizontalScale ());
+    }
 }

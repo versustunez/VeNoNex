@@ -18,6 +18,8 @@ public:
 
     void update () override;
 
+    bool render () override;
+
 protected:
 };
 

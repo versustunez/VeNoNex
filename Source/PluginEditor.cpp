@@ -20,7 +20,7 @@ VenoAudioProcessorEditor::VenoAudioProcessorEditor (VenoAudioProcessor& p)
     addAndMakeVisible (*m_keyboard);
 }
 
-VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
+[[noreturn]] VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
 {
     LookAndFeel::setDefaultLookAndFeel (nullptr);
     m_sidebar.reset (nullptr);
@@ -38,8 +38,9 @@ void VenoAudioProcessorEditor::paint (Graphics& g)
     int sidebarWidth = VeNo::Utils::getCalculatedWidth (SIDEBAR_WIDTH);
     int footerHeight = VeNo::Utils::getCalculatedHeight (FOOTER_BG_HEIGHT);
     g.fillRect (0, 0, sidebarWidth, getHeight ());
+    g.setColour (theme->getColour (ThemeColour::bg).withAlpha (0.7f));
     g.fillRect (sidebarWidth, getHeight () - footerHeight, getWidth () - sidebarWidth, footerHeight);
-    g.setColour (theme->getColour (ThemeColour::accent));
+    g.setColour (theme->getColour (ThemeColour::font));
 }
 
 void VenoAudioProcessorEditor::resized ()

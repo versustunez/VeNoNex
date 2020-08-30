@@ -3,16 +3,22 @@
 
 #include "JuceHeader.h"
 #include "../../Components/BaseComponent.h"
+#include "../../Components/Base/VeNoCheck.h"
+#include "../../Components/Base/VeNoKnob.h"
+#include "SiderbarMixerItem.h"
 
 class SidebarMixer : public BaseComponent
 {
 private:
 public:
-    SidebarMixer (const std::string& processId);
+    explicit SidebarMixer (const std::string& processId);
 
-    ~SidebarMixer () = default;
+    void resized () override;
+
+    void paint (Graphics& g) override;
 
 protected:
+    std::vector<std::unique_ptr<SidebarMixerItem>> m_mixerItems;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SidebarMixer)
 };
 

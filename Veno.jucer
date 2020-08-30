@@ -23,16 +23,16 @@
       </GROUP>
       <GROUP id="{5791B3F9-67EA-BE3E-0208-47B8AF81F72F}" name="Veno">
         <GROUP id="{857B8B89-43D1-9083-E43D-8CE49DC48C2E}" name="Utils">
+          <FILE id="YziflV" name="ComboBoxSetupHelper.cpp" compile="1" resource="0"
+                file="Source/Veno/Utils/ComboBoxSetupHelper.cpp"/>
+          <FILE id="HqQJtX" name="ComboBoxSetupHelper.h" compile="0" resource="0"
+                file="Source/Veno/Utils/ComboBoxSetupHelper.h"/>
           <FILE id="bQgR0Y" name="FFT.cpp" compile="1" resource="0" file="Source/Veno/Utils/FFT.cpp"/>
           <FILE id="McoT9E" name="FFT.h" compile="0" resource="0" file="Source/Veno/Utils/FFT.h"/>
           <FILE id="fnGWyM" name="Logger.cpp" compile="1" resource="0" file="Source/Veno/Utils/Logger.cpp"/>
           <FILE id="wYGzZw" name="Logger.h" compile="0" resource="0" file="Source/Veno/Utils/Logger.h"/>
           <FILE id="xJwmEr" name="StringUtils.cpp" compile="1" resource="0" file="Source/Veno/Utils/StringUtils.cpp"/>
           <FILE id="C21Iyn" name="StringUtils.h" compile="0" resource="0" file="Source/Veno/Utils/StringUtils.h"/>
-          <FILE id="JQeKVe" name="VeNoParameterStringHelper.cpp" compile="1"
-                resource="0" file="Source/Veno/Utils/VeNoParameterStringHelper.cpp"/>
-          <FILE id="nRun9a" name="VeNoParameterStringHelper.h" compile="0" resource="0"
-                file="Source/Veno/Utils/VeNoParameterStringHelper.h"/>
         </GROUP>
         <FILE id="XtqjAL" name="VenoInstance.h" compile="0" resource="0" file="Source/Veno/VenoInstance.h"/>
         <FILE id="LItgbD" name="VenoInstance.cpp" compile="1" resource="0"
@@ -87,13 +87,16 @@
                   file="Source/Veno/Audio/Oscillator/SynthOscillator.cpp"/>
             <FILE id="kbKUAe" name="SynthOscillator.h" compile="0" resource="0"
                   file="Source/Veno/Audio/Oscillator/SynthOscillator.h"/>
-            <FILE id="Hd41X2" name="VenoEnvelope.cpp" compile="1" resource="0"
-                  file="Source/Veno/Audio/Oscillator/VenoEnvelope.cpp"/>
-            <FILE id="esU1T3" name="VenoEnvelope.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VenoEnvelope.h"/>
-            <FILE id="LrmKi3" name="VenoLFO.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/VenoLFO.cpp"/>
-            <FILE id="ldzZY5" name="VenoLFO.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VenoLFO.h"/>
+            <FILE id="Hd41X2" name="VeNoEnvelope.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Oscillator/VeNoEnvelope.cpp"/>
+            <FILE id="esU1T3" name="VeNoEnvelope.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VeNoEnvelope.h"/>
+            <FILE id="LrmKi3" name="VeNoLFO.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/VeNoLFO.cpp"/>
+            <FILE id="ldzZY5" name="VeNoLFO.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/VeNoLFO.h"/>
           </GROUP>
           <GROUP id="{54E62D70-D597-6F59-0770-96E3824F110B}" name="Engine">
+            <FILE id="dutPuL" name="ModModulator.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Engine/ModModulator.cpp"/>
+            <FILE id="GlLZxe" name="ModModulator.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/ModModulator.h"/>
             <FILE id="tKRVBt" name="ModulateValue.cpp" compile="1" resource="0"
                   file="Source/Veno/Audio/Engine/ModulateValue.cpp"/>
             <FILE id="Tpzeeh" name="ModulateValue.h" compile="0" resource="0" file="Source/Veno/Audio/Engine/ModulateValue.h"/>
@@ -163,6 +166,16 @@
                     file="Source/Veno/GUI/GUIParts/ConfigScreen/VenoConfigScreen.h"/>
             </GROUP>
             <GROUP id="{B7626B9F-22D9-713A-B543-1D7B34AF77B7}" name="Sidebar">
+              <FILE id="UzfsRZ" name="PresetManagerComponent.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Sidebar/PresetManagerComponent.cpp"/>
+              <FILE id="ammB9c" name="PresetManagerComponent.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Sidebar/PresetManagerComponent.h"/>
+              <FILE id="MUPnrs" name="ModMixer.cpp" compile="1" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/ModMixer.cpp"/>
+              <FILE id="E2nyqo" name="ModMixer.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/ModMixer.h"/>
+              <FILE id="FoJSNX" name="SiderbarMixerItem.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Sidebar/SiderbarMixerItem.cpp"/>
+              <FILE id="FUQQwU" name="SiderbarMixerItem.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Sidebar/SiderbarMixerItem.h"/>
               <FILE id="aGx0eJ" name="Sidebar.cpp" compile="1" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/Sidebar.cpp"/>
               <FILE id="uL7MJ3" name="Sidebar.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Sidebar/Sidebar.h"/>
               <FILE id="lNXOQs" name="SidebarMixer.cpp" compile="1" resource="0"
@@ -173,13 +186,27 @@
             </GROUP>
           </GROUP>
           <GROUP id="{53C33AC6-67D7-762E-FFD5-C82B7F51DA5F}" name="Components">
+            <GROUP id="{4D5A2A1B-2599-BA13-5B2F-1A9A260BA364}" name="Base">
+              <FILE id="UTH6XT" name="VeNoCheck.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Base/VeNoCheck.cpp"/>
+              <FILE id="aNv4cQ" name="VeNoCheck.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Base/VeNoCheck.h"/>
+              <FILE id="cLNtOJ" name="VeNoComponentListener.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Base/VeNoComponentListener.cpp"/>
+              <FILE id="tcyXVZ" name="VeNoComponentListener.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/Components/Base/VeNoComponentListener.h"/>
+              <FILE id="fb1de1" name="VeNoKnob.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Base/VeNoKnob.cpp"/>
+              <FILE id="ixGz3d" name="VeNoKnob.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Base/VeNoKnob.h"/>
+              <FILE id="nQpTNJ" name="VeNoSelect.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Base/VeNoSelect.cpp"/>
+              <FILE id="L4JoxF" name="VeNoSelect.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Base/VeNoSelect.h"/>
+              <FILE id="H4xj93" name="VeNoSlider.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Base/VeNoSlider.cpp"/>
+              <FILE id="X0qx1U" name="VeNoSlider.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Base/VeNoSlider.h"/>
+            </GROUP>
             <GROUP id="{90BA3743-01F8-1537-6D24-1C38F4063F10}" name="Config">
               <FILE id="SRKqRQ" name="VeNoColour.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Config/VeNoColour.cpp"/>
               <FILE id="Da4NUN" name="VeNoColour.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Config/VeNoColour.h"/>
-              <FILE id="zC4cQd" name="VenoConfigButton.cpp" compile="1" resource="0"
-                    file="Source/Veno/GUI/Components/Config/VenoConfigButton.cpp"/>
-              <FILE id="kCWitN" name="VenoConfigButton.h" compile="0" resource="0"
-                    file="Source/Veno/GUI/Components/Config/VenoConfigButton.h"/>
+              <FILE id="zC4cQd" name="VeNoActionButton.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Config/VeNoActionButton.cpp"/>
+              <FILE id="kCWitN" name="VeNoActionButton.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/Components/Config/VeNoActionButton.h"/>
               <FILE id="Yxj8Nf" name="VenoPreColours.cpp" compile="1" resource="0"
                     file="Source/Veno/GUI/Components/Config/VenoPreColours.cpp"/>
               <FILE id="DbGZt9" name="VenoPreColours.h" compile="0" resource="0"
@@ -194,6 +221,14 @@
               <FILE id="Ox2oOB" name="Waveforms.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.cpp"/>
               <FILE id="vMrsGE" name="Waveforms.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.h"/>
               <FILE id="YXbVA2" name="WaveformsGL.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/WaveformsGL.cpp"/>
+            </GROUP>
+            <GROUP id="{8865255B-4A4A-028E-419F-39DD5F91375F}" name="Presets">
+              <FILE id="ADThwZ" name="PresetAction.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Presets/PresetAction.cpp"/>
+              <FILE id="eP7rwb" name="PresetAction.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Presets/PresetAction.h"/>
+              <FILE id="fZFR9W" name="PresetEditor.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Presets/PresetEditor.cpp"/>
+              <FILE id="CR3c67" name="PresetEditor.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Presets/PresetEditor.h"/>
             </GROUP>
             <FILE id="BobUXL" name="BaseComponent.cpp" compile="1" resource="0"
                   file="Source/Veno/GUI/Components/BaseComponent.cpp"/>
@@ -219,6 +254,7 @@
             <FILE id="FncBml" name="Theme.h" compile="0" resource="0" file="Source/Veno/GUI/Theme/Theme.h"/>
             <FILE id="bsSSSl" name="ThemePresets.cpp" compile="1" resource="0"
                   file="Source/Veno/GUI/Theme/ThemePresets.cpp"/>
+            <FILE id="x0z9YB" name="ThemePresets.h" compile="0" resource="0" file="Source/Veno/GUI/Theme/ThemePresets.h"/>
           </GROUP>
         </GROUP>
         <GROUP id="{ACC73001-EF99-9282-8ADC-7BBE2EB85E06}" name="Core">

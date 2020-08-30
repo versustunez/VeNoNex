@@ -87,6 +87,12 @@ void ParameterHandler::setupParameter ()
     addParameter ("pitch__wheel", "Pitch Wheel", -1.0f, 1.0f, 0, Float);
     addParameter ("pitchbend__up", "Pitch Bend Up", 0, 36, 12, Integer);
     addParameter ("pitchbend__down", "Pitch Bend Down", 0, 36, 12, Integer);
+
+    addParameter ("mod1", "MOD1", 0, 1, 0, Float);
+    addParameter ("mod2", "MOD2", 0, 1, 0, Float);
+    addParameter ("mod3", "MOD3", 0, 1, 0, Float);
+    addParameter ("mod4", "MOD4", 0, 1, 0, Float);
+
     for (int i = 1; i < 5; ++i)
     {
         std::string id = "osc" + std::to_string (i) + "__";
@@ -110,8 +116,8 @@ void ParameterHandler::setupParameter ()
         addParameter (id + "release", name + " Release", 0, 2, 0.01, Float);
 
         // Waveform
-        addParameter (id + "waveform_base", name + " Base Waveform", 1, 9, 3, Integer);
-        addParameter (id + "waveform", name + " Waveform", 1, 9, 3, Integer);
+        addParameter (id + "waveform_base", name + " Waveform Primary", 1, 9, 1, Integer);
+        addParameter (id + "waveform_sec", name + " Waveform Secondary", 1, 9, 3, Integer);
         addParameterModulate (id + "waveform_mix", name + " Waveform Mix", 0, 1, 0, Float);
     }
     // FX SERIES LATER!
@@ -130,6 +136,7 @@ void ParameterHandler::parameterChanged (const String& parameterID, float newVal
 
 void ParameterHandler::initParameterForListener (AudioProcessorValueTreeState* state)
 {
+    m_treeState = state;
     if (m_parameters.empty ())
     {
         DBG("NO PARAMS REGISTER");
@@ -170,5 +177,15 @@ void ParameterHandler::setParameterValue (const std::string& parameterId, float 
 
 std::shared_ptr<ModulateValue> ParameterHandler::getModulateValue (const std::string& name)
 {
-    return m_parameters[name]->getModulateValue();
+    return m_parameters[name]->getModulateValue ();
+}
+
+void ParameterHandler::registerListener (const std::string& parameterId, VeNoListener* listener)
+{
+    m_listener[parameterId] = listener;
+}
+
+void ParameterHandler::unregisterListener (const std::string& parameterId)
+{
+    m_listener.erase (parameterId);
 }

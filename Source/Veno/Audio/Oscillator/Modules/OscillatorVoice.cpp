@@ -33,18 +33,12 @@ void OscillatorVoice::processValue (float freq)
     auto value = m_waveTableWrapper->getOutput (m_index);
     m_waveTableWrapper->updatePhase (m_index);
     m_values[0] = value;
-    if (m_isCenter)
-    {
+    if (m_isCenter || m_isMono)
         return;
-    }
     if (m_isLeft)
-    {
         m_values[1] = value * m_widener->getDetunePan ();
-    }
     else
-    {
         m_values[2] = value * m_widener->getDetunePan ();
-    }
 }
 
 float OscillatorVoice::getLeftValue ()

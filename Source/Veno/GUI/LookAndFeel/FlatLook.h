@@ -28,6 +28,8 @@ public:
     drawComboBox (Graphics& graphics, int width, int height, bool isButtonDown, int buttonX, int buttonY, int buttonW,
                   int buttonH, ComboBox& box) override;
 
+    void drawLabel (Graphics& graphics, Label& label) override;
+
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FlatLook);
 };

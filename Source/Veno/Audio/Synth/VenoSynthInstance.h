@@ -7,7 +7,7 @@
 
 
 #include "JuceHeader.h"
-#include "../Oscillator/VenoEnvelope.h"
+#include "../Oscillator/VeNoEnvelope.h"
 #include "../Oscillator/SynthOscillator.h"
 // #include "../FXChain/Chain.h"
 
@@ -26,7 +26,7 @@ public:
         return oscillators[i];
     }
 
-    VenoEnvelope* getEnvelope (int i)
+    VeNoEnvelope* getEnvelope (int i)
     {
         return envelopes[i];
     }
@@ -41,7 +41,7 @@ public:
 
 private:
     SynthOscillator* oscillators[4]{};
-    VenoEnvelope* envelopes[4]{};
+    VeNoEnvelope* envelopes[4]{};
     float lastSampleRate = 0;
     std::string m_id;
     // std::shared_ptr<Chain> chain;

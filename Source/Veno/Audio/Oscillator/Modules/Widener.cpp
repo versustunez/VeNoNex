@@ -1,5 +1,4 @@
 #include "Widener.h"
-#include "../../../Utils/VeNoParameterStringHelper.h"
 
 #define PI_4 0.78539816339
 #define SQRT2_2 0.70710678118

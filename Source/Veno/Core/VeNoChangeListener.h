@@ -18,6 +18,8 @@ public:
 
     void notifyListener (const std::string& name, float value);
 
+    void notifyParameterChanged (const std::string& name, VeNoParameter* parameter);
+
 private:
     std::unordered_map<std::string, VeNoListener*> m_listener;
 protected:

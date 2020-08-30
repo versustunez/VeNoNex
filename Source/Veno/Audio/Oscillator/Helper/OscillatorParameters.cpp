@@ -1,32 +1,31 @@
 #include "OscillatorParameters.h"
-#include "../../../Utils/VeNoParameterStringHelper.h"
 
 OscillatorParameters::OscillatorParameters (ParameterHandler* handler, const std::string& name)
 {
-    m_name = name;
+    m_name = name + "__";
     m_handler = handler;
-    m_active = getParameter (0);
-    m_voices = getParameter (1);
-    m_semitones = getParameter (2);
-    m_cents = getParameter (3);
-    m_level = getParameter (4);
-    m_panning = getParameter (5);
-    m_detuneAmount = getParameter (6);
-    m_detuneDense = getParameter (7);
-    m_detuneMode = getParameter (8);
-    m_phase = getParameter (9);
-    m_randomPhase = getParameter (10);
-    m_stereo = getParameter (11);
-    m_waveformPrimary = getParameter (16);
-    m_waveformSecond = getParameter (17);
-    m_waveformMix = getParameter (18);
+    m_active = getParameter ("active");
+    m_voices = getParameter ("voices");
+    m_semitones = getParameter ("semitones");
+    m_cents = getParameter ("cents");
+    m_level = getParameter ("level");
+    m_panning = getParameter ("panning");
+    m_detuneAmount = getParameter ("detune_amount");
+    m_detuneDense = getParameter ("detune_dense");
+    m_detuneMode = getParameter ("detune_mode");
+    m_phase = getParameter ("phase");
+    m_randomPhase = getParameter ("random_phase");
+    m_stereo = getParameter ("stereo");
+    m_waveformPrimary = getParameter ("waveform_base");
+    m_waveformSecond = getParameter ("waveform_sec");
+    m_waveformMix = getParameter ("waveform_mix");
 
     m_pitchWheel = m_handler->getParameter ("pitch__wheel");
     m_pitchUp = m_handler->getParameter ("pitchbend__up");
     m_pitchDown = m_handler->getParameter ("pitchbend__down");
 }
 
-VeNoParameter* OscillatorParameters::getParameter (int index)
+VeNoParameter* OscillatorParameters::getParameter (const std::string& name)
 {
-    return m_handler->getParameter (VeNoParameterStringHelper::getForOscillator (m_name, index));
+    return m_handler->getParameter (m_name + name);
 }

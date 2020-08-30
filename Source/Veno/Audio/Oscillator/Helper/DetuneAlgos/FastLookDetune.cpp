@@ -1,10 +1,9 @@
 #include "FastLookDetune.h"
 #include "../../../../Utils.h"
-#include "../../../../Utils/VeNoParameterStringHelper.h"
 
 void FastLookDetune::prepareDetune (int voices)
 {
-    float detune = m_parameters->m_detuneDense->getValueForVoice(m_parameters->m_index);
+    float detune = m_parameters->m_detuneDense->getValueForVoice (m_parameters->m_index);
     if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
     {
         m_lastDetune = detune;

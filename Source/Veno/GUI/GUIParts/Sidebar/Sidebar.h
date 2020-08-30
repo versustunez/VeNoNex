@@ -5,6 +5,8 @@
 #include "../../Components/BaseComponent.h"
 #include "../../Components/LCD/SidebarLCD.h"
 #include "SidebarMixer.h"
+#include "ModMixer.h"
+#include "PresetManagerComponent.h"
 
 class Sidebar : public BaseComponent
 {
@@ -23,6 +25,9 @@ public:
 protected:
     std::unique_ptr<SidebarLCD> m_lcd;
     std::unique_ptr<SidebarMixer> m_mixer;
+    std::unique_ptr<ModMixer> m_modMixer;
+    std::unique_ptr<VeNoKnob> m_volumeKnob;
+    std::unique_ptr<PresetManagerComponent> m_preset;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Sidebar)
 };
 

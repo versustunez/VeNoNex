@@ -23,3 +23,45 @@ LookAndFeel_V4* LookHandler::getLook ()
 {
     return m_feels[m_currentLook];
 }
+
+void LookHandler::drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
+                                        bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
+{
+    getLook ()->drawButtonBackground (g, button, backgroundColour, shouldDrawButtonAsHighlighted,
+                                      shouldDrawButtonAsDown);
+}
+
+void LookHandler::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPosProportional,
+                                    float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
+{
+    getLook ()->drawRotarySlider (g, x, y, width, height, sliderPosProportional, rotaryStartAngle, rotaryEndAngle,
+                                  slider);
+}
+
+void LookHandler::drawTextEditorOutline (Graphics& graphics, int width, int height, TextEditor& editor)
+{
+    getLook ()->drawTextEditorOutline (graphics, width, height, editor);
+}
+
+void LookHandler::drawToggleButton (Graphics& g, ToggleButton& button, bool shouldDrawButtonAsHighlighted,
+                                    bool shouldDrawButtonAsDown)
+{
+    getLook ()->drawToggleButton (g, button, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown);
+}
+
+void LookHandler::drawTabButton (TabBarButton& btn, Graphics& g, bool isMouseOver, bool isMouseDown)
+{
+    getLook ()->drawTabButton (btn, g, isMouseOver, isMouseDown);
+}
+
+void
+LookHandler::drawComboBox (Graphics& g, int width, int height, bool isButtonDown, int buttonX, int buttonY, int buttonW,
+                           int buttonH, ComboBox& box)
+{
+    getLook ()->drawComboBox (g, width, height, isButtonDown, buttonX, buttonY, buttonW, buttonH, box);
+}
+
+void LookHandler::drawLabel (Graphics& graphics, Label& label)
+{
+    getLook ()->drawLabel (graphics, label);
+}

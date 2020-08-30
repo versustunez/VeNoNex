@@ -6,7 +6,7 @@
 
 enum class ThemeColour
 {
-    bg = 0, bg_two, accent, accent_two, warning, clip, lcd_bg, lcd
+    bg = 0, bg_two, accent, accent_two, font, clip, lcd_bg, lcd
 };
 
 class Theme

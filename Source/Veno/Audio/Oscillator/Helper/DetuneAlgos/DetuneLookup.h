@@ -10,7 +10,7 @@ class DetuneLookup
 {
 // maybe later via parameter?
 public:
-    explicit DetuneLookup (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name);
+    explicit DetuneLookup (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, std::string name);
 
     virtual ~DetuneLookup () = default;
 
@@ -30,7 +30,7 @@ protected:
     float m_currentDetune = 0; //can calcucated by a special function
     std::string m_name;
     float m_detuneCents = 200.0f;
-    int m_midiNote;
+    int m_midiNote = 0;
 };
 
 

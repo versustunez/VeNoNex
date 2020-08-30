@@ -2,7 +2,6 @@
 #include "DetuneAlgos/VeNoXDetune.h"
 #include "DetuneAlgos/SuperDetune.h"
 #include "DetuneAlgos/FastLookDetune.h"
-#include "../../../Utils/VeNoParameterStringHelper.h"
 
 DetuneHelper::DetuneHelper (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters, int voiceCount)
 {

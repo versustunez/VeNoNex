@@ -8,12 +8,12 @@
 /*
  * this is a small wrapper around JUCE ADSR with saving of the current state
  */
-class VenoEnvelope : public Modulator
+class VeNoEnvelope : public Modulator
 {
 public:
-    explicit VenoEnvelope (const std::string& id, const std::string& name, double sampleRate);
+    explicit VeNoEnvelope (const std::string& id, const std::string& name, double sampleRate);
 
-    ~VenoEnvelope () override = default;
+    ~VeNoEnvelope () override = default;
 
     void setSampleRate (float sampleRate);
 

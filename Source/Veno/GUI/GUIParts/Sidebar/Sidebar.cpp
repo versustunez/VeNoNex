@@ -5,22 +5,40 @@
 Sidebar::Sidebar (const std::string& processId) : BaseComponent (processId)
 {
     m_lcd = std::make_unique<SidebarLCD> (processId);
+    m_mixer = std::make_unique<SidebarMixer> (processId);
+    m_modMixer = std::make_unique<ModMixer> (processId);
+    m_volumeKnob = std::make_unique<VeNoKnob> ("master__volume", processId);
+    m_volumeKnob->init ("Synth Volume");
+    m_preset = std::make_unique<PresetManagerComponent> (processId);
     addAndMakeVisible (*m_lcd);
+    addAndMakeVisible (*m_mixer);
+    addAndMakeVisible (*m_modMixer);
+    addAndMakeVisible (*m_volumeKnob);
+    addAndMakeVisible (*m_preset);
 }
 
 Sidebar::~Sidebar ()
 {
     m_lcd.reset (nullptr);
     m_mixer.reset (nullptr);
+    m_volumeKnob.reset (nullptr);
+    m_modMixer.reset (nullptr);
+    m_preset.reset (nullptr);
     VenoLogo::deleteInstance ();
 }
 
 void Sidebar::resized ()
 {
-    if (m_lcd != nullptr)
-    {
-        m_lcd->setBounds (0, (getWidth () / 5) + 30, getWidth (), VeNo::Utils::getCalculatedHeight (175));
-    }
+    float topMargin = VeNo::Utils::getCalculatedHeight (30);
+    float ySpace = VeNo::Utils::getCalculatedHeight (15);
+    m_lcd->setBounds (0, (getWidth () / 5) + topMargin, getWidth (), VeNo::Utils::getCalculatedHeight (175));
+    m_preset->setBounds (0, m_lcd->getY () + m_lcd->getHeight (), getWidth (), VeNo::Utils::getCalculatedHeight (30));
+    m_mixer->setBounds (0, m_preset->getY () + m_preset->getHeight (), getWidth (),
+                        VeNo::Utils::getCalculatedHeight (165));
+    m_volumeKnob->setBounds (0, m_mixer->getY () + m_mixer->getHeight () + ySpace, getWidth (),
+                             VeNo::Utils::getCalculatedHeight (110));
+    m_modMixer->setBounds (0, m_volumeKnob->getY () + m_volumeKnob->getHeight () + ySpace, getWidth (),
+                           VeNo::Utils::getCalculatedHeight (100));
 }
 
 void Sidebar::paint (Graphics& g)
@@ -28,13 +46,15 @@ void Sidebar::paint (Graphics& g)
     auto logo = VenoLogo::getLogo ();
     if (logo.isValid ())
     {
+        float topMargin = VeNo::Utils::getCalculatedHeight (15);
         int height = getWidth () / 5;
-        g.drawImage (logo, 0, 15, getWidth (), height, 0, 0, 500, 100);
+        g.drawImage (logo, 0, topMargin, getWidth (), height, 0, 0, 500, 100);
     }
     else
     {
+        float topMargin = VeNo::Utils::getCalculatedHeight (25);
         g.setFont (getWidth () / 4);
-        g.drawSingleLineText ("VeNo", 0, 25);
+        g.drawSingleLineText ("VeNo", 0, topMargin);
     }
 }
 

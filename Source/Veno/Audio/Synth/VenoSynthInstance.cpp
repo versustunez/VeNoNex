@@ -7,14 +7,14 @@
 VenoSynthInstance::VenoSynthInstance (const std::string& id, double sampleRate, int index)
     :m_index(index), m_id(id)
 {
-    // this vibrato is not needed! because it should handled via matrix later
     for (int i = 0; i < count; i++)
     {
         auto name = "osc" + std::to_string (i + 1);
         oscillators[i] = new SynthOscillator (id, 9, name);
-        oscillators[i]->setVoice(index);
-        envelopes[i] = new VenoEnvelope (id, name, sampleRate);
-        envelopes[i]->setVoice(index);
+        oscillators[i]->setVoice (index);
+        oscillators[i]->setIndex (index);
+        envelopes[i] = new VeNoEnvelope (id, name, sampleRate);
+        envelopes[i]->setVoice (index);
     }
     isInit = true;
 }

@@ -34,6 +34,7 @@ public:
 
     float getMonoValue ();
 
+    bool m_isMono = false;
 protected:
 };
 

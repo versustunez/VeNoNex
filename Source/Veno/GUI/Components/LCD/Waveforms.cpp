@@ -50,6 +50,7 @@ void Waveforms::mouseDown (const MouseEvent& e)
     {
         m_mode = 0;
     }
+    m_needToClear = true;
     m_dBScale->m_mode = m_mode;
     m_dBScale->repaint ();
 }
@@ -114,14 +115,15 @@ void Waveforms::paint (Graphics& g)
         if (m_mode == 0)
         {
             auto instance = VenoInstance::getInstance (BaseComponent::m_processId);
-            g.setColour (theme->getColour (ThemeColour::lcd_bg));
+            g.setColour (theme->getColour (ThemeColour::lcd));
             float size = VeNo::Utils::setFontSize (7, g);
             auto halfWidth = getWidth () / 2;
             auto halfHalfWidth = halfWidth / 2;
-            auto y = getHeight () - size;
-            g.drawText (std::to_string (instance->audioBuffer->leftPeak), halfWidth - halfHalfWidth - (size * 1.5), y,
+            g.drawText (std::to_string (instance->audioBuffer->leftPeak), halfWidth - halfHalfWidth - (size * 1.5),
+                        size,
                         (size * 3), size, Justification::centred, false);
-            g.drawText (std::to_string (instance->audioBuffer->rightPeak), halfWidth + halfHalfWidth - (size * 1.5), y,
+            g.drawText (std::to_string (instance->audioBuffer->rightPeak), halfWidth + halfHalfWidth - (size * 1.5),
+                        size,
                         (size * 3), size, Justification::centred, false);
         }
     }
@@ -149,7 +151,7 @@ void Waveforms::getState ()
     {
         VenoInstance::getInstance (m_processId)->state->m_isFirstEditor = false;
         m_isStarting = true;
-        startTimer (1000);
+        startTimer (100);
     }
     else
     {
@@ -162,11 +164,16 @@ void Waveforms::getState ()
 
 void Waveforms::parameterChanged (VeNoParameter* parameter)
 {
+    if (parameter == nullptr)
+    {
+        return;
+    }
     m_changedParameter = parameter->getShowName ();
     m_changedValue = parameter->getBaseValue ();
     m_isChangingData = true;
     m_ticks = 0;
-    startTimer (1000);
+    triggerAsyncUpdate ();
+    startTimer (100);
 }
 
 void Waveforms::notify (const std::string& name, float value)
@@ -180,7 +187,7 @@ void Waveforms::notify (const std::string& name, float value)
     {
         return;
     }
-    if (!isUpdatePending () && m_mode < 3 && value != m_previous_value)
+    if (!isUpdatePending () && m_mode < 3 && !(m_previous_value == 0 && value == 0))
     {
         m_previous_value = value;
         triggerAsyncUpdate ();
@@ -194,11 +201,8 @@ void Waveforms::handleAsyncUpdate ()
         stopTimer ();
         return;
     }
-    if (m_isStarting || m_isChangingData || m_needToClear)
-    {
-        repaint ();
-    }
-    else
+    repaint ();
+    if (!m_isStarting && !m_isChangingData && !m_needToClear)
     {
         if (m_context.isAttached ())
         {

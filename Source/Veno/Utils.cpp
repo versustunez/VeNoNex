@@ -34,8 +34,7 @@ float VeNo::Utils::clamp (float value, float min, float max)
     return value > max ? max : value < min ? min : value;
 }
 
-void
-VeNo::Utils::setPosition (int width, int height, int x, int y, std::shared_ptr<Component>& component, bool useMarginY)
+void VeNo::Utils::setPosition (int width, int height, int x, int y, BaseComponent& component, bool useMarginY)
 {
     double scale = Config::getInstance ()->getScale ();
     int w = (int) (width * scale);
@@ -44,28 +43,29 @@ VeNo::Utils::setPosition (int width, int height, int x, int y, std::shared_ptr<C
     {
         y += 10;
     }
-    component->setBounds (x + 10, y, w, h);
+    component.setBounds (x + 10, y, w, h);
 }
 
-void VeNo::Utils::setPositionSameRow (int width, int height, std::shared_ptr<Component>& component,
-                                      std::shared_ptr<Component>& previous)
+void VeNo::Utils::setPositionSameRow (int width, int height, BaseComponent& component,
+                                      BaseComponent& previous)
 {
-    setPosition (width, height, previous->getX () + previous->getWidth (), previous->getY (), component, false);
+    setPosition (width, height, previous.getX () + previous.getWidth (), previous.getY (), component, false);
 }
 
-void VeNo::Utils::setPositionByPreviousRow (int width, int height, int x, std::shared_ptr<Component>& component,
-                                            std::shared_ptr<Component>& previous)
+void VeNo::Utils::setPositionByPreviousRow (int width, int height, int x, BaseComponent& component,
+                                            BaseComponent& previous)
 {
-    setPosition (width, height, x, previous->getY () + previous->getHeight (), component, true);
+    setPosition (width, height, x, previous.getY () + previous.getHeight (), component, false);
 }
 
 std::vector<int> VeNo::Utils::calcPosition (int width, int height, int prevWidth, int prevHeight)
 {
     double scale = Config::getInstance ()->getScale ();
+    int margin = getCalculatedHeight (10);
     int w = (int) (width * scale);
     int h = (int) (height * scale);
-    int x = prevWidth + 10;
-    int y = prevHeight + 10;
+    int x = prevWidth + margin;
+    int y = prevHeight + margin;
     return {x, y, w, h};
 }
 
