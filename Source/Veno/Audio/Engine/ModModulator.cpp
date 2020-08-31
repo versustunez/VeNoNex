@@ -11,7 +11,7 @@ ModModulator::ModModulator (std::string name, const std::string& showName, std::
 ModModulator::~ModModulator ()
 = default;
 
-float ModModulator::getValue ()
+double ModModulator::getValue ()
 {
     return Modulator::getValue ();
 }

@@ -11,20 +11,20 @@ class AudioConfig
 {
 private:
     static std::shared_ptr<AudioConfig> m_instance;
-    float m_sampleRate = 0;
-    float m_bufferSize = 512; //maybe we need that... but this will update always!
+    double m_sampleRate = 0;
+    double m_bufferSize = 512; //maybe we need that... but this will update always!
     bool m_needToReInit = false; //this is to reInit the Oscillators, ADSR and other stuff
     static std::unordered_map<std::string, std::string> m_instances;
 public:
     static std::shared_ptr<AudioConfig> getInstance ();
 
-    float getSampleRate () const;
+    double getSampleRate () const;
 
-    void setSampleRate (float _sampleRate);
+    void setSampleRate (double _sampleRate);
 
-    float getBufferSize () const;
+    double getBufferSize () const;
 
-    void setBufferSize (float _bufferSize);
+    void setBufferSize (double _bufferSize);
 
     bool isNeedToReInit () const;
 

@@ -1,6 +1,6 @@
 #include "VeNoParameter.h"
 
-VeNoParameter::VeNoParameter (const std::string& name, const std::string& shownName, float min, float max, float value,
+VeNoParameter::VeNoParameter (const std::string& name, const std::string& shownName, double min, double max, double value,
                               const std::string& id)
 {
     m_name = name;
@@ -22,7 +22,7 @@ void VeNoParameter::createModulationValue ()
     m_isModulation = true;
 }
 
-void VeNoParameter::setValue (float value)
+void VeNoParameter::setValue (double value)
 {
     m_value = value;
     if (m_isModulation)
@@ -31,7 +31,7 @@ void VeNoParameter::setValue (float value)
     }
 }
 
-float VeNoParameter::getValue ()
+double VeNoParameter::getValue ()
 {
     if (m_isModulation)
     {
@@ -70,12 +70,12 @@ int VeNoParameter::getAsInt ()
     return (int) getValue ();
 }
 
-float VeNoParameter::getBaseValue ()
+double VeNoParameter::getBaseValue ()
 {
     return m_value;
 }
 
-float VeNoParameter::getValueForVoice (int voice)
+double VeNoParameter::getValueForVoice (int voice)
 {
     if (m_isModulation && voice != -1)
     {

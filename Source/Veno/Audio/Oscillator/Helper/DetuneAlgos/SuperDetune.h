@@ -16,7 +16,7 @@ public:
     void getRealDetune ();
 
 protected:
-    std::vector<float> m_superLookup;
+    std::vector<double> m_superLookup;
 };
 
 

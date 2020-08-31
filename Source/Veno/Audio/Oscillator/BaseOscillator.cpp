@@ -71,7 +71,7 @@ bool BaseOscillator::render ()
         if (!processVoices (voices))
             return false;
     }
-    float volumeLevel = m_parameters->m_level->getValueForVoice (m_index);
+    double volumeLevel = m_parameters->m_level->getValueForVoice (m_index);
     m_values[0] *= volumeLevel;
     m_panning[0] *= volumeLevel;
     m_panning[1] *= volumeLevel;
@@ -80,7 +80,7 @@ bool BaseOscillator::render ()
 
 bool BaseOscillator::processVoices (int voices)
 {
-    float detuneOutput = 0.0;
+    double detuneOutput = 0.0;
     for (int i = 1; i < voices; ++i)
     {
         m_voices[i]->processValue (m_freq);
@@ -89,7 +89,7 @@ bool BaseOscillator::processVoices (int voices)
         detuneOutput += m_voices[i]->getMonoValue ();
     }
     detuneOutput *= m_parameters->m_detuneAmount->getValueForVoice (m_index);
-    detuneOutput /= (float) (voices - 1);
+    detuneOutput /= (double) (voices - 1);
     m_values[0] += detuneOutput;
 
     return true;
@@ -111,14 +111,14 @@ bool BaseOscillator::preProcessing ()
 
 void BaseOscillator::setFrequency ()
 {
-    float midi = m_midiNote;
+    double midi = m_midiNote;
     auto semitones = m_parameters->m_semitones->getAsInt ();
     auto cents = m_parameters->m_cents->getValueForVoice (m_index) / 100;
     midi = VeNo::Utils::clamp (midi + semitones + cents + getPitchBend (), 1, 127);
     m_freq = std::exp ((midi - 69) * std::log (2) / 12) * 440.0f;
 }
 
-float BaseOscillator::getPitchBend ()
+double BaseOscillator::getPitchBend ()
 {
     auto wheelPos = m_parameters->m_pitchWheel->getValue ();
     if (wheelPos == 0)
@@ -142,22 +142,22 @@ BaseOscillator::~BaseOscillator ()
     m_voices.clear ();
 }
 
-const std::vector<float>& BaseOscillator::getValue ()
+const std::vector<double>& BaseOscillator::getValue ()
 {
     return m_values;
 }
 
-float BaseOscillator::getLeftValue ()
+double BaseOscillator::getLeftValue ()
 {
     return m_values[1];
 }
 
-float BaseOscillator::getRightValue ()
+double BaseOscillator::getRightValue ()
 {
     return m_values[2];
 }
 
-float BaseOscillator::getMonoValue ()
+double BaseOscillator::getMonoValue ()
 {
     return m_values[0];
 }

@@ -46,7 +46,7 @@ void SawWaves::generateDirtySaw (WaveTableGroup* group)
     int offset = tableLen / 64;
     for (idx = 1; idx < (tableLen >> 1); idx++)
     {
-        float value = 1.0 / idx;
+        double value = 1.0 / idx;
         if (idx % offset == 0)
         {
             value += ((std::rand () / double (RAND_MAX)) - 0.5) * 0.005;

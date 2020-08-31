@@ -29,8 +29,8 @@ Sidebar::~Sidebar ()
 
 void Sidebar::resized ()
 {
-    float topMargin = VeNo::Utils::getCalculatedHeight (30);
-    float ySpace = VeNo::Utils::getCalculatedHeight (15);
+    int topMargin = VeNo::Utils::getCalculatedHeight (30);
+    int ySpace = VeNo::Utils::getCalculatedHeight (15);
     m_lcd->setBounds (0, (getWidth () / 5) + topMargin, getWidth (), VeNo::Utils::getCalculatedHeight (175));
     m_preset->setBounds (0, m_lcd->getY () + m_lcd->getHeight (), getWidth (), VeNo::Utils::getCalculatedHeight (30));
     m_mixer->setBounds (0, m_preset->getY () + m_preset->getHeight (), getWidth (),
@@ -46,13 +46,13 @@ void Sidebar::paint (Graphics& g)
     auto logo = VenoLogo::getLogo ();
     if (logo.isValid ())
     {
-        float topMargin = VeNo::Utils::getCalculatedHeight (15);
+        int topMargin = VeNo::Utils::getCalculatedHeight (15);
         int height = getWidth () / 5;
         g.drawImage (logo, 0, topMargin, getWidth (), height, 0, 0, 500, 100);
     }
     else
     {
-        float topMargin = VeNo::Utils::getCalculatedHeight (25);
+        int topMargin = VeNo::Utils::getCalculatedHeight (25);
         g.setFont (getWidth () / 4);
         g.drawSingleLineText ("VeNo", 0, topMargin);
     }

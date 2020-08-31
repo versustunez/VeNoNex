@@ -1,14 +1,14 @@
 #include "Utils.h"
 #include "Core/Config.h"
 
-float VeNo::Utils::DB_GAIN_CONVERSION_MULTIPLIER = 20.0f;
+double VeNo::Utils::DB_GAIN_CONVERSION_MULTIPLIER = 20.0;
 int VeNo::Utils::NOTES_PER_OCTAVE = 12;
 int VeNo::Utils::CENTS_PER_NOTE = 100;
 int VeNo::Utils::CENTS_PER_OCTAVE = NOTES_PER_OCTAVE * CENTS_PER_NOTE;
 double VeNo::Utils::DOUBLE_PI = 6.283185307179586476925286766559;
 double VeNo::Utils::PI = 3.14159265358979323846;
 
-int VeNo::Utils::nextPowerOfTwo (float value)
+int VeNo::Utils::nextPowerOfTwo (double value)
 {
     auto v = (unsigned int) value;
     v--;
@@ -21,15 +21,15 @@ int VeNo::Utils::nextPowerOfTwo (float value)
     return v;
 }
 
-float VeNo::Utils::setFontSize (float size, Graphics& g)
+double VeNo::Utils::setFontSize (double size, Graphics& g)
 {
     double scale = Config::getInstance ()->getScale ();
-    auto s = (float) (size * scale);
+    auto s = (double) (size * scale);
     g.setFont (s);
     return s;
 }
 
-float VeNo::Utils::clamp (float value, float min, float max)
+double VeNo::Utils::clamp (double value, double min, double max)
 {
     return value > max ? max : value < min ? min : value;
 }
@@ -79,56 +79,56 @@ int VeNo::Utils::getCalculatedHeight (int height)
     return (int) (height * Config::getInstance ()->getScale ());
 }
 
-float VeNo::Utils::polyBlep (float t, float phaseInc)
+double VeNo::Utils::polyBlep (double t, double phaseInc)
 {
     double dt = phaseInc / DOUBLE_PI;
     if (t < dt)
     {
-        t /= (float) dt;
+        t /= (double) dt;
         return t + t - t * t - 1.0f;
     }
     else if (t > 1.0 - dt)
     {
-        t = (t - 1.0f) / (float) dt;
+        t = (t - 1.0f) / (double) dt;
         return t * t + t + t + 1.0f;
     }
     else return 0.0f;
 }
 
-float VeNo::Utils::lerp (float a, float b, float f)
+double VeNo::Utils::lerp (double a, double b, double f)
 {
     return (a + (b - a) * f);
 }
 
-float VeNo::Utils::centsToRatio (float cents)
+double VeNo::Utils::centsToRatio (double cents)
 {
-    return std::pow (2.0, cents / (float) CENTS_PER_OCTAVE);
+    return std::pow (2.0, cents / (double) CENTS_PER_OCTAVE);
 }
 
-float VeNo::Utils::gainToDb (float gain)
+double VeNo::Utils::gainToDb (double gain)
 {
     return DB_GAIN_CONVERSION_MULTIPLIER * std::log10 (gain);
 }
 
-float VeNo::Utils::dbToGain (float decibels)
+double VeNo::Utils::dbToGain (double decibels)
 {
     return std::pow (10.0, decibels / DB_GAIN_CONVERSION_MULTIPLIER);
 }
 
-float VeNo::Utils::dBForChannel (float value)
+double VeNo::Utils::dBForChannel (double value)
 {
-    return jmap (value, -30.0f, 0.0f, -1.0f,
-                 0.9f);
+    return jmap (value, -30.0, 0.0, -1.0,
+                 0.9);
 }
 
-float VeNo::Utils::getHigherValue (float a, float b)
+double VeNo::Utils::getHigherValue (double a, double b)
 {
     return a > b ? a : b;
 }
 
-float VeNo::Utils::waveTableMix (float a, float b, float mix)
+double VeNo::Utils::waveTableMix (double a, double b, double mix)
 {
-    float diff = 1 - mix;
+    double diff = 1 - mix;
     a *= diff;
     b *= mix;
     return VeNo::Utils::clamp (a + b, -1, 1);

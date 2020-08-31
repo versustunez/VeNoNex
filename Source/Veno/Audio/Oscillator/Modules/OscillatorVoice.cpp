@@ -27,7 +27,7 @@ OscillatorVoice::~OscillatorVoice ()
     m_detuneHelper.reset ();
 }
 
-void OscillatorVoice::processValue (float freq)
+void OscillatorVoice::processValue (double freq)
 {
     m_waveTableWrapper->setFrequencyForVoice (m_index, m_detuneHelper->getDetuneFreq (m_index));
     auto value = m_waveTableWrapper->getOutput (m_index);
@@ -41,17 +41,17 @@ void OscillatorVoice::processValue (float freq)
         m_values[2] = value * m_widener->getDetunePan ();
 }
 
-float OscillatorVoice::getLeftValue ()
+double OscillatorVoice::getLeftValue ()
 {
     return m_values[1];
 }
 
-float OscillatorVoice::getRightValue ()
+double OscillatorVoice::getRightValue ()
 {
     return m_values[2];
 }
 
-float OscillatorVoice::getMonoValue ()
+double OscillatorVoice::getMonoValue ()
 {
     return m_values[0];
 }

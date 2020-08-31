@@ -16,7 +16,7 @@ void VeNoChangeListener::removeListener (const std::string& name)
     }
 }
 
-void VeNoChangeListener::notifyListener (const std::string& name, float value)
+void VeNoChangeListener::notifyListener (const std::string& name, double value)
 {
     if (hasListener (name) && m_listener[name] != nullptr)
     {

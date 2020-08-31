@@ -10,12 +10,12 @@ DetuneLookup::DetuneLookup (int maxSize, std::shared_ptr<OscillatorParameters>& 
     }
 }
 
-float DetuneLookup::getDetuneFreq (int index)
+double DetuneLookup::getDetuneFreq (int index)
 {
     return m_frequency * m_lookup[index];
 }
 
-void DetuneLookup::setFrequency (float frequency, int midiNote)
+void DetuneLookup::setFrequency (double frequency, int midiNote)
 {
     m_frequency = frequency;
     m_midiNote = midiNote;

@@ -19,11 +19,11 @@ public:
 
     ~DetuneHelper ();
 
-    void update (float freq, int midiNote);
+    void update (double freq, int midiNote);
 
     void setMode ();
 
-    float getDetuneFreq (int index);
+    double getDetuneFreq (int index);
 };
 
 

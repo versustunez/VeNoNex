@@ -9,7 +9,7 @@ namespace VeNo
     class Utils
     {
     public:
-        static float DB_GAIN_CONVERSION_MULTIPLIER;
+        static double DB_GAIN_CONVERSION_MULTIPLIER;
         static int NOTES_PER_OCTAVE;
         static int CENTS_PER_NOTE;
         static int CENTS_PER_OCTAVE;
@@ -20,7 +20,7 @@ namespace VeNo
 
         ~Utils () = default;
 
-        static float setFontSize (float size, Graphics& g);
+        static double setFontSize (double size, Graphics& g);
 
         static void setPosition (int width, int height, int x, int y, BaseComponent& component, bool useMarginY);
 
@@ -37,25 +37,25 @@ namespace VeNo
         static int getCalculatedHeight (int height);
 
         // audio utils
-        static int nextPowerOfTwo (float value);
+        static int nextPowerOfTwo (double value);
 
-        static float clamp (float value, float min, float max);
+        static double clamp (double value, double min, double max);
 
-        static float polyBlep (float t, float phaseInc);
+        static double polyBlep (double t, double phaseInc);
 
-        static float lerp (float a, float b, float f);
+        static double lerp (double a, double b, double f);
 
-        static float centsToRatio (float cents);
+        static double centsToRatio (double cents);
 
-        static float gainToDb (float gain);
+        static double gainToDb (double gain);
 
-        static float dbToGain (float decibels);
+        static double dbToGain (double decibels);
 
-        static float dBForChannel (float value);
+        static double dBForChannel (double value);
 
-        static float getHigherValue (float a, float b);
+        static double getHigherValue (double a, double b);
 
-        static float waveTableMix (float a, float b, float mix);
+        static double waveTableMix (double a, double b, double mix);
     };
 }
 #endif //VENO_UTILS_H

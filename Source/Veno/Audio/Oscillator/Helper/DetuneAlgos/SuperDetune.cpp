@@ -4,7 +4,7 @@
 void SuperDetune::prepareDetune (int voices)
 {
     prepareSuperLookup ();
-    float detune = m_parameters->m_detuneDense->getValueForVoice(m_parameters->m_index);
+    double detune = m_parameters->m_detuneDense->getValueForVoice(m_parameters->m_index);
     if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
     {
         m_lastDetune = detune;
@@ -16,12 +16,12 @@ void SuperDetune::prepareDetune (int voices)
             return;
         }
 
-        float split = detune / (voices - 1);
-        float cents = 0;
+        double split = detune / (voices - 1);
+        double cents = 0;
         for (int i = 1; i < voices; ++i)
         {
             cents += split;
-            float plus;
+            double plus;
             if ((i & 1) == 1)
             {
                 plus = VeNo::Utils::centsToRatio (-cents) * m_superLookup[m_midiNote];
@@ -38,7 +38,7 @@ void SuperDetune::prepareDetune (int voices)
 
 void SuperDetune::getRealDetune ()
 {
-    float d = m_lastDetune / m_detuneCents;
+    double d = m_lastDetune / m_detuneCents;
     if (d > 0.5f)
     {
         d = 0.5f + (d * d * 0.5f);

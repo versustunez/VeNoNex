@@ -18,8 +18,8 @@ void SineWaves::generateSine (WaveTableGroup* group)
     {
         freqWaveIm[idx] = 0.0;
     }
-    float angleDelta = 6.28318530718 / (tableLen);
-    float currentAngle = 0;
+    double angleDelta = 6.28318530718 / (tableLen);
+    double currentAngle = 0;
     for (idx = 0; idx < tableLen; idx++)
     {
         freqWaveRe[idx] = std::sin (currentAngle);

@@ -47,8 +47,8 @@ void fft (int N, double* ar, double* ai)
         LE *= 2;                          // (LE = 2^L)
         Ur = 1.0;
         Ui = 0.;
-        Wr = std::cos (VeNo::Utils::PI / (float) LE1);
-        Wi = -std::sin (VeNo::Utils::PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
+        Wr = std::cos (VeNo::Utils::PI / (double) LE1);
+        Wi = -std::sin (VeNo::Utils::PI / (double) LE1); // Cooley, Lewis, and Welch have "+" here
         for (j = 1; j <= LE1; j++)
         {
             for (i = j; i <= N; i += LE)
@@ -68,7 +68,7 @@ void fft (int N, double* ar, double* ai)
     }
 }
 
-float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, double scale, double topFreq)
+double makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, double scale, double topFreq)
 {
     fft (len, ar, ai);
     if (scale == 0.0)
@@ -88,7 +88,7 @@ float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, dou
     if (group->m_numWaveTables < WaveTableGroup::numWaveTableSlots)
     {
         // normalize
-        auto* wave = new float[len];
+        auto* wave = new double[len];
         for (int idx = 0; idx < len; idx++)
             wave[idx] = ai[idx] * scale;
 
@@ -111,7 +111,7 @@ float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, dou
     {
         scale = 0.0;
     }
-    return (float) scale;
+    return (double) scale;
 }
 
 int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, int numSamples)
@@ -155,7 +155,7 @@ int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, i
     return numTables;
 }
 
-float getNextRand ()
+double getNextRand ()
 {
     return std::rand () / double (RAND_MAX);
 }

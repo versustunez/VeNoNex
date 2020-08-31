@@ -12,25 +12,25 @@ public:
 
     ~ModulateValue ();
 
-    void addValue (float d);
+    void addValue (double d);
 
-    void addValueForVoice(float value, int voice);
+    void addValueForVoice(double value, int voice);
 
-    void setBaseValue (float base);
+    void setBaseValue (double base);
 
-    void set (float value, float max, float min);
+    void set (double value, double max, double min);
 
-    float getValue ();
-    float getValueForVoice (int i);
+    double getValue ();
+    double getValueForVoice (int i);
 
 private:
     std::string m_name;
     std::string m_processId;
-    float m_value = 0;
-    float m_baseValue = 0;
-    float m_maxValue = 1;
-    float m_minValue = -1;
-    std::vector<float> m_voiceValues;
+    double m_value = 0;
+    double m_baseValue = 0;
+    double m_maxValue = 1;
+    double m_minValue = -1;
+    std::vector<double> m_voiceValues;
 
     JUCE_LEAK_DETECTOR(ModulateValue)
 };

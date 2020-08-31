@@ -39,7 +39,7 @@ void Config::initConfig ()
     options.folderName = "veno";
     options.filenameSuffix = "xml";
     m_config = std::make_unique<PropertiesFile> (options);
-    m_scale = (float) m_config->getDoubleValue ("scale", 1.0);
+    m_scale = m_config->getDoubleValue ("scale", 1.0);
 }
 
 std::shared_ptr<Theme> Config::getCurrentTheme ()
@@ -108,7 +108,7 @@ int Config::getFps () const
     return m_fps;
 }
 
-void Config::setScale (float value)
+void Config::setScale (double value)
 {
     value = VeNo::Utils::clamp (value, 0.5f, 2.5f);
     m_scale = value;
@@ -136,7 +136,7 @@ void Config::repaintAll ()
     }
 }
 
-void Config::setFps (float value)
+void Config::setFps (double value)
 {
     m_fps = (int) VeNo::Utils::clamp (value, 15.0f, 90.0f);
     m_config->setValue ("waveform_fps", m_fps);

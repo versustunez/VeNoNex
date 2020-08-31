@@ -15,13 +15,13 @@
 */
 void fft (int N, double* ar, double* ai);
 
-float makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, double scale, double topFreq);
+double makeWaveTable (WaveTableGroup* group, int len, double* ar, double* ai, double scale, double topFreq);
 
 // utils stuff
 int fillTables (WaveTableGroup* group, double* freqWaveRe, double* freqWaveIm, int numSamples);
 
 int findTableLen ();
 
-float getNextRand ();
+double getNextRand ();
 
 #endif //VENO_TABLEHELPER_H

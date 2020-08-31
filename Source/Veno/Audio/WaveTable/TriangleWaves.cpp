@@ -18,10 +18,10 @@ void TriangleWaves::generateTriangle (WaveTableGroup* group)
         freqWaveIm[idx] = 0.0;
     }
     freqWaveRe[0] = freqWaveRe[tableLen >> 1] = 0.0;
-    float sign = 0.9;
+    double sign = 0.9;
     for (idx = 1; idx < (tableLen >> 1); idx++)
     {
-        float temp = idx & 0x01 ? 1.0 / (idx * idx) * (sign = -sign) : 0.0;
+        double temp = idx & 0x01 ? 1.0 / (idx * idx) * (sign = -sign) : 0.0;
         freqWaveRe[idx] = -temp;
         freqWaveRe[tableLen - idx] = temp;
     }

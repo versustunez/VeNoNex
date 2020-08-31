@@ -1,6 +1,6 @@
 #include "Modulator.h"
 
-float Modulator::getValue ()
+double Modulator::getValue ()
 {
     return m_value;
 }

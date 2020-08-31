@@ -10,7 +10,7 @@ SynthOscillator::~SynthOscillator ()
     BaseOscillator::~BaseOscillator ();
 }
 
-float SynthOscillator::getValue ()
+double SynthOscillator::getValue ()
 {
     return getMonoValue ();
 }

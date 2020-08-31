@@ -11,7 +11,7 @@ class Widener
 private:
     std::string m_name;
     std::shared_ptr<OscillatorParameters> m_parameters;
-    float m_panning[2] = {SQRT2_2, SQRT2_2};
+    double m_panning[2] = {SQRT2_2, SQRT2_2};
 public:
     explicit Widener (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters);
 
@@ -19,17 +19,17 @@ public:
 
     void update ();
 
-    void apply (std::vector<float>& values, std::vector<float>& panned);
+    void apply (std::vector<double>& values, std::vector<double>& panned);
 
-    void applyPanning (std::vector<float>& values, std::vector<float>& panned);
+    void applyPanning (std::vector<double>& values, std::vector<double>& panned);
 
-    float getDetunePan ();
+    double getDetunePan ();
 
-    float m_coefficientM = 0.0f;
-    float m_coefficient = 0.0f;
-    float m_coefficientDetune = 0.0f;
-    float m_wide = 0;
-    float m_lastPanning = 0;
+    double m_coefficientM = 0.0f;
+    double m_coefficient = 0.0f;
+    double m_coefficientDetune = 0.0f;
+    double m_wide = 0;
+    double m_lastPanning = 0;
 };
 
 #undef SQRT2_2

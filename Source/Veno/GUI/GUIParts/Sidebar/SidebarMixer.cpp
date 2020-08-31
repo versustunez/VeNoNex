@@ -16,7 +16,7 @@ SidebarMixer::SidebarMixer (const std::string& processId) : BaseComponent (proce
 void SidebarMixer::resized ()
 {
     auto width = getWidth () / 4;
-    float x = 0;
+    int x = 0;
     for (int i = 0; i < 4; ++i)
     {
         m_mixerItems[i]->setBounds (x, 0, width, getHeight ());

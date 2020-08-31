@@ -16,7 +16,7 @@ private:
     std::shared_ptr<DetuneHelper> m_detuneHelper;
     std::shared_ptr<Widener> m_widener;
     int m_index = 0;
-    std::vector<float> m_values{0, 0, 0};
+    std::vector<double> m_values{0, 0, 0};
     bool m_isCenter = false;
     bool m_isLeft = false;
 public:
@@ -26,13 +26,13 @@ public:
 
     ~OscillatorVoice ();
 
-    void processValue (float freq);
+    void processValue (double freq);
 
-    float getLeftValue ();
+    double getLeftValue ();
 
-    float getRightValue ();
+    double getRightValue ();
 
-    float getMonoValue ();
+    double getMonoValue ();
 
     bool m_isMono = false;
 protected:

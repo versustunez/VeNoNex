@@ -34,7 +34,7 @@ VenoSynthInstance::~VenoSynthInstance ()
 
 void VenoSynthInstance::updateSampleRate ()
 {
-    float sRate = AudioConfig::getInstance ()->getSampleRate ();
+    double sRate = AudioConfig::getInstance ()->getSampleRate ();
     if (lastSampleRate != sRate)
     {
         lastSampleRate = sRate;

@@ -17,7 +17,7 @@ public:
 
     ~Limiter () = default;
 
-    void apply (std::vector<float>& values, std::vector<float>& panned);
+    void apply (std::vector<double>& values, std::vector<double>& panned);
 };
 
 

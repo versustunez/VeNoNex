@@ -12,7 +12,7 @@ public:
 
     virtual ~Modulator ();
 
-    virtual float getValue ();
+    virtual double getValue ();
 
     virtual void update ();
 
@@ -21,7 +21,7 @@ public:
     int getVoice ();
 
 protected:
-    float m_value = 0.0f;
+    double m_value = 0.0f;
     // if m_voice -1 this means he has not to add the value to a special voice like the Envelope
     int m_voice = -1;
     std::string m_showName;

@@ -6,9 +6,9 @@
 class LookupTables
 {
 public:
-    static float freqLookup[128];
-    static float detuneLookup[9];
-    static float preCalculatedMidiNotes[128];
+    static double freqLookup[128];
+    static double detuneLookup[9];
+    static double preCalculatedMidiNotes[128];
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LookupTables)
 };

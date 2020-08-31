@@ -42,7 +42,7 @@ public:
 private:
     SynthOscillator* oscillators[4]{};
     VeNoEnvelope* envelopes[4]{};
-    float lastSampleRate = 0;
+    double lastSampleRate = 0;
     std::string m_id;
     // std::shared_ptr<Chain> chain;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoSynthInstance)

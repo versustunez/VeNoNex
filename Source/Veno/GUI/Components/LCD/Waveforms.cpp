@@ -116,9 +116,9 @@ void Waveforms::paint (Graphics& g)
         {
             auto instance = VenoInstance::getInstance (BaseComponent::m_processId);
             g.setColour (theme->getColour (ThemeColour::lcd));
-            float size = VeNo::Utils::setFontSize (7, g);
-            auto halfWidth = getWidth () / 2;
-            auto halfHalfWidth = halfWidth / 2;
+            int size = (int) VeNo::Utils::setFontSize (7, g);
+            int halfWidth = getWidth () / 2;
+            int halfHalfWidth = halfWidth / 2;
             g.drawText (std::to_string (instance->audioBuffer->leftPeak), halfWidth - halfHalfWidth - (size * 1.5),
                         size,
                         (size * 3), size, Justification::centred, false);
@@ -132,7 +132,7 @@ void Waveforms::paint (Graphics& g)
 void Waveforms::drawChangedParameter (Graphics& g, int w, int h, int x, int y) const
 {
     int halfHeight = h / 2;
-    float font = VeNo::Utils::setFontSize (12, g);
+    int font = (int) VeNo::Utils::setFontSize (12, g);
     g.drawText (m_changedParameter, x, y + halfHeight - font, w, font, Justification::centred, true);
     g.drawText (std::to_string (m_changedValue), x, y + halfHeight + 4, w, font, Justification::centred,
                 true);
@@ -176,7 +176,7 @@ void Waveforms::parameterChanged (VeNoParameter* parameter)
     startTimer (100);
 }
 
-void Waveforms::notify (const std::string& name, float value)
+void Waveforms::notify (const std::string& name, double value)
 {
     if (m_mode == 2)
     {

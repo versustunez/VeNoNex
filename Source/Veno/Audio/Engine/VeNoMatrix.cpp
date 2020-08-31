@@ -58,7 +58,7 @@ void VeNoMatrix::updateSlots ()
     }
 }
 
-void VeNoMatrix::setMatrixModulation (const std::string& name, const std::string& source, float amount)
+void VeNoMatrix::setMatrixModulation (const std::string& name, const std::string& source, double amount)
 {
     auto c = std::string (source + name);
     if (m_slots.find (c) == m_slots.end ())

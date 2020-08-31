@@ -25,7 +25,7 @@ ParameterHandler::~ParameterHandler ()
 }
 
 void
-ParameterHandler::addParameter (const std::string& name, const std::string& showName, float min, float max, float value,
+ParameterHandler::addParameter (const std::string& name, const std::string& showName, double min, double max, double value,
                                 ParameterTypes type)
 {
     m_parameters[name] = new VeNoParameter (name, showName, min, max, value, m_id);
@@ -42,8 +42,8 @@ AudioProcessorValueTreeState::ParameterLayout ParameterHandler::setupProcessor (
     return {m_params.begin (), m_params.end ()};
 }
 
-void ParameterHandler::addParameterModulate (const std::string& name, const std::string& showName, float min, float max,
-                                             float value, ParameterTypes type)
+void ParameterHandler::addParameterModulate (const std::string& name, const std::string& showName, double min, double max,
+                                             double value, ParameterTypes type)
 {
     addParameter (name, showName, min, max, value, type);
     // no support for Boolean Modulations!
@@ -152,12 +152,12 @@ VeNoParameter* ParameterHandler::getParameter (const std::string& name)
     return m_parameters[name];
 }
 
-float ParameterHandler::getParameterValue (const std::string& name)
+double ParameterHandler::getParameterValue (const std::string& name)
 {
     return getParameterValue (name, 0);
 }
 
-float ParameterHandler::getParameterValue (const std::string& name, float defaultValue)
+double ParameterHandler::getParameterValue (const std::string& name, double defaultValue)
 {
     auto param = m_parameters[name];
     if (param != nullptr)
@@ -167,7 +167,7 @@ float ParameterHandler::getParameterValue (const std::string& name, float defaul
     return defaultValue;
 }
 
-void ParameterHandler::setParameterValue (const std::string& parameterId, float value)
+void ParameterHandler::setParameterValue (const std::string& parameterId, double value)
 {
     if (m_parameters.find (parameterId) != m_parameters.end ())
     {

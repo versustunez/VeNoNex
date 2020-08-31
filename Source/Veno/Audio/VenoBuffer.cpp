@@ -33,7 +33,7 @@ void VenoBuffer::reset (int size)
     }
 }
 
-void VenoBuffer::addMonoSample (float value)
+void VenoBuffer::addMonoSample (double value)
 {
     if (m_buffer.size () > m_bufferSize)
     {
@@ -53,7 +53,7 @@ void VenoBuffer::addMonoSample (float value)
     m_buffer.push_back (value);
 }
 
-void VenoBuffer::addLeftSample (float value)
+void VenoBuffer::addLeftSample (double value)
 {
     if (m_left.size () > m_bufferSize)
     {
@@ -67,7 +67,7 @@ void VenoBuffer::addLeftSample (float value)
     m_left.push_back (value);
 }
 
-void VenoBuffer::addRightSample (float value)
+void VenoBuffer::addRightSample (double value)
 {
     if (m_right.size () > m_bufferSize)
     {
@@ -83,20 +83,20 @@ void VenoBuffer::addRightSample (float value)
 
 void VenoBuffer::calcPeak ()
 {
-    float leftRMS = 0;
-    float rightRMS = 0;
+    double leftRMS = 0;
+    double rightRMS = 0;
     auto size = m_bufferCopy.size ();
     for (int i = 0; i < size; ++i)
     {
         leftRMS += m_leftCopy[i] * m_leftCopy[i];
         rightRMS += m_rightCopy[i] * m_rightCopy[i];
     }
-    rightPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (rightRMS / size), -30.0f), -30.0f, 0.0f);
-    leftPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (leftRMS / size), -30.0f), -30.0f, 0.0f);
+    rightPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (rightRMS / size), -30.0), -30.0, 0.0);
+    leftPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (leftRMS / size), -30.0), -30.0, 0.0);
     monoPeak = leftPeak;
 }
 
-const std::vector<float>& VenoBuffer::getBuffer () const
+const std::vector<double>& VenoBuffer::getBuffer () const
 {
     return m_bufferCopy;
 }

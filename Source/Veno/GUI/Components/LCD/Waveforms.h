@@ -49,11 +49,11 @@ public:
 
     bool m_isChangingData = false;
     std::string m_changedParameter;
-    float m_changedValue = 0;
+    double m_changedValue = 0;
 
     void parameterChanged (VeNoParameter* parameter) override;
 
-    void notify (const std::string& name, float value) override;
+    void notify (const std::string& name, double value) override;
 
 private:
     void handleAsyncUpdate () override;
@@ -71,7 +71,7 @@ private:
 
     void compileOpenGLShaderProgram ();
 
-    void selectColourByPeak (float value);
+    void selectColourByPeak (double value);
 
     void getState ();
 
@@ -79,7 +79,7 @@ private:
     std::unique_ptr<OpenGLShaderProgram> m_shaderProgram;
     std::unique_ptr<DecibelScale> m_dBScale;
     std::unique_ptr<FFT> m_fft;
-    float m_previous_value = 0;
+    double m_previous_value = 0;
 
     // gl
     unsigned int vbo;

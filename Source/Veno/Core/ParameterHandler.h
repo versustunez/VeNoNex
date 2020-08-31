@@ -17,10 +17,10 @@ public:
 
     AudioProcessorValueTreeState::ParameterLayout setupProcessor ();
 
-    void addParameter (const std::string& name, const std::string& showName, float min, float max, float value,
+    void addParameter (const std::string& name, const std::string& showName, double min, double max, double value,
                        ParameterTypes type);
 
-    void addParameterModulate (const std::string& name, const std::string& showName, float min, float max, float value,
+    void addParameterModulate (const std::string& name, const std::string& showName, double min, double max, double value,
                                ParameterTypes type);
 
     void initParameterForListener (AudioProcessorValueTreeState* state);
@@ -29,11 +29,11 @@ public:
 
     VeNoParameter* getParameter (const std::string& name);
 
-    float getParameterValue (const std::string& name);
+    double getParameterValue (const std::string& name);
 
-    float getParameterValue (const std::string& name, float defaultValue);
+    double getParameterValue (const std::string& name, double defaultValue);
 
-    void setParameterValue (const std::string& parameterId, float value);
+    void setParameterValue (const std::string& parameterId, double value);
 
     std::shared_ptr<ModulateValue> getModulateValue (const std::string& name);
 

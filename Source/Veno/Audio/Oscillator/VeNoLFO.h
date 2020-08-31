@@ -13,7 +13,7 @@ public:
 
     ~VeNoLFO () override;
 
-    float getValue () override;
+    double getValue () override;
 
     void update () override;
 

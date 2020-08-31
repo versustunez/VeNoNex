@@ -12,7 +12,7 @@ struct WaveTableObject
 
     double m_topFreq;
     int m_waveTableLen;
-    std::vector<float> m_waveTable = {};
+    std::vector<double> m_waveTable = {};
 };
 
 struct WaveTableGroup

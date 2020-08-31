@@ -45,17 +45,17 @@ void VenoAudioProcessorEditor::paint (Graphics& g)
 
 void VenoAudioProcessorEditor::resized ()
 {
-    float sidebarWidth = VeNo::Utils::getCalculatedWidth (SIDEBAR_WIDTH);
+    int sidebarWidth = VeNo::Utils::getCalculatedWidth (SIDEBAR_WIDTH);
     if (m_sidebar != nullptr)
     {
         m_sidebar->setBounds (0, 0, sidebarWidth, getHeight ());
     }
-    float keyboardHeight = VeNo::Utils::getCalculatedHeight (KEYBOARD_HEIGHT);
+    int keyboardHeight = VeNo::Utils::getCalculatedHeight (KEYBOARD_HEIGHT);
     if (m_keyboard != nullptr)
     {
-        float keyboardWidth = (getWidth () - sidebarWidth) * 0.75;
-        float spacer = ((getWidth () - sidebarWidth) * 0.25) * 0.5;
-        m_keyboard->setBounds (sidebarWidth + spacer, getHeight () - keyboardHeight, keyboardWidth,
+        auto keyboardWidth = (int) (getWidth () - sidebarWidth) * 0.75;
+        auto spacer = ((getWidth () - sidebarWidth) * 0.25) * 0.5;
+        m_keyboard->setBounds (sidebarWidth + (int) spacer, getHeight () - keyboardHeight, keyboardWidth,
                                keyboardHeight);
     }
 }

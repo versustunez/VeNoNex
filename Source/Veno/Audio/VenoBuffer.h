@@ -7,12 +7,12 @@
 class VenoBuffer
 {
 private:
-    std::vector<float> m_buffer;
-    std::vector<float> m_right;
-    std::vector<float> m_left;
-    std::vector<float> m_bufferCopy;
-    std::vector<float> m_rightCopy;
-    std::vector<float> m_leftCopy;
+    std::vector<double> m_buffer;
+    std::vector<double> m_right;
+    std::vector<double> m_left;
+    std::vector<double> m_bufferCopy;
+    std::vector<double> m_rightCopy;
+    std::vector<double> m_leftCopy;
     int m_bufferSize = 2048;
     bool m_isOverflow = false;
     std::string m_id;
@@ -23,20 +23,20 @@ public:
 
     void reset (int size);
 
-    void addMonoSample (float value);
+    void addMonoSample (double value);
 
-    void addLeftSample (float value);
+    void addLeftSample (double value);
 
-    void addRightSample (float value);
+    void addRightSample (double value);
 
     void calcPeak ();
 
-    float leftPeak{};
-    float rightPeak{};
-    float monoPeak{};
-    float m_highestPeak = 0;
+    double leftPeak{};
+    double rightPeak{};
+    double monoPeak{};
+    double m_highestPeak = 0;
 
-    const std::vector<float>& getBuffer () const;
+    const std::vector<double>& getBuffer () const;
 
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VenoBuffer);

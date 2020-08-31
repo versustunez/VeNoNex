@@ -14,22 +14,22 @@ public:
 
     virtual ~DetuneLookup () = default;
 
-    void setFrequency (float frequency, int midiNote);
+    void setFrequency (double frequency, int midiNote);
 
     virtual void prepareDetune (int voices) = 0;
 
-    float getDetuneFreq (int index);
+    double getDetuneFreq (int index);
 
 protected:
     int m_size;
-    std::vector<float> m_lookup;
-    float m_lastDetune = 0;
+    std::vector<double> m_lookup;
+    double m_lastDetune = 0;
     int m_lastVoices = 0;
-    float m_frequency = 0;
+    double m_frequency = 0;
     std::shared_ptr<OscillatorParameters> m_parameters;
-    float m_currentDetune = 0; //can calcucated by a special function
+    double m_currentDetune = 0; //can calcucated by a special function
     std::string m_name;
-    float m_detuneCents = 200.0f;
+    double m_detuneCents = 200.0f;
     int m_midiNote = 0;
 };
 

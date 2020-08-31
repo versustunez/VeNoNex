@@ -18,7 +18,7 @@ public:
         scopeSize = 512
     };
 
-    void drawNextFrameOfSpectrum (const std::vector<float>& data);
+    void drawNextFrameOfSpectrum (const std::vector<double>& data);
 
     float scopeData[scopeSize]{};
     float fftData[2 * fftSize]{};

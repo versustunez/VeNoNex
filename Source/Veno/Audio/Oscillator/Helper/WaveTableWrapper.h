@@ -31,7 +31,7 @@ public:
 
     bool prepare ();
 
-    void setFrequencyForVoice (int index, float freq);
+    void setFrequencyForVoice (int index, double freq);
 
     void setRandomPhase ();
 
@@ -40,13 +40,13 @@ public:
     // getter
     void updatePhase (int index);
 
-    float getOutput (int index);
+    double getOutput (int index);
 
-    float getOutputRaw (int index, float offset);
+    double getOutputRaw (int index, double offset);
 
-    float getOutputPWM (int index);
+    double getOutputPWM (int index);
 
-    float getWaveTableValue (WaveTableObject* table, float phase);
+    double getWaveTableValue (WaveTableObject* table, double phase);
 
 protected:
 };

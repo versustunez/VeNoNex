@@ -9,16 +9,16 @@ Widener::Widener (const std::string& name, std::shared_ptr<OscillatorParameters>
     m_parameters = parameters;
 }
 
-void Widener::apply (std::vector<float>& values, std::vector<float>& panned)
+void Widener::apply (std::vector<double>& values, std::vector<double>& panned)
 {
-    float mid = (panned[0] + panned[1]) * m_coefficientM;
-    float stereo = (panned[1] - panned[0]) * m_coefficient;
+    double mid = (panned[0] + panned[1]) * m_coefficientM;
+    double stereo = (panned[1] - panned[0]) * m_coefficient;
     values[1] = mid - stereo;
     values[2] = mid + stereo;
     applyPanning (values, panned);
 }
 
-float Widener::getDetunePan ()
+double Widener::getDetunePan ()
 {
     return m_coefficientDetune;
 }
@@ -28,8 +28,8 @@ void Widener::update ()
     auto wide = m_parameters->m_stereo->getValueForVoice(m_parameters->m_index);
     if (m_wide != wide)
     {
-        float _width = wide / 200;
-        float tmp = 1 / fmax (1 + _width, 2);
+        double _width = wide / 200;
+        double tmp = 1 / fmax (1 + _width, 2);
         m_coefficientM = 1 * tmp;
         m_coefficient = _width * tmp;
         m_wide = wide;
@@ -38,7 +38,7 @@ void Widener::update ()
     auto panning = m_parameters->m_panning->getValueForVoice(m_parameters->m_index);
     if (panning != m_lastPanning)
     {
-        float angle = panning * PI_4;
+        double angle = panning * PI_4;
         m_panning[0] = SQRT2_2 * double (std::cos (angle) - std::sin (angle));
         m_panning[1] = SQRT2_2 * double (std::cos (angle) + std::sin (angle));
         m_lastPanning = panning;
@@ -47,9 +47,9 @@ void Widener::update ()
 
 }
 
-void Widener::applyPanning (std::vector<float>& values, std::vector<float>& panned)
+void Widener::applyPanning (std::vector<double>& values, std::vector<double>& panned)
 {
-    float mono = values[0];
+    double mono = values[0];
     values[1] = (m_panning[0] * (mono + values[1]));
     values[2] = (m_panning[1] * (mono + values[2]));
 }

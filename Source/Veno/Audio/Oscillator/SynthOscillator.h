@@ -14,7 +14,7 @@ public:
 
     ~SynthOscillator ();
 
-    float getValue () override;
+    double getValue () override;
 
     void update () override;
 

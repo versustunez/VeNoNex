@@ -8,7 +8,7 @@ ModulateValue::ModulateValue (const std::string& name, const std::string& proces
     m_voiceValues.resize (5);
 }
 
-void ModulateValue::addValue (float d)
+void ModulateValue::addValue (double d)
 {
     m_value += m_baseValue * d;
     m_value = VeNo::Utils::clamp (m_value, m_maxValue, m_minValue);
@@ -20,7 +20,7 @@ void ModulateValue::addValue (float d)
 
 ModulateValue::~ModulateValue () = default;
 
-void ModulateValue::set (float value, float max, float min)
+void ModulateValue::set (double value, double max, double min)
 {
     m_baseValue = value;
     m_value = value;
@@ -32,7 +32,7 @@ void ModulateValue::set (float value, float max, float min)
     }
 }
 
-void ModulateValue::setBaseValue (float d)
+void ModulateValue::setBaseValue (double d)
 {
     m_baseValue = d;
     m_value = d;
@@ -42,18 +42,18 @@ void ModulateValue::setBaseValue (float d)
     }
 }
 
-float ModulateValue::getValue ()
+double ModulateValue::getValue ()
 {
     return m_value;
 }
 
-void ModulateValue::addValueForVoice (float value, int voice)
+void ModulateValue::addValueForVoice (double value, int voice)
 {
     m_voiceValues[voice] = m_baseValue * value;
     m_voiceValues[voice] = VeNo::Utils::clamp (m_voiceValues[voice], m_maxValue, m_minValue);
 }
 
-float ModulateValue::getValueForVoice (int i)
+double ModulateValue::getValueForVoice (int i)
 {
     return m_voiceValues[i];
 }

@@ -103,8 +103,8 @@ void Waveforms::drawAudioOutput ()
     auto instance = VenoInstance::getInstance (BaseComponent::m_processId);
     auto buffer = instance->audioBuffer->getBuffer ();
     glBegin (GL_LINE_STRIP);
-    float posX = -1;
-    float inc = 2.0f / buffer.size ();
+    double posX = -1;
+    double inc = 2.0f / buffer.size ();
     for (float j : buffer)
     {
         try
@@ -131,8 +131,8 @@ void Waveforms::drawPeakMeter ()
     auto instance = VenoInstance::getInstance (BaseComponent::m_processId);
     repaint ();
     // draw peak signal
-    auto leftChannel = VeNo::Utils::dBForChannel (instance->audioBuffer->leftPeak);
-    auto rightChannel = VeNo::Utils::dBForChannel (instance->audioBuffer->rightPeak);
+    auto leftChannel = (float) VeNo::Utils::dBForChannel (instance->audioBuffer->leftPeak);
+    auto rightChannel = (float) VeNo::Utils::dBForChannel (instance->audioBuffer->rightPeak);
     auto maxValue = VeNo::Utils::getHigherValue (leftChannel, rightChannel);
     selectColourByPeak (maxValue);
     m_vertexBuffer.resize (6);
@@ -163,8 +163,8 @@ void Waveforms::drawSpectrum ()
     auto buffer = m_fft->scopeData;
     int size = m_fft->scopeSize;
     glBegin (GL_LINE_LOOP);
-    float posX = -1;
-    float inc = 2.0f / (float) size;
+    double posX = -1;
+    double inc = 2.0f / (double) size;
     glVertex2f (posX, -1);
     for (int i = 0; i < size; i++)
     {
@@ -175,7 +175,7 @@ void Waveforms::drawSpectrum ()
     glEnd ();
 }
 
-void Waveforms::selectColourByPeak (float value)
+void Waveforms::selectColourByPeak (double value)
 {
     auto theme = Config::getInstance ()->getCurrentTheme ();
     if (theme == nullptr)

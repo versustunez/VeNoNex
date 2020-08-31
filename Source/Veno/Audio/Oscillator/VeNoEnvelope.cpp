@@ -18,7 +18,7 @@ VeNoEnvelope::VeNoEnvelope (const std::string& id, const std::string& name, doub
     m_attack = m_handler->getParameter (m_name + "__attack");
 }
 
-float VeNoEnvelope::getValue ()
+double VeNoEnvelope::getValue ()
 {
     return m_value;
 }
@@ -38,7 +38,7 @@ void VeNoEnvelope::noteOff ()
     m_adsr.noteOff ();
 }
 
-void VeNoEnvelope::setSampleRate (float sampleRate)
+void VeNoEnvelope::setSampleRate (double sampleRate)
 {
     VeNoEnvelope::m_sampleRate = sampleRate;
     m_adsr = ADSR ();

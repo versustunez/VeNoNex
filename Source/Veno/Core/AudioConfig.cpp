@@ -4,12 +4,12 @@
 std::shared_ptr<AudioConfig> AudioConfig::m_instance;
 std::unordered_map<std::string, std::string> AudioConfig::m_instances;
 
-float AudioConfig::getSampleRate () const
+double AudioConfig::getSampleRate () const
 {
     return m_sampleRate;
 }
 
-void AudioConfig::setSampleRate (float _sampleRate)
+void AudioConfig::setSampleRate (double _sampleRate)
 {
     if (m_sampleRate != _sampleRate)
     {
@@ -20,12 +20,12 @@ void AudioConfig::setSampleRate (float _sampleRate)
     }
 }
 
-float AudioConfig::getBufferSize () const
+double AudioConfig::getBufferSize () const
 {
     return m_bufferSize;
 }
 
-void AudioConfig::setBufferSize (float _bufferSize)
+void AudioConfig::setBufferSize (double _bufferSize)
 {
     m_bufferSize = _bufferSize;
 }

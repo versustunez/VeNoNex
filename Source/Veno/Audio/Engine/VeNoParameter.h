@@ -17,13 +17,13 @@ private:
     std::string m_name;
     std::string m_showName;
     std::string m_id;
-    float m_value;
-    float m_max;
-    float m_min;
+    double m_value;
+    double m_max;
+    double m_min;
     bool m_isModulation = false;
     std::shared_ptr<ModulateValue> m_modulateValue;
 public:
-    VeNoParameter (const std::string& name, const std::string& shownName, float min, float max, float value,
+    VeNoParameter (const std::string& name, const std::string& shownName, double min, double max, double value,
                    const std::string& id);
 
     ~VeNoParameter ();
@@ -32,12 +32,12 @@ public:
 
     std::unique_ptr<RangedAudioParameter> createParameter (ParameterTypes type);
 
-    void setValue (float value);
+    void setValue (double value);
 
-    float getValue ();
-    float getValueForVoice (int voice);
+    double getValue ();
+    double getValueForVoice (int voice);
 
-    float getBaseValue ();
+    double getBaseValue ();
 
     bool getAsBoolean ();
 

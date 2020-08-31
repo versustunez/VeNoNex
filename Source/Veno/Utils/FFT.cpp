@@ -3,7 +3,7 @@
 
 using VeNo::Utils;
 
-void FFT::drawNextFrameOfSpectrum (const std::vector<float>& data)
+void FFT::drawNextFrameOfSpectrum (const std::vector<double>& data)
 {
     for (int i = 0; i < data.size (); ++i)
     {
@@ -20,9 +20,9 @@ void FFT::drawNextFrameOfSpectrum (const std::vector<float>& data)
     auto maxdB = 6.0f;
     for (int i = 0; i < scopeSize; ++i)
     {
-        auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - (float) i / (float) scopeSize) * 0.2f);
-        int fftDataIndex = (int) Utils::clamp ((skewedProportionX * (float) fftSize * 0.5f), 0, fftSize / 2);
-        auto gain = Utils::clamp (Decibels::gainToDecibels (fftData[fftDataIndex], mindB), mindB, maxdB);
+        auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - (double) i / (double) scopeSize) * 0.2f);
+        int fftDataIndex = (int) Utils::clamp ((skewedProportionX * (double) fftSize * 0.5f), 0, fftSize / 2);
+        auto gain = (float) Utils::clamp (Decibels::gainToDecibels (fftData[fftDataIndex], mindB), mindB, maxdB);
         scopeData[i] = juce::jmap (gain, mindB, maxdB, 0.7f, -1.0f);
     }
 }

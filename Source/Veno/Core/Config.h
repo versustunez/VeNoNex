@@ -18,7 +18,7 @@ private:
     std::shared_ptr<LookHandler> m_lookHandler;
 public:
     int m_fps = 60;
-    float m_scale = 1.0f;
+    double m_scale = 1.0f;
 
     static std::shared_ptr<Config> getInstance ();
 
@@ -47,9 +47,9 @@ public:
 
     int getFps () const;
 
-    void setScale (float value);
+    void setScale (double value);
 
-    void setFps (float value);
+    void setFps (double value);
 
     void timerCallback () override;
 

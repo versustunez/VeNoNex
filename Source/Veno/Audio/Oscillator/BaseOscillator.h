@@ -40,27 +40,27 @@ public:
     void setFrequency ();
 
     // getter
-    const std::vector<float>& getValue ();
+    const std::vector<double>& getValue ();
 
-    float getLeftValue ();
+    double getLeftValue ();
 
-    float getRightValue ();
+    double getRightValue ();
 
-    float getMonoValue ();
+    double getMonoValue ();
 
-    float getPitchBend ();
+    double getPitchBend ();
 
     void setIndex (int index);
 
 protected:
-    float m_freq = 0.0;
+    double m_freq = 0.0;
     int m_midiNote = 0;
     std::vector<OscillatorVoice*> m_voices;
     std::shared_ptr<WaveTableWrapper> m_waveTableHelper;
     std::shared_ptr<DetuneHelper> m_DetuneHelper;
     std::shared_ptr<OscillatorParameters> m_parameters;
-    std::vector<float> m_values{0, 0, 0};
-    std::vector<float> m_panning{0, 0};
+    std::vector<double> m_values{0, 0, 0};
+    std::vector<double> m_panning{0, 0};
 
     //modules
     std::shared_ptr<Widener> m_widener;

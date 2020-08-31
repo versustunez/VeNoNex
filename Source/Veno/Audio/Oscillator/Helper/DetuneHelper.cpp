@@ -22,7 +22,7 @@ DetuneHelper::~DetuneHelper ()
     m_detuneAlgos.clear ();
 }
 
-float DetuneHelper::getDetuneFreq (int index)
+double DetuneHelper::getDetuneFreq (int index)
 {
     return m_detuneAlgos[m_mode]->getDetuneFreq (index);
 }
@@ -32,7 +32,7 @@ void DetuneHelper::setMode ()
     m_mode = (int) m_parameters->m_detuneMode->getValue () - 1;
 }
 
-void DetuneHelper::update (float freq, int midiNote)
+void DetuneHelper::update (double freq, int midiNote)
 {
     setMode ();
     int voices = m_parameters->m_voices->getAsInt ();

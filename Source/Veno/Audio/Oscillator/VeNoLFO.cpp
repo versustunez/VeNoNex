@@ -10,7 +10,7 @@ VeNoLFO::VeNoLFO (const std::string& id, int maxVoices, const std::string& name)
     }
 }
 
-float VeNoLFO::getValue ()
+double VeNoLFO::getValue ()
 {
     return BaseOscillator::getMonoValue ();
 }

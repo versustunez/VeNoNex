@@ -53,7 +53,7 @@ void VenoVoice::stopNote (float velocity, bool allowTailOff)
 
 void VenoVoice::pitchWheelMoved (int newPitchWheelValue)
 {
-    float realValue = (((float) newPitchWheelValue / 16383) * 2) - 1;
+    double realValue = (((double) newPitchWheelValue / 16383) * 2) - 1;
     VenoInstance::getInstance (m_id)->handler->setParameterValue ("pitch__wheel", realValue);
 }
 
@@ -65,10 +65,9 @@ void VenoVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSamp
 {
     m_synth->updateSampleRate (); // is not heavy alot of the time!
     int count = m_synth->count;
-    int realSamples = numSamples;
     while (--numSamples >= 0)
     {
-        float output[3] = {0, 0, 0};
+        double output[3] = {0, 0, 0};
         bool cleanNote = true;
         bool runIntoSample = false;
         for (int i = 0; i < count; i++)

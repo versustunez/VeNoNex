@@ -16,7 +16,7 @@ public:
 
     void removeListener (const std::string& name);
 
-    void notifyListener (const std::string& name, float value);
+    void notifyListener (const std::string& name, double value);
 
     void notifyParameterChanged (const std::string& name, VeNoParameter* parameter);
 

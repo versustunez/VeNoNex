@@ -15,9 +15,9 @@ public:
 
     ~VeNoEnvelope () override = default;
 
-    void setSampleRate (float sampleRate);
+    void setSampleRate (double sampleRate);
 
-    float getValue () override;
+    double getValue () override;
 
     void prepare ();
 

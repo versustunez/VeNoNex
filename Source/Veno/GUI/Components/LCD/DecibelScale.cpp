@@ -34,9 +34,9 @@ void DecibelScale::paint (Graphics& g)
     }
 }
 
-int DecibelScale::getScale (float dB)
+int DecibelScale::getScale (double dB)
 {
-    float fDef = (dB + 30) / 30;
+    double fDef = (dB + 30) / 30;
     return int (fDef * m_scale);
 }
 

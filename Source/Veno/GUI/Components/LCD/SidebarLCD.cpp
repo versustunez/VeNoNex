@@ -29,7 +29,7 @@ SidebarLCD::~SidebarLCD ()
 
 void SidebarLCD::drawHeadline (Graphics& g)
 {
-    float fontSize = VeNo::Utils::setFontSize (12.0f, g) + 2;
+    double fontSize = VeNo::Utils::setFontSize (12.0f, g) + 2;
     int line = fontSize + 2;
     // should draw random stuff? or draw current selected preset :)
     g.drawText ("LICENSED TO: " + SystemStats::getLogonName (), 0, 2, getWidth (), fontSize,
@@ -40,14 +40,14 @@ void SidebarLCD::drawHeadline (Graphics& g)
 
 void SidebarLCD::drawFooter (Graphics& g)
 {
-    float fontSize = VeNo::Utils::setFontSize (12.0f, g) + 4;
+    double fontSize = VeNo::Utils::setFontSize (12.0f, g) + 4;
     int line = getHeight () - fontSize;
     g.drawLine (0, line - 4, getWidth (), line - 4);
 }
 
 void SidebarLCD::resized ()
 {
-    float size = (12 * Config::getInstance ()->getScale ()) + 4;
+    double size = (12 * Config::getInstance ()->getScale ()) + 4;
     if (m_waveform != nullptr)
     {
         m_waveform->setBounds (0, size * 2, getWidth (), getHeight () - (size * 4));

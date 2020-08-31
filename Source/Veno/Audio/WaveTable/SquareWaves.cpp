@@ -20,7 +20,7 @@ void SquareWaves::generateSquare (WaveTableGroup* group)
     freqWaveRe[0] = freqWaveRe[tableLen >> 1] = 0.0;
     for (idx = 1; idx < (tableLen >> 1); idx++)
     {
-        float temp = idx & 0x01 ? 1.0 / idx : 0.0;
+        double temp = idx & 0x01 ? 1.0 / idx : 0.0;
         freqWaveRe[idx] = -temp;
         freqWaveRe[tableLen - idx] = temp;
     }
@@ -47,7 +47,7 @@ void SquareWaves::generateDirtySquare (WaveTableGroup* group)
     freqWaveRe[0] = freqWaveRe[tableLen >> 1] = 0.0;
     for (idx = 1; idx < (tableLen >> 1); idx++)
     {
-        float temp = idx & 0x01 ? 1.0 / idx : 0.0;
+        double temp = idx & 0x01 ? 1.0 / idx : 0.0;
         if (idx % 64 == 0)
         {
             temp += ((std::rand () / double (RAND_MAX)) - 0.5) * 0.005;
