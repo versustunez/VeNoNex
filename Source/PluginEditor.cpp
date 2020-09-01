@@ -20,7 +20,7 @@ VenoAudioProcessorEditor::VenoAudioProcessorEditor (VenoAudioProcessor& p)
     addAndMakeVisible (*m_keyboard);
 }
 
-[[noreturn]] VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
+VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
 {
     LookAndFeel::setDefaultLookAndFeel (nullptr);
     m_sidebar.reset (nullptr);

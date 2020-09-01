@@ -7,6 +7,8 @@
 #include "../../../Utils/Logger.h"
 #include "../../../GUI/Fonts/Fonts.h"
 #include "../../../GUI/Fonts/Icons.h"
+#include "../../GUIParts/ConfigScreen/VenoConfigScreen.h"
+#include "../../GUIParts/Debug/VeNoDebugScreen.h"
 
 VeNoActionButton::VeNoActionButton (const std::string& processId, std::string name, ButtonType type)
         : BaseComponent (processId), m_name (std::move (name)), m_type (type)
@@ -41,11 +43,49 @@ void VeNoActionButton::paint (Graphics& g)
 
 void VeNoActionButton::mouseDown (const MouseEvent& event)
 {
-    // open Window on click :)
+    switch (m_type)
+    {
+        case Config:
+            handleConfig();
+            break;
+        case Matrix:
+            handleMatrix();
+            break;
+        case Debug:
+            handleDebug();
+            break;
+        case Presets:
+            handlePresets();
+    }
+
+}
+
+void VeNoActionButton::handleConfig ()
+{
     auto instance = VenoInstance::getInstance (m_processId);
     if (instance->state->configScreen != nullptr)
     {
         return;
     }
     instance->state->configScreen = new VenoConfigScreen (m_processId);
+}
+
+void VeNoActionButton::handleMatrix ()
+{
+
+}
+
+void VeNoActionButton::handleDebug ()
+{
+    auto instance = VenoInstance::getInstance (m_processId);
+    if (instance->state->debugScreen != nullptr)
+    {
+        return;
+    }
+    instance->state->debugScreen = new VeNoDebugScreen (m_processId);
+}
+
+void VeNoActionButton::handlePresets ()
+{
+
 }

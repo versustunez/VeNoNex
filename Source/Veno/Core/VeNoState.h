@@ -3,11 +3,12 @@
 
 #include <string>
 #include "../GUI/GUIParts/ConfigScreen/VenoConfigScreen.h"
+#include "../GUI/GUIParts/Debug/VeNoDebugScreen.h"
 
 class VeNoState
 {
 protected:
-    std::string m_pid = "";
+    std::string m_pid;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VeNoState);
 public:
     VeNoState (std::string pid);
@@ -15,6 +16,7 @@ public:
     ~VeNoState ();
 
     VenoConfigScreen* configScreen = nullptr;
+    VeNoDebugScreen* debugScreen = nullptr;
     bool m_isFirstEditor;
     int m_lcd_mode = 0;
 };

@@ -41,10 +41,15 @@ public:
 
     void unregisterListener (const std::string& parameterId);
 
+    std::unordered_map<std::string, VeNoParameter*>& getParameters ();
+
+    std::vector<std::string> rawParameters ();
+
 protected:
 private:
     std::string m_id;
     std::vector<std::unique_ptr<RangedAudioParameter>> m_params;
+    std::vector<std::string> m_paramMaps;
     std::unordered_map<std::string, VeNoParameter*> m_parameters;
     std::unordered_map<std::string, VeNoListener*> m_listener;
     AudioProcessorValueTreeState* m_treeState;

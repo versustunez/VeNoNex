@@ -28,6 +28,7 @@ void
 ParameterHandler::addParameter (const std::string& name, const std::string& showName, double min, double max, double value,
                                 ParameterTypes type)
 {
+    m_paramMaps.push_back(name);
     m_parameters[name] = new VeNoParameter (name, showName, min, max, value, m_id);
     m_params.push_back (m_parameters[name]->createParameter (type));
 }
@@ -188,4 +189,14 @@ void ParameterHandler::registerListener (const std::string& parameterId, VeNoLis
 void ParameterHandler::unregisterListener (const std::string& parameterId)
 {
     m_listener.erase (parameterId);
+}
+
+std::unordered_map<std::string, VeNoParameter*>& ParameterHandler::getParameters ()
+{
+    return m_parameters;
+}
+
+std::vector<std::string> ParameterHandler::rawParameters ()
+{
+    return m_paramMaps;
 }

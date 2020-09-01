@@ -15,9 +15,9 @@ VenoAudioProcessor::VenoAudioProcessor ()
 
 VenoAudioProcessor::~VenoAudioProcessor ()
 {
+    instance.reset ();
     AudioConfig::deleteInstance (m_id);
     VenoInstance::deleteInstance (m_id);
-    instance.reset ();
 }
 
 const String VenoAudioProcessor::getName () const
@@ -143,7 +143,10 @@ AudioProcessorEditor* VenoAudioProcessor::createEditor ()
 //==============================================================================
 void VenoAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    auto matrixXML = instance->matrix->saveMatrixToXML ();
+    auto state = treeState.copyState ();
+    std::unique_ptr<XmlElement> xml (state.createXml ());
+    copyXmlToBinary (*xml, destData);
+/*    auto matrixXML = instance->matrix->saveMatrixToXML ();
     if (matrixXML != nullptr)
     {
         copyXmlToBinary (*matrixXML, destData);
@@ -151,14 +154,19 @@ void VenoAudioProcessor::getStateInformation (MemoryBlock& destData)
     else
     {
         DBG("Sorry something went wrong! xml is nullptr");
-    }
+    }*/
 }
 
 void VenoAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     std::unique_ptr<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+
     if (xmlState != nullptr)
-        instance->matrix->getMatrixFromXML (xmlState);
+        if (xmlState->hasTagName (treeState.state.getType ()))
+            treeState.replaceState (ValueTree::fromXml (*xmlState));
+/*    std::unique_ptr<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+    if (xmlState != nullptr)
+        instance->matrix->getMatrixFromXML (xmlState);*/
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter ()

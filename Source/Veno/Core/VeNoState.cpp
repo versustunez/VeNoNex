@@ -8,5 +8,7 @@ VeNoState::VeNoState (std::string pid)
 VeNoState::~VeNoState ()
 {
     delete configScreen;
+    delete debugScreen;
     configScreen = nullptr;
+    debugScreen = nullptr;
 }

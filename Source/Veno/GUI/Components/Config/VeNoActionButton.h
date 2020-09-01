@@ -23,6 +23,11 @@ public:
 
     void mouseDown (const MouseEvent& event) override;
 
+    void handleConfig();
+    void handleMatrix();
+    void handleDebug();
+    void handlePresets();
+
 private:
     std::string m_name;
     ButtonType m_type;

@@ -11,7 +11,7 @@ class VenoAudioProcessorEditor : public AudioProcessorEditor
 public:
     VenoAudioProcessorEditor (VenoAudioProcessor&);
 
-    [[noreturn]] ~VenoAudioProcessorEditor ();
+    ~VenoAudioProcessorEditor ();
 
     void paint (Graphics&) override;
 

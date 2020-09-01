@@ -165,6 +165,16 @@
               <FILE id="CvExms" name="VenoConfigScreen.h" compile="0" resource="0"
                     file="Source/Veno/GUI/GUIParts/ConfigScreen/VenoConfigScreen.h"/>
             </GROUP>
+            <GROUP id="{9C96806A-0DE7-DBBB-09E3-B0A35BA3C4BC}" name="Debug">
+              <FILE id="daKvka" name="VeNoDebugComponent.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Debug/VeNoDebugComponent.cpp"/>
+              <FILE id="WBvZ4v" name="VeNoDebugComponent.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Debug/VeNoDebugComponent.h"/>
+              <FILE id="XfkRve" name="VeNoDebugScreen.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Debug/VeNoDebugScreen.cpp"/>
+              <FILE id="WdGXo2" name="VeNoDebugScreen.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/GUIParts/Debug/VeNoDebugScreen.h"/>
+            </GROUP>
             <GROUP id="{B7626B9F-22D9-713A-B543-1D7B34AF77B7}" name="Sidebar">
               <FILE id="UzfsRZ" name="PresetManagerComponent.cpp" compile="1" resource="0"
                     file="Source/Veno/GUI/GUIParts/Sidebar/PresetManagerComponent.cpp"/>
