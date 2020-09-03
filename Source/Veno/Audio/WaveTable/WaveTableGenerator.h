@@ -1,74 +1,37 @@
-#ifndef VENO_WAVETABLEGENERATOR_H
-#define VENO_WAVETABLEGENERATOR_H
+#pragma once
 
 #include "JuceHeader.h"
+#include "WaveTableStructs.h"
 
-struct WaveTableObject
+namespace VeNo
 {
-    ~WaveTableObject ()
+    class WaveTableGenerator
     {
-        m_waveTable.clear ();
-    }
-
-    double m_topFreq;
-    int m_waveTableLen;
-    std::vector<double> m_waveTable = {};
-};
-
-struct WaveTableGroup
-{
-    static constexpr int numWaveTableSlots = 40;
-    WaveTableObject* m_WaveTables[numWaveTableSlots] = {};
-    int m_numWaveTables = 0;
-
-    ~WaveTableGroup ()
-    {
-        for (auto& m_WaveTable : m_WaveTables)
+    private:
+        static constexpr int numWaveTableSlots = 40;
+        std::vector<WaveTableGroup*> m_waveTables{numWaveTableSlots};
+    public:
+        static WaveTableGenerator& getInstance ()
         {
-            delete m_WaveTable;
+            static WaveTableGenerator instance;
+            return instance;
         }
-    }
-};
 
-enum WaveForms
-{
-    SAW = 0,
-    SINE,
-    SQUARE,
-    TRIANGLE,
-    DIRTY_SAW,
-    DIRTY_SQUARE, //that stuff is to dirty xD,
-    SYNTH_ONE,
-    SYNTH_TWO,
-    VENOX
-};
+        WaveTableGroup* getGroup (int id);
 
-class WaveTableGenerator
-{
-private:
-    static constexpr int numWaveTableSlots = 40;
-    WaveTableGroup* m_waveTables[numWaveTableSlots] = {};
-public:
-    static WaveTableGenerator& getInstance ()
-    {
-        static WaveTableGenerator instance;
-        return instance;
-    }
+        void init ();
 
-    WaveTableGroup* getGroup (int id);
+        void cleanTables ();
 
-    void init ();
+        void setGroup(WaveForms index, WaveTableGroup* group);
 
-    void cleanTables ();
+    protected:
+        bool m_isInit = false;
+        int addedWaveForms = 0;
 
-protected:
-    bool m_isInit = false;
-    int addedWaveForms = 0;
+        WaveTableGenerator () = default;
 
-    WaveTableGenerator () = default;
-
-    ~WaveTableGenerator () = default;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveTableGenerator)
-};
-
-#endif //VENO_WAVETABLEGENERATOR_H
+        ~WaveTableGenerator () = default;
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveTableGenerator)
+    };
+}

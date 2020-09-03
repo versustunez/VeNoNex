@@ -124,24 +124,33 @@
             <FILE id="WyGZl7" name="VenoVoice.h" compile="0" resource="0" file="Source/Veno/Audio/Synth/VenoVoice.h"/>
           </GROUP>
           <GROUP id="{06DB92E3-6D1E-CFC5-096E-315C4121F8AD}" name="WaveTable">
-            <FILE id="aK5Pjz" name="SawWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/SawWaves.cpp"/>
-            <FILE id="xIMCot" name="SawWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/SawWaves.h"/>
-            <FILE id="dF6Ci9" name="SineWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/SineWaves.cpp"/>
-            <FILE id="lmInYK" name="SineWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/SineWaves.h"/>
-            <FILE id="HZwgeM" name="SquareWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/SquareWaves.cpp"/>
-            <FILE id="HJUsG7" name="SquareWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/SquareWaves.h"/>
-            <FILE id="H81SA7" name="TableHelper.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/TableHelper.cpp"/>
-            <FILE id="uSJMy6" name="TableHelper.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/TableHelper.h"/>
-            <FILE id="pzpArE" name="TriangleWaves.cpp" compile="1" resource="0"
-                  file="Source/Veno/Audio/WaveTable/TriangleWaves.cpp"/>
-            <FILE id="uJANqm" name="TriangleWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/TriangleWaves.h"/>
-            <FILE id="HEHVy9" name="VeNoXWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/VeNoXWaves.cpp"/>
-            <FILE id="rMLam7" name="VeNoXWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/VeNoXWaves.h"/>
+            <GROUP id="{DE826509-E998-0E7A-5569-D6688964F436}" name="Generator">
+              <FILE id="abjf92" name="MathWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/Generator/MathWaves.cpp"/>
+              <FILE id="TnGF9Q" name="MathWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/Generator/MathWaves.h"/>
+              <FILE id="CuOGI9" name="SawWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/Generator/SawWaves.cpp"/>
+              <FILE id="z8bY71" name="SawWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/Generator/SawWaves.h"/>
+              <FILE id="YRKrM5" name="SquareWaves.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/Generator/SquareWaves.cpp"/>
+              <FILE id="jPwvvz" name="SquareWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/Generator/SquareWaves.h"/>
+              <FILE id="ZGyWUH" name="TriangleWaves.cpp" compile="1" resource="0"
+                    file="Source/Veno/Audio/WaveTable/Generator/TriangleWaves.cpp"/>
+              <FILE id="r7fg9N" name="TriangleWaves.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/Generator/TriangleWaves.h"/>
+              <FILE id="nhfO8s" name="VeNoSpecials.cpp" compile="1" resource="0"
+                    file="Source/Veno/Audio/WaveTable/Generator/VeNoSpecials.cpp"/>
+              <FILE id="PUIWZI" name="VeNoSpecials.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/Generator/VeNoSpecials.h"/>
+            </GROUP>
+            <FILE id="lep1Pi" name="RawTable.cpp" compile="1" resource="0" file="Source/Veno/Audio/WaveTable/RawTable.cpp"/>
+            <FILE id="ZNpcAh" name="RawTable.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/RawTable.h"/>
+            <FILE id="Xx5EHX" name="TableCreatorHelper.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/WaveTable/TableCreatorHelper.cpp"/>
+            <FILE id="prbjAT" name="TableCreatorHelper.h" compile="0" resource="0"
+                  file="Source/Veno/Audio/WaveTable/TableCreatorHelper.h"/>
             <FILE id="PFmKTU" name="WavesInlcuder.h" compile="0" resource="0" file="Source/Veno/Audio/WaveTable/WavesInlcuder.h"/>
             <FILE id="iWkNs3" name="WaveTableGenerator.cpp" compile="1" resource="0"
                   file="Source/Veno/Audio/WaveTable/WaveTableGenerator.cpp"/>
             <FILE id="yI9w2X" name="WaveTableGenerator.h" compile="0" resource="0"
                   file="Source/Veno/Audio/WaveTable/WaveTableGenerator.h"/>
+            <FILE id="vCAFqR" name="WaveTableStructs.h" compile="0" resource="0"
+                  file="Source/Veno/Audio/WaveTable/WaveTableStructs.h"/>
           </GROUP>
           <GROUP id="{A224AFA7-CD28-E0FE-3B5A-8203BFD9467B}" name="FX"/>
         </GROUP>

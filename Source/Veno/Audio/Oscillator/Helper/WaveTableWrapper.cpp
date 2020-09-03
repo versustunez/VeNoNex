@@ -24,8 +24,8 @@ bool WaveTableWrapper::prepare ()
     }
     auto baseWaveTable = m_parameters->m_waveformPrimary->getValue () - 1;
     auto secondWaveTable = m_parameters->m_waveformSecond->getValue () - 1;
-    m_baseWaveGroup = WaveTableGenerator::getInstance ().getGroup (baseWaveTable);
-    m_currentWaveGroup = WaveTableGenerator::getInstance ().getGroup (secondWaveTable);
+    m_baseWaveGroup = VeNo::WaveTableGenerator::getInstance ().getGroup (baseWaveTable);
+    m_currentWaveGroup = VeNo::WaveTableGenerator::getInstance ().getGroup (secondWaveTable);
     return m_currentWaveGroup != nullptr && m_baseWaveGroup != nullptr;
 }
 
@@ -124,7 +124,7 @@ double WaveTableWrapper::getOutputPWM (int index)
     return VeNo::Utils::clamp ((sumOne + sumTwo) / 2, -1, 1);
 }
 
-double WaveTableWrapper::getWaveTableValue (WaveTableObject* table, double phase)
+double WaveTableWrapper::getWaveTableValue (VeNo::WaveTableObject* table, double phase)
 {
     if (table == nullptr)
     {

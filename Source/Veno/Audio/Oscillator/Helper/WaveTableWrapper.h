@@ -12,8 +12,8 @@ struct Voice
     double m_phasor = 0.0;
     double m_phaseInc = 0.0;
     double m_phaseOfs = 0;
-    WaveTableObject* m_baseWaveTable = nullptr;
-    WaveTableObject* m_currentWaveTable = nullptr;
+    VeNo::WaveTableObject* m_baseWaveTable = nullptr;
+    VeNo::WaveTableObject* m_currentWaveTable = nullptr;
 };
 
 class WaveTableWrapper
@@ -21,8 +21,8 @@ class WaveTableWrapper
 private:
     std::string m_name;
     std::shared_ptr<OscillatorParameters> m_parameters;
-    WaveTableGroup* m_baseWaveGroup = nullptr;
-    WaveTableGroup* m_currentWaveGroup = nullptr;
+    VeNo::WaveTableGroup* m_baseWaveGroup = nullptr;
+    VeNo::WaveTableGroup* m_currentWaveGroup = nullptr;
     std::vector<Voice*> m_voices;
 public:
     WaveTableWrapper (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters, int maxVoices);
@@ -46,7 +46,7 @@ public:
 
     double getOutputPWM (int index);
 
-    double getWaveTableValue (WaveTableObject* table, double phase);
+    double getWaveTableValue (VeNo::WaveTableObject* table, double phase);
 
 protected:
 };

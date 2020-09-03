@@ -49,13 +49,13 @@ std::shared_ptr<AudioConfig> AudioConfig::getInstance ()
 
 void AudioConfig::initWaveTables ()
 {
-    WaveTableGenerator::getInstance ().cleanTables ();
-    WaveTableGenerator::getInstance ().init ();
+    VeNo::WaveTableGenerator::getInstance ().cleanTables ();
+    VeNo::WaveTableGenerator::getInstance ().init ();
 }
 
 AudioConfig::~AudioConfig ()
 {
-    WaveTableGenerator::getInstance ().cleanTables ();
+    VeNo::WaveTableGenerator::getInstance ().cleanTables ();
 }
 
 AudioConfig::AudioConfig ()
@@ -73,7 +73,7 @@ void AudioConfig::deleteInstance (std::string& id)
     m_instances.erase (id);
     if (m_instances.empty ())
     {
-        WaveTableGenerator::getInstance ().cleanTables ();
+        VeNo::WaveTableGenerator::getInstance ().cleanTables ();
         m_instance.reset ();
     }
 }
