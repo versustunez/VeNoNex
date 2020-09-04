@@ -46,6 +46,9 @@ public:
     std::string getShowName ();
 
     std::shared_ptr<ModulateValue> getModulateValue ();
+
+    double getMaxValue() const;
+    double getMinValue() const;
 };
 
 

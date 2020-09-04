@@ -29,7 +29,7 @@ protected:
     std::shared_ptr<OscillatorParameters> m_parameters;
     double m_currentDetune = 0; //can calcucated by a special function
     std::string m_name;
-    double m_detuneCents = 200.0f;
+    double m_detuneCents;
     int m_midiNote = 0;
 };
 

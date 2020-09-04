@@ -88,3 +88,13 @@ std::shared_ptr<ModulateValue> VeNoParameter::getModulateValue ()
 {
     return m_modulateValue;
 }
+
+double VeNoParameter::getMaxValue () const
+{
+    return m_max;
+}
+
+double VeNoParameter::getMinValue () const
+{
+    return m_max;
+}
