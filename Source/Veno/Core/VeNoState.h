@@ -17,7 +17,7 @@ public:
 
     VenoConfigScreen* configScreen = nullptr;
     VeNoDebugScreen* debugScreen = nullptr;
-    bool m_isFirstEditor;
+    bool m_isFirstEditor = true;
     int m_lcd_mode = 0;
 };
 

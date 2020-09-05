@@ -2,9 +2,8 @@
 #include "../../../Utils.h"
 
 Limiter::Limiter (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters)
+        : m_name (name), m_parameters (parameters)
 {
-    m_name = name;
-    m_parameters = parameters;
 }
 
 void Limiter::apply (std::vector<double>& values, std::vector<double>& panned)

@@ -6,10 +6,8 @@
 #include "../../VenoInstance.h"
 
 BaseOscillator::BaseOscillator (const std::string& id, const std::string& name, int maxVoices)
+        : m_id (id), m_name(name), m_handler(VenoInstance::getInstance(m_id)->handler), m_maxVoices(maxVoices)
 {
-    m_id = id;
-    m_name = name;
-    m_maxVoices = maxVoices;
     m_handler = VenoInstance::getInstance (m_id)->handler;
     m_parameters = std::make_shared<OscillatorParameters> (m_handler, m_name);
     m_values.resize (3);
@@ -88,9 +86,12 @@ bool BaseOscillator::processVoices (int voices)
         m_panning[1] += m_voices[i]->getRightValue ();
         detuneOutput += m_voices[i]->getMonoValue ();
     }
+    double dAmount = m_parameters->m_detuneAmount->getValueForVoice (m_index);
     detuneOutput *= m_parameters->m_detuneAmount->getValueForVoice (m_index);
     detuneOutput /= (double) (voices - 1);
     m_values[0] += detuneOutput;
+    m_panning[0] *= dAmount;
+    m_panning[1] *= dAmount;
 
     return true;
 }

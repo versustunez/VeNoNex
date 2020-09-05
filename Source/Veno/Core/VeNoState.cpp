@@ -1,8 +1,8 @@
 #include "VeNoState.h"
 
 VeNoState::VeNoState (std::string pid)
+        : m_pid (pid)
 {
-    m_pid = pid;
 }
 
 VeNoState::~VeNoState ()

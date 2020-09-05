@@ -2,8 +2,8 @@
 #include <utility>
 
 ConfigComponent::ConfigComponent (std::string pid)
+        : m_pid (std::move(pid))
 {
-    m_pid = std::move (pid);
     m_colors.resize (8);
     auto theme = Config::getInstance ()->getCurrentTheme ();
     for (int i = 0; i < 8; i++)

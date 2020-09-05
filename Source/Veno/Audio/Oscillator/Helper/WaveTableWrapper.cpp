@@ -5,9 +5,8 @@
 
 WaveTableWrapper::WaveTableWrapper (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters,
                                     int maxVoices)
+        : m_name (name), m_parameters (parameters)
 {
-    m_name = name;
-    m_parameters = parameters;
     m_voices.resize (maxVoices);
     for (int i = 0; i < maxVoices; ++i)
     {

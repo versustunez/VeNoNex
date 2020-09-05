@@ -107,27 +107,19 @@ namespace VeNo
     {
         auto& ar = table.m_tempRe;
         auto& ai = table.m_tempIm;
-        int i, j, k, L;            /* indexes */
-        int M, TEMP, LE, LE1, ip;  /* M = log N */
-        int NV2, NM1;
-        double t;               /* temp */
-        double Ur, Ui, Wr, Wi, Tr, Ti;
-        double Ur_old;
 
-        // if ((N > 1) && !(N & (N - 1)))   // make sure we have a power of 2
-
-        NV2 = N >> 1;
-        NM1 = N - 1;
-        TEMP = N; /* get M = log N */
-        M = 0;
+        int NV2 = N >> 1;
+        int NM1 = N - 1;
+        int TEMP = N;
+        int M = 0;
         while (TEMP >>= 1) ++M;
 
-        /* shuffle */
-        j = 1;
+        int j = 1;
+        int t, i;
         for (i = 1; i <= NM1; i++)
         {
             if (i < j)
-            {             /* swap a[i] and a[j] */
+            {
                 t = ar[j - 1];
                 ar[j - 1] = ar[i - 1];
                 ar[i - 1] = t;
@@ -136,7 +128,7 @@ namespace VeNo
                 ai[i - 1] = t;
             }
 
-            k = NV2;             /* bit-reversed counter */
+            int k = NV2;
             while (k < j)
             {
                 j -= k;
@@ -146,28 +138,28 @@ namespace VeNo
             j += k;
         }
 
-        LE = 1.;
-        for (L = 1; L <= M; L++)
-        {            // stage L
-            LE1 = LE;                         // (LE1 = LE/2)
-            LE *= 2;                          // (LE = 2^L)
-            Ur = 1.0;
-            Ui = 0.;
-            Wr = std::cos (Utils::PI / (float) LE1);
-            Wi = -std::sin (Utils::PI / (float) LE1); // Cooley, Lewis, and Welch have "+" here
+        int LE = 1;
+        for (int L = 1; L <= M; L++)
+        {
+            int LE1 = LE;
+            LE *= 2;
+            double Ur = 1.0;
+            double Ui = 0.;
+            double Wr = std::cos (Utils::PI / (float) LE1);
+            double Wi = -std::sin (Utils::PI / (float) LE1);
             for (j = 1; j <= LE1; j++)
             {
                 for (i = j; i <= N; i += LE)
-                { // butterfly
-                    ip = i + LE1;
-                    Tr = ar[ip - 1] * Ur - ai[ip - 1] * Ui;
-                    Ti = ar[ip - 1] * Ui + ai[ip - 1] * Ur;
+                {
+                    int ip = i + LE1;
+                    double Tr = ar[ip - 1] * Ur - ai[ip - 1] * Ui;
+                    double Ti = ar[ip - 1] * Ui + ai[ip - 1] * Ur;
                     ar[ip - 1] = ar[i - 1] - Tr;
                     ai[ip - 1] = ai[i - 1] - Ti;
                     ar[i - 1] = ar[i - 1] + Tr;
                     ai[i - 1] = ai[i - 1] + Ti;
                 }
-                Ur_old = Ur;
+                double Ur_old = Ur;
                 Ur = Ur_old * Wr - Ui * Wi;
                 Ui = Ur_old * Wi + Ui * Wr;
             }

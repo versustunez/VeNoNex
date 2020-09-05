@@ -15,10 +15,10 @@ private:
     std::shared_ptr<WaveTableWrapper> m_waveTableWrapper;
     std::shared_ptr<DetuneHelper> m_detuneHelper;
     std::shared_ptr<Widener> m_widener;
-    int m_index = 0;
+    int m_index;
     std::vector<double> m_values{0, 0, 0};
-    bool m_isCenter = false;
-    bool m_isLeft = false;
+    bool m_isCenter;
+    bool m_isLeft;
 public:
     explicit OscillatorVoice (const std::string& id, std::shared_ptr<WaveTableWrapper>& waveTableWrapper,
                               std::shared_ptr<DetuneHelper>& detuneHelper,

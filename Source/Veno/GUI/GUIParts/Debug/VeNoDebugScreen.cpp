@@ -2,9 +2,9 @@
 #include "../../../VenoInstance.h"
 
 VeNoDebugScreen::VeNoDebugScreen (const std::string& pid) : DocumentWindow ("VeNo Debugger", Colours::black,
-                                                                            DocumentWindow::allButtons, true)
+                                                                            DocumentWindow::allButtons, true),
+                                                            m_pid (pid)
 {
-    m_pid = pid;
     auto w = 1270;
     auto h = 800;
     component = std::make_shared<VeNoDebugComponent> (m_pid);

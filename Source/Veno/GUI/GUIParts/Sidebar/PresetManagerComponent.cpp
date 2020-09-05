@@ -1,12 +1,13 @@
 #include "PresetManagerComponent.h"
 #include "../../../Utils.h"
 
-PresetManagerComponent::PresetManagerComponent (const std::string& pid) : BaseComponent (pid)
+PresetManagerComponent::PresetManagerComponent (const std::string& pid) : BaseComponent (pid),
+                                                                          m_editor (
+                                                                                  std::make_unique<PresetEditor> (pid))
 {
     m_prev = std::make_unique<PresetAction> (pid, "prev", PresetAction::Type::PREV);
     m_next = std::make_unique<PresetAction> (pid, "next", PresetAction::Type::NEXT);
     m_save = std::make_unique<PresetAction> (pid, "save", PresetAction::Type::SAVE);
-    m_editor = std::make_unique<PresetEditor> (pid);
     addAndMakeVisible (*m_prev);
     addAndMakeVisible (*m_next);
     addAndMakeVisible (*m_save);

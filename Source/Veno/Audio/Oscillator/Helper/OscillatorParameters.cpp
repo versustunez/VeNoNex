@@ -1,9 +1,8 @@
 #include "OscillatorParameters.h"
 
 OscillatorParameters::OscillatorParameters (ParameterHandler* handler, const std::string& name)
+:m_name(name + "__"), m_handler(handler)
 {
-    m_name = name + "__";
-    m_handler = handler;
     m_active = getParameter ("active");
     m_voices = getParameter ("voices");
     m_semitones = getParameter ("semitones");

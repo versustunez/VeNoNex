@@ -24,82 +24,76 @@ void ParameterHandler::setupParameter ()
 
     for (int i = 1; i < 5; i++)
     {
-        std::string id = "osc" + std::to_string (i) + "__";
-        std::string name = "OSC" + std::to_string (i);
+        std::string oscId = "osc" + std::to_string (i) + "__";
+        std::string OSCName = "OSC" + std::to_string (i);
         // Makes the Oscillator Available for Rendering or not
-        addParameter (id + "active", name + " Active", 0, 1, i == 1, Boolean);
+        addParameter (oscId + "active", OSCName + " Active", 0, 1, i == 1, Boolean);
         // How Many Voices he should play at Once: anyone above 1 will create Unison/Detune Voices
-        addParameter (id + "voices", name + " Voices", 1, 9, 1, Integer);
+        addParameter (oscId + "voices", OSCName + " Voices", 1, 9, 1, Integer);
         // Shift the Frequency by a specific Semitones amount
-        addParameter (id + "semitones", name + " Semitones", -24, 24, 0, Integer);
+        addParameter (oscId + "semitones", OSCName + " Semitones", -24, 24, 0, Integer);
         // Fine tune the Frequency by Cents
-        addParameterModulate (id + "cents", name + " Fine", -100, 100, 0, Integer);
+        addParameterModulate (oscId + "cents", OSCName + " Fine", -100, 100, 0, Integer);
         // Volume of the Oscillator itself
-        addParameterModulate (id + "level", name + " Volume", 0, 1, 0.8, Float);
+        addParameterModulate (oscId + "level", OSCName + " Volume", 0, 1, 0.8, Float);
         // Panning of the Oscillator itself
-        addParameterModulate (id + "panning", name + " Pan", -1, 1, 0, Float);
+        addParameterModulate (oscId + "panning", OSCName + " Pan", -1, 1, 0, Float);
         // Unison Voice Volume
-        addParameterModulate (id + "detune_amount", name + " Detune Volume", 0, 1, 0, Float);
+        addParameterModulate (oscId + "detune_amount", OSCName + " Detune Volume", 0, 1, 0, Float);
         // Unison Voice Spread
-        addParameterModulate (id + "detune_dense", name + " Detune Strength", 0, 150, 0, Float);
+        addParameterModulate (oscId + "detune_dense", OSCName + " Detune Strength", 0, 150, 0, Float);
         // Detune Mode
-        addParameter (id + "detune_mode", name + " Detune Mode", 1, 3, 1, Integer);
+        addParameter (oscId + "detune_mode", OSCName + " Detune Mode", 1, 3, 1, Integer);
         // Shift the Phase of the Oscillator
-        addParameterModulate (id + "phase", name + " Phase offset", 0, 1, 0, Float);
+        addParameterModulate (oscId + "phase", OSCName + " Phase offset", 0, 1, 0, Float);
         // Generate a Random Phase at each new Note
-        addParameter (id + "random_phase", name + " Random Phase", 0, 1, 0, Boolean);
+        addParameter (oscId + "random_phase", OSCName + " Random Phase", 0, 1, 0, Boolean);
         // Detune Stereo Spread
-        addParameterModulate (id + "stereo", name + " Detune Stereo", 0, 200, 50, Float);
+        addParameterModulate (oscId + "stereo", OSCName + " Detune Stereo", 0, 200, 50, Float);
         // Main Waveform that is applied without Mix
-        addParameter (id + "waveform_base", name + " Primary Waveform", 1, 10, 1, Integer);
+        addParameter (oscId + "waveform_base", OSCName + " Primary Waveform", 1, 10, 1, Integer);
         // Secondary Waveform that is applied with Mix
-        addParameter (id + "waveform_sec", name + " Secondary Waveform", 1, 10, 4, Integer);
+        addParameter (oscId + "waveform_sec", OSCName + " Secondary Waveform", 1, 10, 4, Integer);
         // How much should both of the Waveform Mixed
-        addParameterModulate (id + "waveform_mix", name + " Waveform Mix", 0, 1, 0, Float);
-    }
-
-    for (int i = 1; i < 5; i++)
-    {
-        std::string id = "osc" + std::to_string (i) + "__";
-        std::string name = "OSC" + std::to_string (i);
+        addParameterModulate (oscId + "waveform_mix", OSCName + " Waveform Mix", 0, 1, 0, Float);
         // Oscillator Envelope Attack
-        addParameter (id + "attack", name + " Attack", 0, 2, 0.01, Float);
+        addParameter (oscId + "attack", OSCName + " Attack", 0, 2, 0.01, Float);
         // Oscillator Envelope Decay
-        addParameter (id + "decay", name + " Decay", 0, 2, 0, Float);
+        addParameter (oscId + "decay", OSCName + " Decay", 0, 2, 0, Float);
         // Oscillator Envelope Decay
-        addParameter (id + "sustain", name + " Sustain", 0, 1, 1, Float);
+        addParameter (oscId + "sustain", OSCName + " Sustain", 0, 1, 1, Float);
         // Oscillator Envelope Decay
-        addParameter (id + "release", name + " Release", 0, 2, 0.01, Float);
+        addParameter (oscId + "release", OSCName + " Release", 0, 2, 0.01, Float);
     }
 
     for (int i = 1; i < 3; i++)
     {
-        std::string id = "lfo" + std::to_string (i) + "__";
-        std::string name = "LFO" + std::to_string (i);
+        std::string lfoId = "lfo" + std::to_string (i) + "__";
+        std::string LFOName = "LFO" + std::to_string (i);
         // Active or Deactivate LFO
-        addParameter (id + "active", name + " Active", 0, 1, 1, Boolean);
+        addParameter (lfoId + "active", LFOName + " Active", 0, 1, 1, Boolean);
         // How Many Voices he should play at Once: anyone above 1 will create Unison/Detune Voices
-        addParameter (id + "voices", name + " Voices", 1, 9, 1, Integer);
+        addParameter (lfoId + "voices", LFOName + " Voices", 1, 9, 1, Integer);
         // Frequency of the LFO
-        addParameterModulate (id + "rate", name + " Rate", 1, 40, 1, Float);
+        addParameterModulate (lfoId + "rate", LFOName + " Rate", 1, 40, 1, Float);
         // Level of the LFO
-        addParameterModulate (id + "level", name + " Volume", 0, 1, 0.8, Float);
+        addParameterModulate (lfoId + "level", LFOName + " Volume", 0, 1, 0.8, Float);
         // Unison Voice Volume
-        addParameterModulate (id + "detune_amount", name + " Detune Volume", 0, 1, 0, Float);
+        addParameterModulate (lfoId + "detune_amount", LFOName + " Detune Volume", 0, 1, 0, Float);
         // Unison Voice Spread
-        addParameterModulate (id + "detune_dense", name + " Detune Strength", 0, 150, 0, Float);
+        addParameterModulate (lfoId + "detune_dense", LFOName + " Detune Strength", 0, 150, 0, Float);
         // Detune Mode
-        addParameter (id + "detune_mode", name + " Detune Mode", 1, 3, 1, Integer);
+        addParameter (lfoId + "detune_mode", LFOName + " Detune Mode", 1, 3, 1, Integer);
         // Shift the Phase of the Oscillator
-        addParameterModulate (id + "phase", name + " Phase offset", 0, 1, 0, Float);
+        addParameterModulate (lfoId + "phase", LFOName + " Phase offset", 0, 1, 0, Float);
         // Generate a Random Phase at each new Note
-        addParameter (id + "random_phase", name + " Random Phase", 0, 1, 0, Boolean);
+        addParameter (lfoId + "random_phase", LFOName + " Random Phase", 0, 1, 0, Boolean);
         // Main Waveform that is applied without Mix
-        addParameter (id + "waveform_base", name + " Primary Waveform", 1, 10, 1, Integer);
+        addParameter (lfoId + "waveform_base", LFOName + " Primary Waveform", 1, 10, 1, Integer);
         // Secondary Waveform that is applied with Mix
-        addParameter (id + "waveform_sec", name + " Secondary Waveform", 1, 10, 4, Integer);
+        addParameter (lfoId + "waveform_sec", LFOName + " Secondary Waveform", 1, 10, 4, Integer);
         // How much should both of the Waveform Mixed
-        addParameterModulate (id + "waveform_mix", name + " Waveform Mix", 0, 1, 0, Float);
+        addParameterModulate (lfoId + "waveform_mix", LFOName + " Waveform Mix", 0, 1, 0, Float);
     }
 
 }

@@ -3,21 +3,10 @@
 OscillatorVoice::OscillatorVoice (const std::string& id, std::shared_ptr<WaveTableWrapper>& waveTableWrapper,
                                   std::shared_ptr<DetuneHelper>& detuneHelper,
                                   std::shared_ptr<Widener>& widener, int index)
+        : m_id (id), m_waveTableWrapper (waveTableWrapper), m_detuneHelper (detuneHelper), m_widener (widener),
+          m_index (index), m_isCenter(m_index == 0), m_isLeft((m_index & 1) == 1)
 {
-    m_id = id;
-    m_waveTableWrapper = waveTableWrapper;
-    m_widener = widener;
-    m_detuneHelper = detuneHelper;
-    m_index = index;
     m_values.resize (3);
-    if (m_index == 0)
-    {
-        m_isCenter = true;
-    }
-    else if ((m_index & 1) == 1)
-    {
-        m_isLeft = true;
-    }
 }
 
 OscillatorVoice::~OscillatorVoice ()

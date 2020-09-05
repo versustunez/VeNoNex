@@ -4,9 +4,8 @@
 #include "DetuneAlgos/FastLookDetune.h"
 
 DetuneHelper::DetuneHelper (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters, int voiceCount)
+        : m_name (name), m_parameters (parameters)
 {
-    m_name = name;
-    m_parameters = parameters;
     m_detuneAlgos.resize (3);
     m_detuneAlgos[0] = new VeNoXDetune (voiceCount, parameters, name);
     m_detuneAlgos[1] = new SuperDetune (voiceCount, parameters, name);

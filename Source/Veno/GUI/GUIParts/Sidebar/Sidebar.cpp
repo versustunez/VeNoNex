@@ -2,14 +2,14 @@
 #include "VenoLogo.h"
 #include "../../../Utils.h"
 
-Sidebar::Sidebar (const std::string& processId) : BaseComponent (processId)
+Sidebar::Sidebar (const std::string& processId) : BaseComponent (processId),
+                                                  m_lcd (std::make_unique<SidebarLCD> (processId)),
+                                                  m_mixer (std::make_unique<SidebarMixer> (processId)),
+                                                  m_modMixer(std::make_unique<ModMixer>(processId)),
+                                                  m_volumeKnob(std::make_unique<VeNoKnob> ("master__volume", processId)),
+                                                  m_preset(std::make_unique<PresetManagerComponent> (processId))
 {
-    m_lcd = std::make_unique<SidebarLCD> (processId);
-    m_mixer = std::make_unique<SidebarMixer> (processId);
-    m_modMixer = std::make_unique<ModMixer> (processId);
-    m_volumeKnob = std::make_unique<VeNoKnob> ("master__volume", processId);
     m_volumeKnob->init ("Synth Volume");
-    m_preset = std::make_unique<PresetManagerComponent> (processId);
     addAndMakeVisible (*m_lcd);
     addAndMakeVisible (*m_mixer);
     addAndMakeVisible (*m_modMixer);

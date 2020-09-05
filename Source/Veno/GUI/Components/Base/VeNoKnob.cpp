@@ -4,9 +4,9 @@
 #include "../../../Utils.h"
 
 VeNoKnob::VeNoKnob (const std::string& name, const std::string& pid)
-        : BaseComponent (pid), VeNoComponentListener (pid)
+        : BaseComponent (pid), VeNoComponentListener (pid),
+        m_slider(std::make_unique<Slider>())
 {
-    m_slider = std::make_unique<Slider> ();
     m_slider->setComponentID (name);
     m_slider->setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
     m_slider->setSliderStyle (Slider::SliderStyle::RotaryVerticalDrag);
@@ -48,7 +48,7 @@ void VeNoKnob::resized ()
 void VeNoKnob::editorShown (Label* label, TextEditor& editor)
 {
     char str[20];
-    sprintf (str, "%.4f", m_slider->getValue ());
+    snprintf (str, 20, "%.4f", m_slider->getValue ());
     editor.setFont (*VenoFonts::getNormal ());
     editor.setJustification (Justification::centred);
     editor.setText (str, false);

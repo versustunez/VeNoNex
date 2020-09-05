@@ -236,14 +236,7 @@
       "maxValue": 1,
       "minValue": 0,
       "type": "Float"
-    }
-  ],
-  "envelopesConfig": {
-    "count": 4,
-    "id": "osc",
-    "sid": "OSC"
-  },
-  "envelopes": [
+    },
     {
       "name": "{id}__attack",
       "showName": "{sid} Attack",

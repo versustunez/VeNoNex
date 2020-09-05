@@ -33,8 +33,8 @@ void Widener::update ()
         m_coefficientM = 1 * tmp;
         m_coefficient = _width * tmp;
         m_wide = wide;
+        m_coefficientDetune = m_coefficient * 0.3;
     }
-    m_coefficientDetune = m_coefficient * m_parameters->m_detuneAmount->getValueForVoice(m_parameters->m_index);
     auto panning = m_parameters->m_panning->getValueForVoice(m_parameters->m_index);
     if (panning != m_lastPanning)
     {
