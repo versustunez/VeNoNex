@@ -2,9 +2,8 @@
 #include "../../Utils.h"
 
 ModulateValue::ModulateValue (const std::string& name, const std::string& processId)
+        : m_name (name), m_processId (processId)
 {
-    m_name = name;
-    m_processId = processId;
     m_voiceValues.resize (5);
 }
 

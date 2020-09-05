@@ -115,7 +115,8 @@ namespace VeNo
         while (TEMP >>= 1) ++M;
 
         int j = 1;
-        int t, i;
+        int i;
+        double t;
         for (i = 1; i <= NM1; i++)
         {
             if (i < j)

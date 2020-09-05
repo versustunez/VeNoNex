@@ -3,8 +3,8 @@
 #include "ThemePresets.h"
 
 Theme::Theme (std::shared_ptr<PropertiesFile> file)
+        : m_configFile (file)
 {
-    m_configFile = file;
 }
 
 Theme::~Theme ()

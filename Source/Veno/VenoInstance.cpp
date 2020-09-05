@@ -4,11 +4,10 @@
 
 std::unordered_map<std::string, std::shared_ptr<VenoInstance>> VenoInstance::instances;
 
-VenoInstance::VenoInstance (std::string id)
+VenoInstance::VenoInstance (const std::string& id)
+        : m_id (id), m_synthInstance (std::make_shared<SynthInstance> (m_id)),
+          audioBuffer (std::make_shared<VenoBuffer> (m_id))
 {
-    m_id = std::move (id);
-    m_synthInstance = std::make_shared<SynthInstance> (m_id);
-    audioBuffer = std::make_shared<VenoBuffer> (m_id);
     state = new VeNoState (m_id);
     matrix = new VeNoMatrix (m_id);
     handler = new ParameterHandler (m_id);

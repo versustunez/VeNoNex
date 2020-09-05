@@ -1,10 +1,8 @@
 #include "ParameterHandler.h"
 
-#include "../VenoInstance.h"
-
 ParameterHandler::ParameterHandler (const std::string& id)
+        : m_id (id)
 {
-    m_id = id;
 }
 
 ParameterHandler::~ParameterHandler ()

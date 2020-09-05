@@ -4,8 +4,8 @@
 #include <utility>
 
 BaseComponent::BaseComponent (const std::string& processId)
+        : m_processId (processId)
 {
-    m_processId = processId;
 }
 
 BaseComponent::~BaseComponent ()

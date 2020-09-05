@@ -1,6 +1,6 @@
 #include "VeNoState.h"
 
-VeNoState::VeNoState (std::string pid)
+VeNoState::VeNoState (const std::string& pid)
         : m_pid (pid)
 {
 }

@@ -2,9 +2,8 @@
 #include "../../../VenoInstance.h"
 
 VeNoCheck::VeNoCheck (const std::string& name, const std::string& text, const std::string& pid)
-        : BaseComponent (pid), VeNoComponentListener (pid)
+        : BaseComponent (pid), VeNoComponentListener (pid), m_button(std::make_unique<ToggleButton> (text))
 {
-    m_button = std::make_unique<ToggleButton> (text);
     m_button->setComponentID (name);
     auto treeState = VenoInstance::getInstance (m_processId)->treeState;
     m_attachment = std::make_unique<ButtonAttachment> (*treeState, name, *m_button);

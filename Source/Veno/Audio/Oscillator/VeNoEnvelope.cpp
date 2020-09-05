@@ -2,10 +2,8 @@
 #include "../../VenoInstance.h"
 
 VeNoEnvelope::VeNoEnvelope (const std::string& id, const std::string& name, double sampleRate)
+:m_id(id), m_name(name), m_handler(VenoInstance::getInstance (m_id)->handler)
 {
-    m_id = id;
-    m_name = name;
-    m_handler = VenoInstance::getInstance (id)->handler;
     if (sampleRate > 0)
     {
         m_sampleRate = sampleRate;

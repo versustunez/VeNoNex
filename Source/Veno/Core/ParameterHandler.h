@@ -52,7 +52,7 @@ private:
     std::vector<std::string> m_paramMaps;
     std::unordered_map<std::string, VeNoParameter*> m_parameters;
     std::unordered_map<std::string, VeNoListener*> m_listener;
-    AudioProcessorValueTreeState* m_treeState;
+    AudioProcessorValueTreeState* m_treeState = nullptr;
 
     JUCE_LEAK_DETECTOR (ParameterHandler)
 };

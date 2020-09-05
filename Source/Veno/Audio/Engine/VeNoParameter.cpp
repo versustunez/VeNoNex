@@ -1,13 +1,9 @@
 #include "VeNoParameter.h"
 
 VeNoParameter::VeNoParameter (const std::string& name, const std::string& shownName, double min, double max, double value,
-                              const std::string& id)
+                              const std::string& id) :
+                              m_name(name), m_showName(shownName), m_value(value), m_max(max), m_min(min)
 {
-    m_name = name;
-    m_showName = shownName;
-    m_min = min;
-    m_max = max;
-    m_value = value;
 }
 
 VeNoParameter::~VeNoParameter ()

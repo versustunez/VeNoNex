@@ -4,9 +4,8 @@
 #include "../../VenoInstance.h"
 
 VenoVoice::VenoVoice (int _index, double sampleRate, const std::string& id)
+        : m_index (_index), m_id (id)
 {
-    m_index = _index;
-    m_id = id;
     m_synth = new VenoSynthInstance (id, sampleRate, m_index);
 }
 

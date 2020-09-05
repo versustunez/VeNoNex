@@ -57,14 +57,9 @@ function createForType(items, config) {
     parameters += "    }\n";
 }
 
-console.log("[ParameterHandler] Generating Root");
 for (let item of root) {
     createItem(item, 1);
 }
-console.log("[ParameterHandler] Generating Oscillator");
 createForType(config.json.osc, config.json.oscConfig);
-console.log("[ParameterHandler] Generating LFO");
 createForType(config.json.lfo, config.json.lfoConfig);
-console.log("[ParameterHandler] Generating Done.. Writing to File!");
 fs.writeFileSync("./../../Source/Veno/Core/ParameterHandlerSetup.cpp", config.tpl.replace("$s$", parameters));
-console.log("[ParameterHandler] Exit");

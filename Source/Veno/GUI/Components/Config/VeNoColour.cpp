@@ -13,11 +13,10 @@ VeNoColour::~VeNoColour ()
 }
 
 VeNoColour::VeNoColour (const std::string& processId, ThemeColour index)
-        : BaseComponent (processId)
+        : BaseComponent (processId),
+          m_index (index), m_selector (std::make_unique<ColourSelector> (
+                ColourOption::showColourAtTop | ColourOption::editableColour | ColourOption::showColourspace))
 {
-    m_index = index;
-    m_selector = std::make_unique<ColourSelector> (
-            ColourOption::showColourAtTop | ColourOption::editableColour | ColourOption::showColourspace);
     m_selector->setCurrentColour (Config::getInstance ()->getCurrentTheme ()->getColour (index),
                                   NotificationType::dontSendNotification);
     m_selector->addChangeListener (this);

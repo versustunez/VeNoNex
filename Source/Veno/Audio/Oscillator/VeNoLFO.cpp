@@ -1,7 +1,9 @@
 #include "VeNoLFO.h"
+#include "../../VenoInstance.h"
 
 VeNoLFO::VeNoLFO (const std::string& id, int maxVoices, const std::string& name)
-        : BaseOscillator (id, name, maxVoices)
+        : BaseOscillator (id, name, maxVoices),
+        m_freqRate(VenoInstance::getInstance(m_id)->handler->getParameter(name + "__rate"))
 {
     m_midiNote = 69; // 440Hz A4!
     for (auto& m_voice : m_voices)

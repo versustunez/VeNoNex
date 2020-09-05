@@ -15,11 +15,11 @@
 class VenoInstance
 {
 private:
+    std::string m_id;
     std::shared_ptr<SynthInstance> m_synthInstance;
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> instances;
-    std::string m_id;
 public:
-    explicit VenoInstance (std::string id);
+    explicit VenoInstance (const std::string& id);
 
     ~VenoInstance ();
 
@@ -38,8 +38,8 @@ public:
     VeNoState* state;
     ParameterHandler* handler;
     VeNoChangeListener* changeListener;
-    AudioProcessorValueTreeState* treeState;
     PresetManager* presetManager;
+    AudioProcessorValueTreeState* treeState = nullptr;
 
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> getAll ();
 

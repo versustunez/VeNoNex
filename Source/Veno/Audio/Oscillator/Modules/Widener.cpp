@@ -4,9 +4,8 @@
 #define SQRT2_2 0.70710678118
 
 Widener::Widener (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters)
+        : m_name (name), m_parameters (parameters)
 {
-    m_name = name;
-    m_parameters = parameters;
 }
 
 void Widener::apply (std::vector<double>& values, std::vector<double>& panned)

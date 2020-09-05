@@ -5,9 +5,9 @@
 VenoAudioProcessor::VenoAudioProcessor ()
         : AudioProcessor (BusesProperties ().withOutput ("Output", AudioChannelSet::stereo (), true)),
           m_id (Uuid ().toString ().toStdString ()),
-          treeState (*this, nullptr, "VeNo", VenoInstance::getInstance (m_id)->handler->setupProcessor ())
+          instance (VenoInstance::getInstance (m_id)),
+          treeState (*this, nullptr, "VeNo", instance->handler->setupProcessor ())
 {
-    instance = VenoInstance::getInstance (m_id);
     instance->handler->initParameterForListener (&treeState);
     instance->treeState = &treeState;
     AudioConfig::registerInstance (m_id);

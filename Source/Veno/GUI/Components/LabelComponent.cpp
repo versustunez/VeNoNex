@@ -1,10 +1,8 @@
 #include "LabelComponent.h"
 
 LabelComponent::LabelComponent (Component* parent, std::string name)
+        : m_text (name), m_parent (parent), m_label (std::make_shared<Label> (m_parent->getName (), name))
 {
-    m_text = name;
-    m_parent = parent;
-    m_label = std::make_shared<Label> (m_parent->getName (), name);
     addAndMakeVisible (*m_label);
 }
 

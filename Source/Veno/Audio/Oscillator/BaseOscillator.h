@@ -11,7 +11,7 @@
 
 class BaseOscillator
 {
-private:
+protected:
     std::string m_id;
     std::string m_name;
     ParameterHandler* m_handler = nullptr;

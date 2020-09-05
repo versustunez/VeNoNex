@@ -1,15 +1,13 @@
 #include "SiderbarMixerItem.h"
 #include "../../../Utils.h"
 #include "../../../Core/Config.h"
-#include "../../Theme/Theme.h"
 
 SidebarMixerItem::SidebarMixerItem (const std::string& pid, int index)
-        : BaseComponent (pid), m_index (index)
+        : BaseComponent (pid), m_index (index), m_name ("osc" + std::to_string (index + 1)),
+          m_text ("OSC " + std::to_string (index + 1)),
+          m_onOffSwitch (std::make_unique<VeNoCheck> (m_name + "__active", "", pid)),
+          m_levelKnob (std::make_unique<VeNoKnob> (m_name + "__level", pid))
 {
-    m_name = "osc" + std::to_string (index + 1);
-    m_text = "OSC " + std::to_string (index + 1);
-    m_onOffSwitch = std::make_unique<VeNoCheck> (m_name + "__active", "", pid);
-    m_levelKnob = std::make_unique<VeNoKnob> (m_name + "__level", pid);
     m_levelKnob->init ("Volume");
 
     addAndMakeVisible (*m_onOffSwitch);

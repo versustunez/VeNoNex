@@ -3,15 +3,23 @@
 #include "../../../Core/Config.h"
 #include "../../../GUI/Fonts/Fonts.h"
 
-SidebarLCD::SidebarLCD (const std::string& process_id) : BaseComponent (process_id)
+SidebarLCD::SidebarLCD (const std::string& process_id) : BaseComponent (process_id),
+                                                         m_waveform (std::make_shared<Waveforms> (m_processId)),
+                                                         m_configButton (std::make_unique<VeNoActionButton> (m_processId,
+                                                                                                             "Config",
+                                                                                                             VeNoActionButton::ButtonType::Config)),
+                                                         m_matrixButton (std::make_unique<VeNoActionButton> (m_processId,
+                                                                                                             "Matrix",
+                                                                                                             VeNoActionButton::ButtonType::Matrix)),
+                                                         m_debugButton (std::make_unique<VeNoActionButton> (m_processId,
+                                                                                                            "Debug",
+                                                                                                            VeNoActionButton::ButtonType::Debug)),
+                                                         m_presetManager (
+                                                                 std::make_unique<VeNoActionButton> (m_processId,
+                                                                                                     "Preset",
+                                                                                                     VeNoActionButton::ButtonType::Presets))
 {
-    m_waveform = std::make_shared<Waveforms> (process_id);
     addAndMakeVisible (*m_waveform);
-
-    m_configButton = std::make_unique<VeNoActionButton> (process_id, "Config", VeNoActionButton::ButtonType::Config);
-    m_debugButton = std::make_unique<VeNoActionButton> (process_id, "Debug", VeNoActionButton::ButtonType::Debug);
-    m_matrixButton = std::make_unique<VeNoActionButton> (process_id, "Matrix", VeNoActionButton::ButtonType::Matrix);
-    m_presetManager = std::make_unique<VeNoActionButton> (process_id, "Preset", VeNoActionButton::ButtonType::Presets);
     addAndMakeVisible (*m_configButton);
     addAndMakeVisible (*m_debugButton);
     addAndMakeVisible (*m_matrixButton);
