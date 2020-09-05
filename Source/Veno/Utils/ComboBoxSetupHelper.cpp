@@ -4,6 +4,7 @@ void ComboBoxSetupHelper::setupWaveTable (VeNoSelect& box)
 {
     box.addItem ("Saw");
     box.addItem ("Sine");
+    box.addItem ("Cosine");
     box.addItem ("Square");
     box.addItem ("Triangle");
     box.addItem ("Dirty Saw");
@@ -20,6 +21,19 @@ void ComboBoxSetupHelper::setupFilter (VeNoSelect& box)
     box.addItem ("HighPass");
 }
 
+void ComboBoxSetupHelper::setupDetuneModes (VeNoSelect& box)
+{
+    box.addItem ("VeNoX");
+    box.addItem ("FastLookup");
+    box.addItem ("Super");
+}
+
+void ComboBoxSetupHelper::setupLimiters (VeNoSelect& box)
+{
+    box.addItem ("HardLimiter");
+    box.addItem ("PeakReducer");
+}
+
 void ComboBoxSetupHelper::setup (VeNoSelect& box, VeNoSelect::Type type)
 {
     switch (type)
@@ -29,6 +43,12 @@ void ComboBoxSetupHelper::setup (VeNoSelect& box, VeNoSelect::Type type)
             break;
         case VeNoSelect::Type::Filter:
             setupFilter (box);
+            break;
+        case VeNoSelect::Type::DetuneMode:
+            setupDetuneModes(box);
+            break;
+        case VeNoSelect::Type::LimiterMode:
+            setupLimiters(box);
             break;
         default:
             break;

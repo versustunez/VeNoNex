@@ -1,7 +1,7 @@
 #include "LabelComponent.h"
 
-LabelComponent::LabelComponent (Component* parent, std::string name)
-        : m_text (name), m_parent (parent), m_label (std::make_shared<Label> (m_parent->getName (), name))
+LabelComponent::LabelComponent (juce::Component* parent, std::string name)
+        : m_text (name), m_parent (parent), m_label (std::make_shared<juce::Label> (m_parent->getName (), name))
 {
     addAndMakeVisible (*m_label);
 }
@@ -22,7 +22,7 @@ void LabelComponent::resized ()
     }
 }
 
-void LabelComponent::paint (Graphics& g)
+void LabelComponent::paint (juce::Graphics& g)
 {
 }
 
@@ -36,7 +36,7 @@ LabelPosition LabelComponent::getLabelPosition ()
     return m_position;
 }
 
-void LabelComponent::setListener (Label::Listener* listener)
+void LabelComponent::setListener (juce::Label::Listener* listener)
 {
     m_label->addListener (listener);
 }
@@ -46,7 +46,7 @@ void LabelComponent::setEditable (bool editable)
     m_label->setEditable (editable, false, true);
 }
 
-void LabelComponent::setJustification (Justification::Flags justification)
+void LabelComponent::setJustification (juce::Justification::Flags justification)
 {
     m_label->setJustificationType (justification);
 }

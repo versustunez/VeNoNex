@@ -68,6 +68,10 @@
                     file="Source/Veno/Audio/Oscillator/Helper/WaveTableWrapper.h"/>
             </GROUP>
             <GROUP id="{C4562447-FD67-ED8A-69AE-08279C7D46D0}" name="Modules">
+              <GROUP id="{97A69D51-7D91-AABF-7E99-EE7621F6723A}" name="SubModules">
+                <FILE id="gMke96" name="PeakReducer.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/SubModules/PeakReducer.cpp"/>
+                <FILE id="vOXCbK" name="PeakReducer.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/SubModules/PeakReducer.h"/>
+              </GROUP>
               <FILE id="DZZQ2H" name="Filter.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Filter.cpp"/>
               <FILE id="SDNE70" name="Filter.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Filter.h"/>
               <FILE id="zZG3ux" name="Limiter.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Limiter.cpp"/>
@@ -184,6 +188,12 @@
               <FILE id="WdGXo2" name="VeNoDebugScreen.h" compile="0" resource="0"
                     file="Source/Veno/GUI/GUIParts/Debug/VeNoDebugScreen.h"/>
             </GROUP>
+            <GROUP id="{A36878AD-7806-0770-FACD-6A99904D66B9}" name="Pages">
+              <FILE id="StDI1K" name="Oscillators.cpp" compile="1" resource="0" file="Source/Veno/GUI/GUIParts/Pages/Oscillators.cpp"/>
+              <FILE id="OEHNdp" name="Oscillators.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Pages/Oscillators.h"/>
+              <FILE id="Xeaeqs" name="Tabber.cpp" compile="1" resource="0" file="Source/Veno/GUI/GUIParts/Pages/Tabber.cpp"/>
+              <FILE id="R6Nj9M" name="Tabber.h" compile="0" resource="0" file="Source/Veno/GUI/GUIParts/Pages/Tabber.h"/>
+            </GROUP>
             <GROUP id="{B7626B9F-22D9-713A-B543-1D7B34AF77B7}" name="Sidebar">
               <FILE id="UzfsRZ" name="PresetManagerComponent.cpp" compile="1" resource="0"
                     file="Source/Veno/GUI/GUIParts/Sidebar/PresetManagerComponent.cpp"/>
@@ -240,6 +250,24 @@
               <FILE id="Ox2oOB" name="Waveforms.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.cpp"/>
               <FILE id="vMrsGE" name="Waveforms.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.h"/>
               <FILE id="YXbVA2" name="WaveformsGL.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/WaveformsGL.cpp"/>
+            </GROUP>
+            <GROUP id="{4704CEF8-C387-7E94-D8B1-50DD9A72B3C0}" name="Oscillator">
+              <FILE id="E7nW84" name="Envelope.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Oscillator/Envelope.cpp"/>
+              <FILE id="sKOAkO" name="Envelope.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Oscillator/Envelope.h"/>
+              <FILE id="xmOhIg" name="GUILimiter.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Oscillator/GUILimiter.cpp"/>
+              <FILE id="ffStlY" name="GUILimiter.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Oscillator/GUILimiter.h"/>
+              <FILE id="xQczMO" name="OscillatorPage.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Oscillator/OscillatorPage.cpp"/>
+              <FILE id="z79sKQ" name="OscillatorPage.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/Components/Oscillator/OscillatorPage.h"/>
+              <FILE id="txXVSW" name="Pitch.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Oscillator/Pitch.cpp"/>
+              <FILE id="FAC6P7" name="Pitch.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Oscillator/Pitch.h"/>
+              <FILE id="L9fqFV" name="Unison.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/Oscillator/Unison.cpp"/>
+              <FILE id="qd8Qj0" name="Unison.h" compile="0" resource="0" file="Source/Veno/GUI/Components/Oscillator/Unison.h"/>
+              <FILE id="wjwKTn" name="WaveformControl.cpp" compile="1" resource="0"
+                    file="Source/Veno/GUI/Components/Oscillator/WaveformControl.cpp"/>
+              <FILE id="QgjsbN" name="WaveformControl.h" compile="0" resource="0"
+                    file="Source/Veno/GUI/Components/Oscillator/WaveformControl.h"/>
             </GROUP>
             <GROUP id="{8865255B-4A4A-028E-419F-39DD5F91375F}" name="Presets">
               <FILE id="ADThwZ" name="PresetAction.cpp" compile="1" resource="0"

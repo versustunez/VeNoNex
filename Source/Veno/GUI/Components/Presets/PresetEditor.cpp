@@ -29,7 +29,7 @@ void PresetEditor::resized ()
 
 void PresetEditor::paint (Graphics& g)
 {
-    auto h = VeNo::Utils::getCalculatedHeight (1);
+    auto h = VeNo::Utils::getScaledSize (1);
     auto theme = Config::getInstance ()->getCurrentTheme ();
     g.setColour (theme->getColour (ThemeColour::bg_two).withAlpha (0.4f));
     g.fillAll ();

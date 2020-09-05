@@ -29,7 +29,7 @@ void BaseOscillator::initModules ()
     m_waveTableHelper = std::make_shared<WaveTableWrapper> (m_name, m_parameters, m_maxVoices);
     m_DetuneHelper = std::make_shared<DetuneHelper> (m_name, m_parameters, m_maxVoices);
     m_widener = std::make_shared<Widener> (m_name, m_parameters);
-    m_limiter = std::make_shared<Limiter> (m_name, m_parameters);
+    m_limiter = std::make_shared<VeNo::Limiter> (m_name, m_parameters);
 }
 
 bool BaseOscillator::start (int currentMidiNote)

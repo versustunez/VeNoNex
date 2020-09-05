@@ -1,6 +1,4 @@
-#ifndef VENO_BASECOMPONENT_H
-#define VENO_BASECOMPONENT_H
-
+#pragma once
 #include "JuceHeader.h"
 #include "LabelComponent.h"
 #include "../LookAndFeel/LookHandler.h"
@@ -9,10 +7,9 @@
 /**
  * this is the base Component of all VeNo Components... it has all important Methods
  */
-class BaseComponent : public Component
+class BaseComponent : public juce::Component
 {
 private:
-    std::string m_group;
     std::string m_name;
     bool m_enableLabel = false;
 public:
@@ -22,7 +19,7 @@ public:
 
     void addLabel (const std::string& label, LabelPosition labelPosition);
 
-    void setParameter (std::string name, std::string group);
+    void setParameter (std::string name);
 
     void resized () override;
 
@@ -33,5 +30,3 @@ protected:
     std::shared_ptr<LabelComponent> m_label;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BaseComponent);
 };
-
-#endif //VENO_BASECOMPONENT_H

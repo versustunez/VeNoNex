@@ -18,6 +18,8 @@ OscillatorParameters::OscillatorParameters (ParameterHandler* handler, const std
     m_waveformPrimary = getParameter ("waveform_base");
     m_waveformSecond = getParameter ("waveform_sec");
     m_waveformMix = getParameter ("waveform_mix");
+    m_limiterMode = getParameter ("limiter_mode");
+    m_limiterThreshold = getParameter ("limiter_threshold");
 
     m_pitchWheel = m_handler->getParameter ("pitch__wheel");
     m_pitchUp = m_handler->getParameter ("pitchbend__up");

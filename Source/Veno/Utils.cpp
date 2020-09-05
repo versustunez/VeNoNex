@@ -7,6 +7,7 @@ int VeNo::Utils::CENTS_PER_NOTE = 100;
 int VeNo::Utils::CENTS_PER_OCTAVE = NOTES_PER_OCTAVE * CENTS_PER_NOTE;
 double VeNo::Utils::DOUBLE_PI = 6.283185307179586476925286766559;
 double VeNo::Utils::PI = 3.14159265358979323846;
+double VeNo::Utils::HALF_PI = 1.57079632679489661923;
 
 int VeNo::Utils::nextPowerOfTwo (double value)
 {
@@ -60,23 +61,17 @@ void VeNo::Utils::setPositionByPreviousRow (int width, int height, int x, BaseCo
 
 std::vector<int> VeNo::Utils::calcPosition (int width, int height, int prevWidth, int prevHeight)
 {
-    double scale = Config::getInstance ()->getScale ();
-    int margin = getCalculatedHeight (10);
-    int w = (int) (width * scale);
-    int h = (int) (height * scale);
+    int margin = getScaledSize (10);
+    int w = getScaledSize(width);
+    int h = getScaledSize(height);
     int x = prevWidth + margin;
     int y = prevHeight + margin;
     return {x, y, w, h};
 }
 
-int VeNo::Utils::getCalculatedWidth (int width)
+int VeNo::Utils::getScaledSize (int width)
 {
-    return (int) (width * Config::getInstance ()->getScale ());
-}
-
-int VeNo::Utils::getCalculatedHeight (int height)
-{
-    return (int) (height * Config::getInstance ()->getScale ());
+    return static_cast<int>(width * Config::getInstance ()->getScale ());
 }
 
 double VeNo::Utils::polyBlep (double t, double phaseInc)
@@ -84,12 +79,12 @@ double VeNo::Utils::polyBlep (double t, double phaseInc)
     double dt = phaseInc / DOUBLE_PI;
     if (t < dt)
     {
-        t /= (double) dt;
+        t /= dt;
         return t + t - t * t - 1.0f;
     }
     else if (t > 1.0 - dt)
     {
-        t = (t - 1.0f) / (double) dt;
+        t = (t - 1.0f) / dt;
         return t * t + t + t + 1.0f;
     }
     else return 0.0f;
@@ -132,4 +127,18 @@ double VeNo::Utils::waveTableMix (double a, double b, double mix)
     a *= diff;
     b *= mix;
     return VeNo::Utils::clamp (a + b, -1, 1);
+}
+
+Path VeNo::Utils::drawRectangleWithRadius (int x, int y, int w, int h, float radius, Graphics& g)
+{
+    Path p;
+    p.startNewSubPath (x, y);
+    p.lineTo (x + w - radius, y);
+    p.addArc (x + w - radius, y, radius, radius, 0.0f, HALF_PI);
+    p.lineTo (x + w, y + h - radius);
+    p.addArc (x + w - radius, y + h - radius, radius, radius, HALF_PI, PI);
+    p.lineTo (x, y + h);
+    p.closeSubPath();
+    g.fillPath(p);
+    return p;
 }

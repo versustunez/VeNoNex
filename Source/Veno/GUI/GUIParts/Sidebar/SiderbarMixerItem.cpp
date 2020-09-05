@@ -22,8 +22,8 @@ SidebarMixerItem::~SidebarMixerItem ()
 
 void SidebarMixerItem::resized ()
 {
-    auto height = VeNo::Utils::getCalculatedHeight (30);
-    auto width = VeNo::Utils::getCalculatedWidth (10);
+    auto height = VeNo::Utils::getScaledSize (30);
+    auto width = VeNo::Utils::getScaledSize (10);
     m_onOffSwitch->setBounds (width, height, getWidth () - (width * 2), height);
     m_levelKnob->setBounds (width, height * 2.5, getWidth () - (width * 2), getWidth ());
 }
@@ -38,5 +38,5 @@ void SidebarMixerItem::paint (Graphics& g)
     g.fillAll ();
     g.setColour (theme->getColour (ThemeColour::font));
     auto spacer = VeNo::Utils::setFontSize (13.0f, g);
-    g.drawText (m_text, 0, spacer, getWidth (), VeNo::Utils::getCalculatedHeight (15), Justification::centred, true);
+    g.drawText (m_text, 0, spacer, getWidth (), VeNo::Utils::getScaledSize (15), juce::Justification::centred, true);
 }

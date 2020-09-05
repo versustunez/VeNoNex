@@ -276,6 +276,26 @@
       "maxValue": 2,
       "minValue": 0,
       "type": "Float"
+    },
+    {
+      "name": "{id}__limiter_mode",
+      "showName": "{sid} Limiter Mode",
+      "modulateAble": false,
+      "tooltip": "Select between Hard-Limiter and PeakReducer",
+      "value": 1,
+      "maxValue": 2,
+      "minValue": 1,
+      "type": "Integer"
+    },
+    {
+      "name": "{id}__limiter_threshold",
+      "showName": "{sid} Limiter Threshold",
+      "modulateAble": true,
+      "tooltip": "Select at which level the Limiter should run",
+      "value": 1,
+      "maxValue": 1,
+      "minValue": 0.5,
+      "type": "Float"
     }
   ],
   "lfoConfig": {
@@ -402,6 +422,26 @@
       "value": 0,
       "maxValue": 1,
       "minValue": 0,
+      "type": "Float"
+    },
+    {
+      "name": "{id}__limiter_mode",
+      "showName": "{sid} Limiter Mode",
+      "modulateAble": false,
+      "tooltip": "Select between Hard-Limiter and PeakReducer",
+      "value": 1,
+      "maxValue": 2,
+      "minValue": 1,
+      "type": "Integer"
+    },
+    {
+      "name": "{id}__limiter_threshold",
+      "showName": "{sid} Limiter Threshold",
+      "modulateAble": true,
+      "tooltip": "Select at which level the Limiter should run",
+      "value": 1,
+      "maxValue": 1,
+      "minValue": 0.5,
       "type": "Float"
     }
   ]

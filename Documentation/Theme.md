@@ -19,3 +19,15 @@ Mixer: 165
 Volume: 140
 Mod: 100
 ```
+
+## OSCs
+
+### Sizing:
+```
+Pitch: 25% 50%
+Limiter: 25% 50%
+Envelopes: 50% 33%
+Filter: 50% 33%;
+Unison: 75% 33%;
+Waveform: 25% 66%
+```

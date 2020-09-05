@@ -48,7 +48,7 @@ void VeNoColour::changeListenerCallback (ChangeBroadcaster* source)
 
 void VeNoColour::resized ()
 {
-    auto h = VeNo::Utils::getCalculatedHeight (30);
+    auto h = VeNo::Utils::getScaledSize (30);
     if (BaseComponent::m_label != nullptr)
     {
         BaseComponent::m_label->setBounds (0, 0, getWidth (), h);

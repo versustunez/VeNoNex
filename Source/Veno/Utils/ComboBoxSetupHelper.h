@@ -14,6 +14,10 @@ public:
     static void setupWaveTable (VeNoSelect& box);
 
     static void setupFilter (VeNoSelect& box);
+
+    static void setupDetuneModes (VeNoSelect& box);
+
+    static void setupLimiters (VeNoSelect& box);
 };
 
 

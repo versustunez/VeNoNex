@@ -17,7 +17,7 @@ PresetManagerComponent::PresetManagerComponent (const std::string& pid) : BaseCo
 
 void PresetManagerComponent::resized ()
 {
-    auto iconWidth = VeNo::Utils::getCalculatedWidth (30);
+    auto iconWidth = VeNo::Utils::getScaledSize (30);
     auto editorWidth = getWidth () - (iconWidth * 3);
     m_editor->setBounds (0, 0, editorWidth, getHeight ());
     m_save->setBounds (editorWidth, 0, iconWidth, getHeight ());

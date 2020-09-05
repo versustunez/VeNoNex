@@ -42,6 +42,8 @@ public:
 
     void drawLabel (Graphics& graphics, Label& label) override;
 
+    void drawTabAreaBehindFrontButton(TabbedButtonBar& bar, Graphics& g, int w, int h) override;
+
 protected:
     //currently both available themes are CrazyLook <-- (this is a fun one xD) and FlatLook
     LookAndFeel_V4* m_feels[2] = {new FlatLook (), new CrazyLook ()};

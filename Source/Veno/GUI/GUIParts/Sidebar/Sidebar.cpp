@@ -29,16 +29,16 @@ Sidebar::~Sidebar ()
 
 void Sidebar::resized ()
 {
-    int topMargin = VeNo::Utils::getCalculatedHeight (30);
-    int ySpace = VeNo::Utils::getCalculatedHeight (15);
-    m_lcd->setBounds (0, (getWidth () / 5) + topMargin, getWidth (), VeNo::Utils::getCalculatedHeight (175));
-    m_preset->setBounds (0, m_lcd->getY () + m_lcd->getHeight (), getWidth (), VeNo::Utils::getCalculatedHeight (30));
+    int topMargin = VeNo::Utils::getScaledSize (30);
+    int ySpace = VeNo::Utils::getScaledSize (15);
+    m_lcd->setBounds (0, (getWidth () / 5) + topMargin, getWidth (), VeNo::Utils::getScaledSize (175));
+    m_preset->setBounds (0, m_lcd->getY () + m_lcd->getHeight (), getWidth (), VeNo::Utils::getScaledSize (30));
     m_mixer->setBounds (0, m_preset->getY () + m_preset->getHeight (), getWidth (),
-                        VeNo::Utils::getCalculatedHeight (165));
+                        VeNo::Utils::getScaledSize (165));
     m_volumeKnob->setBounds (0, m_mixer->getY () + m_mixer->getHeight () + ySpace, getWidth (),
-                             VeNo::Utils::getCalculatedHeight (110));
+                             VeNo::Utils::getScaledSize (110));
     m_modMixer->setBounds (0, m_volumeKnob->getY () + m_volumeKnob->getHeight () + ySpace, getWidth (),
-                           VeNo::Utils::getCalculatedHeight (100));
+                           VeNo::Utils::getScaledSize (100));
 }
 
 void Sidebar::paint (Graphics& g)
@@ -46,13 +46,13 @@ void Sidebar::paint (Graphics& g)
     auto logo = VenoLogo::getLogo ();
     if (logo.isValid ())
     {
-        int topMargin = VeNo::Utils::getCalculatedHeight (15);
+        int topMargin = VeNo::Utils::getScaledSize (15);
         int height = getWidth () / 5;
         g.drawImage (logo, 0, topMargin, getWidth (), height, 0, 0, 500, 100);
     }
     else
     {
-        int topMargin = VeNo::Utils::getCalculatedHeight (25);
+        int topMargin = VeNo::Utils::getScaledSize (25);
         g.setFont (getWidth () / 4);
         g.drawSingleLineText ("VeNo", 0, topMargin);
     }

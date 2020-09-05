@@ -15,6 +15,7 @@ namespace VeNo
         static int CENTS_PER_OCTAVE;
         static double DOUBLE_PI;
         static double PI;
+        static double HALF_PI;
 
         Utils () = default;
 
@@ -32,9 +33,7 @@ namespace VeNo
 
         static std::vector<int> calcPosition (int width, int height, int prevWidth, int prevHeight);
 
-        static int getCalculatedWidth (int width);
-
-        static int getCalculatedHeight (int height);
+        static int getScaledSize (int width);
 
         // audio utils
         static int nextPowerOfTwo (double value);
@@ -56,6 +55,8 @@ namespace VeNo
         static double getHigherValue (double a, double b);
 
         static double waveTableMix (double a, double b, double mix);
+
+        static Path drawRectangleWithRadius (int x, int y, int w, int h, float radius, Graphics& g);
     };
 }
 #endif //VENO_UTILS_H

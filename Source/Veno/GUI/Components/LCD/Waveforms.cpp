@@ -79,7 +79,7 @@ void Waveforms::paint (Graphics& g)
     if (m_isStarting)
     {
         g.drawText (m_warmUpText[m_randomText], 0, 0, getWidth (), getHeight (),
-                    Justification::centred, true);
+                    juce::Justification::centred, true);
         m_ticks++;
         if (m_ticks > m_time_needed)
         {
@@ -141,7 +141,7 @@ void Waveforms::drawChangedParameter (Graphics& g, int w, int h, int x, int y) c
 void Waveforms::resized ()
 {
     auto halfWidth = getWidth () / 2;
-    auto w = VeNo::Utils::getCalculatedWidth (21);
+    auto w = VeNo::Utils::getScaledSize (21);
     m_dBScale->setBounds (halfWidth - (w / 2), 0, w, getHeight ());
 }
 

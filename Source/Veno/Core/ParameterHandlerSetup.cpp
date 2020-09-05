@@ -64,6 +64,10 @@ void ParameterHandler::setupParameter ()
         addParameter (oscId + "sustain", OSCName + " Sustain", 0, 1, 1, Float);
         // Oscillator Envelope Decay
         addParameter (oscId + "release", OSCName + " Release", 0, 2, 0.01, Float);
+        // Select between Hard-Limiter and PeakReducer
+        addParameter (oscId + "limiter_mode", OSCName + " Limiter Mode", 1, 2, 1, Integer);
+        // Select at which level the Limiter should run
+        addParameterModulate (oscId + "limiter_threshold", OSCName + " Limiter Threshold", 0.5, 1, 1, Float);
     }
 
     for (int i = 1; i < 3; i++)
@@ -94,6 +98,10 @@ void ParameterHandler::setupParameter ()
         addParameter (lfoId + "waveform_sec", LFOName + " Secondary Waveform", 1, 10, 4, Integer);
         // How much should both of the Waveform Mixed
         addParameterModulate (lfoId + "waveform_mix", LFOName + " Waveform Mix", 0, 1, 0, Float);
+        // Select between Hard-Limiter and PeakReducer
+        addParameter (lfoId + "limiter_mode", LFOName + " Limiter Mode", 1, 2, 1, Integer);
+        // Select at which level the Limiter should run
+        addParameterModulate (lfoId + "limiter_threshold", LFOName + " Limiter Threshold", 0.5, 1, 1, Float);
     }
 
 }

@@ -21,8 +21,8 @@ void ModMixer::resized ()
 {
     auto width = getWidth () / 4;
     auto x = 0;
-    auto h = VeNo::Utils::getCalculatedHeight (15);
-    auto w = VeNo::Utils::getCalculatedWidth (10);
+    auto h = VeNo::Utils::getScaledSize (15);
+    auto w = VeNo::Utils::getScaledSize (10);
     for (int i = 0; i < 4; ++i)
     {
         m_modKnobs[i]->setBounds (x + w, h, width - (w * 2), getHeight () - h);
@@ -32,7 +32,7 @@ void ModMixer::resized ()
 
 void ModMixer::paint (Graphics& g)
 {
-    auto h = VeNo::Utils::getCalculatedHeight (15);
+    auto h = VeNo::Utils::getScaledSize (15);
     auto theme = Config::getInstance ()->getCurrentTheme ();
     VeNo::Utils::setFontSize (13, g);
     g.setColour (theme->getColour (ThemeColour::font));

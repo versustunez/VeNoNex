@@ -36,6 +36,9 @@ public:
     VeNoParameter* m_waveformSecond;
     VeNoParameter* m_waveformMix;
 
+    VeNoParameter* m_limiterThreshold;
+    VeNoParameter* m_limiterMode;
+
     std::string m_name;
     ParameterHandler* m_handler;
     int m_index = 0;

@@ -65,3 +65,10 @@ void LookHandler::drawLabel (Graphics& graphics, Label& label)
 {
     getLook ()->drawLabel (graphics, label);
 }
+
+void LookHandler::drawTabAreaBehindFrontButton (TabbedButtonBar& bar, Graphics& g, int w, int h)
+{
+    auto theme = Config::getInstance ()->getCurrentTheme ();
+    g.setColour (theme->getColour (ThemeColour::bg_two).withAlpha (0.5f));
+    g.drawLine (0, h, w, h);
+}

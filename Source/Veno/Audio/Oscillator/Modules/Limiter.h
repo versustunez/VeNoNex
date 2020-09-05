@@ -1,24 +1,22 @@
-#ifndef VENO_LIMITER_H
-#define VENO_LIMITER_H
+#pragma once
 
 #include <vector>
 #include "../../../Core/ParameterHandler.h"
 #include "../Helper/OscillatorParameters.h"
+#include "SubModules/PeakReducer.h"
 
-class Limiter
-{
-private:
-public:
-private:
-    std::string m_name;
-    std::shared_ptr<OscillatorParameters> m_parameters;
-public:
-    explicit Limiter (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters);
+namespace VeNo {
+    class Limiter
+    {
+    private:
+        std::string m_name;
+        std::shared_ptr<OscillatorParameters> m_parameters;
+        std::vector<PeakReducer> m_reducers{3};
+    public:
+        explicit Limiter (const std::string& name, std::shared_ptr<OscillatorParameters>& parameters);
 
-    ~Limiter () = default;
+        ~Limiter () = default;
 
-    void apply (std::vector<double>& values, std::vector<double>& panned);
-};
-
-
-#endif //VENO_LIMITER_H
+        void apply (std::vector<double>& values, std::vector<double>& panned);
+    };
+}

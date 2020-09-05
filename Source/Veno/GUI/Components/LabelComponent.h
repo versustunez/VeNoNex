@@ -10,33 +10,33 @@ enum LabelPosition
     BOTTOM
 };
 
-class LabelComponent : public Component
+class LabelComponent : public juce::Component
 {
 public:
-    LabelComponent (Component* parent, std::string name);
+    LabelComponent (juce::Component* parent, std::string name);
 
     ~LabelComponent () override;
 
     void resized () override;
 
-    void paint (Graphics& g) override;
+    void paint (juce::Graphics& g) override;
 
     void setPosition (LabelPosition position);
 
-    void setListener (Label::Listener* listener);
+    void setListener (juce::Label::Listener* listener);
 
     void setEditable (bool editable);
 
-    void setJustification (Justification::Flags justification);
+    void setJustification (juce::Justification::Flags justification);
 
     LabelPosition getLabelPosition ();
 
 protected:
 private:
     std::string m_text;
-    Component* m_parent;
+    juce::Component* m_parent;
     LabelPosition m_position = LabelPosition::NO_LABEL;
-    std::shared_ptr<Label> m_label;
+    std::shared_ptr<juce::Label> m_label;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LabelComponent)
 };
 

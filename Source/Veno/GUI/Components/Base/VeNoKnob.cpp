@@ -41,7 +41,7 @@ void VeNoKnob::init (const std::string& label)
 void VeNoKnob::resized ()
 {
     BaseComponent::resized ();
-    auto labelHeight = VeNo::Utils::getCalculatedHeight (15);
+    auto labelHeight = VeNo::Utils::getScaledSize (15);
     m_slider->setBounds (0, 0, getWidth (), getHeight () - labelHeight);
 }
 

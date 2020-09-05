@@ -64,7 +64,7 @@ protected:
 
     //modules
     std::shared_ptr<Widener> m_widener;
-    std::shared_ptr<Limiter> m_limiter;
+    std::shared_ptr<VeNo::Limiter> m_limiter;
 };
 
 

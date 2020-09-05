@@ -14,7 +14,9 @@ public:
     {
         WaveTable = 0,
         Filter,
-        Free
+        Free,
+        DetuneMode,
+        LimiterMode
     };
 
     VeNoSelect (const std::string& name, const std::string& pid);

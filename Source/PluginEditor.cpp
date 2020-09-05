@@ -15,9 +15,11 @@ VenoAudioProcessorEditor::VenoAudioProcessorEditor (VenoAudioProcessor& p)
     LookAndFeel::setDefaultLookAndFeel (m_look);
     m_sidebar = std::make_unique<Sidebar> (m_id);
     m_keyboard = std::make_unique<VeNoKeyboard> (m_id);
+    m_tabber = std::make_unique<VeNo::Tabber> (m_id);
     setSize (1200 * Config::getInstance ()->getScale (), 700 * Config::getInstance ()->getScale ());
     addAndMakeVisible (*m_sidebar);
     addAndMakeVisible (*m_keyboard);
+    addAndMakeVisible (*m_tabber);
 }
 
 VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
@@ -25,6 +27,7 @@ VenoAudioProcessorEditor::~VenoAudioProcessorEditor ()
     LookAndFeel::setDefaultLookAndFeel (nullptr);
     m_sidebar.reset (nullptr);
     m_keyboard.reset (nullptr);
+    m_tabber.reset (nullptr);
     delete m_look;
     Config::getInstance ()->removeEditor (m_id);
 }
@@ -33,10 +36,10 @@ void VenoAudioProcessorEditor::paint (Graphics& g)
 {
     auto theme = Config::getInstance ()->getCurrentTheme ();
     g.setFont (*VenoFonts::getNormal ());
-    g.fillAll (theme->getColour (ThemeColour::bg_two));
+    g.fillAll (theme->getColour (ThemeColour::bg));
     g.setColour (theme->getColour (ThemeColour::bg));
-    int sidebarWidth = VeNo::Utils::getCalculatedWidth (SIDEBAR_WIDTH);
-    int footerHeight = VeNo::Utils::getCalculatedHeight (FOOTER_BG_HEIGHT);
+    int sidebarWidth = VeNo::Utils::getScaledSize (SIDEBAR_WIDTH);
+    int footerHeight = VeNo::Utils::getScaledSize (FOOTER_BG_HEIGHT);
     g.fillRect (0, 0, sidebarWidth, getHeight ());
     g.setColour (theme->getColour (ThemeColour::bg).withAlpha (0.7f));
     g.fillRect (sidebarWidth, getHeight () - footerHeight, getWidth () - sidebarWidth, footerHeight);
@@ -45,17 +48,22 @@ void VenoAudioProcessorEditor::paint (Graphics& g)
 
 void VenoAudioProcessorEditor::resized ()
 {
-    int sidebarWidth = VeNo::Utils::getCalculatedWidth (SIDEBAR_WIDTH);
+    int sidebarWidth = VeNo::Utils::getScaledSize (SIDEBAR_WIDTH);
     if (m_sidebar != nullptr)
     {
         m_sidebar->setBounds (0, 0, sidebarWidth, getHeight ());
     }
-    int keyboardHeight = VeNo::Utils::getCalculatedHeight (KEYBOARD_HEIGHT);
+    int keyboardHeight = VeNo::Utils::getScaledSize (KEYBOARD_HEIGHT);
     if (m_keyboard != nullptr)
     {
         auto keyboardWidth = (int) (getWidth () - sidebarWidth) * 0.75;
         auto spacer = ((getWidth () - sidebarWidth) * 0.25) * 0.5;
         m_keyboard->setBounds (sidebarWidth + (int) spacer, getHeight () - keyboardHeight, keyboardWidth,
                                keyboardHeight);
+    }
+
+    if (m_tabber != nullptr)
+    {
+        m_tabber->setBounds (sidebarWidth, 0, getWidth () - sidebarWidth, getHeight () - keyboardHeight);
     }
 }

@@ -41,7 +41,7 @@ void SidebarLCD::drawHeadline (Graphics& g)
     int line = fontSize + 2;
     // should draw random stuff? or draw current selected preset :)
     g.drawText ("LICENSED TO: " + SystemStats::getLogonName (), 0, 2, getWidth (), fontSize,
-                Justification::centred,
+                juce::Justification::centred,
                 true);
     g.drawLine (0, line, getWidth (), line);
 }
