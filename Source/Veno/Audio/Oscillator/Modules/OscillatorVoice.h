@@ -26,7 +26,7 @@ public:
 
     ~OscillatorVoice ();
 
-    void processValue (double freq);
+    void processValue ();
 
     double getLeftValue ();
 

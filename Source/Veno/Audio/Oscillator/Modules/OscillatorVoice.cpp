@@ -16,7 +16,7 @@ OscillatorVoice::~OscillatorVoice ()
     m_detuneHelper.reset ();
 }
 
-void OscillatorVoice::processValue (double freq)
+void OscillatorVoice::processValue ()
 {
     m_waveTableWrapper->setFrequencyForVoice (m_index, m_detuneHelper->getDetuneFreq (m_index));
     auto value = m_waveTableWrapper->getOutput (m_index);

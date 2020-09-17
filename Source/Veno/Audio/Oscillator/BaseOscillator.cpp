@@ -58,7 +58,7 @@ bool BaseOscillator::render ()
     int voices = m_parameters->m_voices->getAsInt ();
     if (m_midiNote == 0 || voices == 0 || !m_parameters->m_active->getAsBoolean ())
         return false;
-    m_voices[0]->processValue (m_freq);
+    m_voices[0]->processValue ();
     m_values[0] = m_voices[0]->getMonoValue () * 0.75;
     m_values[1] = 0;
     m_values[2] = 0;
@@ -81,7 +81,7 @@ bool BaseOscillator::processVoices (int voices)
     double detuneOutput = 0.0;
     for (int i = 1; i < voices; ++i)
     {
-        m_voices[i]->processValue (m_freq);
+        m_voices[i]->processValue ();
         m_panning[0] += m_voices[i]->getLeftValue ();
         m_panning[1] += m_voices[i]->getRightValue ();
         detuneOutput += m_voices[i]->getMonoValue ();
