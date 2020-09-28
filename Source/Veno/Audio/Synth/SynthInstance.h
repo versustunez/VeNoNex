@@ -1,30 +1,47 @@
-#ifndef VENO_SYNTHINSTANCE_H
-#define VENO_SYNTHINSTANCE_H
+#pragma once
 
 #include <string>
 #include "JuceHeader.h"
+#include "SynthVoice.h"
 
 // class that hold all voices, oscillators and other stuff :)
-class SynthInstance
+namespace VeNo::Synth
 {
-private:
-    std::string m_processId;
-    Synthesiser m_synth;
-    double m_sampleRate = -1;
-    bool m_isInit = false;
-public:
-    explicit SynthInstance (std::string processId);
-    ~SynthInstance ();
+    class Synthesizer
+    {
+    private:
+        std::string m_processId;
+        std::vector<std::unique_ptr<Voice>> m_voices;
+        double m_sampleRate = -1;
+        bool m_isInit = false;
+    public:
+        explicit Synthesizer (std::string processId);
 
-    void render (AudioBuffer<float>& buffer, const MidiBuffer& midiMessages, int startSample, int numSamples);
-    void setSampleRate(double sampleRate);
-    bool isInit() const;
+        ~Synthesizer ();
 
-    void noteOn (int i, int i1, float d);
-    void noteOff (int i, int i1, float d);
+        void render (AudioBuffer<float>& buffer, const MidiBuffer& midiMessages, int startSample, int numSamples);
 
-protected:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SynthInstance)
-};
+        void setSampleRate (double sampleRate);
 
-#endif //VENO_SYNTHINSTANCE_H
+        bool isInit () const;
+
+        void noteOn (int midiChannel, int midiNoteNumber, float velocity);
+
+        void noteOff (int midiChannel, int midiNoteNumber, float velocity);
+
+        void handleMidiEvent (const MidiMessage& m);
+
+        void renderVoice (AudioBuffer<float>& buffer, int startSample, int numSamples);
+
+    protected:
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synthesizer)
+
+        void handlePitchWheel (int pos);
+
+        void init ();
+
+        uint64_t m_lastNoteOnCounter = 0;
+        CriticalSection lock;
+        double output[3] = {0, 0, 0};
+    };
+}

@@ -5,7 +5,7 @@
 std::unordered_map<std::string, std::shared_ptr<VenoInstance>> VenoInstance::instances;
 
 VenoInstance::VenoInstance (const std::string& id)
-        : m_id (id), m_synthInstance (std::make_shared<SynthInstance> (m_id)),
+        : m_id (id), m_synthInstance (std::make_shared<VeNo::Synth::Synthesizer> (m_id)),
           audioBuffer (std::make_shared<VenoBuffer> (m_id))
 {
     state = new VeNoState (m_id);
@@ -48,7 +48,7 @@ std::shared_ptr<VenoInstance> VenoInstance::getInstance (const std::string& id)
     return createInstance (id);
 }
 
-const std::shared_ptr<SynthInstance>& VenoInstance::getSynthInstance () const
+const std::shared_ptr<VeNo::Synth::Synthesizer>& VenoInstance::getSynthInstance () const
 {
     return m_synthInstance;
 }

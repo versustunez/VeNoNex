@@ -118,14 +118,8 @@
             <FILE id="kPIbsd" name="SynthInstance.cpp" compile="1" resource="0"
                   file="Source/Veno/Audio/Synth/SynthInstance.cpp"/>
             <FILE id="cn8tWc" name="SynthInstance.h" compile="0" resource="0" file="Source/Veno/Audio/Synth/SynthInstance.h"/>
-            <FILE id="kjE5hz" name="VenoSound.cpp" compile="1" resource="0" file="Source/Veno/Audio/Synth/VenoSound.cpp"/>
-            <FILE id="sMJUAJ" name="VenoSound.h" compile="0" resource="0" file="Source/Veno/Audio/Synth/VenoSound.h"/>
-            <FILE id="GKQF8W" name="VenoSynthInstance.cpp" compile="1" resource="0"
-                  file="Source/Veno/Audio/Synth/VenoSynthInstance.cpp"/>
-            <FILE id="L4cu3a" name="VenoSynthInstance.h" compile="0" resource="0"
-                  file="Source/Veno/Audio/Synth/VenoSynthInstance.h"/>
-            <FILE id="QJvpRw" name="VenoVoice.cpp" compile="1" resource="0" file="Source/Veno/Audio/Synth/VenoVoice.cpp"/>
-            <FILE id="WyGZl7" name="VenoVoice.h" compile="0" resource="0" file="Source/Veno/Audio/Synth/VenoVoice.h"/>
+            <FILE id="xo6qrt" name="SynthVoice.cpp" compile="1" resource="0" file="Source/Veno/Audio/Synth/SynthVoice.cpp"/>
+            <FILE id="E1VqoV" name="SynthVoice.h" compile="0" resource="0" file="Source/Veno/Audio/Synth/SynthVoice.h"/>
           </GROUP>
           <GROUP id="{06DB92E3-6D1E-CFC5-096E-315C4121F8AD}" name="WaveTable">
             <GROUP id="{DE826509-E998-0E7A-5569-D6688964F436}" name="Generator">

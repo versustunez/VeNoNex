@@ -2,8 +2,6 @@
 
 #include <JuceHeader.h>
 #include "Veno/VenoInstance.h"
-#include "Veno/Audio/Synth/VenoSound.h"
-#include "Veno/Audio/Synth/VenoVoice.h"
 
 class VenoAudioProcessor : public AudioProcessor
 {

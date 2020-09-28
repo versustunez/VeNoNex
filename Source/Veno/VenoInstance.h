@@ -16,7 +16,7 @@ class VenoInstance
 {
 private:
     std::string m_id;
-    std::shared_ptr<SynthInstance> m_synthInstance;
+    std::shared_ptr<VeNo::Synth::Synthesizer> m_synthInstance;
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> instances;
 public:
     explicit VenoInstance (const std::string& id);
@@ -31,7 +31,7 @@ public:
 
     static bool hasInstance (const std::string& id);
 
-    [[nodiscard]] const std::shared_ptr<SynthInstance>& getSynthInstance () const;
+    [[nodiscard]] const std::shared_ptr<VeNo::Synth::Synthesizer>& getSynthInstance () const;
 
     std::shared_ptr<VenoBuffer> audioBuffer;
     VeNoMatrix* matrix; //matrix need a own xml profile to save and restore!

@@ -104,7 +104,6 @@ void VenoAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
 {
     ScopedNoDenormals noDenormals;
     int numChannels = buffer.getNumChannels (), numSamples = buffer.getNumSamples ();
-    instance->matrix->updateSlots ();
     instance->audioBuffer->reset (numSamples);
     if (instance->getSynthInstance()->isInit())
     {
