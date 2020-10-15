@@ -23,7 +23,7 @@ public:
 
     void setMode ();
 
-    double getDetuneFreq (int index);
+    DetuneLookup* getDetune ();
 };
 
 

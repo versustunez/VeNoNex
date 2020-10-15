@@ -18,16 +18,16 @@ OscillatorVoice::~OscillatorVoice ()
 
 void OscillatorVoice::processValue ()
 {
-    m_waveTableWrapper->setFrequencyForVoice (m_index, m_detuneHelper->getDetuneFreq (m_index));
     auto value = m_waveTableWrapper->getOutput (m_index);
-    m_waveTableWrapper->updatePhase (m_index);
     m_values[0] = value;
+    m_values[1] = 0;
+    m_values[2] = 0;
     if (m_isCenter || m_isMono)
         return;
     if (m_isLeft)
-        m_values[1] = value * m_widener->getDetunePan ();
+        m_values[1] = value * 0.33333333;
     else
-        m_values[2] = value * m_widener->getDetunePan ();
+        m_values[2] = value * 0.33333354;
 }
 
 double OscillatorVoice::getLeftValue ()

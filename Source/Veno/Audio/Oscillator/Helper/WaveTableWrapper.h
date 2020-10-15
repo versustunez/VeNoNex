@@ -6,6 +6,7 @@
 #include "../../../Core/ParameterHandler.h"
 #include "../../WaveTable/WaveTableGenerator.h"
 #include "OscillatorParameters.h"
+#include "DetuneHelper.h"
 
 struct Voice
 {
@@ -31,14 +32,11 @@ public:
 
     bool prepare ();
 
-    void setFrequencyForVoice (int index, double freq);
+    void setFrequency(int untilIndex, double baseFreq, std::shared_ptr<DetuneHelper>& detuneHelper);
 
     void setRandomPhase ();
 
     void reset ();
-
-    // getter
-    void updatePhase (int index);
 
     double getOutput (int index);
 

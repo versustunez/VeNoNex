@@ -21,9 +21,9 @@ DetuneHelper::~DetuneHelper ()
     m_detuneAlgos.clear ();
 }
 
-double DetuneHelper::getDetuneFreq (int index)
+DetuneLookup* DetuneHelper::getDetune ()
 {
-    return m_detuneAlgos[m_mode]->getDetuneFreq (index);
+    return m_detuneAlgos[m_mode];
 }
 
 void DetuneHelper::setMode ()

@@ -33,8 +33,6 @@ public:
 
     bool preProcessing ();
 
-    bool processVoices (int i);
-
     void initModules ();
 
     void setFrequency ();

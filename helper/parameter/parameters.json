@@ -296,6 +296,36 @@
       "maxValue": 1,
       "minValue": 0.5,
       "type": "Float"
+    },
+    {
+      "name": "{id}__filter_type",
+      "showName": "{sid} Filter",
+      "modulateAble": false,
+      "tooltip": "Select Filter",
+      "value": 1  ,
+      "maxValue": 3,
+      "minValue": 1,
+      "type": "Integer"
+    },
+    {
+      "name": "{id}__filter_q",
+      "showName": "{sid} Filter Q",
+      "modulateAble": true,
+      "tooltip": "Q Factor",
+      "value": 1,
+      "maxValue": 1.5,
+      "minValue": 0.7,
+      "type": "Float"
+    },
+    {
+      "name": "{id}__filter_cutoff",
+      "showName": "{sid} Filter Cutoff",
+      "modulateAble": true,
+      "tooltip": "Filter Cutoff in percent range",
+      "value": 0,
+      "maxValue": 100,
+      "minValue": 0,
+      "type": "Float"
     }
   ],
   "lfoConfig": {

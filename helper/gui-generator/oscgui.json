@@ -1,0 +1,250 @@
+{
+  "blocks": [
+    {
+      "name": "Control",
+      "x": 20,
+      "y": 20,
+      "w": 180,
+      "h": 230
+    },
+    {
+      "name": "Envelope",
+      "x": 220,
+      "y": 20,
+      "w": 450,
+      "h": 150
+    },
+    {
+      "name": "Waveform",
+      "x": 690,
+      "y": 20,
+      "w": 180,
+      "h": 320
+    },
+    {
+      "name": "Filter",
+      "x": 220,
+      "y": 190,
+      "w": 450,
+      "h": 150
+    },
+    {
+      "name": "Unison",
+      "x": 220,
+      "y": 360,
+      "w": 650,
+      "h": 150
+    },
+    {
+      "name": "Limiter",
+      "x": 20,
+      "y": 270,
+      "w": 180,
+      "h": 240
+    }
+  ],
+  "items": [
+    {
+      "type": "slider",
+      "parameter": "{id}__panning",
+      "name": "Pan",
+      "x": 75,
+      "y": 47,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__semitones",
+      "name": "Semitones",
+      "x": 40,
+      "y": 147,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__cents",
+      "name": "Fine",
+      "x": 117,
+      "y": 147,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__attack",
+      "name": "Attack",
+      "x": 260,
+      "y": 60,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__decay",
+      "name": "Decay",
+      "x": 360,
+      "y": 60,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__sustain",
+      "name": "Sustain",
+      "x": 460,
+      "y": 60,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__release",
+      "name": "Release",
+      "x": 560,
+      "y": 60,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "box",
+      "parameter": "{id}__filter_type",
+      "name": "Filter",
+      "x": 240,
+      "y": 245,
+      "w": 180,
+      "h": 55,
+      "seType": "Filter"
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__filter_cutoff",
+      "name": "Cutoff",
+      "x": 450,
+      "y": 230,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__filter_q",
+      "name": "Q-Factor",
+      "x": 550,
+      "y": 230,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "box",
+      "parameter": "{id}__waveform_base",
+      "name": "Base",
+      "x": 710,
+      "y": 50,
+      "w": 140,
+      "h": 40,
+      "seType": "WaveTable"
+    },
+    {
+      "type": "box",
+      "parameter": "{id}__waveform_sec",
+      "name": "Second",
+      "x": 710,
+      "y": 120,
+      "w": 140,
+      "h": 40,
+      "seType": "WaveTable"
+    },
+    {
+      "type": "checkbox",
+      "parameter": "{id}__random_phase",
+      "name": "Random Phase",
+      "x": 745,
+      "y": 185,
+      "w": 65,
+      "h": 30
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__waveform_mix",
+      "name": "Mix",
+      "x": 700,
+      "y": 230,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__phase",
+      "name": "Phase",
+      "x": 790,
+      "y": 230,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "box",
+      "parameter": "{id}__detune_mode",
+      "name": "Mode",
+      "x": 250,
+      "y": 410,
+      "w": 180,
+      "h": 50,
+      "seType": "DetuneMode"
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__voices",
+      "name": "Voices",
+      "x": 480,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__stereo",
+      "name": "Stereo",
+      "x": 570,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__detune_dense",
+      "name": "Dense",
+      "x": 660,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__detune_amount",
+      "name": "Amount",
+      "x": 750,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__limiter_mode",
+      "name": "Limiter",
+      "x": 75,
+      "y": 300,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__limiter_threshold",
+      "name": "Threshold",
+      "x": 75,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    }
+  ]
+}

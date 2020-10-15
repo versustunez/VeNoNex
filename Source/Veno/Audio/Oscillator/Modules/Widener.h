@@ -27,7 +27,6 @@ public:
 
     double m_coefficientM = 0.0f;
     double m_coefficient = 0.0f;
-    double m_coefficientDetune = 0.0f;
     double m_wide = 0;
     double m_lastPanning = 0;
 };

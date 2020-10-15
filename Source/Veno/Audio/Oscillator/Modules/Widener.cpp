@@ -19,7 +19,7 @@ void Widener::apply (std::vector<double>& values, std::vector<double>& panned)
 
 double Widener::getDetunePan ()
 {
-    return m_coefficientDetune;
+    return 0.7405152;
 }
 
 void Widener::update ()
@@ -27,12 +27,11 @@ void Widener::update ()
     auto wide = m_parameters->m_stereo->getValueForVoice(m_parameters->m_index);
     if (m_wide != wide)
     {
-        double _width = wide / 200;
+        double _width = wide / 100;
         double tmp = 1 / fmax (1 + _width, 2);
         m_coefficientM = 1 * tmp;
         m_coefficient = _width * tmp;
         m_wide = wide;
-        m_coefficientDetune = m_coefficient * 0.3;
     }
     auto panning = m_parameters->m_panning->getValueForVoice(m_parameters->m_index);
     if (panning != m_lastPanning)

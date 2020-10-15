@@ -16,7 +16,8 @@ public:
         Filter,
         Free,
         DetuneMode,
-        LimiterMode
+        LimiterMode,
+        NoSelect = 99
     };
 
     VeNoSelect (const std::string& name, const std::string& pid);

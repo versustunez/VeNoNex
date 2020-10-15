@@ -6,7 +6,7 @@ namespace VeNo
 {
     struct PeakReducer
     {
-        int samplesToFin = 15;
+        int samplesToFin = 5;
         int sampleSincePeak = 0;
         double peakReduceAmount = 0;
         double threshold = 1.0;

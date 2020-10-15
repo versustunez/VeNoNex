@@ -58,41 +58,32 @@ bool BaseOscillator::render ()
     int voices = m_parameters->m_voices->getAsInt ();
     if (m_midiNote == 0 || voices == 0 || !m_parameters->m_active->getAsBoolean ())
         return false;
+    m_waveTableHelper->setFrequency(voices, m_freq, m_DetuneHelper);
     m_voices[0]->processValue ();
-    m_values[0] = m_voices[0]->getMonoValue () * 0.75;
-    m_values[1] = 0;
-    m_values[2] = 0;
+    m_values[0] = m_voices[0]->m_values[0];
     m_panning[0] = 0;
     m_panning[1] = 0;
     if (voices > 1)
     {
-        if (!processVoices (voices))
-            return false;
+        double detuneOutput = 0.0;
+        for (int i = 1; i < voices; ++i)
+        {
+            m_voices[i]->processValue ();
+            m_panning[0] += m_voices[i]->m_values[1];
+            m_panning[1] += m_voices[i]->m_values[2];
+            detuneOutput += m_voices[i]->m_values[0];
+        }
+        double dAmount = m_parameters->m_detuneAmount->getValueForVoice (m_index);
+        detuneOutput *= dAmount;
+        detuneOutput /= (double) (voices - 1);
+        m_values[0] += detuneOutput;
+        m_panning[0] *= dAmount;
+        m_panning[1] *= dAmount;
     }
     double volumeLevel = m_parameters->m_level->getValueForVoice (m_index);
     m_values[0] *= volumeLevel;
     m_panning[0] *= volumeLevel;
     m_panning[1] *= volumeLevel;
-    return true;
-}
-
-bool BaseOscillator::processVoices (int voices)
-{
-    double detuneOutput = 0.0;
-    for (int i = 1; i < voices; ++i)
-    {
-        m_voices[i]->processValue ();
-        m_panning[0] += m_voices[i]->getLeftValue ();
-        m_panning[1] += m_voices[i]->getRightValue ();
-        detuneOutput += m_voices[i]->getMonoValue ();
-    }
-    double dAmount = m_parameters->m_detuneAmount->getValueForVoice (m_index);
-    detuneOutput *= m_parameters->m_detuneAmount->getValueForVoice (m_index);
-    detuneOutput /= (double) (voices - 1);
-    m_values[0] += detuneOutput;
-    m_panning[0] *= dAmount;
-    m_panning[1] *= dAmount;
-
     return true;
 }
 

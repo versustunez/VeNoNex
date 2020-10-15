@@ -1,6 +1,7 @@
 #include "TableCreatorHelper.h"
 #include "../../Core/AudioConfig.h"
 #include "../../Utils.h"
+#include "JuceHeader.h"
 
 namespace VeNo
 {
@@ -33,6 +34,7 @@ namespace VeNo
     double TableCreatorHelper::makeWaveTable (RawTable& table, double scale, double topFreq)
     {
         fft (table.m_len, table);
+        findCutoff (topFreq, table);
         auto& ai = table.m_tempIm;
         auto& ar = table.m_tempRe;
         auto len = table.m_len;
@@ -56,7 +58,7 @@ namespace VeNo
     int TableCreatorHelper::findTableLen ()
     {
         int maxHarms = std::lround (AudioConfig::getInstance ()->getSampleRate () / (3.0 * 20));
-        return Utils::nextPowerOfTwo (maxHarms);
+        return Utils::nextPowerOfTwo (maxHarms) * 2;
     }
 
     double TableCreatorHelper::getNextRand ()
@@ -195,5 +197,25 @@ namespace VeNo
         tableObj->m_waveTableLen = len;
         tableObj->m_topFreq = topFreq;
         ++group->m_numWaveTables;
+    }
+
+    // makes init time longer but hey... better waveforms ;)
+    void TableCreatorHelper::findCutoff (double topFreq, RawTable& table)
+    {
+        // filter the ai!
+        auto& ai = table.m_tempIm;
+        double sRate = AudioConfig::getInstance ()->m_sampleRate;
+        double cutOff = topFreq * (sRate / 2) * 2;
+        double RC = 0.9 / (cutOff * 2 * VeNo::Utils::PI);
+        double dt = 1.0 / sRate;
+        double alpha = dt / (RC + dt);
+
+        double prev_sample;
+        for (double& i : ai)
+        {
+            double tmp = i;
+            i = prev_sample + (alpha * (i - prev_sample));
+            prev_sample = tmp;
+        }
     }
 }

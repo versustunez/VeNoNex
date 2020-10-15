@@ -20,12 +20,12 @@ public:
 
     double getDetuneFreq (int index);
 
-protected:
-    int m_size;
     std::vector<double> m_lookup;
+    double m_frequency = 0;
+    int m_size;
+protected:
     double m_lastDetune = 0;
     int m_lastVoices = 0;
-    double m_frequency = 0;
     std::shared_ptr<OscillatorParameters> m_parameters;
     double m_currentDetune = 0; //can calcucated by a special function
     std::string m_name;

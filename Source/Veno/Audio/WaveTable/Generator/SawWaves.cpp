@@ -29,7 +29,7 @@ namespace VeNo
         {
             double value = 1.0 / i;
             if (i % offset == 0)
-                value += TableCreatorHelper::getNextRand () * 0.003;
+                value += TableCreatorHelper::getNextRand () * 0.008;
 
             m_freqWaveRe[i] = value;
             m_freqWaveRe[m_len - i] = -m_freqWaveRe[i];

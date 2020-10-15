@@ -68,6 +68,12 @@ void ParameterHandler::setupParameter ()
         addParameter (oscId + "limiter_mode", OSCName + " Limiter Mode", 1, 2, 1, Integer);
         // Select at which level the Limiter should run
         addParameterModulate (oscId + "limiter_threshold", OSCName + " Limiter Threshold", 0.5, 1, 1, Float);
+        // Select Filter
+        addParameter (oscId + "filter_type", OSCName + " Filter", 1, 3, 1, Integer);
+        // Q Factor
+        addParameterModulate (oscId + "filter_q", OSCName + " Filter Q", 0.7, 1.5, 1, Float);
+        // Filter Cutoff in percent range
+        addParameterModulate (oscId + "filter_cutoff", OSCName + " Filter Cutoff", 0, 100, 0, Float);
     }
 
     for (int i = 1; i < 3; i++)

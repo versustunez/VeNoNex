@@ -32,11 +32,7 @@ namespace VeNo
         {
             init ();
         }
-        if (id < m_waveTables.size ())
-        {
-            return m_waveTables[id];
-        }
-        return nullptr;
+        return m_waveTables[id];
     }
 
     void WaveTableGenerator::cleanTables ()

@@ -17,5 +17,6 @@ namespace VeNo {
         static void createTableRaw(RawTable& table);
         static double getScale(RawTable& table, double scale);
         static void createWaveTableOnIndex(RawTable& table, int index, double topFreq);
+        static void findCutoff(double topFreq, RawTable& table);
     };
 }

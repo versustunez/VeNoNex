@@ -21,48 +21,55 @@ bool WaveTableWrapper::prepare ()
     {
         voice->m_phaseOfs = phase;
     }
+    auto& waveTable = VeNo::WaveTableGenerator::getInstance ();
     auto baseWaveTable = m_parameters->m_waveformPrimary->getValue () - 1;
     auto secondWaveTable = m_parameters->m_waveformSecond->getValue () - 1;
-    m_baseWaveGroup = VeNo::WaveTableGenerator::getInstance ().getGroup (baseWaveTable);
-    m_currentWaveGroup = VeNo::WaveTableGenerator::getInstance ().getGroup (secondWaveTable);
+    m_baseWaveGroup = waveTable.getGroup (baseWaveTable);
+    m_currentWaveGroup = waveTable.getGroup (secondWaveTable);
     return m_currentWaveGroup != nullptr && m_baseWaveGroup != nullptr;
 }
 
-void WaveTableWrapper::setFrequencyForVoice (int index, double freq)
+void WaveTableWrapper::setFrequency (int untilIndex, double baseFreq, std::shared_ptr<DetuneHelper>& detuneHelper)
 {
     if (m_currentWaveGroup == nullptr && !prepare ())
     {
         return;
     }
-    double inc = freq / AudioConfig::getInstance ()->getSampleRate ();
-    auto currentVoice = m_voices[index];
-    //something is complete wrong!
-    currentVoice->m_phaseInc = inc;
-    if (index == 0)
+    // performance ;)
+    double sRate = AudioConfig::getInstance ()->m_sampleRate;
+    auto detune = detuneHelper->getDetune();
+    for (int index = 0; index < untilIndex; ++index)
     {
-        int curWaveTable = 0;
-        while ((curWaveTable < (m_currentWaveGroup->m_numWaveTables - 1) &&
-                (inc >= m_currentWaveGroup->m_WaveTables[curWaveTable]->m_topFreq)))
+        double inc = detune->m_frequency * detune->m_lookup[index] / sRate;
+        auto currentVoice = m_voices[index];
+        //something is complete wrong!
+        currentVoice->m_phaseInc = inc;
+        if (index == 0)
         {
-            ++curWaveTable;
-        }
-        currentVoice->m_currentWaveTable = m_currentWaveGroup->m_WaveTables[curWaveTable];
-
-        if (m_currentWaveGroup != m_baseWaveGroup)
-        {
-            curWaveTable = 0;
-            while ((curWaveTable < (m_baseWaveGroup->m_numWaveTables - 1) &&
-                    (inc >= m_baseWaveGroup->m_WaveTables[curWaveTable]->m_topFreq)))
+            int curWaveTable = 0;
+            while ((curWaveTable < (m_currentWaveGroup->m_numWaveTables - 1) &&
+                    (inc >= m_currentWaveGroup->m_WaveTables[curWaveTable]->m_topFreq)))
             {
                 ++curWaveTable;
             }
+            currentVoice->m_currentWaveTable = m_currentWaveGroup->m_WaveTables[curWaveTable];
+
+            if (m_currentWaveGroup != m_baseWaveGroup)
+            {
+                curWaveTable = 0;
+                while ((curWaveTable < (m_baseWaveGroup->m_numWaveTables - 1) &&
+                        (inc >= m_baseWaveGroup->m_WaveTables[curWaveTable]->m_topFreq)))
+                {
+                    ++curWaveTable;
+                }
+            }
+            currentVoice->m_baseWaveTable = m_baseWaveGroup->m_WaveTables[curWaveTable];
         }
-        currentVoice->m_baseWaveTable = m_baseWaveGroup->m_WaveTables[curWaveTable];
-    }
-    else
-    {
-        currentVoice->m_currentWaveTable = m_voices[0]->m_currentWaveTable;
-        currentVoice->m_baseWaveTable = m_voices[0]->m_baseWaveTable;
+        else
+        {
+            currentVoice->m_currentWaveTable = m_voices[0]->m_currentWaveTable;
+            currentVoice->m_baseWaveTable = m_voices[0]->m_baseWaveTable;
+        }
     }
 }
 
@@ -83,17 +90,12 @@ void WaveTableWrapper::reset ()
     }
 }
 
-void WaveTableWrapper::updatePhase (int index)
+double WaveTableWrapper::getOutput (int index)
 {
     auto cVoice = m_voices[index];
     cVoice->m_phasor += cVoice->m_phaseInc;
     if (cVoice->m_phasor >= 1.0)
         cVoice->m_phasor -= 1.0;
-}
-
-double WaveTableWrapper::getOutput (int index)
-{
-    auto cVoice = m_voices[index];
     if (cVoice->m_phaseOfs > 0)
     {
         return getOutputPWM (index) * LookupTables::detuneLookup[index];
@@ -136,10 +138,6 @@ double WaveTableWrapper::getWaveTableValue (VeNo::WaveTableObject* table, double
     double val = phase * (double) table->m_waveTableLen;
     int value = (int) val;
     int temp = (int) val + 1;
-    if (temp > table->m_waveTableLen)
-    {
-        temp -= table->m_waveTableLen;
-    }
     double sum = table->m_waveTable[value];
     double sum2 = table->m_waveTable[temp];
 

@@ -176,9 +176,10 @@ namespace VeNo::Synth
 
     void Synthesizer::renderVoice (AudioBuffer<float>& buffer, int startSample, int numSamples)
     {
+        auto* matrix = VenoInstance::getInstance (m_processId)->matrix;
         while (--numSamples >= 0)
         {
-            VenoInstance::getInstance (m_processId)->matrix->updateSlots ();
+            matrix->updateSlots ();
             output[0] = 0;
             output[1] = 0;
             output[2] = 0;
@@ -190,6 +191,7 @@ namespace VeNo::Synth
                 }
                 bool cleanNote = true;
                 bool runIntoSample = false;
+                double values[3] = {0,0,0};
                 for (int i = 0; i < voice->m_count; i++)
                 {
                     if (voice->m_envelopes[i]->isActive ())
@@ -200,9 +202,8 @@ namespace VeNo::Synth
                         if (voice->m_oscillators[i]->render ())
                         {
                             runIntoSample = true;
-                            output[0] += voice->m_oscillators[i]->getMonoValue () * envValue;
-                            output[1] += voice->m_oscillators[i]->getLeftValue () * envValue;
-                            output[2] += voice->m_oscillators[i]->getRightValue () * envValue;
+                            values[1] += voice->m_oscillators[i]->getLeftValue () * envValue;
+                            values[2] += voice->m_oscillators[i]->getRightValue () * envValue;
                         };
                     }
                 }
@@ -210,20 +211,11 @@ namespace VeNo::Synth
                 {
                     voice->clear ();
                 }
+                output[1] += (values[1] * 0.25);
+                output[2] += (values[2] * 0.25);
             }
-            int channelCount = buffer.getNumChannels ();
-            if (channelCount == 1)
-            {
-                output[0] *= 0.25;
-                buffer.addSample (0, startSample, output[0]);
-            }
-            else
-            {
-                output[1] *= 0.25;
-                output[2] *= 0.25;
-                buffer.addSample (0, startSample, output[1]);
-                buffer.addSample (1, startSample, output[2]);
-            }
+            buffer.addSample (0, startSample, output[1]);
+            buffer.addSample (1, startSample, output[2]);
             ++startSample;
         }
     }
