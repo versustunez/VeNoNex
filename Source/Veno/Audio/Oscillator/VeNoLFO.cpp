@@ -14,7 +14,7 @@ VeNoLFO::VeNoLFO (const std::string& id, int maxVoices, const std::string& name)
 
 double VeNoLFO::getValue ()
 {
-    return BaseOscillator::getMonoValue ();
+    return m_value;
 }
 
 VeNoLFO::~VeNoLFO ()
@@ -35,6 +35,7 @@ bool VeNoLFO::postProcessing ()
 
 bool VeNoLFO::preProcessing ()
 {
+    m_waveTableHelper->prepare ();
     m_DetuneHelper->update (m_freq, m_midiNote);
     return true;
 }
@@ -49,8 +50,9 @@ bool VeNoLFO::render ()
     int voices = m_parameters->m_voices->getAsInt ();
     if (m_midiNote == 0 || voices == 0 || !m_parameters->m_active->getAsBoolean ())
         return false;
-    setFrequency ();
+    m_freq = m_freqRate->getValue ();
     if (!preProcessing () || !BaseOscillator::render () || !postProcessing ())
         return false;
+    m_value = BaseOscillator::m_values[0];
     return true;
 }

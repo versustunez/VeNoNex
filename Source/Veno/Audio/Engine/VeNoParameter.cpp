@@ -1,8 +1,9 @@
 #include "VeNoParameter.h"
+#include "../../VenoInstance.h"
 
 VeNoParameter::VeNoParameter (const std::string& name, const std::string& shownName, double min, double max, double value,
                               const std::string& id) :
-                              m_name(name), m_showName(shownName), m_value(value), m_max(max), m_min(min)
+                              m_name(name), m_showName(shownName), m_id(id), m_max(max), m_min(min), m_value(value)
 {
 }
 
@@ -14,6 +15,7 @@ VeNoParameter::~VeNoParameter ()
 void VeNoParameter::createModulationValue ()
 {
     m_modulateValue = std::make_unique<ModulateValue> (m_name, m_id);
+    VenoInstance::getInstance(m_id)->matrix->addModValue(m_name, m_modulateValue.get());
     m_modulateValue->set (m_value, m_max, m_min);
     m_isModulation = true;
 }

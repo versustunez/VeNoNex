@@ -2,8 +2,10 @@
 #define VENO_VENOSTATE_H
 
 #include <string>
-#include "../GUI/GUIParts/ConfigScreen/VenoConfigScreen.h"
-#include "../GUI/GUIParts/Debug/VeNoDebugScreen.h"
+#include "../GUI/GUIParts/Screens/ConfigScreen/VenoConfigScreen.h"
+#include "../GUI/GUIParts/Screens/Debug/VeNoDebugScreen.h"
+#include "../GUI/GUIParts/Screens/MatrixScreen/GuiMatrixScreen.h"
+#include "../Services/ComponentStates.h"
 
 class VeNoState
 {
@@ -17,6 +19,8 @@ public:
 
     VenoConfigScreen* configScreen = nullptr;
     VeNoDebugScreen* debugScreen = nullptr;
+    VeNo::GuiMatrixScreen* matrix = nullptr;
+    VeNo::ComponentStates componentStates;
     bool m_isFirstEditor = true;
     int m_lcd_mode = 0;
 };

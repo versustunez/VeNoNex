@@ -210,7 +210,7 @@ namespace VeNo
         double dt = 1.0 / sRate;
         double alpha = dt / (RC + dt);
 
-        double prev_sample;
+        double prev_sample = 0.0;
         for (double& i : ai)
         {
             double tmp = i;

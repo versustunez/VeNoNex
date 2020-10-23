@@ -4,6 +4,7 @@
 #include "BaseOscillator.h"
 #include "../../Utils.h"
 #include "../../VenoInstance.h"
+#include "../../Core/AudioConfig.h"
 
 BaseOscillator::BaseOscillator (const std::string& id, const std::string& name, int maxVoices)
         : m_id (id), m_name(name), m_handler(VenoInstance::getInstance(m_id)->handler), m_maxVoices(maxVoices)
@@ -32,16 +33,37 @@ void BaseOscillator::initModules ()
     m_limiter = std::make_shared<VeNo::Limiter> (m_name, m_parameters);
 }
 
-bool BaseOscillator::start (int currentMidiNote)
+bool BaseOscillator::start (int currentMidiNote, bool legato)
 {
-    if (currentMidiNote == 0 || !m_parameters->m_active->getAsBoolean ())
+    if (currentMidiNote <= 0 || !m_parameters->m_active->getAsBoolean ())
         return false;
 
+
+    m_isPorta = legato;
+    if (legato)
+    {
+        if (m_lastPortamento != m_parameters->m_portamento->m_value)
+        {
+            m_midiNotePortamento.reset (AudioConfig::getInstance ()->getSampleRate (),
+                                        m_parameters->m_portamento->m_value);
+            m_lastPortamento = m_parameters->m_portamento->m_value;
+        }
+        if (m_midiNote <= 0)
+        {
+            m_midiNotePortamento.setCurrentAndTargetValue (currentMidiNote);
+        }
+        else
+        {
+            m_midiNotePortamento.setTargetValue (currentMidiNote);
+        }
+    } else {
+        m_midiNotePortamento.setCurrentAndTargetValue (currentMidiNote);
+    }
     m_midiNote = currentMidiNote;
     if (!m_waveTableHelper->prepare ())
         return false;
 
-    if (m_parameters->m_randomPhase->getAsBoolean ())
+    if (m_parameters->m_randomPhase->getAsBoolean () && !legato)
         m_waveTableHelper->setRandomPhase ();
     return true;
 }
@@ -104,6 +126,10 @@ bool BaseOscillator::preProcessing ()
 void BaseOscillator::setFrequency ()
 {
     double midi = m_midiNote;
+    if (m_isPorta)
+    {
+        midi = m_midiNotePortamento.getNextValue ();
+    }
     auto semitones = m_parameters->m_semitones->getAsInt ();
     auto cents = m_parameters->m_cents->getValueForVoice (m_index) / 100;
     midi = VeNo::Utils::clamp (midi + semitones + cents + getPitchBend (), 1, 127);

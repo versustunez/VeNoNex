@@ -15,8 +15,8 @@ private:
     static std::shared_ptr<Config> m_instance;
     int m_currentLook = 0; //nah move the bitch logic from current to next
     std::unordered_map<std::string, AudioProcessorEditor*> m_editors;
-    std::shared_ptr<LookHandler> m_lookHandler;
 public:
+    std::shared_ptr<LookHandler> look;
     int m_fps = 60;
     double m_scale = 1.0f;
 

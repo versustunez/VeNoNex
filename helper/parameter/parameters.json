@@ -79,6 +79,26 @@
       "maxValue": 1,
       "minValue": 0,
       "type": "Float"
+    },
+    {
+      "name": "mono_legato",
+      "showName": "Mono Legato",
+      "modulateAble": false,
+      "tooltip": "Mono legato -> Disable Voice 2-5 and only enable Voice1 and do Frequency Slides!",
+      "value": 0,
+      "maxValue": 1,
+      "minValue": 0,
+      "type": "Boolean"
+    },
+    {
+      "name": "portamento",
+      "showName": "Portamento",
+      "modulateAble": false,
+      "tooltip": "Glide Time until new note is reached",
+      "value": 0,
+      "maxValue": 1.5,
+      "minValue": 0,
+      "type": "Float"
     }
   ],
   "oscConfig": {
@@ -278,26 +298,6 @@
       "type": "Float"
     },
     {
-      "name": "{id}__limiter_mode",
-      "showName": "{sid} Limiter Mode",
-      "modulateAble": false,
-      "tooltip": "Select between Hard-Limiter and PeakReducer",
-      "value": 1,
-      "maxValue": 2,
-      "minValue": 1,
-      "type": "Integer"
-    },
-    {
-      "name": "{id}__limiter_threshold",
-      "showName": "{sid} Limiter Threshold",
-      "modulateAble": true,
-      "tooltip": "Select at which level the Limiter should run",
-      "value": 1,
-      "maxValue": 1,
-      "minValue": 0.5,
-      "type": "Float"
-    },
-    {
       "name": "{id}__filter_type",
       "showName": "{sid} Filter",
       "modulateAble": false,
@@ -339,7 +339,7 @@
       "showName": "{sid} Active",
       "modulateAble": false,
       "tooltip": "Active or Deactivate LFO",
-      "value": 1,
+      "value": 0,
       "maxValue": 1,
       "minValue": 0,
       "type": "Boolean"
@@ -452,26 +452,6 @@
       "value": 0,
       "maxValue": 1,
       "minValue": 0,
-      "type": "Float"
-    },
-    {
-      "name": "{id}__limiter_mode",
-      "showName": "{sid} Limiter Mode",
-      "modulateAble": false,
-      "tooltip": "Select between Hard-Limiter and PeakReducer",
-      "value": 1,
-      "maxValue": 2,
-      "minValue": 1,
-      "type": "Integer"
-    },
-    {
-      "name": "{id}__limiter_threshold",
-      "showName": "{sid} Limiter Threshold",
-      "modulateAble": true,
-      "tooltip": "Select at which level the Limiter should run",
-      "value": 1,
-      "maxValue": 1,
-      "minValue": 0.5,
       "type": "Float"
     }
   ]

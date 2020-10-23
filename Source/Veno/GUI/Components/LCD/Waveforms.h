@@ -5,7 +5,7 @@
 #include "../BaseComponent.h"
 #include "DecibelScale.h"
 #include "../../../Core/VeNoListener.h"
-#include "../../../Utils/FFT.h"
+#include "../../../Services/FFT.h"
 #include "../../GL/VertexStructs.h"
 
 #define RANDOM_TEXT_COUNT 6
@@ -13,7 +13,6 @@
 
 class Waveforms : public BaseComponent,
                   public VeNoListener,
-                  private OpenGLRenderer,
                   private Timer,
                   private AsyncUpdater
 {
@@ -33,11 +32,9 @@ public:
 
     ~Waveforms () override;
 
-    void newOpenGLContextCreated () override;
+    void newOpenGLContextCreated ();
 
-    void openGLContextClosing () override;
-
-    void renderOpenGL () override;
+    void renderOpenGL ();
 
     void mouseDown (const MouseEvent& e) override;
 
@@ -75,11 +72,13 @@ private:
 
     void getState ();
 
-    OpenGLContext m_context;
+    OpenGLContext* m_context;
     std::unique_ptr<OpenGLShaderProgram> m_shaderProgram;
     std::unique_ptr<DecibelScale> m_dBScale;
     std::unique_ptr<FFT> m_fft;
     double m_previous_value = 0;
+    float m_x = 0;
+    float m_y = 0;
 
     // gl
     unsigned int vbo;

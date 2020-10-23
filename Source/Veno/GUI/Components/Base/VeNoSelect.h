@@ -30,6 +30,14 @@ public:
 
     void addItem (const std::string& item);
 
+    void addHeader (const std::string& header);
+
+    void addSeparator ();
+
+    void clearSelection ();
+
+    int getSelection ();
+
     void resized () override;
 
     void paint (Graphics& g) override;

@@ -50,3 +50,8 @@ void LabelComponent::setJustification (juce::Justification::Flags justification)
 {
     m_label->setJustificationType (justification);
 }
+
+void LabelComponent::setText (std::string text)
+{
+    m_label->setText(text, NotificationType::dontSendNotification);
+}

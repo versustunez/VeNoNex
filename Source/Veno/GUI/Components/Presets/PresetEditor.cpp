@@ -5,7 +5,9 @@
 
 PresetEditor::PresetEditor (const std::string& pid) : BaseComponent (pid)
 {
-    addLabel ("Init", LabelPosition::NO_LABEL);
+    auto instance = VenoInstance::getInstance (m_processId);
+    instance->changeListener->addListener("presetEditor", this);
+    addLabel (instance->presetManager->m_name, LabelPosition::NO_LABEL);
     m_label->setListener (this);
     m_label->setEditable (true);
     m_label->setJustification (Justification::centred);
@@ -17,6 +19,8 @@ PresetEditor::~PresetEditor ()
     {
         m_label.reset ();
     }
+    auto instance = VenoInstance::getInstance (m_processId);
+    instance->changeListener->removeListener("presetEditor");
 }
 
 void PresetEditor::resized ()
@@ -39,6 +43,7 @@ void PresetEditor::paint (Graphics& g)
 
 void PresetEditor::editorShown (Label* label, TextEditor& editor)
 {
+    editor.setJustification (Justification::centred);
     editor.setText (label->getText (false));
 }
 
@@ -51,4 +56,14 @@ void PresetEditor::editorHidden (Label* label, TextEditor& editor)
 void PresetEditor::labelTextChanged (Label* labelThatHasChanged)
 {
 
+}
+
+void PresetEditor::parameterChanged (VeNoParameter* parameter)
+{
+
+}
+
+void PresetEditor::notify (const std::string& name, double value)
+{
+    m_label->setText (VenoInstance::getInstance (m_processId)->presetManager->m_name);
 }

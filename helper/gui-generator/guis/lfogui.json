@@ -1,0 +1,188 @@
+{
+  "blocks": [
+    {
+      "name": "Control",
+      "x": 20,
+      "y": 20,
+      "w": 180,
+      "h": 320
+    },
+    {
+      "name": "Waveform",
+      "x": 220,
+      "y": 20,
+      "w": 180,
+      "h": 320
+    },
+    {
+      "name": "LFO-Wave",
+      "x": 420,
+      "y": 20,
+      "w": 450,
+      "h": 320
+    },
+    {
+      "name": "Unison",
+      "x": 20,
+      "y": 360,
+      "w": 650,
+      "h": 150
+    },
+    {
+      "name": "Helper",
+      "x": 690,
+      "y": 360,
+      "w": 180,
+      "h": 150
+    }
+  ],
+  "items": [
+    {
+      "type": "checkbox",
+      "parameter": "{id}__active",
+      "name": "",
+      "x": 40,
+      "y": 70,
+      "w": 140,
+      "h": 30
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__level",
+      "name": "Volume",
+      "x": 75,
+      "y": 120,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__rate",
+      "name": "Frequency",
+      "x": 75,
+      "y": 220,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "box",
+      "parameter": "{id}__waveform_base",
+      "name": "Base",
+      "x": 240,
+      "y": 50,
+      "w": 140,
+      "h": 55,
+      "seType": "WaveTable"
+    },
+    {
+      "type": "box",
+      "parameter": "{id}__waveform_sec",
+      "name": "Second",
+      "x": 240,
+      "y": 120,
+      "w": 140,
+      "h": 55,
+      "seType": "WaveTable"
+    },
+    {
+      "type": "checkbox",
+      "parameter": "{id}__random_phase",
+      "name": "Random Phase",
+      "x": 240,
+      "y": 185,
+      "w": 140,
+      "h": 30
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__waveform_mix",
+      "name": "Mix",
+      "x": 240,
+      "y": 230,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__phase",
+      "name": "Phase",
+      "x": 320,
+      "y": 230,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "lfowave",
+      "parameter": "{id}",
+      "name": "LFO-Wave",
+      "x": 440,
+      "y": 60,
+      "w": 410,
+      "h": 240
+    },
+    {
+      "type": "box",
+      "parameter": "{id}__detune_mode",
+      "name": "Mode",
+      "x": 130,
+      "y": 410,
+      "w": 180,
+      "h": 65,
+      "seType": "DetuneMode"
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__voices",
+      "name": "Voices",
+      "x": 360,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__detune_dense",
+      "name": "Dense",
+      "x": 450,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__detune_amount",
+      "name": "Amount",
+      "x": 540,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__detune_amount",
+      "name": "Amount",
+      "x": 540,
+      "y": 400,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "textButton",
+      "parameter": "call_copy",
+      "name": "Copy",
+      "x": 745,
+      "y": 400,
+      "w": 70,
+      "h": 30
+    },
+    {
+      "type": "textButton",
+      "parameter": "call_paste",
+      "name": "Paste",
+      "x": 745,
+      "y": 450,
+      "w": 70,
+      "h": 30
+    }
+  ]
+}

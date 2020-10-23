@@ -1,5 +1,5 @@
 #include "VeNoSelect.h"
-#include "../../../Utils/ComboBoxSetupHelper.h"
+#include "../../../Services/ComboBoxSetupHelper.h"
 #include "../../../VenoInstance.h"
 #include "../../../Utils.h"
 
@@ -8,21 +8,41 @@ VeNoSelect::VeNoSelect (const std::string& name, const std::string& pid)
           m_select (std::make_unique<juce::ComboBox> ())
 {
     m_select->setComponentID (name);
+    m_select->setJustificationType (Justification::centredLeft);
     addAndMakeVisible (*m_select);
-    auto treeState = VenoInstance::getInstance (m_processId)->treeState;
-    m_attachment = std::make_unique<ComboBoxAttachment> (*treeState, name, *m_select);
+    auto instance = VenoInstance::getInstance (m_processId);
+    if (instance->handler->getParameter (name) != nullptr)
+    {
+        auto treeState = instance->treeState;
+        m_attachment = std::make_unique<ComboBoxAttachment> (*treeState, name, *m_select);
+    }
     addAndMakeVisible (*m_select);
 }
 
 VeNoSelect::~VeNoSelect ()
 {
-    m_attachment.reset (nullptr);
+    if (m_attachment != nullptr)
+    {
+        m_attachment.reset (nullptr);
+    }
     m_select.reset ();
     if (m_label != nullptr)
     {
-        m_label.reset();
+        m_label.reset ();
     }
 }
+
+void VeNoSelect::clearSelection ()
+{
+    m_select->clear (NotificationType::dontSendNotification);
+    m_lastAddItem = 1;
+}
+
+int VeNoSelect::getSelection ()
+{
+    return m_select->getSelectedId ();
+}
+
 
 void VeNoSelect::addItem (const std::string& item)
 {
@@ -49,12 +69,12 @@ void VeNoSelect::resized ()
         LabelPosition position = m_label->getLabelPosition ();
         if (position == LabelPosition::TOP)
         {
-            auto height = VeNo::Utils::getScaledSize (15);
+            auto height = VeNo::Utils::getScaledSize (16);
             m_select->setBounds (0, height, getWidth (), getHeight () - height);
         }
         else if (position == LabelPosition::BOTTOM)
         {
-            auto height = VeNo::Utils::getScaledSize (15);
+            auto height = VeNo::Utils::getScaledSize (16);
             m_select->setBounds (0, 0, getWidth (), getHeight () - height);
         }
     }
@@ -65,4 +85,14 @@ void VeNoSelect::resized ()
 void VeNoSelect::paint (Graphics& g)
 {
     BaseComponent::paint (g);
+}
+
+void VeNoSelect::addHeader (const std::string& item)
+{
+    m_select->addSectionHeading (item);
+}
+
+void VeNoSelect::addSeparator ()
+{
+    m_select->addSeparator ();
 }

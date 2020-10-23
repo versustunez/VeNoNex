@@ -10,23 +10,10 @@ namespace VeNo
 
     void Limiter::apply (std::vector<double>& values, std::vector<double>& panned)
     {
-        double threshold = m_parameters->m_limiterThreshold->getValueForVoice (m_parameters->m_index);
-        switch (static_cast<int>(m_parameters->m_limiterMode->getBaseValue ()))
+        // hard limit at 6dB!
+        for (double& value : values)
         {
-            case 1:
-                for (double& value : values)
-                {
-                    value = VeNo::Utils::clamp (value, -threshold, threshold);
-                }
-                break;
-            case 2:
-                for (int i = 0; i < 3; ++i)
-                {
-                    m_reducers[i].threshold = threshold;
-                    values[i] = m_reducers[i].limit(values[i]);
-                }
-                break;
+            value = value > 2 ? 2 : value < -2 ? -2 : value;
         }
-
     }
 }

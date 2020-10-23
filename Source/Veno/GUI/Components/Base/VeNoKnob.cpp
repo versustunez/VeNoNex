@@ -5,16 +5,21 @@
 
 VeNoKnob::VeNoKnob (const std::string& name, const std::string& pid)
         : BaseComponent (pid), VeNoComponentListener (pid),
-        m_slider(std::make_unique<Slider>())
+        m_slider(std::make_unique<Slider>()), m_name(name)
 {
-    m_slider->setComponentID (name);
+    m_slider->setComponentID (m_processId);
+    m_slider->setName(name);
     m_slider->setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
     m_slider->setSliderStyle (Slider::SliderStyle::RotaryVerticalDrag);
     m_slider->setPopupDisplayEnabled (true, true, getParentComponent (), 1000);
     m_slider->setPopupMenuEnabled (true);
     m_slider->addListener (this);
-    auto treeState = VenoInstance::getInstance (m_processId)->treeState;
-    m_attachment = std::make_unique<SliderAttachment> (*treeState, name, *m_slider);
+    auto instance = VenoInstance::getInstance (m_processId);
+    if (instance->handler->getParameter(name) != nullptr) {
+        auto treeState = instance->treeState;
+        m_attachment = std::make_unique<SliderAttachment> (*treeState, name, *m_slider);
+        instance->state->componentStates.addKnob(name, this);
+    }
     addAndMakeVisible (*m_slider);
 }
 
@@ -25,8 +30,12 @@ VeNoKnob::~VeNoKnob ()
     {
         m_label.reset ();
     }
-    m_attachment.reset ();
+    if (m_attachment != nullptr)
+    {
+        m_attachment.reset (nullptr);
+    }
     m_slider.reset ();
+    VenoInstance::getInstance(m_processId)->state->componentStates.removeKnob(m_name);
 }
 
 void VeNoKnob::init (const std::string& label)

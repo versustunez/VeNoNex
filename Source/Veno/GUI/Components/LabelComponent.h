@@ -29,6 +29,8 @@ public:
 
     void setJustification (juce::Justification::Flags justification);
 
+    void setText(std::string name);
+
     LabelPosition getLabelPosition ();
 
 protected:

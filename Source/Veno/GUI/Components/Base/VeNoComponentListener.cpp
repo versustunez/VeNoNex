@@ -21,7 +21,7 @@ void VeNoComponentListener::sliderValueChanged (Slider* slider)
     if (m_sliderChanging)
     {
         auto instance = VenoInstance::getInstance (m_pid);
-        auto parameter = instance->handler->getParameter (slider->getComponentID ().toStdString ());
+        auto parameter = instance->handler->getParameter (slider->getName ().toStdString ());
         instance->changeListener->notifyParameterChanged ("waveform", parameter);
     }
 

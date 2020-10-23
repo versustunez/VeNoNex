@@ -119,7 +119,7 @@ void ParameterHandler::unregisterListener (const std::string& parameterId)
     m_listener.erase (parameterId);
 }
 
-std::unordered_map<std::string, VeNoParameter*>& ParameterHandler::getParameters ()
+tsl::robin_map<std::string, VeNoParameter*>& ParameterHandler::getParameters ()
 {
     return m_parameters;
 }

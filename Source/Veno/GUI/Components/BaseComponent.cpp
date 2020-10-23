@@ -31,11 +31,11 @@ void BaseComponent::resized ()
         LabelPosition position = m_label->getLabelPosition ();
         if (position == LabelPosition::TOP)
         {
-            m_label->setBounds (0, 0, getWidth (), VeNo::Utils::getScaledSize (15));
+            m_label->setBounds (0, 0, getWidth (), VeNo::Utils::getScaledSize (16));
         }
         else if (position == LabelPosition::BOTTOM)
         {
-            auto height = VeNo::Utils::getScaledSize (15);
+            auto height = VeNo::Utils::getScaledSize (16);
             m_label->setBounds (0, getHeight () - height, getWidth (), height);
         }
     }
@@ -44,6 +44,7 @@ void BaseComponent::resized ()
 void BaseComponent::paint (Graphics& g)
 {
     g.setFont (*VenoFonts::getNormal ());
+    VeNo::Utils::setFontSize(16,g);
 }
 
 void BaseComponent::setParameter (std::string name)

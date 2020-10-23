@@ -1,5 +1,5 @@
 #include "VeNoDebugScreen.h"
-#include "../../../VenoInstance.h"
+#include "../../../../VenoInstance.h"
 
 VeNoDebugScreen::VeNoDebugScreen (const std::string& pid) : DocumentWindow ("VeNo Debugger", Colours::black,
                                                                             DocumentWindow::allButtons, true),
@@ -10,7 +10,7 @@ VeNoDebugScreen::VeNoDebugScreen (const std::string& pid) : DocumentWindow ("VeN
     component = std::make_shared<VeNoDebugComponent> (m_pid);
     component->setSize (w, h);
     m_lookHandler = std::make_unique<LookHandler> ();
-    component->setLookAndFeel (m_lookHandler->getLook ());
+    component->setLookAndFeel (m_lookHandler.get());
     centreWithSize (w, h);
     setAlwaysOnTop (true);
     setContentOwned (component.get (), false);

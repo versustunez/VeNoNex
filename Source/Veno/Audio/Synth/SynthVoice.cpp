@@ -19,15 +19,16 @@ namespace VeNo::Synth
 
     Voice::~Voice () = default;
 
-    void Voice::startNote (int midiChannel, int midiNoteNumber, float velocity)
+    void Voice::startNote (int midiChannel, int midiNoteNumber, float velocity, bool isLegato)
     {
         m_isActive = true;
         m_velocity = velocity;
         m_currentNote = midiNoteNumber;
         m_currentChannel = midiChannel;
+        m_isLegato = isLegato;
         for (int i = 0; i < m_count; i++)
         {
-            m_oscillators[i]->start (midiNoteNumber);
+            m_oscillators[i]->start (midiNoteNumber, isLegato && m_index == 0);
             m_envelopes[i]->prepare ();
             m_envelopes[i]->noteOn ();
         }

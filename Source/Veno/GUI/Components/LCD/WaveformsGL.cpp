@@ -16,17 +16,12 @@
 void Waveforms::newOpenGLContextCreated ()
 {
     compileOpenGLShaderProgram ();
-    m_context.extensions.glGenBuffers (1, &vbo);
-}
-
-void Waveforms::openGLContextClosing ()
-{
-
+    m_context->extensions.glGenBuffers (1, &vbo);
 }
 
 void Waveforms::renderOpenGL ()
 {
-    if (!VenoInstance::hasInstance (m_processId) || !m_context.isActive () || !m_context.isAttached () ||
+    if (!VenoInstance::hasInstance (m_processId) || !m_context->isActive () || !m_context->isAttached () ||
         m_shaderProgram == nullptr || !m_shaderProgram->getLastError ().isEmpty ())
     {
         stopTimer ();
@@ -43,8 +38,8 @@ void Waveforms::renderOpenGL ()
     {
         return;
     }
+    glViewport (m_x, m_y, getWidth (), getHeight ());
     OpenGLHelpers::clear (theme->getColour (ThemeColour::lcd_bg));
-    //glViewport(0, 0, getWidth(), getHeight());
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     m_shaderProgram->use ();
@@ -74,12 +69,15 @@ void Waveforms::renderOpenGL ()
         default:
             drawPeakMeter ();
     }
+    if (glGetError() > 0) {
+        DBG("NOP");
+    }
 }
 
 void Waveforms::compileOpenGLShaderProgram ()
 {
     std::unique_ptr<OpenGLShaderProgram> shaderProgramAttempt
-            = std::make_unique<OpenGLShaderProgram> (m_context);
+            = std::make_unique<OpenGLShaderProgram> (*m_context);
     if (shaderProgramAttempt->addVertexShader ({BinaryData::WaveForm_vertex_glsl})
         && shaderProgramAttempt->addFragmentShader ({BinaryData::WaveForm_fragment_glsl})
         && shaderProgramAttempt->link ())
@@ -144,17 +142,17 @@ void Waveforms::drawPeakMeter ()
             {0.9f,   -1.0f},
             {0.08f,  -1.0f}
     };
-    m_context.extensions.glBindBuffer (GL_ARRAY_BUFFER, vbo);
-    m_context.extensions.glBufferData (GL_ARRAY_BUFFER, sizeof (VeNo::GL::Vertex2) * m_vertexBuffer.size (),
-                                       m_vertexBuffer.data (), GL_DYNAMIC_DRAW);
-    m_context.extensions.glVertexAttribPointer (0, 2, GL_FLOAT, GL_FALSE, sizeof (VeNo::GL::Vertex2), nullptr);
-    m_context.extensions.glEnableVertexAttribArray (0);
+    m_context->extensions.glBindBuffer (GL_ARRAY_BUFFER, vbo);
+    m_context->extensions.glBufferData (GL_ARRAY_BUFFER, sizeof (VeNo::GL::Vertex2) * m_vertexBuffer.size (),
+                                        m_vertexBuffer.data (), GL_DYNAMIC_DRAW);
+    m_context->extensions.glVertexAttribPointer (0, 2, GL_FLOAT, GL_FALSE, sizeof (VeNo::GL::Vertex2), nullptr);
+    m_context->extensions.glEnableVertexAttribArray (0);
     glDrawArrays (
             GL_TRIANGLES,
             0,
             m_vertexBuffer.size ()
     );
-    m_context.extensions.glDisableVertexAttribArray (0);
+    m_context->extensions.glDisableVertexAttribArray (0);
 
 }
 

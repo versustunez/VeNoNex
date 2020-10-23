@@ -2,9 +2,9 @@
 #define VENO_CONFIGCOMPONENT_H
 
 #include "JuceHeader.h"
-#include "../../../Core/Config.h"
-#include "../../Components/Config/VeNoColour.h"
-#include "../../Components/Config/VenoPreColours.h"
+#include "../../../../Core/Config.h"
+#include "../../../Components/Config/VeNoColour.h"
+#include "../../../Components/Config/VenoPreColours.h"
 
 class ConfigComponent : public Component
 {

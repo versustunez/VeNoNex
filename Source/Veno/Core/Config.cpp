@@ -2,6 +2,7 @@
 #include "../GUI/Fonts/Fonts.h"
 #include "../GUI/GUIParts/Sidebar/VenoLogo.h"
 #include "../Utils.h"
+#include "../../PluginEditor.h"
 
 std::shared_ptr<Config> Config::m_instance = nullptr;
 
@@ -12,6 +13,9 @@ Config::Config ()
     m_theme = std::make_shared<Theme> (m_config);
     m_theme->init ();
     m_fps = m_config->getIntValue ("waveform_fps", 60);
+    look = std::make_shared<LookHandler>();
+    look->selectLook(m_currentLook);
+    LookAndFeel::setDefaultLookAndFeel (look.get());
     startTimer (5000);
 }
 
@@ -66,7 +70,8 @@ Config::~Config ()
     m_config->setNeedsToBeSaved (false);
     m_theme.reset ();
     m_config.reset ();
-    m_lookHandler.reset ();
+    LookAndFeel::setDefaultLookAndFeel (nullptr);
+    look.reset ();
     stopTimer ();
     VenoFonts::destroyAll ();
     VenoLogo::deleteInstance ();
@@ -117,6 +122,7 @@ void Config::setScale (double value)
     for (auto& editor : m_editors)
     {
         editor.second->setSize (1200 * m_scale, 700 * m_scale);
+        dynamic_cast<VenoAudioProcessorEditor*>(editor.second)->updateTabs();
     }
 }
 
@@ -132,6 +138,7 @@ void Config::repaintAll ()
         if (editor.second->isShowing ())
         {
             editor.second->repaint ();
+            dynamic_cast<VenoAudioProcessorEditor*>(editor.second)->updateTabs();
         }
     }
 }

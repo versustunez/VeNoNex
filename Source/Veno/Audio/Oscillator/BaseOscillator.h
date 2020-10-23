@@ -18,12 +18,13 @@ protected:
     int m_maxVoices = 9;
     bool m_hasDetune = true;
     int m_index = 0;
+    double m_lastPortamento;
 public:
     BaseOscillator (const std::string& id, const std::string& name, int maxVoices);
 
     ~BaseOscillator ();
 
-    bool start (int currentMidiNote);
+    bool start (int currentMidiNote, bool portamento);
 
     void stop ();
 
@@ -49,15 +50,16 @@ public:
     double getPitchBend ();
 
     void setIndex (int index);
-
+    std::vector<double> m_values{0, 0, 0};
 protected:
     double m_freq = 0.0;
     int m_midiNote = 0;
+    SmoothedValue<double, ValueSmoothingTypes::Linear> m_midiNotePortamento;
+    bool m_isPorta = false;
     std::vector<OscillatorVoice*> m_voices;
     std::shared_ptr<WaveTableWrapper> m_waveTableHelper;
     std::shared_ptr<DetuneHelper> m_DetuneHelper;
     std::shared_ptr<OscillatorParameters> m_parameters;
-    std::vector<double> m_values{0, 0, 0};
     std::vector<double> m_panning{0, 0};
 
     //modules

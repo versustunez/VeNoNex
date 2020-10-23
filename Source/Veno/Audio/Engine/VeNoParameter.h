@@ -17,7 +17,6 @@ private:
     std::string m_name;
     std::string m_showName;
     std::string m_id;
-    double m_value;
     double m_max;
     double m_min;
     bool m_isModulation = false;
@@ -49,6 +48,8 @@ public:
 
     double getMaxValue() const;
     double getMinValue() const;
+
+    double m_value;
 };
 
 

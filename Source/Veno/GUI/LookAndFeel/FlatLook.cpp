@@ -2,6 +2,8 @@
 #include "../../GUI/Fonts/Fonts.h"
 #include "../../Core/Config.h"
 #include "../../Utils.h"
+#include "../Components/Base/VeNoKnob.h"
+#include "../../VenoInstance.h"
 
 
 FlatLook::FlatLook ()
@@ -33,7 +35,22 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
     auto radius = jmin (width / 2, height / 2) - VeNo::Utils::getScaledSize (3.5f);
     auto centreX = x + width * 0.5f;
     auto centreY = y + height * 0.5f;
+    auto key = slider.getName ().toStdString ();
+    auto pid = slider.getComponentID ().toStdString ();
+    float arcPos = sliderPosProportional;
     auto angle = rotaryStartAngle + sliderPosProportional * (rotaryEndAngle - rotaryStartAngle);
+    if (VenoInstance::hasInstance (pid))
+    {
+        auto param = VenoInstance::getInstance (pid)->handler->getParameter (key);
+        if (param != nullptr)
+        {
+            auto value = param->getModulateValue ();
+            if (value != nullptr)
+            {
+                arcPos = (value->m_matrixPos + value->m_matrixPosPrev) / 2;
+            }
+        }
+    }
     float size = VeNo::Utils::getScaledSize (3.5f);
 
     //---[the real draw]---//
@@ -42,12 +59,12 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
                             MAX_RADIAN,
                             true);
     outerArc.applyTransform (AffineTransform ().translated (centreX, centreY));
-    g.setColour (theme->getColour(ThemeColour::accent).withAlpha(0.2f));
+    g.setColour (theme->getColour (ThemeColour::accent).withAlpha (0.2f));
     g.strokePath (outerArc, PathStrokeType (size));
 
     //prepare pointer for drawing
     Path arc;
-    arc.addCentredArc (0, 0, radius, radius, 0, -MAX_RADIAN, (sliderPosProportional * 2 - 1) * MAX_RADIAN,
+    arc.addCentredArc (0, 0, radius, radius, 0, -MAX_RADIAN, VeNo::Utils::clamp(arcPos * 2 - 1, -1, 1) * MAX_RADIAN,
                        true);
     arc.applyTransform (AffineTransform ().translated (centreX, centreY));
     g.setGradientFill (
@@ -86,16 +103,22 @@ void FlatLook::drawToggleButton (Graphics& graphics, ToggleButton& button, bool 
     int height = button.getHeight ();
     int width = button.getWidth ();
     auto theme = Config::getInstance ()->getCurrentTheme ();
-    std::string text;
+    auto text = button.getButtonText ();
     if (shouldDrawButtonAsDown || button.getToggleStateValue () == button.buttonDown)
     {
         graphics.setColour (theme->getColour (ThemeColour::accent));
-        text = "On";
+        if (text == "")
+        {
+            text = "On";
+        }
     }
     else
     {
         graphics.setColour (theme->getColour (ThemeColour::accent).withAlpha (0.2f));
-        text = "Off";
+        if (text == "")
+        {
+            text = "Off";
+        }
     }
 
     auto l = VeNo::Utils::getScaledSize (2);
@@ -136,6 +159,8 @@ void FlatLook::drawComboBox (Graphics& graphics, int width, int height, bool isB
     auto theme = Config::getInstance ()->getCurrentTheme ();
     graphics.setColour (theme->getColour (ThemeColour::accent));
     graphics.fillRect (0, height - borderHeight, width, borderHeight);
+    graphics.setColour (theme->getColour (ThemeColour::bg_two).withAlpha (0.2f));
+    graphics.fillRect (0, 0, width, height - borderHeight);
 }
 
 void FlatLook::drawLabel (Graphics& graphics, Label& label)

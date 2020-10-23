@@ -12,7 +12,6 @@
 class LookHandler : public LookAndFeel_V4
 {
 private:
-    std::shared_ptr<LookAndFeel_V4> m_look;
     int m_currentLook = 0;
 public:
     LookHandler ();
@@ -42,7 +41,15 @@ public:
 
     void drawLabel (Graphics& graphics, Label& label) override;
 
-    void drawTabAreaBehindFrontButton(TabbedButtonBar& bar, Graphics& g, int w, int h) override;
+    void drawTabAreaBehindFrontButton (TabbedButtonBar& bar, Graphics& g, int w, int h) override;
+
+    void drawPopupMenuItem (Graphics& graphics, const Rectangle<int>& area, bool isSeparator, bool isActive,
+                            bool isHighlighted, bool isTicked, bool hasSubMenu, const String& text,
+                            const String& shortcutKeyText, const Drawable* icon, const Colour* textColour) override;
+
+    PopupMenu::Options getOptionsForComboBoxPopupMenu (ComboBox& box, Label& label) override;
+
+    void drawPopupMenuBackground (Graphics& graphics, int width, int height) override;
 
 protected:
     //currently both available themes are CrazyLook <-- (this is a fun one xD) and FlatLook

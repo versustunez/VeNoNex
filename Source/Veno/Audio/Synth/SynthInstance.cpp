@@ -87,22 +87,25 @@ namespace VeNo::Synth
         int index = 0;
         int voiceToSteal = -1;
         int highestNote = -1;
+        auto legato = VenoInstance::getInstance (m_processId)->handler->getParameter ("mono_legato")->getAsBoolean();
         for (auto& m_voice : m_voices)
         {
             if (m_voice->canPlay ())
             {
                 m_voice->m_noteOnTime = ++m_lastNoteOnCounter;
-                m_voice->startNote (midiChannel, midiNoteNumber, velocity);
+                m_voice->startNote (midiChannel, midiNoteNumber, velocity, false);
                 voiceToSteal = -1;
+                break;
+            }
+            if (legato)
+            {
+                voiceToSteal = index;
+                m_lastNoteOnCounter = 0;
                 break;
             }
             if (m_voice->getCurrentNote () > highestNote)
             {
-                if (voiceToSteal == -1)
-                {
-                    voiceToSteal = index;
-                }
-                else if (m_voice->m_noteOnTime < m_voices[voiceToSteal]->m_noteOnTime)
+                if (voiceToSteal == -1 ||m_voice->m_noteOnTime < m_voices[voiceToSteal]->m_noteOnTime)
                 {
                     voiceToSteal = index;
                 }
@@ -112,9 +115,11 @@ namespace VeNo::Synth
 
         if (voiceToSteal != -1)
         {
-            m_voices[voiceToSteal]->stopNote (0.0f);
-            m_voices[voiceToSteal]->m_noteOnTime = ++m_lastNoteOnCounter;
-            m_voices[voiceToSteal]->startNote (midiChannel, midiNoteNumber, velocity);
+            if (!legato) {
+                m_voices[voiceToSteal]->stopNote (0.0f);
+                m_voices[voiceToSteal]->m_noteOnTime = ++m_lastNoteOnCounter;
+            }
+            m_voices[voiceToSteal]->startNote (midiChannel, midiNoteNumber, velocity, legato);
         }
     }
 
@@ -177,14 +182,23 @@ namespace VeNo::Synth
     void Synthesizer::renderVoice (AudioBuffer<float>& buffer, int startSample, int numSamples)
     {
         auto* matrix = VenoInstance::getInstance (m_processId)->matrix;
+        auto legato = VenoInstance::getInstance (m_processId)->handler->getParameter ("mono_legato");
+        auto master = VenoInstance::getInstance(m_processId)->handler->getParameterValue("master__volume", 1);
+        auto veNoBuffer = VenoInstance::getInstance(m_processId)->audioBuffer;
         while (--numSamples >= 0)
         {
             matrix->updateSlots ();
             output[0] = 0;
             output[1] = 0;
             output[2] = 0;
+            int vIndex = 0;
             for (auto& voice : m_voices)
             {
+                if (vIndex != 0 && legato->m_value > 0.5)
+                {
+                    continue;
+                }
+                vIndex++;
                 if (!voice->m_isActive)
                 {
                     continue;
@@ -194,16 +208,18 @@ namespace VeNo::Synth
                 double values[3] = {0,0,0};
                 for (int i = 0; i < voice->m_count; i++)
                 {
-                    if (voice->m_envelopes[i]->isActive ())
+                    auto envelope = voice->m_envelopes[i];
+                    if (envelope->isActive ())
                     {
+                        auto osc = voice->m_oscillators[i];
                         cleanNote = false;
-                        voice->m_envelopes[i]->update ();
-                        auto envValue = voice->m_envelopes[i]->getValue ();
-                        if (voice->m_oscillators[i]->render ())
+                        envelope->update ();
+                        auto envValue = envelope->getValue ();
+                        if (osc->render ())
                         {
                             runIntoSample = true;
-                            values[1] += voice->m_oscillators[i]->getLeftValue () * envValue;
-                            values[2] += voice->m_oscillators[i]->getRightValue () * envValue;
+                            values[1] += osc->m_values[1] * envValue;
+                            values[2] += osc->m_values[2] * envValue;
                         };
                     }
                 }
@@ -214,8 +230,13 @@ namespace VeNo::Synth
                 output[1] += (values[1] * 0.25);
                 output[2] += (values[2] * 0.25);
             }
+            output[1] *= master;
+            output[2] *= master;
             buffer.addSample (0, startSample, output[1]);
             buffer.addSample (1, startSample, output[2]);
+            veNoBuffer->addMonoSample(output[1]);
+            veNoBuffer->addLeftSample(output[1]);
+            veNoBuffer->addRightSample(output[2]);
             ++startSample;
         }
     }

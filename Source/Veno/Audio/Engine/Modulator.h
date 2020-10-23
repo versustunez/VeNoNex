@@ -20,11 +20,11 @@ public:
 
     int getVoice ();
 
-protected:
-    double m_value = 0.0f;
-    // if m_voice -1 this means he has not to add the value to a special voice like the Envelope
-    int m_voice = -1;
     std::string m_showName;
+    bool m_isTwoSides = false;
+    double m_value = 0.0f;
+// if m_voice -1 this means he has not to add the value to a special voice like the Envelope
+int m_voice = -1;
 };
 
 #endif //VENO_MODULATOR_H

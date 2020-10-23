@@ -2,13 +2,18 @@
 
 void ComboBoxSetupHelper::setupWaveTable (VeNoSelect& box)
 {
+    box.addHeader("Clean");
     box.addItem ("Saw");
     box.addItem ("Sine");
     box.addItem ("Cosine");
     box.addItem ("Square");
     box.addItem ("Triangle");
-    box.addItem ("Dirty Saw");
-    box.addItem ("Dirty Square");
+
+    box.addHeader("Dirty");
+    box.addItem ("Saw");
+    box.addItem ("Square");
+
+    box.addHeader("Custom");
     box.addItem ("Synth 1");
     box.addItem ("Synth 2");
     box.addItem ("VeNoX");

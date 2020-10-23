@@ -2,8 +2,8 @@
 #define VENO_VENOCONFIGSCREEN_H
 
 #include "JuceHeader.h"
-#include "../../../Core/Config.h"
-#include "../../Components/Config/VeNoColour.h"
+#include "../../../../Core/Config.h"
+#include "../../../Components/Config/VeNoColour.h"
 #include "ConfigComponent.h"
 
 class VenoConfigScreen : public DocumentWindow

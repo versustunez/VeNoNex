@@ -13,11 +13,6 @@ Waveforms::Waveforms (const std::string& processId) : BaseComponent (processId)
 {
     setMouseCursor (MouseCursor::PointingHandCursor);
     setInterceptsMouseClicks (true, false);
-    m_context.setOpenGLVersionRequired (OpenGLContext::OpenGLVersion::openGL3_2);
-    m_context.setRenderer (this);
-    m_context.setContinuousRepainting (false);
-    m_context.setComponentPaintingEnabled (true);
-    m_context.attachTo (*this);
     std::srand (unsigned (time (nullptr)));
     m_randomText = (std::rand () % RANDOM_TEXT_COUNT);
     m_ticks = 0;
@@ -25,7 +20,9 @@ Waveforms::Waveforms (const std::string& processId) : BaseComponent (processId)
     m_dBScale->m_mode = -1;
     m_fft = std::make_unique<FFT> ();
     addAndMakeVisible (*m_dBScale);
-    VenoInstance::getInstance (m_processId)->changeListener->addListener ("waveform", this);
+    auto instance = VenoInstance::getInstance (m_processId);
+    instance->changeListener->addListener ("waveform", this);
+    m_context = instance->glContext;
     getState ();
 }
 
@@ -35,7 +32,6 @@ Waveforms::~Waveforms ()
     VenoInstance::getInstance (m_processId)->state->m_lcd_mode = m_mode;
     stopTimer ();
     m_shaderProgram.reset ();
-    m_context.detach ();
     m_dBScale.reset (nullptr);
 }
 
@@ -143,6 +139,19 @@ void Waveforms::resized ()
     auto halfWidth = getWidth () / 2;
     auto w = VeNo::Utils::getScaledSize (21);
     m_dBScale->setBounds (halfWidth - (w / 2), 0, w, getHeight ());
+    auto comp = findParentComponentOfClass<AudioProcessorEditor> ();
+    if (comp != nullptr)
+    {
+        Point<int> point = {getX (), getY ()};
+        auto pointOnTopLevel = getLocalPoint (comp, point);
+        m_x = pointOnTopLevel.getX ();
+        m_y = pointOnTopLevel.getY ();
+    }
+    else
+    {
+        m_x = getX ();
+        m_y = getY ();
+    }
 }
 
 void Waveforms::getState ()
@@ -204,10 +213,7 @@ void Waveforms::handleAsyncUpdate ()
     repaint ();
     if (!m_isStarting && !m_isChangingData && !m_needToClear)
     {
-        if (m_context.isAttached ())
-        {
-            m_context.triggerRepaint ();
-            stopTimer ();
-        }
+        m_context->triggerRepaint ();
+        stopTimer ();
     }
 }

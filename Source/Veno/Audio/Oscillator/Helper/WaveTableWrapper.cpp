@@ -75,7 +75,6 @@ void WaveTableWrapper::setFrequency (int untilIndex, double baseFreq, std::share
 
 void WaveTableWrapper::setRandomPhase ()
 {
-    std::srand (135035011);
     for (auto& m_voice : m_voices)
     {
         m_voice->m_phasor = (double) std::rand () / RAND_MAX;

@@ -3,13 +3,14 @@
 
 #include "JuceHeader.h"
 #include "Audio/Synth/SynthInstance.h"
-#include "Utils/FFT.h"
+#include "Services/FFT.h"
 #include "Audio/VenoBuffer.h"
 #include "Audio/Engine/VeNoMatrix.h"
 #include "Core/VeNoState.h"
 #include "Core/ParameterHandler.h"
 #include "Core/VeNoChangeListener.h"
 #include "Core/PresetManager.h"
+#include "Audio/Engine/AudioModulators.h"
 #include <unordered_map>
 
 class VenoInstance
@@ -40,6 +41,8 @@ public:
     VeNoChangeListener* changeListener;
     PresetManager* presetManager;
     AudioProcessorValueTreeState* treeState = nullptr;
+    VeNo::AudioModulators* modulators;
+    OpenGLContext* glContext;
 
     static std::unordered_map<std::string, std::shared_ptr<VenoInstance>> getAll ();
 

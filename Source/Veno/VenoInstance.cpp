@@ -13,6 +13,7 @@ VenoInstance::VenoInstance (const std::string& id)
     handler = new ParameterHandler (m_id);
     changeListener = new VeNoChangeListener ();
     presetManager = new PresetManager (m_id);
+    modulators = new VeNo::AudioModulators(m_id);
 }
 
 VenoInstance::~VenoInstance ()
@@ -24,6 +25,7 @@ VenoInstance::~VenoInstance ()
     delete handler;
     delete changeListener;
     delete presetManager;
+    delete modulators;
 }
 
 std::shared_ptr<VenoInstance> VenoInstance::createInstance (const std::string& id)

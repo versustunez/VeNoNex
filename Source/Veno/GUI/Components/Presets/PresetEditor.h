@@ -3,8 +3,9 @@
 
 
 #include "../BaseComponent.h"
+#include "../../../Core/VeNoListener.h"
 
-class PresetEditor : public BaseComponent, public Label::Listener
+class PresetEditor : public BaseComponent, public Label::Listener, public VeNoListener
 {
 public:
     explicit PresetEditor (const std::string& pid);
@@ -20,6 +21,10 @@ public:
     void editorHidden (Label* label, TextEditor& editor) override;
 
     void labelTextChanged (Label* labelThatHasChanged) override;
+
+    void parameterChanged (VeNoParameter* parameter) override;
+
+    void notify (const std::string& name, double value) override;
 
 protected:
 };

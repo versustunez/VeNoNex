@@ -2,7 +2,7 @@
 #define VENO_VENODEBUGSCREEN_H
 
 #include "JuceHeader.h"
-#include "../../../Core/Config.h"
+#include "../../../../Core/Config.h"
 #include "VeNoDebugComponent.h"
 
 class VeNoDebugScreen : public DocumentWindow

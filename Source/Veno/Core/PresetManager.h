@@ -2,6 +2,8 @@
 #define VENO_PRESETMANAGER_H
 
 #include <string>
+#include <memory>
+#include "JuceHeader.h"
 
 class PresetManager
 {
@@ -20,9 +22,16 @@ public:
 
     void loadPrev ();
 
+    void toInit ();
+
+    std::unique_ptr<XmlElement> getCurrentData ();
+
+    void setCurrentData (const std::unique_ptr<XmlElement>& data);
+
+    std::string m_name = "Init";
+
 protected:
     std::string m_pid;
-    std::string m_name;
 };
 
 #endif //VENO_PRESETMANAGER_H

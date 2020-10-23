@@ -2,9 +2,9 @@
 #define VENO_PARAMETERHANDLER_H
 
 #include "JuceHeader.h"
-#include <unordered_map>
 #include "VeNoListener.h"
 #include "../Audio/Engine/VeNoParameter.h"
+#include "../../vendor/tsl/robin_map.h"
 
 class ParameterHandler : public AudioProcessorValueTreeState::Listener
 {
@@ -41,7 +41,7 @@ public:
 
     void unregisterListener (const std::string& parameterId);
 
-    std::unordered_map<std::string, VeNoParameter*>& getParameters ();
+    tsl::robin_map<std::string, VeNoParameter*>& getParameters ();
 
     std::vector<std::string> rawParameters ();
 
@@ -50,8 +50,8 @@ private:
     std::string m_id;
     std::vector<std::unique_ptr<RangedAudioParameter>> m_params;
     std::vector<std::string> m_paramMaps;
-    std::unordered_map<std::string, VeNoParameter*> m_parameters;
-    std::unordered_map<std::string, VeNoListener*> m_listener;
+    tsl::robin_map<std::string, VeNoParameter*> m_parameters;
+    tsl::robin_map<std::string, VeNoListener*> m_listener;
     AudioProcessorValueTreeState* m_treeState = nullptr;
 
     JUCE_LEAK_DETECTOR (ParameterHandler)

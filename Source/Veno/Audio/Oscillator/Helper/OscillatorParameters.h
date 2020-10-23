@@ -18,6 +18,8 @@ public:
     VeNoParameter* m_pitchWheel;
     VeNoParameter* m_pitchUp;
     VeNoParameter* m_pitchDown;
+    VeNoParameter* m_legato;
+    VeNoParameter* m_portamento;
 
     //oscillator stuff
     VeNoParameter* m_active;
@@ -35,9 +37,6 @@ public:
     VeNoParameter* m_waveformPrimary;
     VeNoParameter* m_waveformSecond;
     VeNoParameter* m_waveformMix;
-
-    VeNoParameter* m_limiterThreshold;
-    VeNoParameter* m_limiterMode;
 
     std::string m_name;
     ParameterHandler* m_handler;

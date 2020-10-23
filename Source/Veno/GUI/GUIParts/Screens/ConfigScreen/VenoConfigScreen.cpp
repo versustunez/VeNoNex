@@ -1,5 +1,5 @@
 #include "VenoConfigScreen.h"
-#include "../../../VenoInstance.h"
+#include "../../../../VenoInstance.h"
 
 VenoConfigScreen::VenoConfigScreen (const std::string& pid) : DocumentWindow ("VeNo Config", Colours::black,
                                                                               DocumentWindow::closeButton, true),
@@ -10,7 +10,7 @@ VenoConfigScreen::VenoConfigScreen (const std::string& pid) : DocumentWindow ("V
     auto h = 800;
     component->setSize (w, h);
     m_lookHandler = std::make_unique<LookHandler> ();
-    component->setLookAndFeel (m_lookHandler->getLook ());
+    component->setLookAndFeel (m_lookHandler.get());
     centreWithSize (w, h);
     setAlwaysOnTop (true);
     setContentOwned (component.get (), false);

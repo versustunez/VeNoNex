@@ -21,6 +21,10 @@ void ParameterHandler::setupParameter ()
     addParameter ("mod3", "MOD3", 0, 1, 0, Float);
     // Modulator 4
     addParameter ("mod4", "MOD4", 0, 1, 0, Float);
+    // Mono legato -> Disable Voice 2-5 and only enable Voice1 and do Frequency Slides!
+    addParameter ("mono_legato", "Mono Legato", 0, 1, 0, Boolean);
+    // Glide Time until new note is reached
+    addParameter ("portamento", "Portamento", 0, 1.5, 0, Float);
 
     for (int i = 1; i < 5; i++)
     {
@@ -64,10 +68,6 @@ void ParameterHandler::setupParameter ()
         addParameter (oscId + "sustain", OSCName + " Sustain", 0, 1, 1, Float);
         // Oscillator Envelope Decay
         addParameter (oscId + "release", OSCName + " Release", 0, 2, 0.01, Float);
-        // Select between Hard-Limiter and PeakReducer
-        addParameter (oscId + "limiter_mode", OSCName + " Limiter Mode", 1, 2, 1, Integer);
-        // Select at which level the Limiter should run
-        addParameterModulate (oscId + "limiter_threshold", OSCName + " Limiter Threshold", 0.5, 1, 1, Float);
         // Select Filter
         addParameter (oscId + "filter_type", OSCName + " Filter", 1, 3, 1, Integer);
         // Q Factor
@@ -81,7 +81,7 @@ void ParameterHandler::setupParameter ()
         std::string lfoId = "lfo" + std::to_string (i) + "__";
         std::string LFOName = "LFO" + std::to_string (i);
         // Active or Deactivate LFO
-        addParameter (lfoId + "active", LFOName + " Active", 0, 1, 1, Boolean);
+        addParameter (lfoId + "active", LFOName + " Active", 0, 1, 0, Boolean);
         // How Many Voices he should play at Once: anyone above 1 will create Unison/Detune Voices
         addParameter (lfoId + "voices", LFOName + " Voices", 1, 9, 1, Integer);
         // Frequency of the LFO
@@ -104,10 +104,6 @@ void ParameterHandler::setupParameter ()
         addParameter (lfoId + "waveform_sec", LFOName + " Secondary Waveform", 1, 10, 4, Integer);
         // How much should both of the Waveform Mixed
         addParameterModulate (lfoId + "waveform_mix", LFOName + " Waveform Mix", 0, 1, 0, Float);
-        // Select between Hard-Limiter and PeakReducer
-        addParameter (lfoId + "limiter_mode", LFOName + " Limiter Mode", 1, 2, 1, Integer);
-        // Select at which level the Limiter should run
-        addParameterModulate (lfoId + "limiter_threshold", LFOName + " Limiter Threshold", 0.5, 1, 1, Float);
     }
 
 }

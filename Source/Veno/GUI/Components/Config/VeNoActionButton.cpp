@@ -7,8 +7,6 @@
 #include "../../../Utils/Logger.h"
 #include "../../../GUI/Fonts/Fonts.h"
 #include "../../../GUI/Fonts/Icons.h"
-#include "../../GUIParts/ConfigScreen/VenoConfigScreen.h"
-#include "../../GUIParts/Debug/VeNoDebugScreen.h"
 
 VeNoActionButton::VeNoActionButton (const std::string& processId, std::string name, ButtonType type)
         : BaseComponent (processId), m_name (std::move (name)), m_type (type)
@@ -65,6 +63,7 @@ void VeNoActionButton::handleConfig ()
     auto instance = VenoInstance::getInstance (m_processId);
     if (instance->state->configScreen != nullptr)
     {
+        instance->state->configScreen->closeButtonPressed();
         return;
     }
     instance->state->configScreen = new VenoConfigScreen (m_processId);
@@ -72,7 +71,13 @@ void VeNoActionButton::handleConfig ()
 
 void VeNoActionButton::handleMatrix ()
 {
-
+    auto instance = VenoInstance::getInstance (m_processId);
+    if (instance->state->matrix != nullptr)
+    {
+        instance->state->matrix->closeButtonPressed();
+        return;
+    }
+    instance->state->matrix = new VeNo::GuiMatrixScreen (m_processId);
 }
 
 void VeNoActionButton::handleDebug ()

@@ -9,7 +9,8 @@ VeNoEnvelope::VeNoEnvelope (const std::string& id, const std::string& name, doub
         m_sampleRate = sampleRate;
         setSampleRate (m_sampleRate);
     }
-    VenoInstance::getInstance (m_id)->matrix->addModulator (name, this);
+    this->m_showName = "Envelope (" + m_name + ")";
+    VenoInstance::getInstance (m_id)->matrix->addModulator (name + "_env", this);
     m_release = m_handler->getParameter (m_name + "__release");
     m_sustain = m_handler->getParameter (m_name + "__sustain");
     m_decay = m_handler->getParameter (m_name + "__decay");

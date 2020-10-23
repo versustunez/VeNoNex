@@ -24,9 +24,10 @@ public:
 
     void labelTextChanged (Label* labelThatHasChanged) override;
 
-protected:
     std::unique_ptr<Slider> m_slider;
+protected:
     std::string m_labelText = "";
+    std::string m_name;
     std::unique_ptr<SliderAttachment> m_attachment;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(VeNoKnob)
 };

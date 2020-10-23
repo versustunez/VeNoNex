@@ -15,7 +15,7 @@ namespace VeNo::Synth
 
         ~Voice ();
 
-        void startNote (int midiChannel, int midiNoteNumber, float velocity);
+        void startNote (int midiChannel, int midiNoteNumber, float velocity, bool isLegato);
 
         void stopNote (float velocity);
 
@@ -47,5 +47,6 @@ namespace VeNo::Synth
         int m_currentChannel = -1;
         float m_velocity = 0.0;
         double m_lastSampleRate = 0;
+        bool m_isLegato = false;
     };
 }
