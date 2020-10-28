@@ -20,8 +20,6 @@ public:
 
     void paint (Graphics& g) override;
 
-    std::shared_ptr<Waveforms> getWaveform ();
-
 protected:
     std::unique_ptr<SidebarLCD> m_lcd;
     std::unique_ptr<SidebarMixer> m_mixer;

@@ -42,7 +42,13 @@ public:
 
     void paint (Graphics& g) override;
 
+    void startSubPath(std::string name);
+
+    void closeSubPath();
+
 protected:
+    std::shared_ptr<PopupMenu> m_subMenu;
+    std::string m_subPathName = "";
     std::unique_ptr<ComboBox> m_select;
     std::unique_ptr<ComboBoxAttachment> m_attachment;
     int m_lastAddItem = 1;

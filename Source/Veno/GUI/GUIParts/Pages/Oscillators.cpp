@@ -2,49 +2,41 @@
 #include "../../../Core/Config.h"
 #include "../../Components/PageComponents/Oscillators/OscillatorPage.h"
 #include "../../../Utils.h"
+#include "../../../VenoInstance.h"
 
 namespace VeNo
 {
-    Oscillators::Oscillators (const std::string& pid) : BaseComponent (pid),
-                                                        m_tabbedComponent (std::make_unique<juce::TabbedComponent> (
-                                                                juce::TabbedButtonBar::Orientation::TabsAtTop))
+    Oscillators::Oscillators (const std::string& pid) : juce::TabbedComponent (
+            juce::TabbedButtonBar::Orientation::TabsAtTop), m_processId(pid)
     {
         auto theme = Config::getInstance ()->getCurrentTheme ();
         for (int i = 1; i <= 4; ++i)
         {
-            m_tabbedComponent->addTab ("OSC" + std::to_string (i), theme->getColour (ThemeColour::bg_two),
-                                       new OscillatorPage ("osc" + std::to_string (i), m_processId), true, -1);
+            addTab ("OSC" + std::to_string (i), theme->getColour (ThemeColour::bg_two),
+                    new OscillatorPage ("osc" + std::to_string (i), m_processId), true, -1);
         }
-        m_tabbedComponent->setTabBarDepth (Utils::getScaledSize (30));
-        m_tabbedComponent->setOutline (0);
-        addAndMakeVisible (*m_tabbedComponent);
-    }
-
-    void Oscillators::resized ()
-    {
-        if (m_tabbedComponent != nullptr)
-        {
-            m_tabbedComponent->setBounds (0, 0, getWidth (), getHeight ());
-            m_tabbedComponent->setCurrentTabIndex (m_tabbedComponent->getCurrentTabIndex ());
-        }
-    }
-
-    void Oscillators::paint (Graphics& g)
-    {
+        setTabBarDepth (Utils::getScaledSize (30));
+        setCurrentTabIndex(0);
+        setOutline (0);
     }
 
     void Oscillators::updateColour ()
     {
         auto theme = Config::getInstance ()->getCurrentTheme ();
-        auto tabs = m_tabbedComponent->getNumTabs ();
+        auto tabs = getNumTabs ();
         for (int i = 0; i < tabs; ++i)
         {
-            m_tabbedComponent->setTabBackgroundColour (i, theme->getColour (ThemeColour::bg_two));
+            setTabBackgroundColour (i, theme->getColour (ThemeColour::bg_two));
         }
     }
 
     void Oscillators::updateSize ()
     {
-        m_tabbedComponent->setTabBarDepth (Utils::getScaledSize (30));
+        setTabBarDepth (Utils::getScaledSize (30));
+    }
+
+    void Oscillators::currentTabChanged (int newCurrentTabIndex, const String& newCurrentTabName)
+    {
+        VenoInstance::getInstance (m_processId)->state->currentOscillator = newCurrentTabIndex + 1;
     }
 }

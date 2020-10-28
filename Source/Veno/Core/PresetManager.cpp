@@ -62,7 +62,17 @@ void PresetManager::setCurrentData (const std::unique_ptr<XmlElement>& data)
     auto params = data->getChildByName (treeState->state.getType ());
     if (params != nullptr)
     {
-        treeState->replaceState (ValueTree::fromXml (*params));
+        for (int i = 0; i < params->getNumChildElements (); ++i)
+        {
+            auto item = params->getChildElement (i);
+            auto& src = item->getStringAttribute ("id");
+            auto amount = item->getDoubleAttribute ("value");
+            auto parameter = treeState->getParameter (src);
+            if (parameter != nullptr)
+            {
+                parameter->setValueNotifyingHost (parameter->convertTo0to1 (amount));
+            }
+        }
     }
     auto matrix = data->getChildByName ("Matrix");
     if (matrix != nullptr)

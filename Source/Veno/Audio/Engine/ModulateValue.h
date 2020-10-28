@@ -28,6 +28,7 @@ public:
 
     double m_matrixPos = 0;
     double m_matrixPosPrev = 0;
+    std::vector<double> m_voiceMatrix;
 private:
     std::string m_name;
     std::string m_processId;
@@ -37,7 +38,6 @@ private:
     double m_minValue = -1;
     double m_normalised = 0;
     std::vector<double> m_voiceValues;
-    std::vector<double> m_voiceMatrix;
 
     JUCE_LEAK_DETECTOR(ModulateValue)
 };

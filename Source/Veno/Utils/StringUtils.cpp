@@ -1,6 +1,6 @@
 #include "StringUtils.h"
 
-std::vector<std::string> VeNo::StringUtils::split (std::string input, std::string separator)
+std::vector<std::string> VeNo::StringUtils::split (const std::string& input, const std::string& separator)
 {
     std::vector<std::string> result;
     std::string_view::size_type position, start = 0;

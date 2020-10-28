@@ -23,6 +23,7 @@ public:
     VeNo::ComponentStates componentStates;
     bool m_isFirstEditor = true;
     int m_lcd_mode = 0;
+    int currentOscillator = 1;
 };
 
 #endif //VENO_VENOSTATE_H

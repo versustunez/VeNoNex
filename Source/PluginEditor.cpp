@@ -105,11 +105,11 @@ void VenoAudioProcessorEditor::updateTabs ()
 
 void VenoAudioProcessorEditor::newOpenGLContextCreated ()
 {
-    m_sidebar->getWaveform ()->newOpenGLContextCreated ();
 }
 
 void VenoAudioProcessorEditor::renderOpenGL ()
 {
+    // repaint everything if triggerRepaint is called because then the GUI need some updates!
     auto knobs = VenoInstance::getInstance (m_id)->state->componentStates.m_knobs;
     for (auto& knob : knobs)
     {

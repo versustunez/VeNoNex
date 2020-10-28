@@ -10,7 +10,7 @@ namespace VeNo
     class StringUtils
     {
     public:
-        static std::vector<std::string> split (std::string input, std::string separator = " ");
+        static std::vector<std::string> split (const std::string& input, const std::string& separator = " ");
     };
 
 }

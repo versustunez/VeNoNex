@@ -47,7 +47,7 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
             auto value = param->getModulateValue ();
             if (value != nullptr)
             {
-                arcPos = (value->m_matrixPos + value->m_matrixPosPrev) / 2;
+                arcPos = (value->m_matrixPos + value->m_voiceMatrix[0]) / 2;
             }
         }
     }

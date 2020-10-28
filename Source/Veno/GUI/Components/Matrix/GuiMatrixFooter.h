@@ -21,6 +21,8 @@ namespace VeNo
 
         void buttonStateChanged (Button* button) override;
 
+        void createParameterSelection();
+
     protected:
         std::unique_ptr<VeNoSelect> m_modulatorSelect;
         std::unique_ptr<VeNoSelect> m_modulationSelect;

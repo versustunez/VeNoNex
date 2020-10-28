@@ -1,11 +1,11 @@
 #include "DecibelScale.h"
-#include "../../../Core/Config.h"
-#include "../../../Utils.h"
-#include "../../../GUI/Fonts/Fonts.h"
+#include "../../../../Core/Config.h"
+#include "../../../../Utils.h"
+#include "../../../Fonts/Fonts.h"
 
 DecibelScale::DecibelScale (const std::string& process_id) : BaseComponent (process_id)
 {
-
+    setMouseCursor(MouseCursor::PointingHandCursor);
 }
 
 void DecibelScale::resized ()

@@ -132,7 +132,7 @@ void BaseOscillator::setFrequency ()
     }
     auto semitones = m_parameters->m_semitones->getAsInt ();
     auto cents = m_parameters->m_cents->getValueForVoice (m_index) / 100;
-    midi = VeNo::Utils::clamp (midi + semitones + cents + getPitchBend (), 1, 127);
+    midi = VeNo::Utils::clamp (midi + semitones + cents + getPitchBend (), 0, 127);
     m_freq = std::exp ((midi - 69) * std::log (2) / 12) * 440.0f;
 }
 

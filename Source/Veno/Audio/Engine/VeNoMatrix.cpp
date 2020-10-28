@@ -28,8 +28,14 @@ void VeNoMatrix::removeModulator (const std::string& name)
 
 void VeNoMatrix::addModulator (const std::string& name, Modulator* modulator)
 {
-    m_rawOrder.push_back (name);
-    m_modulators.emplace (std::pair<const std::string&, Modulator*> (name, modulator));
+    if (!m_modulators.contains (name))
+    {
+        m_rawOrder.push_back (name);
+        m_modulators[name] = new VeNoMatrixSource ();
+        m_modulators[name]->name = name;
+        m_modulators[name]->showName = modulator->m_showName;
+    }
+    m_modulators[name]->sources.push_back (modulator);
 }
 
 //matrix is not in the valueTree-state is some own implementation!
@@ -39,7 +45,10 @@ void VeNoMatrix::updateSlots ()
     auto instance = VenoInstance::getInstance (m_processId);
     for (auto& m_source : m_modulators)
     {
-        m_source.second->update ();
+        for (auto& source : m_source.second->sources)
+        {
+            source->update ();
+        }
     }
 
     for (auto& value : m_values)
@@ -49,19 +58,32 @@ void VeNoMatrix::updateSlots ()
 
     for (auto& m_slot : m_slots)
     {
-        auto source = m_modulators[m_slot.second->source];
-        auto value = m_slot.second->value;
-        if (value == nullptr || source == nullptr)
+        if (m_slot.second == nullptr)
             continue;
-        auto amount = m_slot.second->amount;
-        auto valueToAdd = source->getValue () * amount;
-        if (source->m_voice != -1)
+        auto slotSource = m_modulators[m_slot.second->source];
+        auto value = m_slot.second->value;
+        if (slotSource == nullptr)
+            continue;
+
+        for (auto& source : slotSource->sources)
         {
-            value->addValueForVoice (valueToAdd, source->getVoice ());
-        }
-        else
-        {
-            value->addValue (valueToAdd);
+            auto amount = m_slot.second->amount;
+            auto valueToAdd = source->getValue () * amount;
+
+            for (auto& item : value)
+            {
+                if (item == nullptr)
+                    continue;
+
+                if (source->m_voice != -1)
+                {
+                    item->addValueForVoice (valueToAdd, source->getVoice ());
+                }
+                else
+                {
+                    item->addValue (valueToAdd);
+                }
+            }
         }
     }
     if (instance->glContext != nullptr)
@@ -72,17 +94,29 @@ void VeNoMatrix::updateSlots ()
 
 bool VeNoMatrix::setMatrixModulation (const std::string& name, const std::string& source, double amount)
 {
+    std::lock_guard<std::mutex> l (_mtx);
     auto c = std::string (source + name);
     if (m_slots.find (c) == m_slots.end ())
     {
-        auto val = VenoInstance::getInstance (m_processId)->handler->getModulateValue (name);
-        if (val != nullptr)
+        bool isAll = name == "osc_all_pitch";
+        if (isAll || m_values.contains (name))
         {
             m_slots[c] = new VeNoMatrixTarget ();
-            m_slots[c]->source = source;
-            m_slots[c]->name = name;
-            m_slots[c]->amount = amount;
-            m_slots[c]->value = VenoInstance::getInstance (m_processId)->handler->getModulateValue (name);
+            auto* slot = m_slots[c];
+            slot->source = source;
+            slot->name = name;
+            slot->amount = amount;
+            if (!isAll)
+            {
+                slot->value.push_back (m_values[name]);
+            }
+            else
+            {
+                slot->value.push_back (m_values["osc1__cents"]);
+                slot->value.push_back (m_values["osc2__cents"]);
+                slot->value.push_back (m_values["osc3__cents"]);
+                slot->value.push_back (m_values["osc4__cents"]);
+            }
             return true;
         }
         return false;
@@ -112,13 +146,7 @@ XmlElement* VeNoMatrix::saveMatrixToXML ()
 
 void VeNoMatrix::getMatrixFromXML (XmlElement* xml)
 {
-    std::lock_guard<std::mutex> l (_mtx);
-    // first we need to delete the state!
-    for (auto& m_slot : m_slots)
-    {
-        delete m_slot.second;
-    }
-    m_slots.clear ();
+    clear ();
     // recreate the matrix from xml...
     for (int i = 0; i < xml->getNumChildElements(); ++i)
     {
@@ -139,7 +167,7 @@ void VeNoMatrix::setMatrixModulationValue (const std::string& key, double amount
     }
 }
 
-const tsl::robin_map<std::string, Modulator*>& VeNoMatrix::getModulators ()
+const tsl::robin_map<std::string, VeNoMatrixSource*>& VeNoMatrix::getModulators ()
 {
     return m_modulators;
 }
@@ -151,7 +179,7 @@ tsl::robin_map<std::string, VeNoMatrixTarget*>& VeNoMatrix::getSlots ()
 
 std::string VeNoMatrix::getModulatorNameFromSlot (const std::string& key)
 {
-    return m_modulators[m_slots[key]->source]->m_showName;
+    return m_modulators[m_slots[key]->source]->showName;
 }
 
 void VeNoMatrix::removeSlot (const std::string& key)

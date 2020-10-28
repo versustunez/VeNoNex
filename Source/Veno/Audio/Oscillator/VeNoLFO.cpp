@@ -19,7 +19,6 @@ double VeNoLFO::getValue ()
 
 VeNoLFO::~VeNoLFO ()
 {
-    BaseOscillator::~BaseOscillator ();
 }
 
 void VeNoLFO::update ()

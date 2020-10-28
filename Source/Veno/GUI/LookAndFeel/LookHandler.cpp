@@ -77,8 +77,8 @@ PopupMenu::Options LookHandler::getOptionsForComboBoxPopupMenu (ComboBox& box, L
     return PopupMenu::Options ().withTargetComponent (&box)
             .withItemThatMustBeVisible (box.getSelectedId ())
             .withMinimumWidth (box.getWidth ())
-            .withMaximumNumColumns (2)
-            .withStandardItemHeight (VeNo::Utils::getScaledSize (19));
+            .withMaximumNumColumns (3)
+            .withStandardItemHeight (VeNo::Utils::getScaledSize (25));
 }
 
 
@@ -115,10 +115,26 @@ void LookHandler::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area, bo
             font.setHeight (maxFontHeight);
 
         g.setFont (font);
-        r.removeFromLeft (10);
-        g.drawFittedText (text, r, Justification::centredLeft, 1);
+        if (hasSubMenu)
+        {
+            auto arrowH = 0.6f * getPopupMenuFont ().getAscent ();
 
-        if (isTicked || hasSubMenu)
+            auto x = static_cast<float> (r.removeFromRight ((int) arrowH).getX ());
+            auto halfH = static_cast<float> (r.getCentreY ());
+
+            Path path;
+            path.startNewSubPath (x, halfH - arrowH * 0.5f);
+            path.lineTo (x + arrowH * 0.6f, halfH);
+            path.lineTo (x, halfH + arrowH * 0.5f);
+
+            g.strokePath (path, PathStrokeType (2.0f));
+        }
+
+        r.removeFromRight (3);
+        r.removeFromLeft (10);
+        g.drawFittedText (text, r, hasSubMenu ? Justification::centred : Justification::centredLeft, 1);
+
+        if (isTicked)
         {
             g.setColour (theme->getColour (ThemeColour::accent));
             g.fillRect (0, 0, 5, r.getHeight ());

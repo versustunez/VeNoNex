@@ -26,6 +26,7 @@ namespace VeNo::Synth
             return;
         }
         MidiMessage midi;
+        bool firstEvent = true;
         for (; numSamples > 0; ++midiIterator)
         {
             if (midiIterator == midiMessages.cend ())
@@ -43,17 +44,22 @@ namespace VeNo::Synth
                 break;
             }
 
-            if (samplesToNextMidiMessage < 1)
+            if (samplesToNextMidiMessage < (firstEvent ? 1 : 8))
             {
                 handleMidiEvent (metadata.getMessage ());
                 continue;
             }
 
+            firstEvent = false;
             renderVoice (buffer, startSample, samplesToNextMidiMessage);
             handleMidiEvent (metadata.getMessage ());
             startSample += samplesToNextMidiMessage;
             numSamples -= samplesToNextMidiMessage;
         }
+        std::for_each (midiIterator,
+                       midiMessages.cend (),
+                       [&] (const MidiMessageMetadata& meta)
+                       { handleMidiEvent (meta.getMessage ()); });
     }
 
     void Synthesizer::setSampleRate (double sampleRate)
@@ -209,18 +215,18 @@ namespace VeNo::Synth
                 for (int i = 0; i < voice->m_count; i++)
                 {
                     auto envelope = voice->m_envelopes[i];
-                    if (envelope->isActive ())
+                    if (envelope->isActive () && envelope->m_value > 0)
                     {
                         auto osc = voice->m_oscillators[i];
                         cleanNote = false;
                         envelope->update ();
-                        auto envValue = envelope->getValue ();
+                        auto envValue = envelope->m_value;
                         if (osc->render ())
                         {
                             runIntoSample = true;
                             values[1] += osc->m_values[1] * envValue;
                             values[2] += osc->m_values[2] * envValue;
-                        };
+                        }
                     }
                 }
                 if (cleanNote || !runIntoSample)

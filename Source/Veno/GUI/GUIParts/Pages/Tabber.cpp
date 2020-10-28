@@ -19,6 +19,7 @@ namespace VeNo
         m_tabbedComponent->addTab ("Modulators", theme->getColour (ThemeColour::bg), modulators, true, -1);
         m_tabbedComponent->setTabBarDepth (Utils::getScaledSize (30));
         m_tabbedComponent->setOutline (0);
+        m_tabbedComponent->setCurrentTabIndex(0, false);
         addAndMakeVisible (*m_tabbedComponent);
     }
 

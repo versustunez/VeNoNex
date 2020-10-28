@@ -10,16 +10,17 @@ namespace VeNo
         auto inst = VenoInstance::getInstance (m_processId);
         auto& slot = inst->matrix->getSlots ()[m_key];
         m_modulator = std::make_unique<juce::Label> ("modulator", inst->matrix->getModulatorNameFromSlot (m_key));
-        m_modulation = std::make_unique<juce::Label> ("modulation",
-                                                      inst->handler->getParameter (slot->name)->getShowName ());
-        m_modulator->setJustificationType(Justification::centred);
-        m_modulation->setJustificationType(Justification::centred);
+        std::string showName = slot->name == "osc_all_pitch" ? "OSC(All) Fine" : inst->handler->getParameter (
+                slot->name)->getShowName ();
+        m_modulation = std::make_unique<juce::Label> ("modulation", showName);
+        m_modulator->setJustificationType (Justification::centred);
+        m_modulation->setJustificationType (Justification::centred);
         m_amount = std::make_unique<VeNoKnob> ("unk", m_processId);
-        m_amount->m_slider->setRange(0.0, 1.0, 0.05);
-        m_amount->m_slider->setValue(slot->amount, NotificationType::dontSendNotification);
-        m_amount->m_slider->addListener(this);
+        m_amount->m_slider->setRange (-1.0, 1.0, 0.05);
+        m_amount->m_slider->setValue (slot->amount, NotificationType::dontSendNotification);
+        m_amount->m_slider->addListener (this);
         m_btn = std::make_unique<VeNoTextButton> ("unk", "Delete", m_processId);
-        m_btn->m_button->addListener(this);
+        m_btn->m_button->addListener (this);
         addAndMakeVisible (*m_modulator);
         addAndMakeVisible (*m_modulation);
         addAndMakeVisible (*m_amount);

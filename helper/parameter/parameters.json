@@ -233,7 +233,7 @@
       "modulateAble": false,
       "tooltip": "Main Waveform that is applied without Mix",
       "value": 1,
-      "maxValue": 10,
+      "maxValue": 12,
       "minValue": 1,
       "type": "Integer"
     },
@@ -243,7 +243,7 @@
       "modulateAble": false,
       "tooltip": "Secondary Waveform that is applied with Mix",
       "value": 4,
-      "maxValue": 10,
+      "maxValue": 12,
       "minValue": 1,
       "type": "Integer"
     },

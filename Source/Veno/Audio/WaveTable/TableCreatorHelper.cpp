@@ -36,7 +36,6 @@ namespace VeNo
         fft (table.m_len, table);
         findCutoff (topFreq, table);
         auto& ai = table.m_tempIm;
-        auto& ar = table.m_tempRe;
         auto len = table.m_len;
         auto group = table.m_group;
         scale = getScale (table, scale);

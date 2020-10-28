@@ -13,8 +13,8 @@ public:
 
     enum
     {
-        fftOrder = 10,
-        fftSize = 1024,
+        fftOrder = 11,
+        fftSize = 2048,
         scopeSize = 512
     };
 

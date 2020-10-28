@@ -283,14 +283,18 @@
                     file="Source/Veno/GUI/Components/Config/VenoPreColours.h"/>
             </GROUP>
             <GROUP id="{7C37E6D2-F2F7-6BF7-5D9B-2DDABFFE993F}" name="LCD">
-              <FILE id="HcApOX" name="DecibelScale.cpp" compile="1" resource="0"
-                    file="Source/Veno/GUI/Components/LCD/DecibelScale.cpp"/>
-              <FILE id="eSXqPi" name="DecibelScale.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/DecibelScale.h"/>
+              <GROUP id="{D66F4E45-67FC-AAD9-46A1-8D638D098EC4}" name="LCDComponents">
+                <FILE id="aYhgCN" name="DecibelScale.cpp" compile="1" resource="0"
+                      file="Source/Veno/GUI/Components/LCD/LCDComponents/DecibelScale.cpp"/>
+                <FILE id="aoVXSV" name="DecibelScale.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/LCDComponents/DecibelScale.h"/>
+                <FILE id="HrsUij" name="LCDParameters.cpp" compile="1" resource="0"
+                      file="Source/Veno/GUI/Components/LCD/LCDComponents/LCDParameters.cpp"/>
+                <FILE id="W4HvJc" name="LCDParameters.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/LCDComponents/LCDParameters.h"/>
+                <FILE id="FmS8s9" name="WaveForms.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/LCDComponents/WaveForms.cpp"/>
+                <FILE id="wUYHAQ" name="WaveForms.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/LCDComponents/WaveForms.h"/>
+              </GROUP>
               <FILE id="LpeTfD" name="SidebarLCD.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.cpp"/>
               <FILE id="Y5kUlM" name="SidebarLCD.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/SidebarLCD.h"/>
-              <FILE id="Ox2oOB" name="Waveforms.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.cpp"/>
-              <FILE id="vMrsGE" name="Waveforms.h" compile="0" resource="0" file="Source/Veno/GUI/Components/LCD/Waveforms.h"/>
-              <FILE id="YXbVA2" name="WaveformsGL.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/LCD/WaveformsGL.cpp"/>
             </GROUP>
             <GROUP id="{EA9A6FEB-D426-B3BC-C76A-2F2F033E3D0D}" name="Matrix">
               <FILE id="ngZoAk" name="GuiMatrixFooter.cpp" compile="1" resource="0"

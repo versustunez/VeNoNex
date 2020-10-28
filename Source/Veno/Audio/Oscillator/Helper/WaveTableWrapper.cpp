@@ -110,7 +110,12 @@ double WaveTableWrapper::getOutputRaw (int index, double offset)
         auto mixValue = m_parameters->m_waveformMix->getValue ();
         double phase = (double) cVoice->m_phasor + offset;
         auto sum = getWaveTableValue (cVoice->m_baseWaveTable, phase);
-        auto finalSum = getWaveTableValue (cVoice->m_currentWaveTable, phase);
+        // only return phase offset for first table! second should not apply then!
+        if (mixValue == 0)
+        {
+            return sum;
+        }
+        auto finalSum = getWaveTableValue (cVoice->m_currentWaveTable, (double) cVoice->m_phasor);
         return VeNo::Utils::waveTableMix (sum, finalSum, mixValue);
     }
     return 0;

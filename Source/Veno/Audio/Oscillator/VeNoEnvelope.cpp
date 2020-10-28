@@ -53,9 +53,16 @@ void VeNoEnvelope::update ()
 
 void VeNoEnvelope::prepare ()
 {
-    m_parameters.release = m_release->getValue ();
-    m_parameters.sustain = m_sustain->getValue ();
-    m_parameters.decay = m_decay->getValue ();
-    m_parameters.attack = m_attack->getValue ();
-    m_adsr.setParameters (m_parameters);
+    if (m_parameters.release != m_release->m_value
+        || m_parameters.sustain != m_sustain->m_value
+        || m_parameters.attack != m_attack->m_value
+        || m_parameters.decay != m_decay->m_value
+            )
+    {
+        m_parameters.release = m_release->m_value;
+        m_parameters.sustain = m_sustain->m_value;
+        m_parameters.decay = m_decay->m_value;
+        m_parameters.attack = m_attack->m_value;
+        m_adsr.setParameters (m_parameters);
+    }
 }

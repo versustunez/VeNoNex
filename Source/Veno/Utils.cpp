@@ -112,8 +112,8 @@ double VeNo::Utils::dbToGain (double decibels)
 
 double VeNo::Utils::dBForChannel (double value)
 {
-    return jmap (value, -30.0, 0.0, -1.0,
-                 0.9);
+    return jmap (value, -30.0, 0.0, 1.0,
+                 0.1);
 }
 
 double VeNo::Utils::getHigherValue (double a, double b)

@@ -15,4 +15,16 @@ namespace VeNo
         static void startCreation();
         void generate () override;
     };
+
+    struct Noise : public RawTable
+    {
+        static void startCreation();
+        void generate () override;
+    };
+
+    struct SmoothNoise : public RawTable
+    {
+        static void startCreation();
+        void generate () override;
+    };
 }

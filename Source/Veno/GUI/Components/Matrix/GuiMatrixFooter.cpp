@@ -1,6 +1,7 @@
 #include "GuiMatrixFooter.h"
 #include "../../../Core/Config.h"
 #include "../../../VenoInstance.h"
+#include "../../../Utils/StringUtils.h"
 
 namespace VeNo
 {
@@ -46,28 +47,14 @@ namespace VeNo
         m_modulations.clear ();
         auto instance = VenoInstance::getInstance (m_processId);
         auto matrix = instance->matrix;
-        auto parameters = instance->handler->getParameters ();
-        auto params = instance->handler->rawParameters ();
         auto& modulators = matrix->getModulators ();
         auto& rawMods = matrix->m_rawOrder;
         for (auto& modulator : rawMods)
         {
-            m_modulatorSelect->addItem (modulators.at (modulator)->m_showName);
+            m_modulatorSelect->addItem (modulators.at (modulator)->showName);
             m_modulators.push_back (modulator);
         }
-        for (auto& param : params)
-        {
-            auto parameter = parameters[param];
-            if (parameter == nullptr)
-            {
-                continue;
-            }
-            if (parameters[param]->getModulateValue () != nullptr)
-            {
-                m_modulationSelect->addItem (parameter->getShowName ());
-                m_modulations.push_back (param);
-            }
-        }
+        createParameterSelection ();
     }
 
     void GuiMatrixFooter::buttonClicked (Button* button)
@@ -94,5 +81,50 @@ namespace VeNo
 
     void GuiMatrixFooter::buttonStateChanged (Button* button)
     {
+    }
+
+    void GuiMatrixFooter::createParameterSelection ()
+    {
+        bool hasGroup = false;
+        std::string prevGroup = "";
+        auto instance = VenoInstance::getInstance (m_processId);
+        auto parameters = instance->handler->getParameters ();
+        auto params = instance->handler->rawParameters ();
+
+        for (auto& param : params)
+        {
+            auto parameter = parameters[param];
+            if (parameter == nullptr)
+            {
+                continue;
+            }
+            if (parameters[param]->getModulateValue () != nullptr)
+            {
+                auto sName = parameter->getShowName ();
+                auto thisGroup = VeNo::StringUtils::split (sName, " ")[0];
+                auto subString = thisGroup.substr (0, 3);
+                if (subString == "LFO" || subString == "OSC")
+                {
+                    if (!hasGroup)
+                    {
+                        m_modulationSelect->addItem ("OSC(All) Fine");
+                        m_modulations.emplace_back ("osc_all_pitch");
+                    }
+                    hasGroup = true;
+                }
+                if (hasGroup && prevGroup != thisGroup)
+                {
+                    m_modulationSelect->closeSubPath ();
+                    m_modulationSelect->startSubPath (thisGroup);
+                }
+                prevGroup = thisGroup;
+                m_modulationSelect->addItem (sName);
+                m_modulations.push_back (param);
+            }
+        }
+        if (hasGroup)
+        {
+            m_modulationSelect->closeSubPath ();
+        }
     }
 }

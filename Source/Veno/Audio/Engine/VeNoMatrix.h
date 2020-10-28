@@ -14,8 +14,15 @@ struct VeNoMatrixTarget
 {
     std::string name;
     std::string source;
-    double amount = 0; // always 0 to 1 <-- apply amount to modulator
-    std::shared_ptr<ModulateValue> value;
+    double amount = 0;
+    std::vector<ModulateValue*> value = {};
+};
+
+struct VeNoMatrixSource
+{
+    std::string name;
+    std::string showName;
+    std::vector<Modulator*> sources = {};
 };
 
 //@todo rebuild to new unlimited implementation!
@@ -41,7 +48,7 @@ public:
 
     void getMatrixFromXML (XmlElement* xml);
 
-    const tsl::robin_map<std::string, Modulator*>& getModulators();
+    const tsl::robin_map<std::string, VeNoMatrixSource*>& getModulators();
 
     tsl::robin_map<std::string, VeNoMatrixTarget*>& getSlots ();
 
@@ -56,7 +63,7 @@ public:
     void clear();
 
 private:
-    tsl::robin_map<std::string, Modulator*> m_modulators; //all sources
+    tsl::robin_map<std::string, VeNoMatrixSource*> m_modulators; //all sources
     tsl::robin_map<std::string, VeNoMatrixTarget*> m_slots;
     tsl::robin_map<std::string, ModulateValue*> m_values;
     std::string m_processId;

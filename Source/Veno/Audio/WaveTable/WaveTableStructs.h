@@ -36,5 +36,7 @@ namespace VeNo
         SYNTH_ONE,
         SYNTH_TWO,
         VENOX,
+        NOISE,
+        SMOOTH_NOISE,
     };
 }

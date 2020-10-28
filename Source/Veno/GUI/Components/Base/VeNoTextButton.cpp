@@ -8,7 +8,7 @@ namespace VeNo
             : BaseComponent (pid), m_button (std::make_unique<juce::TextButton> (text))
     {
         m_button->setComponentID (name);
-        m_button->addMouseListener (this, true);
+        m_button->addListener(this);
         setMouseCursor (MouseCursor::PointingHandCursor);
         addAndMakeVisible (*m_button);
     }

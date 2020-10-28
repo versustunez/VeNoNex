@@ -5,20 +5,19 @@
 
 namespace VeNo
 {
-    class Oscillators : public BaseComponent, public TabInterface
+    class Oscillators : public TabInterface, public juce::TabbedComponent
     {
     public:
-        Oscillators(const std::string& pid);
-        ~Oscillators() override = default;
+        explicit Oscillators (const std::string& pid);
 
-        void resized () override;
-
-        void paint (Graphics& g) override;
+        ~Oscillators () override = default;
 
         void updateColour () override;
+
         void updateSize () override;
 
-    protected:
-        std::unique_ptr<juce::TabbedComponent> m_tabbedComponent;
+    private:
+        std::string m_processId;
+        void currentTabChanged (int newCurrentTabIndex, const String& newCurrentTabName) override;
     };
 }

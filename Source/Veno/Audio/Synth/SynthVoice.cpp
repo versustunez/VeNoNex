@@ -57,7 +57,7 @@ namespace VeNo::Synth
 
     bool Voice::canPlay ()
     {
-        return !m_isActive && m_currentNote == -1 && m_currentChannel == -1 && m_velocity == 0;
+        return !m_isActive;
     }
 
     void Voice::updateSampleRate ()

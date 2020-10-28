@@ -46,7 +46,14 @@ int VeNoSelect::getSelection ()
 
 void VeNoSelect::addItem (const std::string& item)
 {
-    m_select->addItem (item, m_lastAddItem);
+    if (m_subMenu != nullptr)
+    {
+        m_subMenu->addItem (m_lastAddItem, item);
+    }
+    else
+    {
+        m_select->addItem (item, m_lastAddItem);
+    }
     m_lastAddItem++;
 }
 
@@ -89,10 +96,43 @@ void VeNoSelect::paint (Graphics& g)
 
 void VeNoSelect::addHeader (const std::string& item)
 {
-    m_select->addSectionHeading (item);
+
+    if (m_subMenu != nullptr)
+    {
+        m_subMenu->addSectionHeader (item);
+    }
+    else
+    {
+        m_select->addSectionHeading (item);
+    }
 }
 
 void VeNoSelect::addSeparator ()
 {
-    m_select->addSeparator ();
+    if (m_subMenu != nullptr)
+    {
+        m_subMenu->addSeparator();
+    } else {
+        m_select->addSeparator ();
+    }
+}
+
+void VeNoSelect::startSubPath (std::string name)
+{
+    if (m_subMenu != nullptr)
+    {
+        closeSubPath ();
+    }
+    m_subMenu = std::make_shared<PopupMenu> ();
+    m_subPathName = std::move(name);
+}
+
+void VeNoSelect::closeSubPath ()
+{
+    if (m_subMenu == nullptr)
+        return;
+    m_select->getRootMenu ()->addSubMenu (m_subPathName, *m_subMenu, true);
+    m_subPathName = "";
+    m_subMenu.reset ();
+    m_subMenu = nullptr;
 }

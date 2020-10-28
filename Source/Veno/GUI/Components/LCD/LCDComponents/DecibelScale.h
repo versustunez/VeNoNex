@@ -2,7 +2,7 @@
 #define VENO_DECIBELSCALE_H
 
 #include "JuceHeader.h"
-#include "../BaseComponent.h"
+#include "../../BaseComponent.h"
 
 class DecibelScale : public BaseComponent
 {

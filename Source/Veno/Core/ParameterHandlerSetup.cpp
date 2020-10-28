@@ -55,9 +55,9 @@ void ParameterHandler::setupParameter ()
         // Detune Stereo Spread
         addParameterModulate (oscId + "stereo", OSCName + " Detune Stereo", 0, 200, 50, Float);
         // Main Waveform that is applied without Mix
-        addParameter (oscId + "waveform_base", OSCName + " Primary Waveform", 1, 10, 1, Integer);
+        addParameter (oscId + "waveform_base", OSCName + " Primary Waveform", 1, 12, 1, Integer);
         // Secondary Waveform that is applied with Mix
-        addParameter (oscId + "waveform_sec", OSCName + " Secondary Waveform", 1, 10, 4, Integer);
+        addParameter (oscId + "waveform_sec", OSCName + " Secondary Waveform", 1, 12, 4, Integer);
         // How much should both of the Waveform Mixed
         addParameterModulate (oscId + "waveform_mix", OSCName + " Waveform Mix", 0, 1, 0, Float);
         // Oscillator Envelope Attack

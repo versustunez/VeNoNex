@@ -12,7 +12,7 @@ namespace VeNo
         std::vector<double> m_freqWaveIm;
         std::vector<double> m_tempRe;
         std::vector<double> m_tempIm;
-        size_t m_len = 0;
+        int m_len = 0;
         bool m_isRaw = false; // needed for Sine, Cosine...
 
         ~RawTable() = default;

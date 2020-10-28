@@ -7,7 +7,6 @@ SynthOscillator::SynthOscillator (const std::string& id, int maxVoices, const st
 
 SynthOscillator::~SynthOscillator ()
 {
-    BaseOscillator::~BaseOscillator ();
 }
 
 double SynthOscillator::getValue ()
