@@ -3,11 +3,12 @@
 
 
 #include <string>
-#include "Modules/OscillatorVoice.h"
 #include "../../Core/ParameterHandler.h"
 #include "Helper/WaveTableWrapper.h"
 #include "Modules/Limiter.h"
 #include "Helper/OscillatorParameters.h"
+#include "Modules/OscillatorFilter.h"
+#include "Modules/Widener.h"
 
 class BaseOscillator
 {
@@ -28,15 +29,9 @@ public:
 
     void stop ();
 
-    virtual bool render ();
-
-    bool postProcessing ();
-
-    bool preProcessing ();
+    bool render ();
 
     void initModules ();
-
-    void setFrequency ();
 
     // getter
     const std::vector<double>& getValue ();
@@ -47,17 +42,14 @@ public:
 
     double getMonoValue ();
 
-    double getPitchBend ();
-
     void setIndex (int index);
     std::vector<double> m_values{0, 0, 0};
+    std::shared_ptr<WaveTableWrapper> m_waveTableHelper;
 protected:
     double m_freq = 0.0;
     int m_midiNote = 0;
     SmoothedValue<double, ValueSmoothingTypes::Linear> m_midiNotePortamento;
     bool m_isPorta = false;
-    std::vector<OscillatorVoice*> m_voices;
-    std::shared_ptr<WaveTableWrapper> m_waveTableHelper;
     std::shared_ptr<DetuneHelper> m_DetuneHelper;
     std::shared_ptr<OscillatorParameters> m_parameters;
     std::vector<double> m_panning{0, 0};
@@ -65,6 +57,7 @@ protected:
     //modules
     std::shared_ptr<Widener> m_widener;
     std::shared_ptr<VeNo::Limiter> m_limiter;
+    std::shared_ptr<VeNo::OscillatorFilter> m_filter;
 };
 
 

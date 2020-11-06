@@ -75,31 +75,32 @@ namespace VeNo::Synth
         }
     }
 
-
-    bool Synthesizer::isInit () const
-    {
-        return m_isInit;
-    }
-
     void Synthesizer::noteOn (int midiChannel, int midiNoteNumber, float velocity)
     {
-        for (auto& m_voice : m_voices)
+        auto instance = VenoInstance::getInstance (m_processId);
+        auto envs = instance->modulators->m_envelopes;
+        for (int i = 0; i < m_voices.size (); i++)
         {
+            auto& m_voice = m_voices[i];
             if (m_voice->getCurrentChannel () == midiChannel && m_voice->getCurrentNote () == midiNoteNumber)
             {
+                envs[EnvelopeType::Voices]->envelopes[i]->noteOff ();
                 m_voice->stopNote (1.0f);
             }
         }
         int index = 0;
         int voiceToSteal = -1;
         int highestNote = -1;
-        auto legato = VenoInstance::getInstance (m_processId)->handler->getParameter ("mono_legato")->getAsBoolean();
-        for (auto& m_voice : m_voices)
+        auto legato = instance->handler->getParameter ("mono_legato")->getAsBoolean ();
+        for (int i = 0; i < m_voices.size (); i++)
         {
+            auto& m_voice = m_voices[i];
             if (m_voice->canPlay ())
             {
                 m_voice->m_noteOnTime = ++m_lastNoteOnCounter;
                 m_voice->startNote (midiChannel, midiNoteNumber, velocity, false);
+                envs[EnvelopeType::Free]->envelopes[0]->noteOn ();
+                envs[EnvelopeType::Voices]->envelopes[i]->noteOn ();
                 voiceToSteal = -1;
                 break;
             }
@@ -121,20 +122,28 @@ namespace VeNo::Synth
 
         if (voiceToSteal != -1)
         {
-            if (!legato) {
+            if (!legato)
+            {
                 m_voices[voiceToSteal]->stopNote (0.0f);
                 m_voices[voiceToSteal]->m_noteOnTime = ++m_lastNoteOnCounter;
             }
+            envs[EnvelopeType::Voices]->envelopes[voiceToSteal]->noteOn ();
+            envs[EnvelopeType::Free]->envelopes[0]->noteOn ();
             m_voices[voiceToSteal]->startNote (midiChannel, midiNoteNumber, velocity, legato);
         }
     }
 
     void Synthesizer::noteOff (int midiChannel, int midiNoteNumber, float velocity)
     {
-        for (auto& m_voice : m_voices)
+        auto instance = VenoInstance::getInstance (m_processId);
+        auto envs = instance->modulators->m_envelopes;
+        envs[EnvelopeType::Free]->envelopes[0]->noteOff ();
+        for (int i = 0; i < m_voices.size (); i++)
         {
+            auto& m_voice = m_voices[i];
             if (m_voice->getCurrentChannel () == midiChannel && m_voice->getCurrentNote () == midiNoteNumber)
             {
+                envs[EnvelopeType::Voices]->envelopes[i]->noteOff ();
                 m_voice->stopNote (1.0f);
             }
         }
@@ -153,8 +162,13 @@ namespace VeNo::Synth
         }
         else if (m.isAllNotesOff () || m.isAllSoundOff ())
         {
-            for (auto& m_voice : m_voices)
+            auto instance = VenoInstance::getInstance (m_processId);
+            auto envs = instance->modulators->m_envelopes;
+            envs[EnvelopeType::Free]->envelopes[0]->noteOff ();
+            for (int i = 0; i < m_voices.size (); i++)
             {
+                auto& m_voice = m_voices[i];
+                envs[EnvelopeType::Voices]->envelopes[i]->noteOff ();
                 m_voice->stopNote (1.0f);
             }
             m_lastNoteOnCounter = 0;
@@ -187,10 +201,12 @@ namespace VeNo::Synth
 
     void Synthesizer::renderVoice (AudioBuffer<float>& buffer, int startSample, int numSamples)
     {
-        auto* matrix = VenoInstance::getInstance (m_processId)->matrix;
-        auto legato = VenoInstance::getInstance (m_processId)->handler->getParameter ("mono_legato");
-        auto master = VenoInstance::getInstance(m_processId)->handler->getParameterValue("master__volume", 1);
-        auto veNoBuffer = VenoInstance::getInstance(m_processId)->audioBuffer;
+        auto instance = VenoInstance::getInstance (m_processId);
+        auto* matrix = instance->matrix;
+        auto legato = instance->handler->getParameter ("mono_legato");
+        auto master = instance->handler->getParameterValue ("master__volume", 1);
+        auto veNoBuffer = instance->audioBuffer;
+        bool leg = legato->m_value > 0.5;
         while (--numSamples >= 0)
         {
             matrix->updateSlots ();
@@ -200,7 +216,7 @@ namespace VeNo::Synth
             int vIndex = 0;
             for (auto& voice : m_voices)
             {
-                if (vIndex != 0 && legato->m_value > 0.5)
+                if (vIndex != 0 && leg)
                 {
                     continue;
                 }
@@ -221,7 +237,7 @@ namespace VeNo::Synth
                         cleanNote = false;
                         envelope->update ();
                         auto envValue = envelope->m_value;
-                        if (osc->render ())
+                        if (osc->renderOsc ())
                         {
                             runIntoSample = true;
                             values[1] += osc->m_values[1] * envValue;
@@ -233,8 +249,8 @@ namespace VeNo::Synth
                 {
                     voice->clear ();
                 }
-                output[1] += (values[1] * 0.25);
-                output[2] += (values[2] * 0.25);
+                output[1] += (values[1] * voice->m_velocity * 0.25);
+                output[2] += (values[2] * voice->m_velocity * 0.25);
             }
             output[1] *= master;
             output[2] *= master;

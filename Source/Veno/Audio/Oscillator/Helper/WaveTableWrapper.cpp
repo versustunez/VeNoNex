@@ -12,20 +12,22 @@ WaveTableWrapper::WaveTableWrapper (const std::string& name, std::shared_ptr<Osc
     {
         m_voices[i] = new Voice ();
     }
+    sampleRate = AudioConfig::getInstance ()->m_sampleRate;
 }
 
 bool WaveTableWrapper::prepare ()
 {
-    auto phase = m_parameters->m_phase->getValueForVoice (m_parameters->m_index);
+	if (sampleRate == 0)
+        sampleRate = AudioConfig::getInstance()->m_sampleRate;
+	
+    auto phase = m_parameters->m_phase->m_voiceValues[m_parameters->m_index];
     for (auto& voice : m_voices)
     {
         voice->m_phaseOfs = phase;
     }
     auto& waveTable = VeNo::WaveTableGenerator::getInstance ();
-    auto baseWaveTable = m_parameters->m_waveformPrimary->getValue () - 1;
-    auto secondWaveTable = m_parameters->m_waveformSecond->getValue () - 1;
-    m_baseWaveGroup = waveTable.getGroup (baseWaveTable);
-    m_currentWaveGroup = waveTable.getGroup (secondWaveTable);
+    m_baseWaveGroup = waveTable.m_waveTables[m_parameters->m_waveformPrimary->m_value - 1];
+    m_currentWaveGroup = waveTable.m_waveTables[m_parameters->m_waveformSecond->m_value - 1];
     return m_currentWaveGroup != nullptr && m_baseWaveGroup != nullptr;
 }
 
@@ -36,13 +38,11 @@ void WaveTableWrapper::setFrequency (int untilIndex, double baseFreq, std::share
         return;
     }
     // performance ;)
-    double sRate = AudioConfig::getInstance ()->m_sampleRate;
-    auto detune = detuneHelper->getDetune();
+    auto detune = detuneHelper->m_detuneAlgos[detuneHelper->m_mode];
     for (int index = 0; index < untilIndex; ++index)
     {
-        double inc = detune->m_frequency * detune->m_lookup[index] / sRate;
+        double inc = detune->m_frequency * detune->m_lookup[index] / sampleRate;
         auto currentVoice = m_voices[index];
-        //something is complete wrong!
         currentVoice->m_phaseInc = inc;
         if (index == 0)
         {

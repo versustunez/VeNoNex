@@ -78,7 +78,11 @@ void ParameterHandler::initParameterForListener (AudioProcessorValueTreeState* s
 
 VeNoParameter* ParameterHandler::getParameter (const std::string& name)
 {
-    return m_parameters[name];
+    if (m_parameters.contains (name))
+    {
+        return m_parameters[name];
+    }
+    return nullptr;
 }
 
 double ParameterHandler::getParameterValue (const std::string& name)
@@ -88,10 +92,9 @@ double ParameterHandler::getParameterValue (const std::string& name)
 
 double ParameterHandler::getParameterValue (const std::string& name, double defaultValue)
 {
-    auto param = m_parameters[name];
-    if (param != nullptr)
+    if (m_parameters.contains (name))
     {
-        return param->getValue ();
+        return m_parameters[name]->getValue ();
     }
     return defaultValue;
 }
@@ -106,7 +109,11 @@ void ParameterHandler::setParameterValue (const std::string& parameterId, double
 
 std::shared_ptr<ModulateValue> ParameterHandler::getModulateValue (const std::string& name)
 {
-    return m_parameters[name]->getModulateValue ();
+    if (m_parameters.find (name) != m_parameters.end ())
+    {
+        return m_parameters[name]->getModulateValue();
+    }
+    return nullptr;
 }
 
 void ParameterHandler::registerListener (const std::string& parameterId, VeNoListener* listener)

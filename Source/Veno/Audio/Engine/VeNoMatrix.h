@@ -10,13 +10,6 @@
 #include "../../../vendor/tsl/robin_map.h"
 
 // class that modulate everything :D
-struct VeNoMatrixTarget
-{
-    std::string name;
-    std::string source;
-    double amount = 0;
-    std::vector<ModulateValue*> value = {};
-};
 
 struct VeNoMatrixSource
 {
@@ -25,8 +18,15 @@ struct VeNoMatrixSource
     std::vector<Modulator*> sources = {};
 };
 
-//@todo rebuild to new unlimited implementation!
-// and make compatible with the value class that is used for saving and sync the ValueTree...
+struct VeNoMatrixTarget
+{
+    std::string name;
+    std::string source;
+    double amount = 0;
+    std::vector<ModulateValue*> value = {};
+    VeNoMatrixSource* modulator;
+};
+
 class VeNoMatrix
 {
 public:
@@ -56,7 +56,8 @@ public:
 
     void removeSlot (const std::string& key);
 
-    std::vector<std::string> m_rawOrder;
+    std::vector<VeNoMatrixSource*> m_rawOrder;
+    std::vector<ModulateValue*> m_rawMods;
 
     void addModValue (const std::string& name, ModulateValue* value);
 

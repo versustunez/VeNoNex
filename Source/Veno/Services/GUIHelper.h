@@ -3,6 +3,7 @@
 #include <string>
 #include "../GUI/Components/BaseComponent.h"
 #include "../GUI/Components/Base/VeNoSelect.h"
+#include "GUICreator.h"
 
 namespace VeNo
 {
@@ -35,6 +36,9 @@ namespace VeNo
         std::vector<BlockStruct> m_blocks;
         std::vector<GUIItem> m_gui_parts;
         void createItem(GUIItem item);
+        void drawBlocks(Graphics& g);
+        void resizeComponents();
+        void makeVisible(GUICreator* component);
 
     protected:
         std::string m_pid;

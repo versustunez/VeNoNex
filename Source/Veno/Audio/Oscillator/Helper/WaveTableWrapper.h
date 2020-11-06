@@ -46,6 +46,7 @@ public:
 
     double getWaveTableValue (VeNo::WaveTableObject* table, double phase);
 
+    double sampleRate = 44100;
 protected:
 };
 

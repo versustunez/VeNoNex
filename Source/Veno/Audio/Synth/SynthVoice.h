@@ -37,6 +37,7 @@ namespace VeNo::Synth
         uint64_t m_noteOnTime = 0;
         bool m_isActive = false;
         int m_count = 4;
+        float m_velocity = 0.0;
 
         std::vector<std::shared_ptr<VeNoEnvelope>> m_envelopes;
         std::vector<std::shared_ptr<SynthOscillator>> m_oscillators;
@@ -45,7 +46,6 @@ namespace VeNo::Synth
         std::string m_id;
         int m_currentNote = -1;
         int m_currentChannel = -1;
-        float m_velocity = 0.0;
         double m_lastSampleRate = 0;
         bool m_isLegato = false;
     };

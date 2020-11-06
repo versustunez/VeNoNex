@@ -41,14 +41,9 @@ void VenoBuffer::addMonoSample (double value)
         {
             m_bufferCopy[i] = m_buffer[i];
         }
-        VenoInstance::getInstance (m_id)->changeListener->notifyListener ("waveform", std::abs (m_highestPeak));
-        m_highestPeak = 0;
+        VenoInstance::getInstance (m_id)->changeListener->notifyListener (m_wave, 1);
         m_buffer.clear ();
         m_isOverflow = true;
-    }
-    if (std::abs (value) > m_highestPeak)
-    {
-        m_highestPeak = value;
     }
     m_buffer.push_back (value);
 }
@@ -93,7 +88,6 @@ void VenoBuffer::calcPeak ()
     }
     rightPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (rightRMS / size), -30.0), -30.0, 0.0);
     leftPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (leftRMS / size), -30.0), -30.0, 0.0);
-    monoPeak = leftPeak;
 }
 
 const std::vector<double>& VenoBuffer::getBuffer () const

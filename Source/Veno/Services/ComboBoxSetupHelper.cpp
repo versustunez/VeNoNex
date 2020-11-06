@@ -18,7 +18,8 @@ void ComboBoxSetupHelper::setupWaveTable (VeNoSelect& box)
     box.addItem ("Synth 2");
     box.addItem ("VeNoX");
     box.addItem ("Noise");
-    box.addItem ("Smooth Noise");
+    box.addItem ("Noisy Hold");
+    box.addItem ("Sample And Hold");
     box.closeSubPath();
 }
 
@@ -27,6 +28,8 @@ void ComboBoxSetupHelper::setupFilter (VeNoSelect& box)
     box.addItem ("NO");
     box.addItem ("LowPass");
     box.addItem ("HighPass");
+    box.addItem ("BandPass");
+    box.addItem ("Notch");
 }
 
 void ComboBoxSetupHelper::setupDetuneModes (VeNoSelect& box)

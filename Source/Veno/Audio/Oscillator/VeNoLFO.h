@@ -17,16 +17,8 @@ public:
 
     void update () override;
 
-    bool postProcessing ();
-
-    bool preProcessing ();
-
-    void setFrequency ();
-
-    bool render () override;
-
 protected:
-    VeNoParameter* m_freqRate;
+    ModulateValue* m_freqRate;
 };
 
 

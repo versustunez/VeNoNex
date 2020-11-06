@@ -18,11 +18,6 @@ BaseOscillator::BaseOscillator (const std::string& id, const std::string& name, 
         m_hasDetune = false;
     }
     initModules ();
-    m_voices.resize (maxVoices);
-    for (int i = 0; i < maxVoices; ++i)
-    {
-        m_voices[i] = new OscillatorVoice (id, m_waveTableHelper, m_DetuneHelper, m_widener, i);
-    }
 }
 
 void BaseOscillator::initModules ()
@@ -31,6 +26,7 @@ void BaseOscillator::initModules ()
     m_DetuneHelper = std::make_shared<DetuneHelper> (m_name, m_parameters, m_maxVoices);
     m_widener = std::make_shared<Widener> (m_name, m_parameters);
     m_limiter = std::make_shared<VeNo::Limiter> (m_name, m_parameters);
+    m_filter = std::make_unique<VeNo::OscillatorFilter>(m_id, m_name);
 }
 
 bool BaseOscillator::start (int currentMidiNote, bool legato)
@@ -78,11 +74,8 @@ void BaseOscillator::stop ()
 bool BaseOscillator::render ()
 {
     int voices = m_parameters->m_voices->getAsInt ();
-    if (m_midiNote == 0 || voices == 0 || !m_parameters->m_active->getAsBoolean ())
-        return false;
     m_waveTableHelper->setFrequency(voices, m_freq, m_DetuneHelper);
-    m_voices[0]->processValue ();
-    m_values[0] = m_voices[0]->m_values[0];
+    m_values[0] = m_waveTableHelper->getOutput(0);
     m_panning[0] = 0;
     m_panning[1] = 0;
     if (voices > 1)
@@ -90,61 +83,22 @@ bool BaseOscillator::render ()
         double detuneOutput = 0.0;
         for (int i = 1; i < voices; ++i)
         {
-            m_voices[i]->processValue ();
-            m_panning[0] += m_voices[i]->m_values[1];
-            m_panning[1] += m_voices[i]->m_values[2];
-            detuneOutput += m_voices[i]->m_values[0];
+            auto val = m_waveTableHelper->getOutput(i);
+            m_panning[i & 1] += val * 0.33333333;
+            detuneOutput += val;
         }
-        double dAmount = m_parameters->m_detuneAmount->getValueForVoice (m_index);
+        double dAmount = m_parameters->m_detuneAmount->m_voiceValues[m_index];
         detuneOutput *= dAmount;
         detuneOutput /= (double) (voices - 1);
         m_values[0] += detuneOutput;
         m_panning[0] *= dAmount;
         m_panning[1] *= dAmount;
     }
-    double volumeLevel = m_parameters->m_level->getValueForVoice (m_index);
+    double volumeLevel = m_parameters->m_level->m_voiceValues[m_index];
     m_values[0] *= volumeLevel;
     m_panning[0] *= volumeLevel;
     m_panning[1] *= volumeLevel;
     return true;
-}
-
-bool BaseOscillator::postProcessing ()
-{
-    m_widener->apply (m_values, m_panning);
-    m_limiter->apply (m_values, m_panning);
-    return true;
-}
-
-bool BaseOscillator::preProcessing ()
-{
-    m_widener->update ();
-    m_DetuneHelper->update (m_freq, m_midiNote);
-    return true;
-}
-
-void BaseOscillator::setFrequency ()
-{
-    double midi = m_midiNote;
-    if (m_isPorta)
-    {
-        midi = m_midiNotePortamento.getNextValue ();
-    }
-    auto semitones = m_parameters->m_semitones->getAsInt ();
-    auto cents = m_parameters->m_cents->getValueForVoice (m_index) / 100;
-    midi = VeNo::Utils::clamp (midi + semitones + cents + getPitchBend (), 0, 127);
-    m_freq = std::exp ((midi - 69) * std::log (2) / 12) * 440.0f;
-}
-
-double BaseOscillator::getPitchBend ()
-{
-    auto wheelPos = m_parameters->m_pitchWheel->getValue ();
-    if (wheelPos == 0)
-        return 0;
-    if (wheelPos > 0)
-        return m_parameters->m_pitchUp->getValue () * wheelPos;
-    else
-        return m_parameters->m_pitchDown->getValue () * wheelPos;
 }
 
 BaseOscillator::~BaseOscillator ()
@@ -155,9 +109,6 @@ BaseOscillator::~BaseOscillator ()
     m_waveTableHelper.reset ();
     m_handler = nullptr;
     m_parameters.reset ();
-    for (auto& m_voice : m_voices)
-        delete m_voice;
-    m_voices.clear ();
 }
 
 const std::vector<double>& BaseOscillator::getValue ()
@@ -184,4 +135,5 @@ void BaseOscillator::setIndex (int index)
 {
     m_index = index;
     m_parameters->m_index = index;
+    m_filter->m_voice = index;
 }

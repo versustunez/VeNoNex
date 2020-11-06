@@ -121,6 +121,7 @@ namespace VeNo
 
     void WaveFormsGui::drawWaveTable ()
     {
+        return;
         fill = false;
         m_path.clear ();
         auto inst = VenoInstance::getInstance (m_processId);

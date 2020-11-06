@@ -18,7 +18,7 @@ public:
 
     void update () override;
 
-    bool render () override;
+    bool renderOsc ();
 
 protected:
 };

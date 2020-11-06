@@ -12,6 +12,11 @@ const fs = require("fs"),
             tpl: "lfogui.tpl",
             out: "Components/PageComponents/Modulators/LFOGUISetup.cpp"
         },
+        {
+            src: "envelopegui.json",
+            tpl: "envelopegui.tpl",
+            out: "Components/PageComponents/Modulators/EnvelopeGUISetup.cpp"
+        },
     ]
 let content = "";
 

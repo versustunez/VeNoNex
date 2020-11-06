@@ -1,6 +1,5 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "Veno/Utils/Logger.h"
 #include "Veno/GUI/Fonts/Fonts.h"
 #include "Veno/Utils.h"
 
@@ -32,7 +31,7 @@ VenoAudioProcessorEditor::VenoAudioProcessorEditor (VenoAudioProcessor& p)
     addAndMakeVisible (*m_legato);
     addAndMakeVisible (*m_porta);
     m_openGLContext.setRenderer (this);
-    m_openGLContext.setContinuousRepainting (false);
+    m_openGLContext.setContinuousRepainting (true);
     m_openGLContext.setComponentPaintingEnabled (true);
     m_openGLContext.attachTo (*this);
     m_openGLContext.makeActive ();

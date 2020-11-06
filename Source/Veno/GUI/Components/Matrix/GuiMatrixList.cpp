@@ -51,9 +51,9 @@ namespace VeNo
             }
         }
         auto newHeight = m_items.size () * 100;
-        if (newHeight > 700)
+        if (newHeight >= 700)
         {
-            setSize (getWidth (), m_items.size () * 100);
+            setSize (getWidth (), m_items.size () * 100 + 100);
         } else
         {
             resized();

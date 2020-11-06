@@ -7,12 +7,12 @@ OscillatorParameters::OscillatorParameters (ParameterHandler* handler, const std
     m_voices = getParameter ("voices");
     m_semitones = getParameter ("semitones");
     m_cents = getParameter ("cents");
-    m_level = getParameter ("level");
+    m_level = getModulation ("level");
     m_panning = getParameter ("panning");
-    m_detuneAmount = getParameter ("detune_amount");
+    m_detuneAmount = getModulation ("detune_amount");
     m_detuneDense = getParameter ("detune_dense");
     m_detuneMode = getParameter ("detune_mode");
-    m_phase = getParameter ("phase");
+    m_phase = getModulation ("phase");
     m_randomPhase = getParameter ("random_phase");
     m_stereo = getParameter ("stereo");
     m_waveformPrimary = getParameter ("waveform_base");
@@ -29,4 +29,12 @@ OscillatorParameters::OscillatorParameters (ParameterHandler* handler, const std
 VeNoParameter* OscillatorParameters::getParameter (const std::string& name)
 {
     return m_handler->getParameter (m_name + name);
+}
+
+ModulateValue* OscillatorParameters::getModulation (const std::string& name)
+{
+    auto modulate = m_handler->getModulateValue(m_name + name);
+    if (modulate != nullptr)
+        return modulate.get();
+    return nullptr;
 }

@@ -61,6 +61,22 @@ namespace VeNo {
         }
     }
 
+    void createNoise (RawTable& table, int offset, int seed = 10000)
+    {
+        std::mt19937 mt (seed);
+        std::uniform_real_distribution<double> dist (-1.0, 1.0);
+        // some basic 1d simplex noise!
+        double val = dist (mt);
+        for (int i = 0; i < table.m_len; ++i)
+        {
+            if (i % offset == 0 && i != 0)
+            {
+                val = dist (mt);
+            }
+            table.m_freqWaveRe[i] = val;
+        }
+    }
+
     void SmoothNoise::startCreation ()
     {
         auto noise = SmoothNoise ();
@@ -72,19 +88,20 @@ namespace VeNo {
     // sampleAndHold
     void SmoothNoise::generate ()
     {
-        std::mt19937 mt (10000);
-        std::uniform_real_distribution<double> dist (-1.0, 1.0);
-        // some basic 1d simplex noise!
-        int offset = m_len / 64;
-        double val = dist (mt);
-        for (int i = 0; i < m_len; ++i)
-        {
-            if (i % offset == 0)
-            {
-                val = dist (mt);
-            }
-            m_freqWaveRe[i] = val;
-        }
+        createNoise(*this, 64, 10000);
+    }
 
+    void SmootherNoise::startCreation ()
+    {
+        auto smootherNoise = SmootherNoise ();
+        smootherNoise.m_isRaw = true;
+        smootherNoise.m_index = WaveForms::SMOOTHER_NOISE;
+        TableCreatorHelper::createTable (smootherNoise);
+    }
+
+    // sampleAndHold
+    void SmootherNoise::generate ()
+    {
+        createNoise(*this, 256, 100500);
     }
 }

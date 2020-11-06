@@ -42,6 +42,8 @@
                 file="Source/Veno/Services/ComponentStates.h"/>
           <FILE id="ACdiQT" name="FFT.cpp" compile="1" resource="0" file="Source/Veno/Services/FFT.cpp"/>
           <FILE id="BZvHpM" name="FFT.h" compile="0" resource="0" file="Source/Veno/Services/FFT.h"/>
+          <FILE id="f5gM4c" name="GUICreator.cpp" compile="1" resource="0" file="Source/Veno/Services/GUICreator.cpp"/>
+          <FILE id="r83ecu" name="GUICreator.h" compile="0" resource="0" file="Source/Veno/Services/GUICreator.h"/>
           <FILE id="rGLYaT" name="GUIHelper.cpp" compile="1" resource="0" file="Source/Veno/Services/GUIHelper.cpp"/>
           <FILE id="wE7wxk" name="GUIHelper.h" compile="0" resource="0" file="Source/Veno/Services/GUIHelper.h"/>
           <FILE id="f8KLAA" name="OscillatorGUIHelper.cpp" compile="1" resource="0"
@@ -61,6 +63,21 @@
         <FILE id="nB3dnt" name="Utils.h" compile="0" resource="0" file="Source/Veno/Utils.h"/>
         <FILE id="jHgT3X" name="Utils.cpp" compile="1" resource="0" file="Source/Veno/Utils.cpp"/>
         <GROUP id="{95543E53-EBB6-70D0-E280-A334ED5EAB84}" name="Audio">
+          <GROUP id="{BA1760DC-7047-2038-1D93-58778BC50AE6}" name="Modules">
+            <FILE id="nQRviD" name="Filter.cpp" compile="1" resource="0" file="Source/Veno/Audio/Modules/Filter.cpp"/>
+            <FILE id="IExbqY" name="Filter.h" compile="0" resource="0" file="Source/Veno/Audio/Modules/Filter.h"/>
+          </GROUP>
+          <GROUP id="{9DBCE684-E025-5C58-A477-7301D4EC45CD}" name="Effects">
+            <GROUP id="{02779FF9-43F4-E59F-3835-5A66E2E824C8}" name="EffectModules">
+              <FILE id="sLxCXT" name="Distortion.cpp" compile="1" resource="0" file="Source/Veno/Audio/Effects/EffectModules/Distortion.cpp"/>
+              <FILE id="aRxDeJ" name="Distortion.h" compile="0" resource="0" file="Source/Veno/Audio/Effects/EffectModules/Distortion.h"/>
+            </GROUP>
+            <FILE id="MovnNM" name="Effect.cpp" compile="1" resource="0" file="Source/Veno/Audio/Effects/Effect.cpp"/>
+            <FILE id="pK4H8c" name="Effect.h" compile="0" resource="0" file="Source/Veno/Audio/Effects/Effect.h"/>
+            <FILE id="CRMHUA" name="EffectSeries.cpp" compile="1" resource="0"
+                  file="Source/Veno/Audio/Effects/EffectSeries.cpp"/>
+            <FILE id="gzGiRO" name="EffectSeries.h" compile="0" resource="0" file="Source/Veno/Audio/Effects/EffectSeries.h"/>
+          </GROUP>
           <GROUP id="{7D30BA60-DB7B-2746-FEE4-097E11C4B888}" name="Oscillator">
             <GROUP id="{3035E521-6A17-BB25-CC25-F4306C21DD5E}" name="Helper">
               <GROUP id="{38D8E91D-9AB3-55E1-E58B-BCFEA238A473}" name="DetuneAlgos">
@@ -93,14 +110,12 @@
                 <FILE id="gMke96" name="PeakReducer.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/SubModules/PeakReducer.cpp"/>
                 <FILE id="vOXCbK" name="PeakReducer.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/SubModules/PeakReducer.h"/>
               </GROUP>
-              <FILE id="DZZQ2H" name="Filter.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Filter.cpp"/>
-              <FILE id="SDNE70" name="Filter.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Filter.h"/>
               <FILE id="zZG3ux" name="Limiter.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Limiter.cpp"/>
               <FILE id="MHKXCu" name="Limiter.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Limiter.h"/>
-              <FILE id="WJgQI9" name="OscillatorVoice.cpp" compile="1" resource="0"
-                    file="Source/Veno/Audio/Oscillator/Modules/OscillatorVoice.cpp"/>
-              <FILE id="ayB0RV" name="OscillatorVoice.h" compile="0" resource="0"
-                    file="Source/Veno/Audio/Oscillator/Modules/OscillatorVoice.h"/>
+              <FILE id="TVunQi" name="OscillatorFilter.cpp" compile="1" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Modules/OscillatorFilter.cpp"/>
+              <FILE id="vutAwQ" name="OscillatorFilter.h" compile="0" resource="0"
+                    file="Source/Veno/Audio/Oscillator/Modules/OscillatorFilter.h"/>
               <FILE id="GAlHzk" name="Widener.cpp" compile="1" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Widener.cpp"/>
               <FILE id="NPefRi" name="Widener.h" compile="0" resource="0" file="Source/Veno/Audio/Oscillator/Modules/Widener.h"/>
             </GROUP>
@@ -175,7 +190,6 @@
             <FILE id="vCAFqR" name="WaveTableStructs.h" compile="0" resource="0"
                   file="Source/Veno/Audio/WaveTable/WaveTableStructs.h"/>
           </GROUP>
-          <GROUP id="{A224AFA7-CD28-E0FE-3B5A-8203BFD9467B}" name="FX"/>
         </GROUP>
         <GROUP id="{EFD25B6B-987D-435F-F8DE-BD6C2B831E62}" name="GUI">
           <GROUP id="{A0B2E987-1F3A-3B41-0BCF-EF88470F55B0}" name="Interfaces">
@@ -310,6 +324,15 @@
             </GROUP>
             <GROUP id="{CC6566C4-85AC-41AB-3EDB-423565E45E6C}" name="PageComponents">
               <GROUP id="{944FA7C4-01AE-E6F1-0100-F2FBCFFCC64F}" name="Modulators">
+                <FILE id="p8TqBX" name="EnvelopeGuiPart.cpp" compile="1" resource="0"
+                      file="Source/Veno/GUI/Components/PageComponents/Modulators/EnvelopeGuiPart.cpp"/>
+                <FILE id="Uc1zkf" name="EnvelopeGuiPart.h" compile="0" resource="0"
+                      file="Source/Veno/GUI/Components/PageComponents/Modulators/EnvelopeGuiPart.h"/>
+                <FILE id="Mlit0P" name="EnvelopeGUISetup.cpp" compile="1" resource="0"
+                      file="Source/Veno/GUI/Components/PageComponents/Modulators/EnvelopeGUISetup.cpp"/>
+                <FILE id="yaTZPO" name="EnvelopePage.cpp" compile="1" resource="0"
+                      file="Source/Veno/GUI/Components/PageComponents/Modulators/EnvelopePage.cpp"/>
+                <FILE id="lEJu2F" name="EnvelopePage.h" compile="0" resource="0" file="Source/Veno/GUI/Components/PageComponents/Modulators/EnvelopePage.h"/>
                 <FILE id="jT4vfu" name="LFOGUISetup.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/PageComponents/Modulators/LFOGUISetup.cpp"/>
                 <FILE id="Bdcl1z" name="LFOPage.cpp" compile="1" resource="0" file="Source/Veno/GUI/Components/PageComponents/Modulators/LFOPage.cpp"/>
                 <FILE id="n4nVWy" name="LFOPage.h" compile="0" resource="0" file="Source/Veno/GUI/Components/PageComponents/Modulators/LFOPage.h"/>

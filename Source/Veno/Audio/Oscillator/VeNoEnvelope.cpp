@@ -9,7 +9,18 @@ VeNoEnvelope::VeNoEnvelope (const std::string& id, const std::string& name, doub
         m_sampleRate = sampleRate;
         setSampleRate (m_sampleRate);
     }
-    this->m_showName = "Envelope (" + m_name + ")";
+    if (m_name == "env1")
+    {
+        this->m_showName = "Envelope (Voices)";
+    }
+    else if (m_name == "env2")
+    {
+        this->m_showName = "Envelope (Free)";
+    }
+    else
+    {
+        this->m_showName = "Envelope (" + m_name + ")";
+    }
     VenoInstance::getInstance (m_id)->matrix->addModulator (name + "_env", this);
     m_release = m_handler->getParameter (m_name + "__release");
     m_sustain = m_handler->getParameter (m_name + "__sustain");
@@ -29,6 +40,7 @@ bool VeNoEnvelope::isActive ()
 
 void VeNoEnvelope::noteOn ()
 {
+    prepare ();
     m_adsr.noteOn ();
 }
 
@@ -53,16 +65,16 @@ void VeNoEnvelope::update ()
 
 void VeNoEnvelope::prepare ()
 {
-    if (m_parameters.release != m_release->m_value
-        || m_parameters.sustain != m_sustain->m_value
-        || m_parameters.attack != m_attack->m_value
-        || m_parameters.decay != m_decay->m_value
-            )
+    float release = m_release->m_value / 1000;
+    float attack = m_attack->m_value / 1000;
+    float decay = m_decay->m_value / 1000;
+    if (m_parameters.release != release || m_parameters.sustain != m_sustain->m_value
+        || m_parameters.attack != attack || m_parameters.decay != decay)
     {
-        m_parameters.release = m_release->m_value;
+        m_parameters.release = release;
         m_parameters.sustain = m_sustain->m_value;
-        m_parameters.decay = m_decay->m_value;
-        m_parameters.attack = m_attack->m_value;
+        m_parameters.decay = decay;
+        m_parameters.attack = attack;
         m_adsr.setParameters (m_parameters);
     }
 }

@@ -74,6 +74,7 @@ void VenoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     AudioConfig::getInstance ()->setSampleRate (sampleRate);
     instance->getSynthInstance()->setSampleRate(sampleRate);
+    instance->modulators->updateSampleRate(sampleRate);
 }
 
 void VenoAudioProcessor::releaseResources ()

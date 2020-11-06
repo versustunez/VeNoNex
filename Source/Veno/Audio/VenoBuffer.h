@@ -33,9 +33,7 @@ public:
 
     double leftPeak{};
     double rightPeak{};
-    double monoPeak{};
-    double m_highestPeak = 0;
-
+    std::string m_wave = "waveform";
     const std::vector<double>& getBuffer () const;
 
 protected:

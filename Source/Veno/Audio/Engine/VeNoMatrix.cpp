@@ -30,10 +30,11 @@ void VeNoMatrix::addModulator (const std::string& name, Modulator* modulator)
 {
     if (!m_modulators.contains (name))
     {
-        m_rawOrder.push_back (name);
-        m_modulators[name] = new VeNoMatrixSource ();
-        m_modulators[name]->name = name;
-        m_modulators[name]->showName = modulator->m_showName;
+        auto source = new VeNoMatrixSource();
+        m_modulators[name] = source;
+        m_rawOrder.push_back (source);
+        source->name = name;
+        source->showName = modulator->m_showName;
     }
     m_modulators[name]->sources.push_back (modulator);
 }
@@ -42,42 +43,33 @@ void VeNoMatrix::addModulator (const std::string& name, Modulator* modulator)
 void VeNoMatrix::updateSlots ()
 {
     std::lock_guard<std::mutex> l (_mtx);
-    auto instance = VenoInstance::getInstance (m_processId);
-    for (auto& m_source : m_modulators)
+    for (auto& m_source : m_rawOrder)
     {
-        for (auto& source : m_source.second->sources)
+        for (auto& source : m_source->sources)
         {
             source->update ();
         }
     }
 
-    for (auto& value : m_values)
+    for (auto& value : m_rawMods)
     {
-        value.second->resetMatrixPos ();
+        value->resetMatrixPos ();
     }
 
     for (auto& m_slot : m_slots)
     {
-        if (m_slot.second == nullptr)
-            continue;
-        auto slotSource = m_modulators[m_slot.second->source];
+        auto slotSource = m_slot.second->modulator;
         auto value = m_slot.second->value;
-        if (slotSource == nullptr)
-            continue;
-
+        auto amount = m_slot.second->amount;
         for (auto& source : slotSource->sources)
         {
-            auto amount = m_slot.second->amount;
-            auto valueToAdd = source->getValue () * amount;
+            auto valueToAdd = source->m_value * amount;
 
             for (auto& item : value)
             {
-                if (item == nullptr)
-                    continue;
-
                 if (source->m_voice != -1)
                 {
-                    item->addValueForVoice (valueToAdd, source->getVoice ());
+                    item->addValueForVoice (valueToAdd, source->m_voice);
                 }
                 else
                 {
@@ -85,10 +77,6 @@ void VeNoMatrix::updateSlots ()
                 }
             }
         }
-    }
-    if (instance->glContext != nullptr)
-    {
-        instance->glContext->triggerRepaint ();
     }
 }
 
@@ -106,6 +94,7 @@ bool VeNoMatrix::setMatrixModulation (const std::string& name, const std::string
             slot->source = source;
             slot->name = name;
             slot->amount = amount;
+            slot->modulator = m_modulators[source];
             if (!isAll)
             {
                 slot->value.push_back (m_values[name]);
@@ -179,7 +168,7 @@ tsl::robin_map<std::string, VeNoMatrixTarget*>& VeNoMatrix::getSlots ()
 
 std::string VeNoMatrix::getModulatorNameFromSlot (const std::string& key)
 {
-    return m_modulators[m_slots[key]->source]->showName;
+    return m_slots[key]->modulator->showName;
 }
 
 void VeNoMatrix::removeSlot (const std::string& key)
@@ -187,6 +176,12 @@ void VeNoMatrix::removeSlot (const std::string& key)
     std::lock_guard<std::mutex> l (_mtx);
     if (m_slots.find (key) != m_slots.end ())
     {
+        auto element = m_slots[key];
+        for (auto& i : element->value)
+        {
+            i->resetMatrixPos ();
+            i->addValue (0);
+        }
         delete m_slots[key];
         m_slots.erase (key);
     }
@@ -195,6 +190,7 @@ void VeNoMatrix::removeSlot (const std::string& key)
 void VeNoMatrix::addModValue (const std::string& name, ModulateValue* value)
 {
     m_values[name] = value;
+    m_rawMods.push_back(value);
 }
 
 void VeNoMatrix::clear ()

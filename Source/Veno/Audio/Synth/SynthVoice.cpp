@@ -26,10 +26,10 @@ namespace VeNo::Synth
         m_currentNote = midiNoteNumber;
         m_currentChannel = midiChannel;
         m_isLegato = isLegato;
+        m_velocity = velocity;
         for (int i = 0; i < m_count; i++)
         {
             m_oscillators[i]->start (midiNoteNumber, isLegato && m_index == 0);
-            m_envelopes[i]->prepare ();
             m_envelopes[i]->noteOn ();
         }
     }
@@ -69,6 +69,7 @@ namespace VeNo::Synth
             for (int i = 0; i < m_count; i++)
             {
                 m_envelopes[i]->setSampleRate (m_lastSampleRate);
+                m_oscillators[i]->m_waveTableHelper->sampleRate = m_lastSampleRate;
             }
         }
     }

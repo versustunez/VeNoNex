@@ -2,6 +2,7 @@
 #include "../../../Core/Config.h"
 #include "../../../Utils.h"
 #include "../../Components/PageComponents/Modulators/LFOPage.h"
+#include "../../Components/PageComponents/Modulators/EnvelopePage.h"
 
 namespace VeNo
 {
@@ -15,7 +16,9 @@ namespace VeNo
             m_tabbedComponent->addTab ("LFO" + std::to_string (i), theme->getColour (ThemeColour::bg_two),
                                        new LFOPage ("lfo" + std::to_string (i), m_processId), true, -1);
         }
-        m_tabbedComponent->setTabBarDepth(Utils::getScaledSize(30));
+        m_tabbedComponent->addTab ("Envelopes", theme->getColour (ThemeColour::bg_two),
+                                   new EnvelopePage ("Envelopes", m_processId), true, -1);
+        m_tabbedComponent->setTabBarDepth (Utils::getScaledSize (30));
         m_tabbedComponent->setIndent(Utils::getScaledSize(5));
         m_tabbedComponent->setOutline(0);
         addAndMakeVisible (*m_tabbedComponent);

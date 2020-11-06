@@ -51,8 +51,8 @@ namespace VeNo
         auto& rawMods = matrix->m_rawOrder;
         for (auto& modulator : rawMods)
         {
-            m_modulatorSelect->addItem (modulators.at (modulator)->showName);
-            m_modulators.push_back (modulator);
+            m_modulatorSelect->addItem (modulator->showName);
+            m_modulators.push_back (modulator->name);
         }
         createParameterSelection ();
     }

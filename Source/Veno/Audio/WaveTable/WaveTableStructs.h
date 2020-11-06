@@ -38,5 +38,6 @@ namespace VeNo
         VENOX,
         NOISE,
         SMOOTH_NOISE,
+        SMOOTHER_NOISE,
     };
 }

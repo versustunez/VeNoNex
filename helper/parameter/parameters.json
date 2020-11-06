@@ -233,7 +233,7 @@
       "modulateAble": false,
       "tooltip": "Main Waveform that is applied without Mix",
       "value": 1,
-      "maxValue": 12,
+      "maxValue": 13,
       "minValue": 1,
       "type": "Integer"
     },
@@ -243,7 +243,7 @@
       "modulateAble": false,
       "tooltip": "Secondary Waveform that is applied with Mix",
       "value": 4,
-      "maxValue": 12,
+      "maxValue": 13,
       "minValue": 1,
       "type": "Integer"
     },
@@ -262,8 +262,8 @@
       "showName": "{sid} Attack",
       "modulateAble": false,
       "tooltip": "Oscillator Envelope Attack",
-      "value": 0.01,
-      "maxValue": 2,
+      "value": 10,
+      "maxValue": 1500,
       "minValue": 0,
       "type": "Float"
     },
@@ -273,7 +273,7 @@
       "modulateAble": false,
       "tooltip": "Oscillator Envelope Decay",
       "value": 0,
-      "maxValue": 2,
+      "maxValue": 1500,
       "minValue": 0,
       "type": "Float"
     },
@@ -281,7 +281,7 @@
       "name": "{id}__sustain",
       "showName": "{sid} Sustain",
       "modulateAble": false,
-      "tooltip": "Oscillator Envelope Decay",
+      "tooltip": "Oscillator Envelope Sustain",
       "value": 1,
       "maxValue": 1,
       "minValue": 0,
@@ -291,9 +291,9 @@
       "name": "{id}__release",
       "showName": "{sid} Release",
       "modulateAble": false,
-      "tooltip": "Oscillator Envelope Decay",
-      "value": 0.01,
-      "maxValue": 2,
+      "tooltip": "Oscillator Envelope Release",
+      "value": 10,
+      "maxValue": 1500,
       "minValue": 0,
       "type": "Float"
     },
@@ -302,8 +302,8 @@
       "showName": "{sid} Filter",
       "modulateAble": false,
       "tooltip": "Select Filter",
-      "value": 1  ,
-      "maxValue": 3,
+      "value": 1,
+      "maxValue": 5,
       "minValue": 1,
       "type": "Integer"
     },
@@ -322,9 +322,9 @@
       "showName": "{sid} Filter Cutoff",
       "modulateAble": true,
       "tooltip": "Filter Cutoff in percent range",
-      "value": 0,
-      "maxValue": 100,
-      "minValue": 0,
+      "value": 20,
+      "maxValue": 20000,
+      "minValue": 20,
       "type": "Float"
     }
   ],
@@ -430,7 +430,7 @@
       "modulateAble": false,
       "tooltip": "Main Waveform that is applied without Mix",
       "value": 1,
-      "maxValue": 10,
+      "maxValue": 13,
       "minValue": 1,
       "type": "Integer"
     },
@@ -440,7 +440,7 @@
       "modulateAble": false,
       "tooltip": "Secondary Waveform that is applied with Mix",
       "value": 4,
-      "maxValue": 10,
+      "maxValue": 13,
       "minValue": 1,
       "type": "Integer"
     },
@@ -451,6 +451,53 @@
       "tooltip": "How much should both of the Waveform Mixed",
       "value": 0,
       "maxValue": 1,
+      "minValue": 0,
+      "type": "Float"
+    }
+  ],
+  "envelopeConfig": {
+    "count": 2,
+    "id": "env",
+    "sid": "Envelope"
+  },
+  "envelope": [
+    {
+      "name": "{id}__attack",
+      "showName": "{sid} Attack",
+      "modulateAble": false,
+      "tooltip": "Envelope Attack",
+      "value": 10,
+      "maxValue": 1500,
+      "minValue": 0,
+      "type": "Float"
+    },
+    {
+      "name": "{id}__decay",
+      "showName": "{sid} Decay",
+      "modulateAble": false,
+      "tooltip": "Envelope Decay",
+      "value": 0,
+      "maxValue": 1500,
+      "minValue": 0,
+      "type": "Float"
+    },
+    {
+      "name": "{id}__sustain",
+      "showName": "{sid} Sustain",
+      "modulateAble": false,
+      "tooltip": "Envelope Sustain",
+      "value": 1,
+      "maxValue": 1,
+      "minValue": 0,
+      "type": "Float"
+    },
+    {
+      "name": "{id}__release",
+      "showName": "{sid} Release",
+      "modulateAble": false,
+      "tooltip": "Envelope Release",
+      "value": 10,
+      "maxValue": 1500,
       "minValue": 0,
       "type": "Float"
     }

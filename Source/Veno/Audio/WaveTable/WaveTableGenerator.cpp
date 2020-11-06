@@ -10,19 +10,20 @@ namespace VeNo
         {
             return;
         }
-        m_waveTables.reserve (WaveForms::SMOOTH_NOISE + 1);
+        m_waveTables.reserve (WaveForms::SMOOTHER_NOISE + 1);
         SawWave::startCreation ();
-        DirtySawWave::startCreation ();
         SineWave::startCreation ();
         CosineWave::startCreation ();
         SquareWave::startCreation ();
-        DirtySquareWave::startCreation ();
         TriangleWave::startCreation ();
+        DirtySawWave::startCreation ();
+        DirtySquareWave::startCreation ();
         SynthTwo::startCreation ();
         SynthOne::startCreation ();
         VeNoX::startCreation ();
         Noise::startCreation();
         SmoothNoise::startCreation();
+        SmootherNoise::startCreation();
 
         addedWaveForms = m_waveTables.capacity ();
         m_isInit = true;

@@ -55,25 +55,25 @@ void ParameterHandler::setupParameter ()
         // Detune Stereo Spread
         addParameterModulate (oscId + "stereo", OSCName + " Detune Stereo", 0, 200, 50, Float);
         // Main Waveform that is applied without Mix
-        addParameter (oscId + "waveform_base", OSCName + " Primary Waveform", 1, 12, 1, Integer);
+        addParameter (oscId + "waveform_base", OSCName + " Primary Waveform", 1, 13, 1, Integer);
         // Secondary Waveform that is applied with Mix
-        addParameter (oscId + "waveform_sec", OSCName + " Secondary Waveform", 1, 12, 4, Integer);
+        addParameter (oscId + "waveform_sec", OSCName + " Secondary Waveform", 1, 13, 4, Integer);
         // How much should both of the Waveform Mixed
         addParameterModulate (oscId + "waveform_mix", OSCName + " Waveform Mix", 0, 1, 0, Float);
         // Oscillator Envelope Attack
-        addParameter (oscId + "attack", OSCName + " Attack", 0, 2, 0.01, Float);
+        addParameter (oscId + "attack", OSCName + " Attack", 0, 1500, 10, Float);
         // Oscillator Envelope Decay
-        addParameter (oscId + "decay", OSCName + " Decay", 0, 2, 0, Float);
-        // Oscillator Envelope Decay
+        addParameter (oscId + "decay", OSCName + " Decay", 0, 1500, 0, Float);
+        // Oscillator Envelope Sustain
         addParameter (oscId + "sustain", OSCName + " Sustain", 0, 1, 1, Float);
-        // Oscillator Envelope Decay
-        addParameter (oscId + "release", OSCName + " Release", 0, 2, 0.01, Float);
+        // Oscillator Envelope Release
+        addParameter (oscId + "release", OSCName + " Release", 0, 1500, 10, Float);
         // Select Filter
-        addParameter (oscId + "filter_type", OSCName + " Filter", 1, 3, 1, Integer);
+        addParameter (oscId + "filter_type", OSCName + " Filter", 1, 5, 1, Integer);
         // Q Factor
         addParameterModulate (oscId + "filter_q", OSCName + " Filter Q", 0.7, 1.5, 1, Float);
         // Filter Cutoff in percent range
-        addParameterModulate (oscId + "filter_cutoff", OSCName + " Filter Cutoff", 0, 100, 0, Float);
+        addParameterModulate (oscId + "filter_cutoff", OSCName + " Filter Cutoff", 20, 20000, 20, Float);
     }
 
     for (int i = 1; i < 3; i++)
@@ -99,11 +99,25 @@ void ParameterHandler::setupParameter ()
         // Generate a Random Phase at each new Note
         addParameter (lfoId + "random_phase", LFOName + " Random Phase", 0, 1, 0, Boolean);
         // Main Waveform that is applied without Mix
-        addParameter (lfoId + "waveform_base", LFOName + " Primary Waveform", 1, 10, 1, Integer);
+        addParameter (lfoId + "waveform_base", LFOName + " Primary Waveform", 1, 13, 1, Integer);
         // Secondary Waveform that is applied with Mix
-        addParameter (lfoId + "waveform_sec", LFOName + " Secondary Waveform", 1, 10, 4, Integer);
+        addParameter (lfoId + "waveform_sec", LFOName + " Secondary Waveform", 1, 13, 4, Integer);
         // How much should both of the Waveform Mixed
         addParameterModulate (lfoId + "waveform_mix", LFOName + " Waveform Mix", 0, 1, 0, Float);
+    }
+
+    for (int i = 1; i < 3; i++)
+    {
+        std::string envId = "env" + std::to_string (i) + "__";
+        std::string EnvelopeName = "Envelope" + std::to_string (i);
+        // Envelope Attack
+        addParameter (envId + "attack", EnvelopeName + " Attack", 0, 1500, 10, Float);
+        // Envelope Decay
+        addParameter (envId + "decay", EnvelopeName + " Decay", 0, 1500, 0, Float);
+        // Envelope Sustain
+        addParameter (envId + "sustain", EnvelopeName + " Sustain", 0, 1, 1, Float);
+        // Envelope Release
+        addParameter (envId + "release", EnvelopeName + " Release", 0, 1500, 10, Float);
     }
 
 }

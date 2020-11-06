@@ -23,8 +23,6 @@ namespace VeNo::Synth
 
         void setSampleRate (double sampleRate);
 
-        bool isInit () const;
-
         void noteOn (int midiChannel, int midiNoteNumber, float velocity);
 
         void noteOff (int midiChannel, int midiNoteNumber, float velocity);

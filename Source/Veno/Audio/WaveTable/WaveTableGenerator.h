@@ -9,8 +9,8 @@ namespace VeNo
     {
     private:
         static constexpr int numWaveTableSlots = 40;
-        std::vector<WaveTableGroup*> m_waveTables{numWaveTableSlots};
     public:
+        std::vector<WaveTableGroup*> m_waveTables{numWaveTableSlots};
         static WaveTableGenerator& getInstance ()
         {
             static WaveTableGenerator instance;

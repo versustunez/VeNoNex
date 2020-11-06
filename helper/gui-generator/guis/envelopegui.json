@@ -1,0 +1,50 @@
+{
+  "blocks": [],
+  "items": [
+    {
+      "type": "envelopewave",
+      "parameter": "{id}",
+      "name": "Envelope-Wave",
+      "x": 40,
+      "y": 30,
+      "w": 300,
+      "h": 90
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__attack",
+      "name": "Attack",
+      "x": 380,
+      "y": 35,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__decay",
+      "name": "Decay",
+      "x": 480,
+      "y": 35,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__sustain",
+      "name": "Sustain",
+      "x": 580,
+      "y": 35,
+      "w": 70,
+      "h": 85
+    },
+    {
+      "type": "slider",
+      "parameter": "{id}__release",
+      "name": "Release",
+      "x": 680,
+      "y": 35,
+      "w": 70,
+      "h": 85
+    }
+  ]
+}

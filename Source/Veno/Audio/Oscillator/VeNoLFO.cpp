@@ -3,13 +3,9 @@
 
 VeNoLFO::VeNoLFO (const std::string& id, int maxVoices, const std::string& name)
         : BaseOscillator (id, name, maxVoices),
-        m_freqRate(VenoInstance::getInstance(m_id)->handler->getParameter(name + "__rate"))
+        m_freqRate(VenoInstance::getInstance(m_id)->handler->getModulateValue(name + "__rate").get())
 {
     m_midiNote = 69; // 440Hz A4!
-    for (auto& m_voice : m_voices)
-    {
-        m_voice->m_isMono = true;
-    }
 }
 
 double VeNoLFO::getValue ()
@@ -23,35 +19,14 @@ VeNoLFO::~VeNoLFO ()
 
 void VeNoLFO::update ()
 {
-    render ();
-}
+    int voices = m_parameters->m_voices->m_value;
+    if (!m_parameters->m_active->getAsBoolean ())
+        return;
+    m_freq = m_freqRate->m_voiceValues[m_index];
+    m_waveTableHelper->prepare();
+    m_DetuneHelper->update(m_freq, m_midiNote);
 
-bool VeNoLFO::postProcessing ()
-{
-    m_limiter->apply (m_values, m_panning);
-    return true;
-}
-
-bool VeNoLFO::preProcessing ()
-{
-    m_waveTableHelper->prepare ();
-    m_DetuneHelper->update (m_freq, m_midiNote);
-    return true;
-}
-
-void VeNoLFO::setFrequency ()
-{
-    m_freq = m_freqRate->getValue ();
-}
-
-bool VeNoLFO::render ()
-{
-    int voices = m_parameters->m_voices->getAsInt ();
-    if (m_midiNote == 0 || voices == 0 || !m_parameters->m_active->getAsBoolean ())
-        return false;
-    m_freq = m_freqRate->getValue ();
-    if (!preProcessing () || !BaseOscillator::render () || !postProcessing ())
-        return false;
+    BaseOscillator::render ();
+    m_limiter->apply(m_values, m_panning);
     m_value = BaseOscillator::m_values[0];
-    return true;
 }

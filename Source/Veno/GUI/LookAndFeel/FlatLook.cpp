@@ -47,7 +47,7 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
             auto value = param->getModulateValue ();
             if (value != nullptr)
             {
-                arcPos = (value->m_matrixPos + value->m_voiceMatrix[0]) / 2;
+                arcPos = float (value->m_matrixPos + value->m_voiceMatrix[0]) * 0.5f;
             }
         }
     }
@@ -64,17 +64,16 @@ void FlatLook::drawRotarySlider (Graphics& g, int x, int y, int width, int heigh
 
     //prepare pointer for drawing
     Path arc;
-    arc.addCentredArc (0, 0, radius, radius, 0, -MAX_RADIAN, VeNo::Utils::clamp(arcPos * 2 - 1, -1, 1) * MAX_RADIAN,
+    arc.addCentredArc (0, 0, radius, radius, 0, -MAX_RADIAN, VeNo::Utils::clamp (arcPos * 2 - 1, -1, 1) * MAX_RADIAN,
                        true);
     arc.applyTransform (AffineTransform ().translated (centreX, centreY));
-    g.setGradientFill (
-            ColourGradient::horizontal (theme->getColour (ThemeColour::accent_two), centreX - radius,
-                                        theme->getColour (ThemeColour::accent),
-                                        centreX + radius));
+    auto colourTwo = theme->getColour (ThemeColour::accent_two);
+    auto colourMain = theme->getColour (ThemeColour::accent);
+    g.setGradientFill (ColourGradient::horizontal (colourTwo, centreX - radius, colourMain, centreX + radius));
     g.strokePath (arc, PathStrokeType (size));
 
     Path pointer;
-    auto pointerThickness = VeNo::Utils::getScaledSize (2.5f);
+    auto pointerThickness = VeNo::Utils::getScaledSize (3.0f);
     auto l = VeNo::Utils::getScaledSize (5);
     pointer.addEllipse (-pointerThickness * 0.25f, -(radius - l), pointerThickness, pointerThickness);
     pointer.applyTransform (AffineTransform::rotation (angle).translated (centreX, centreY));
@@ -108,17 +107,13 @@ void FlatLook::drawToggleButton (Graphics& graphics, ToggleButton& button, bool 
     {
         graphics.setColour (theme->getColour (ThemeColour::accent));
         if (text == "")
-        {
             text = "On";
-        }
     }
     else
     {
         graphics.setColour (theme->getColour (ThemeColour::accent).withAlpha (0.2f));
         if (text == "")
-        {
             text = "Off";
-        }
     }
 
     auto l = VeNo::Utils::getScaledSize (2);

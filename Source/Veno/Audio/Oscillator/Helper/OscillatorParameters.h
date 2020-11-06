@@ -26,12 +26,12 @@ public:
     VeNoParameter* m_voices;
     VeNoParameter* m_semitones;
     VeNoParameter* m_cents;
-    VeNoParameter* m_level;
+    ModulateValue* m_level;
     VeNoParameter* m_panning;
-    VeNoParameter* m_detuneAmount;
+    ModulateValue* m_detuneAmount;
     VeNoParameter* m_detuneDense;
     VeNoParameter* m_detuneMode;
-    VeNoParameter* m_phase;
+    ModulateValue* m_phase;
     VeNoParameter* m_randomPhase;
     VeNoParameter* m_stereo;
     VeNoParameter* m_waveformPrimary;
@@ -43,6 +43,7 @@ public:
     int m_index = 0;
 protected:
     VeNoParameter* getParameter (const std::string& name);
+    ModulateValue* getModulation (const std::string& name);
 };
 
 
