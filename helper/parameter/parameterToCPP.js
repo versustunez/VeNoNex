@@ -63,4 +63,7 @@ for (let item of root) {
 createForType(config.json.osc, config.json.oscConfig);
 createForType(config.json.lfo, config.json.lfoConfig);
 createForType(config.json.envelope, config.json.envelopeConfig);
+for (let item of config.json.distortion) {
+    createItem(item, 1);
+}
 fs.writeFileSync("./../../Source/Veno/Core/ParameterHandlerSetup.cpp", config.tpl.replace("$s$", parameters));

@@ -41,7 +41,7 @@ bool BaseOscillator::start (int currentMidiNote, bool legato)
         if (m_lastPortamento != m_parameters->m_portamento->m_value)
         {
             m_midiNotePortamento.reset (AudioConfig::getInstance ()->getSampleRate (),
-                                        m_parameters->m_portamento->m_value);
+                                        m_parameters->m_portamento->m_value / 1000);
             m_lastPortamento = m_parameters->m_portamento->m_value;
         }
         if (m_midiNote <= 0)

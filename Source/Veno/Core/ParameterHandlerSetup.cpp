@@ -24,7 +24,7 @@ void ParameterHandler::setupParameter ()
     // Mono legato -> Disable Voice 2-5 and only enable Voice1 and do Frequency Slides!
     addParameter ("mono_legato", "Mono Legato", 0, 1, 0, Boolean);
     // Glide Time until new note is reached
-    addParameter ("portamento", "Portamento", 0, 1.5, 0, Float);
+    addParameter ("portamento", "Portamento", 0, 1500, 0, Float);
 
     for (int i = 1; i < 5; i++)
     {
@@ -119,5 +119,25 @@ void ParameterHandler::setupParameter ()
         // Envelope Release
         addParameter (envId + "release", EnvelopeName + " Release", 0, 1500, 10, Float);
     }
+    // Select Filter
+    addParameter ("dist__filter_one_type", "Distortion Filter One", 1, 5, 1, Integer);
+    // Filter Cutoff 20-20000
+    addParameterModulate ("dist__filter_one_cutoff", "Distortion Filter One Cutoff", 20, 20000, 20, Float);
+    // Select Filter
+    addParameter ("dist__filter_two_type", "Distortion Filter Two", 1, 5, 1, Integer);
+    // Filter Cutoff 20-20000
+    addParameterModulate ("dist__filter_two_cutoff", "Distortion Filter Two Cutoff", 20, 20000, 20, Float);
+    // How hard should the Signal Push into it
+    addParameter ("dist__input_gain", "Distortion Input Gain", 0, 1.5, 1, Float);
+    // How hard should the Signal Go out
+    addParameter ("dist__output_gain", "Distortion Output Gain", 0, 1.5, 1, Float);
+    // Overdrive it
+    addParameter ("dist__drive", "Distortion DRIVE", 16, -16, 0, Float);
+    // Distortion Algo selection
+    addParameter ("dist__type", "Distortion Type", 1, 7, 1, Integer);
+    // Dynamic Parameter that change based on the Algo not all Algo use this
+    addParameterModulate ("dist__dynamic", "Distortion Dynamic Parameter", 0, 1, 0, Float);
+    // Dry Wet
+    addParameterModulate ("dist__mix", "Distortion DRY/WET", 0, 1, 0.5, Float);
 
 }

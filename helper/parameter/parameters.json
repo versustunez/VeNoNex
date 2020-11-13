@@ -96,7 +96,7 @@
       "modulateAble": false,
       "tooltip": "Glide Time until new note is reached",
       "value": 0,
-      "maxValue": 1.5,
+      "maxValue": 1500,
       "minValue": 0,
       "type": "Float"
     }
@@ -498,6 +498,108 @@
       "tooltip": "Envelope Release",
       "value": 10,
       "maxValue": 1500,
+      "minValue": 0,
+      "type": "Float"
+    }
+  ],
+  "distortion": [
+    {
+      "name": "dist__filter_one_type",
+      "showName": "Distortion Filter One",
+      "modulateAble": false,
+      "tooltip": "Select Filter",
+      "value": 1,
+      "maxValue": 5,
+      "minValue": 1,
+      "type": "Integer"
+    },
+    {
+      "name": "dist__filter_one_cutoff",
+      "showName": "Distortion Filter One Cutoff",
+      "modulateAble": true,
+      "tooltip": "Filter Cutoff 20-20000",
+      "value": 20,
+      "maxValue": 20000,
+      "minValue": 20,
+      "type": "Float"
+    },
+    {
+      "name": "dist__filter_two_type",
+      "showName": "Distortion Filter Two",
+      "modulateAble": false,
+      "tooltip": "Select Filter",
+      "value": 1,
+      "maxValue": 5,
+      "minValue": 1,
+      "type": "Integer"
+    },
+    {
+      "name": "dist__filter_two_cutoff",
+      "showName": "Distortion Filter Two Cutoff",
+      "modulateAble": true,
+      "tooltip": "Filter Cutoff 20-20000",
+      "value": 20,
+      "maxValue": 20000,
+      "minValue": 20,
+      "type": "Float"
+    },
+    {
+      "name": "dist__input_gain",
+      "showName": "Distortion Input Gain",
+      "modulateAble": false,
+      "tooltip": "How hard should the Signal Push into it",
+      "value": 1,
+      "maxValue": 1.5,
+      "minValue": 0,
+      "type": "Float"
+    },
+    {
+      "name": "dist__output_gain",
+      "showName": "Distortion Output Gain",
+      "modulateAble": false,
+      "tooltip": "How hard should the Signal Go out",
+      "value": 1,
+      "maxValue": 1.5,
+      "minValue": 0,
+      "type": "Float"
+    },
+    {
+      "name": "dist__drive",
+      "showName": "Distortion DRIVE",
+      "modulateAble": false,
+      "tooltip": "Overdrive it",
+      "value": 0,
+      "maxValue": -16,
+      "minValue": 16,
+      "type": "Float"
+    },
+    {
+      "name": "dist__type",
+      "showName": "Distortion Type",
+      "modulateAble": false,
+      "tooltip": "Distortion Algo selection",
+      "value": 1,
+      "maxValue": 7,
+      "minValue": 1,
+      "type": "Integer"
+    },
+    {
+      "name": "dist__dynamic",
+      "showName": "Distortion Dynamic Parameter",
+      "modulateAble": true,
+      "tooltip": "Dynamic Parameter that change based on the Algo not all Algo use this",
+      "value": 0,
+      "maxValue": 1,
+      "minValue": 0,
+      "type": "Float"
+    },
+    {
+      "name": "dist__mix",
+      "showName": "Distortion DRY/WET",
+      "modulateAble": true,
+      "tooltip": "Dry Wet",
+      "value": 0.5,
+      "maxValue": 1,
       "minValue": 0,
       "type": "Float"
     }
