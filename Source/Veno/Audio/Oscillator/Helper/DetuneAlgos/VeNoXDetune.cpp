@@ -4,25 +4,20 @@
 void VeNoXDetune::prepareDetune (int voices)
 {
     double detune = m_parameters->m_detuneDense->getValueForVoice(m_parameters->m_index);
-    if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
+    if (!isInit || voices != m_lastVoices || m_lastDetune != detune)
     {
+        if (voices == 1)
+            return;
+        isInit = true;
         m_lastDetune = detune;
-        if (m_lastDetune != detune)
-        {
-            getRealDetune ();
-        }
+        getRealDetune ();
+        m_lastDetune = detune;
         m_lookup[0] = 1;
 
-        if (voices == 1)
-        {
-            return;
-        }
-
-        double split = detune / (voices - 1);
-        double cents = 0;
+        double split = m_currentDetune / voices;
+        double cents = m_currentDetune;
         for (int i = 1; i < voices; ++i)
         {
-            cents += split;
             double plus;
             if ((i & 1) == 1)
             {
@@ -32,6 +27,7 @@ void VeNoXDetune::prepareDetune (int voices)
             {
                 plus = VeNo::Utils::centsToRatio (cents);
             }
+            cents -= split;
             m_lookup[i] = plus;
         }
     }

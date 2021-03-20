@@ -20,9 +20,10 @@ public:
 
     double getDetuneFreq (int index);
 
-    std::vector<double> m_lookup;
+    double m_lookup[9];
     double m_frequency = 0;
     int m_size;
+    bool isInit = false;
 protected:
     double m_lastDetune = 0;
     int m_lastVoices = 0;

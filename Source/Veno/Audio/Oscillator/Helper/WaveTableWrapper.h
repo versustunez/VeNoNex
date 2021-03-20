@@ -32,6 +32,8 @@ public:
 
     bool prepare ();
 
+    void resetPhase ();
+
     void setFrequency(int untilIndex, double baseFreq, std::shared_ptr<DetuneHelper>& detuneHelper);
 
     void setRandomPhase ();

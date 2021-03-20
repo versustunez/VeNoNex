@@ -47,9 +47,7 @@ namespace VeNo
                     break;
             }
             if (type > FilterType::NO)
-            {
                 setCoef (coefficients);
-            }
         }
     }
 

@@ -17,6 +17,7 @@ void VeNoParameter::createModulationValue ()
     m_modulateValue = std::make_unique<ModulateValue> (m_name, m_id);
     VenoInstance::getInstance(m_id)->matrix->addModValue(m_name, m_modulateValue.get());
     m_modulateValue->set (m_value, m_max, m_min);
+    m_modulateValue->resetMatrixPos();
     m_isModulation = true;
 }
 

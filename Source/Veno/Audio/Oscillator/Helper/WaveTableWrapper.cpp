@@ -93,12 +93,9 @@ double WaveTableWrapper::getOutput (int index)
 {
     auto cVoice = m_voices[index];
     cVoice->m_phasor += cVoice->m_phaseInc;
-    if (cVoice->m_phasor >= 1.0)
-        cVoice->m_phasor -= 1.0;
+    cVoice->m_phasor -= cVoice->m_phasor >= 1.0;
     if (cVoice->m_phaseOfs > 0)
-    {
         return getOutputPWM (index) * LookupTables::detuneLookup[index];
-    }
     return getOutputRaw (index, 0) * LookupTables::detuneLookup[index];
 }
 
@@ -112,9 +109,7 @@ double WaveTableWrapper::getOutputRaw (int index, double offset)
         auto sum = getWaveTableValue (cVoice->m_baseWaveTable, phase);
         // only return phase offset for first table! second should not apply then!
         if (mixValue == 0)
-        {
             return sum;
-        }
         auto finalSum = getWaveTableValue (cVoice->m_currentWaveTable, (double) cVoice->m_phasor);
         return VeNo::Utils::waveTableMix (sum, finalSum, mixValue);
     }
@@ -131,14 +126,7 @@ double WaveTableWrapper::getOutputPWM (int index)
 
 double WaveTableWrapper::getWaveTableValue (VeNo::WaveTableObject* table, double phase)
 {
-    if (table == nullptr)
-    {
-        return 0.0;
-    }
-    if (phase > 1.0)
-    {
-        phase -= 1.0;
-    }
+    phase -= phase > 1.0;
     double val = phase * (double) table->m_waveTableLen;
     int value = (int) val;
     int temp = (int) val + 1;
@@ -153,7 +141,11 @@ double WaveTableWrapper::getWaveTableValue (VeNo::WaveTableObject* table, double
 WaveTableWrapper::~WaveTableWrapper ()
 {
     for (auto& voice : m_voices)
-    {
         delete voice;
-    }
+}
+
+void WaveTableWrapper::resetPhase ()
+{
+    for (auto& voice : m_voices)
+        voice->m_phasor = 0;
 }

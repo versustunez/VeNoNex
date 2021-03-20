@@ -3,6 +3,8 @@
 #include <string>
 #include "JuceHeader.h"
 #include "SynthVoice.h"
+#include "../Engine/VeNoMatrix.h"
+#include "../VenoBuffer.h"
 
 // class that hold all voices, oscillators and other stuff :)
 namespace VeNo::Synth
@@ -38,8 +40,15 @@ namespace VeNo::Synth
 
         void init ();
 
+        void getVariables();
+
         uint64_t m_lastNoteOnCounter = 0;
         CriticalSection lock;
         double output[3] = {0, 0, 0};
+        bool m_hasActiveNote = false;
+        VeNoMatrix *matrix;
+        VeNoParameter* legato;
+        VeNoParameter* master;
+        std::shared_ptr<VenoBuffer> audioBuffer;
     };
 }

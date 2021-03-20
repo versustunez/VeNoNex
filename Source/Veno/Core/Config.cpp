@@ -15,7 +15,6 @@ Config::Config ()
     m_fps = m_config->getIntValue ("waveform_fps", 60);
     look = std::make_shared<LookHandler>();
     look->selectLook(m_currentLook);
-    LookAndFeel::setDefaultLookAndFeel (look.get());
     startTimer (5000);
 }
 
@@ -80,6 +79,7 @@ Config::~Config ()
 //LEAK DETECTOR FIX!
 void Config::registerEditor (AudioProcessorEditor* editor, const std::string& name)
 {
+    LookAndFeel::setDefaultLookAndFeel (look.get());
     m_editors[name] = editor;
 }
 
@@ -88,6 +88,7 @@ void Config::removeEditor (const std::string& name)
     m_editors.erase (name);
     if (m_editors.empty ())
     {
+        LookAndFeel::setDefaultLookAndFeel (nullptr);
         m_instance.reset ();
         m_theme.reset ();
         m_theme = nullptr;

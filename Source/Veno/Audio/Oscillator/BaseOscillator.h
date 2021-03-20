@@ -27,6 +27,8 @@ public:
 
     bool start (int currentMidiNote, bool portamento);
 
+    void reset();
+
     void stop ();
 
     bool render ();

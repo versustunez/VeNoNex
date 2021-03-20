@@ -3,33 +3,30 @@
 
 void SuperDetune::prepareDetune (int voices)
 {
-    prepareSuperLookup ();
     double detune = m_parameters->m_detuneDense->getValueForVoice(m_parameters->m_index);
-    if (m_lookup.empty () || voices != m_lastVoices || m_lastDetune != detune)
+    if (!isInit || voices != m_lastVoices || m_lastDetune != detune)
     {
+        if (voices == 1)
+            return;
+        isInit = true;
         m_lastDetune = detune;
         getRealDetune ();
         m_lookup[0] = 1;
 
-        if (voices == 1)
-        {
-            return;
-        }
-
-        double split = detune / (voices - 1);
-        double cents = 0;
+        double split = m_currentDetune / (voices - 1);
+        double cents = split;
         for (int i = 1; i < voices; ++i)
         {
-            cents += split;
             double plus;
             if ((i & 1) == 1)
             {
-                plus = VeNo::Utils::centsToRatio (-cents) * m_superLookup[m_midiNote];
+                plus = VeNo::Utils::centsToRatio (-cents * m_superLookup[m_midiNote-1]);
             }
             else
             {
-                plus = VeNo::Utils::centsToRatio (cents) * m_superLookup[m_midiNote];
+                plus = VeNo::Utils::centsToRatio (cents * m_superLookup[m_midiNote-1]);
             }
+            cents += split;
             m_lookup[i] = plus;
         }
     }
@@ -49,12 +46,13 @@ void SuperDetune::getRealDetune ()
 
 void SuperDetune::prepareSuperLookup ()
 {
+    double biggest = 0.14173228346456693;
     if (m_superLookup.size () != 128 || m_superLookup.empty ())
     {
         m_superLookup.resize (128);
         for (int i = 0; i < 127; ++i)
         {
-            m_superLookup[i] = int (i / 7) / 127;
+            m_superLookup[i] = 1 + (int(i / 7.0) / 127.0) - biggest;
         }
     }
 }
@@ -62,5 +60,5 @@ void SuperDetune::prepareSuperLookup ()
 SuperDetune::SuperDetune (int maxSize, std::shared_ptr<OscillatorParameters>& parameters, const std::string& name)
         : DetuneLookup (maxSize, parameters, name)
 {
-
+    prepareSuperLookup ();
 }

@@ -35,7 +35,7 @@ void ParameterHandler::setupParameter ()
         // How Many Voices he should play at Once: anyone above 1 will create Unison/Detune Voices
         addParameter (oscId + "voices", OSCName + " Voices", 1, 9, 1, Integer);
         // Shift the Frequency by a specific Semitones amount
-        addParameter (oscId + "semitones", OSCName + " Semitones", -24, 24, 0, Integer);
+        addParameterModulate (oscId + "semitones", OSCName + " Semitones", -24, 24, 0, Integer);
         // Fine tune the Frequency by Cents
         addParameterModulate (oscId + "cents", OSCName + " Fine", -100, 100, 0, Integer);
         // Volume of the Oscillator itself

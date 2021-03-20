@@ -21,7 +21,10 @@ void VeNoLFO::update ()
 {
     int voices = m_parameters->m_voices->m_value;
     if (!m_parameters->m_active->getAsBoolean ())
+    {
+        m_value = 0;
         return;
+    }
     m_freq = m_freqRate->m_voiceValues[m_index];
     m_waveTableHelper->prepare();
     m_DetuneHelper->update(m_freq, m_midiNote);

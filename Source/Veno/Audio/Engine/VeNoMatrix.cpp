@@ -40,40 +40,42 @@ void VeNoMatrix::addModulator (const std::string& name, Modulator* modulator)
 }
 
 //matrix is not in the valueTree-state is some own implementation!
-void VeNoMatrix::updateSlots ()
+void VeNoMatrix::updateSlots (bool update)
 {
     std::lock_guard<std::mutex> l (_mtx);
-    for (auto& m_source : m_rawOrder)
-    {
-        for (auto& source : m_source->sources)
-        {
-            source->update ();
-        }
-    }
-
     for (auto& value : m_rawMods)
     {
         value->resetMatrixPos ();
     }
 
-    for (auto& m_slot : m_slots)
-    {
-        auto slotSource = m_slot.second->modulator;
-        auto value = m_slot.second->value;
-        auto amount = m_slot.second->amount;
-        for (auto& source : slotSource->sources)
+    if (update) {
+        for (auto& m_source : m_rawOrder)
         {
-            auto valueToAdd = source->m_value * amount;
-
-            for (auto& item : value)
+            for (auto& source : m_source->sources)
             {
-                if (source->m_voice != -1)
+                source->update ();
+            }
+        }
+        for (auto& m_slot : m_slots)
+        {
+            auto slotSource = m_slot.second->modulator;
+            auto value = m_slot.second->value;
+            auto amount = m_slot.second->amount;
+            for (auto& source : slotSource->sources)
+            {
+                // @todo add support to getValue for voices to remove overhead of multi-sources
+                auto valueToAdd = source->getValue() * amount;
+
+                for (auto& item : value)
                 {
-                    item->addValueForVoice (valueToAdd, source->m_voice);
-                }
-                else
-                {
-                    item->addValue (valueToAdd);
+                    if (source->m_voice != -1)
+                    {
+                        item->addValueForVoice (valueToAdd, source->m_voice);
+                    }
+                    else
+                    {
+                        item->addValue (valueToAdd);
+                    }
                 }
             }
         }

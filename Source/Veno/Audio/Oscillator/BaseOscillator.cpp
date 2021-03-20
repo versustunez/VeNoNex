@@ -137,3 +137,8 @@ void BaseOscillator::setIndex (int index)
     m_parameters->m_index = index;
     m_filter->m_voice = index;
 }
+
+void BaseOscillator::reset ()
+{
+    m_waveTableHelper->resetPhase();
+}

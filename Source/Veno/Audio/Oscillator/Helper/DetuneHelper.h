@@ -14,7 +14,7 @@ private:
     std::shared_ptr<OscillatorParameters> m_parameters;
 public:
     int m_mode = 0;
-    std::vector<DetuneLookup*> m_detuneAlgos;
+    DetuneLookup* m_detuneAlgos[3];
     DetuneHelper (const std::string& name, std::shared_ptr<OscillatorParameters>& handler, int voiceCount);
 
     ~DetuneHelper ();

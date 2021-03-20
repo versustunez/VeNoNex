@@ -130,7 +130,7 @@
     {
       "name": "{id}__semitones",
       "showName": "{sid} Semitones",
-      "modulateAble": false,
+      "modulateAble": true,
       "tooltip": "Shift the Frequency by a specific Semitones amount",
       "value": 0,
       "maxValue": 24,

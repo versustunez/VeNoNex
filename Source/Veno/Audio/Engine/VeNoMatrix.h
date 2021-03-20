@@ -34,7 +34,7 @@ public:
 
     ~VeNoMatrix ();
 
-    void updateSlots ();
+    void updateSlots (bool update);
 
     void addModulator (const std::string& name, Modulator* modulator);
 
