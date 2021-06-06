@@ -33,47 +33,34 @@ void VenoBuffer::reset (int size)
     }
 }
 
-void VenoBuffer::addMonoSample (double value)
+void VenoBuffer::addSample (double value, std::vector<double> where, std::vector<double> copy)
 {
-    if (m_buffer.size () > m_bufferSize)
+    if (where.size() > m_bufferSize)
     {
         for (int i = 0; i < m_bufferSize; ++i)
         {
-            m_bufferCopy[i] = m_buffer[i];
+            copy[i] = where[i];
         }
-        VenoInstance::getInstance (m_id)->changeListener->notifyListener (m_wave, 1);
-        m_buffer.clear ();
+        VenoInstance::getInstance(m_id)->changeListener->notifyListener(m_wave, 1);
+        where.clear();
         m_isOverflow = true;
     }
-    m_buffer.push_back (value);
+    where.push_back(value);
+}
+
+void VenoBuffer::addMonoSample (double value)
+{
+    addSample(value, m_buffer, m_bufferCopy);
 }
 
 void VenoBuffer::addLeftSample (double value)
 {
-    if (m_left.size () > m_bufferSize)
-    {
-        for (int i = 0; i < m_bufferSize; ++i)
-        {
-            m_leftCopy[i] = m_left[i];
-        }
-        m_left.clear ();
-        m_isOverflow = true;
-    }
-    m_left.push_back (value);
+    addSample(value, m_left, m_leftCopy);
 }
 
 void VenoBuffer::addRightSample (double value)
 {
-    if (m_right.size () > m_bufferSize)
-    {
-        for (int i = 0; i < m_bufferSize; ++i)
-        {
-            m_rightCopy[i] = m_right[i];
-        }
-        m_right.clear ();
-        m_isOverflow = true;
-    }
-    m_right.push_back (value);
+    addSample(value, m_right, m_rightCopy);
 }
 
 void VenoBuffer::calcPeak ()
