@@ -17,7 +17,7 @@ private:
     bool m_isOverflow = false;
     std::string m_id;
 
-    void addSample(double, std::vector<double>, std::vector<double>);
+    void addSample(double, std::vector<double>&, std::vector<double>&);
 public:
     VenoBuffer (const std::string& id);
 

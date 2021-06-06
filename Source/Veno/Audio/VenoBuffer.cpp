@@ -33,7 +33,7 @@ void VenoBuffer::reset (int size)
     }
 }
 
-void VenoBuffer::addSample (double value, std::vector<double> where, std::vector<double> copy)
+void VenoBuffer::addSample (double value, std::vector<double> &where, std::vector<double> &copy)
 {
     if (where.size() > m_bufferSize)
     {
