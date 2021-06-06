@@ -1,24 +1,16 @@
 const fs = require("fs"),
     baseIn = "./guis/",
-    baseOut = "./../../Source/Veno/GUI/",
-    files = [
-        {
-            src: "oscgui.json",
-            tpl: "oscgui.tpl",
-            out: "Components/PageComponents/Oscillators/OscillatorGUISetup.cpp"
-        },
-        {
-            src: "lfogui.json",
-            tpl: "lfogui.tpl",
-            out: "Components/PageComponents/Modulators/LFOGUISetup.cpp"
-        },
-        {
-            src: "envelopegui.json",
-            tpl: "envelopegui.tpl",
-            out: "Components/PageComponents/Modulators/EnvelopeGUISetup.cpp"
-        },
-    ]
+    baseOut = "./../../Source/Veno/GUI/Components/PageComponents/",
+    files = {
+        osc: "Oscillators/OscillatorGUISetup.cpp",
+        lfo: "Modulators/LFOGUISetup.cpp",
+        envelope: "Modulators/EnvelopeGUISetup.cpp"
+    };
 let content = "";
+
+function getFileContents(filename) {
+    return fs.readFileSync(filename, "utf8").toString();
+}
 
 function depth(depth) {
     for (let i = 0; i < depth; i++) {
@@ -27,18 +19,15 @@ function depth(depth) {
 }
 
 function prepareName(item, id) {
-    let name;
     if (item.indexOf("{id}") === 0) {
-        name = `\"${item.replace("{id}", "")}\"`;
-        if (name === "\"\"" && id) {
-            name = id;
-        } else if (id) {
-            name = `${id} + ${name}`;
+        if (id) {
+            if (item.length > 4) {
+                return `${id} + "${item.substring(4)}"`;
+            }
+            return id;
         }
-    } else {
-        name = `"${item}"`;
     }
-    return name;
+    return `"${item}"`;
 }
 
 function generateBlocks(blocks) {
@@ -62,16 +51,16 @@ function generateComponents(items) {
 }
 
 function generate() {
-    for (let file of files) {
-        let tpl = fs.readFileSync(baseIn + file.tpl, "utf8").toString(),
-            json = JSON.parse(fs.readFileSync(baseIn + file.src, "utf-8").toString());
+    for (let name in files) {
+        let tpl = getFileContents(baseIn + name + "gui.tpl"),
+            json = JSON.parse(getFileContents(baseIn + name + "gui.json"));
         content = "";
         generateBlocks(json.blocks);
         tpl = tpl.replace("$b$", content);
         content = "";
         generateComponents(json.items);
         tpl = tpl.replace("$g$", content);
-        fs.writeFileSync(baseOut + file.out, tpl);
+        fs.writeFileSync(baseOut + files[name], tpl);
     }
 }
 
