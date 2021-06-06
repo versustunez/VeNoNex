@@ -35,32 +35,36 @@ void VenoBuffer::reset (int size)
 
 void VenoBuffer::addSample (double value, std::vector<double> &where, std::vector<double> &copy)
 {
-    if (where.size() > m_bufferSize)
+    if (where.size () > m_bufferSize)
     {
         for (int i = 0; i < m_bufferSize; ++i)
         {
             copy[i] = where[i];
         }
         VenoInstance::getInstance(m_id)->changeListener->notifyListener(m_wave, 1);
-        where.clear();
+        where.clear ();
         m_isOverflow = true;
     }
-    where.push_back(value);
+    where.push_back (value);
 }
 
 void VenoBuffer::addMonoSample (double value)
 {
-    addSample(value, m_buffer, m_bufferCopy);
+    addSample (value, m_buffer, m_bufferCopy);
 }
 
 void VenoBuffer::addLeftSample (double value)
 {
-    addSample(value, m_left, m_leftCopy);
+    addSample (value, m_left, m_leftCopy);
 }
 
 void VenoBuffer::addRightSample (double value)
 {
-    addSample(value, m_right, m_rightCopy);
+    addSample (value, m_right, m_rightCopy);
+}
+
+double calcChannelPeak(double mean) {
+    return VeNo::Utils::clamp(Decibels::gainToDecibels(std::sqrt(mean), -30.0), -30.0, 0.0);
 }
 
 void VenoBuffer::calcPeak ()
@@ -73,8 +77,8 @@ void VenoBuffer::calcPeak ()
         leftRMS += m_leftCopy[i] * m_leftCopy[i];
         rightRMS += m_rightCopy[i] * m_rightCopy[i];
     }
-    rightPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (rightRMS / size), -30.0), -30.0, 0.0);
-    leftPeak = VeNo::Utils::clamp (Decibels::gainToDecibels (std::sqrt (leftRMS / size), -30.0), -30.0, 0.0);
+    rightPeak = calcChannelPeak (rightRMS / size);
+    leftPeak = calcChannelPeak (leftRMS / size);
 }
 
 const std::vector<double>& VenoBuffer::getBuffer () const
