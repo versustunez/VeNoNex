@@ -41,7 +41,7 @@ void VenoBuffer::addSample (double value, std::vector<double> &where, std::vecto
         {
             copy[i] = where[i];
         }
-        VenoInstance::getInstance(m_id)->changeListener->notifyListener(m_wave, 1);
+        VenoInstance::getInstance (m_id)->changeListener->notifyListener (m_wave, 1);
         where.clear ();
         m_isOverflow = true;
     }
